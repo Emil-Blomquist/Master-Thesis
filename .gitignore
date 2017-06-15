@@ -1,0 +1,8 @@
+*.aux
+*.bbl
+*.blg
+*.log
+*.gz
+*.toc
+
+img/*-eps-converted-to.pdf

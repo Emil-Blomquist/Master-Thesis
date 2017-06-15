@@ -1,0 +1,307 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS–program = pdflatexmk
+
+\documentclass[12pt]{report}
+
+\usepackage{amsmath, amsfonts, amssymb, graphicx, verbatim, nicefrac}
+\oddsidemargin=0in
+\evensidemargin=0in
+\textwidth=6.25in
+\headsep=0pt
+\headheight=0pt
+\topmargin=0in
+\textheight=9in
+\setlength{\footskip}{35pt}
+\setlength\parindent{0pt}                                               % no indents for paragraphs
+
+\usepackage[utf8]{inputenc}                                             % UTF8 characters available
+\usepackage[T1]{fontenc}
+\usepackage[english, swedish]{babel}
+\usepackage{titlesec}                                                   % for manipulating titles
+\usepackage[titletoc]{appendix}                                         % Options makes nice TOC
+\usepackage{bm}                                                         % for bold face vectors
+\usepackage{color}
+\usepackage{url}
+\usepackage{varwidth}                                                   % for boxing
+\usepackage{mathtools}                                                  % "dcases" in equations etc...
+\usepackage[parfill]{parskip}                                           % vertical space in between paragraphs
+\usepackage{bbold}                                                      % eye symbol
+\usepackage[allowzeroexp=true,numdigits,obeymode=true,redefsymbols,textcelsius,textdegree,textminute,textmu,load={abbr,addn},decimalsymbol=comma]{siunitx}                                                             % SI-units
+\usepackage{float}												        % figures float with text properly
+
+\newenvironment{abstractpage}
+  {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
+  {\vfill\cleardoublepage}
+\renewenvironment{abstract}[1]
+  {\bigskip\selectlanguage{#1}%
+   \begin{center}\bfseries\abstractname\end{center}}
+  {\par\bigskip}
+
+\newcommand\eye{\mathbb{1}}                                             % eye symbol
+\newcommand\zahlen{\mathbb{Z}}                                          % eye symbol
+\renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}                        % bold face vectors
+\renewcommand{\ss}[1]{\textsuperscript{#1}}                             % superscript
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
+
+\addto{\captionsenglish}{\renewcommand{\bibname}{References}}           % Rename Bibleography
+
+
+
+\title{
+	\vspace{-2.5cm}
+	\begin{center}
+		\includegraphics[width=2.5cm]{img/KTH_CMYK.eps}\\[-1mm]
+		\hspace{-3mm} {\tiny {\sf Theoretical Physics}}
+	\end{center}
+	\vspace{2cm}
+	\noindent\rule{16cm}{0.4pt}\\[2ex]
+	Diagrammatic Monte Carlo\\
+	\noindent\rule{16cm}{0.4pt}\\[3ex]
+}
+
+\author{
+	Blomquist, Emil \\
+	\texttt{emilbl@kth.se} \\[3em]
+	Master of Science Thesis \\
+	Supervisor: Egor Babaev \\[1em]
+}
+
+\date{
+    \dateenglish
+    \today
+}
+
+\begin{document}
+
+\maketitle
+\begin{abstractpage}
+\begin{abstract}{english}
+...
+\end{abstract}
+\begin{abstract}{swedish}
+...
+
+\end{abstract}
+\end{abstractpage}
+
+\selectlanguage{english}
+
+\tableofcontents
+
+\chapter{Introduction}
+
+\textcolor{red}{Here we shall summarise what this chapter is about}
+
+\section{Many-particle physics}
+
+
+
+\chapter{Background Material}
+
+\textcolor{red}{Here we shall summarise what this chapter is about}
+
+\section{Derivation of the Fröhlich Hamiltonian}
+
+What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields} \cite{electronsInLatticeFields}. In this section we will outline the original derivation but also look into some details relevant to us.
+
+The idea is that we introduce a free electron into a dielectric crystal, e.g. rock salt. This electron will deform the lattice and hance polarise the crystal. This deformation may be described by a displacement vector for each lattice point. However, to simplify matters, we treat this displacement vector as a continuous vector field.
+
+If we first consider a steady state situation, the polarisation is determined solely by the dielectric permittivity $ \varepsilon_r $. Introducing the electric displacement field $ \vec D = \vec E + 4 \pi \vec P $ (CGS units) for which the source is the free electron, this may be thought of as the external electrical field. If our electron is at position $ \vec r_\text{e} $ , the $ \vec D $-field at a position $ r $ is given by the usual
+
+\begin{equation}
+	\vec D( \vec r, \vec r_\text{e}) = - \nabla \frac{q}{\left| \vec r - \vec r_\text{e} \right|}
+\end{equation}
+
+So that
+
+\begin{equation}
+	\nabla \cdot \vec D( \vec r, \vec r_\text{e}) = 4 \pi q \, \delta(\vec r - \vec r_\text{e}) \,.
+\end{equation}
+
+In agreement with the definition of the $ \vec D $-field we may also define the electric field due to the bound charges as $ \vec E_\text{bound} = - 4 \pi \vec P $ since $ \vec D = \vec E + 4 \pi \vec P = \vec E - \vec E_\text{bound} \equiv \vec E_\text{free} $.
+
+The interaction energy, which is minimised when the $ \vec D $-field is parallel to the polarisation, is given by \textcolor{blue}{(why!? Dipole something?)}
+
+\begin{equation}
+	E_\text{int} = - \int_V \vec D(\vec r, \vec r_\text{e}) \cdot \vec P(\vec r) \diff^3 r \,.
+\end{equation}
+
+\textcolor{red}{Illustration of alignment of $ \vec P $ with $ \vec D $.}
+
+By utilising the scalar potential of the bound electric field $ \vec E_\text{bound} (r) = - \nabla \Phi (\vec r) $ along with the quantities defined above, this interaction energy may be rewritten as
+
+\begin{equation}
+	\begin{split}
+		E_\text{int} 
+		&= - \frac{1}{4 \pi} \int_V \vec D(\vec r, \vec r_\text{e}) \cdot \nabla \Phi(\vec r) \diff^3 r \\
+		&= - \frac{1}{4 \pi} \int_V \nabla \cdot \left[ \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \right] \diff^3 r
+			+ \frac{1}{4 \pi} \int_V \Phi(\vec r) \nabla \cdot \vec D(\vec r, \vec r_\text{e}) \diff^3 r \\
+		&= \frac{1}{4 \pi} \int_{V_{\varepsilon}} \frac{1}{r^2} \frac{\partial \Phi(\vec r)}{\partial r}  \diff^3 r
+			+ q \int_V \Phi(\vec r) \delta(\vec r - \vec r_\text{e}) \diff^3 r \\
+		&= q \, \Phi(\vec r_\text{e}) \,.
+	\end{split}
+\end{equation}
+
+Here we have assumed that $ \Phi (\vec r) $ is a smooth function as well as $ \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \rightarrow 0 $ when $ r \rightarrow \infty $ and isolated the electron within a spherical volume $ V_\varepsilon $ with radius $ \varepsilon \rightarrow 0 $ to show that the first integral after the second evaluates to zero.
+
+\textcolor{blue}{Are we really going to be using this quantity}.
+
+Next we bring back the time dependence and no longer consider a situation which is in steady state. Since each lattice point in our crystal is occupied by a ion, the dynamic in our system is characterised by two time scales. That is, the time it takes to displace the bound electrons relative their nuclei (deformation of ion) and the time it takes to displace the nucleus relative the lattice (deformation of lattice structure). Since the electrons are significantly lighter than their nucleus, the ion deformation time should thus be much smaller than the time it takes to deformation the lattice. Denoting these times as $ t_\text{uv} $ and $ t_\text{ir} $ respectively we thus have that $ t_\text{uv} \ll t_\text{ir} $ which corresponds to $ \omega_\text{uv} \gg \omega_\text{ir} $. The subscripts of course indicate that frequencies lie in the ultraviolet and infrared region respectively. The total deformation is due to these two deformation so that $ \vec P = \vec P_\text{ir} + \vec P_\text{uv} $.
+
+\textcolor{red}{Illustration of the lattice and the two types of deformation.}
+
+It is further reasonable to assume that each of these contributions behave as a driven harmonic oscillator, that is
+
+\begin{equation}
+	\label{eq:driven_harmonic_oscillator}
+	\ddot{ \vec P}_\text{ir} (\vec r) + \omega^2_\text{ir} \, \vec P_\text{ir} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \gamma }
+	\; , \quad
+	\ddot{ \vec P}_\text{uv} (\vec r) + \omega^2_\text{uv} \, \vec P_\text{uv} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \delta } \,.
+\end{equation}
+
+Here $ \gamma $ and $ \delta $ are constants to be determined in what follows. First we must once again quickly consider a static situation. Here the static dielectric constant $ \epsilon $ would give us $ \vec D = \epsilon \vec E $ which we could use together with the previously stated definition of the $ \vec D $-field to relate $ \vec P $ and $ \vec D $ as
+
+\begin{equation}
+	\label{eq:static_P_D_relation}
+	4 \pi \vec P(\vec r) = (1 - 1/\epsilon) \vec D(\vec r, \vec r_\text{e}) \,.
+\end{equation}
+
+Next we once again turn back time and utilise the high frequency dielectric constant $ \epsilon_\infty $, defined by $ \vec D = \epsilon_\infty \vec E $, under the assumption that the frequency $ \omega_\infty $ of the externa field satisfies  $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. The latter is simply implying that the free electron in our crystal is moving slowly \textcolor{blue}{(right!?)}. This tells us that the UV-part of the polarisation will follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes and may thus be thought of as a negligible constant field in comparison, that is, $ \vec P \simeq \vec P_\text{uv} $. Using this together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $ we find, in similarity to (\ref{eq:static_P_D_relation}),
+
+\begin{equation}
+	\label{eq:static_Puv_D_relation}
+	4 \pi \vec P_\text{uv} (\vec r) =  (1 - 1/\epsilon_\infty) \vec D(\vec r, \vec r_\text{e}) \,.
+\end{equation}
+
+Taking the difference between (\ref{eq:static_P_D_relation}) and (\ref{eq:static_Puv_D_relation}) we find a similar equation for $ \vec P_\text{ir} $
+
+\begin{equation}
+	\label{eq:static_Pir_D_relation}
+	4 \pi \vec P_\text{ir} (\vec r) =  (1/\epsilon_\infty - 1/\epsilon) \vec D(\vec r, \vec r_\text{e}) \,.
+\end{equation}
+
+Noting that $ \ddot{\vec P}_\text{uv} \approx \omega_\infty^2 \, \vec P_\text{uv} \ll \omega_\text{uv}^2 \, \vec P_\text{uv} $ and assuming that $ \vec P_\text{ir} $ is seemingly constant at timescales of length $ 1/\omega_\text{ir} $, equation (\ref{eq:driven_harmonic_oscillator}) simplifies into
+
+\begin{equation}
+	\label{eq:driven_harmonic_oscillator}
+	\omega^2_\text{ir} \, \vec P_\text{ir} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \gamma }
+	\; , \quad
+	\omega^2_\text{uv} \, \vec P_\text{uv} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \delta } \,.
+\end{equation}
+
+
+Comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_Pir_D_relation}) we find the value of $ \gamma $ and $ \delta $ in terms of know material properties
+
+\begin{equation}
+	\frac{1}{\gamma} = \frac{\omega_\text{ir}^2}{4 \pi} \left( \frac{1}{\epsilon_\infty} - \frac{1}{\epsilon} \right)
+	\; , \quad
+	\frac{1}{\delta} = \frac{\omega_\text{uv}^2}{4 \pi} \left( 1 - \frac{1}{\epsilon_\infty} \right) \,.
+\end{equation}
+
+
+
+
+
+
+
+
+\section{Brief introduction to finite temperature formalism}
+
+\subsection{Green's function}
+
+\textcolor{red}{fit to exponential  for large $ \tau $'s etc.}
+
+\textcolor{red}{G and D derived in the appendix}
+
+\subsection{Dyson equation}
+
+\section{Monte Carlo Simulation}
+
+\subsection{Detailed balance and ergodicity}
+
+\subsection{Metropolis-Hastings algorithm}
+
+
+
+\chapter{Diagrammatic Monte Carlo}
+
+\textcolor{red}{Here we shall summarise what this chapter is about}
+
+\section{General idea}
+
+\section{Generalisation of stochastic integration (better name needed)}
+
+\subsection{Example 1}
+\subsection{Example 2}
+\subsection{Example 3}
+
+\section{Polaron implementation}
+
+\textcolor{red}{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning.}
+
+\subsection{Update function 1}
+\subsection{Update function 2}
+\subsection{Update function 3}
+
+\section{Sample self energy}
+
+\subsection{Divergent diagram}
+
+The first order proper self energy diagram is proportional to $ 1/\sqrt{\tau} $ for small $ \tau $ and thus diverges when $ \tau \rightarrow 0 $. This combined with a discretised histogram becomes a problem for the bins in the neighbourhood of $ \tau = 0 $ since they acquire more mass then they are supposed to. In order to fix this we could use a much finer discretisation or calculate the value for these bins somehow else.
+
+The value of the diagram for $ \vec p = \vec 0 $ and $ \Delta G = 0 $ is
+
+\begin{equation}
+	S^{(1)}(\tau) = \frac{\alpha}{\sqrt{\pi \tau}} e^{(\mu - \omega)\tau}
+\end{equation}
+
+The value of the bins in our histogram is
+
+\begin{equation}
+	\tilde V_i \propto \frac{1}{\Delta \tau} \int_{\tau_i}^{\tau_{i + 1}} S^{(1)} (t) \diff t
+	= \frac{\alpha}{\Delta \tau \sqrt{\omega - \mu}} \left[ \text{erf}\left(\sqrt{\omega - \mu} \sqrt{\tau_{i+1}}\right) - \text{erf}\left(\sqrt{\omega - \mu} \sqrt{\tau_i}\right) \right]
+\end{equation}
+
+ but the true value should be
+ 
+\begin{equation}
+	V_i \propto S^{(1)} \left( \tfrac{\tau_{i+1} + \tau_i}{2} \right)	
+\end{equation}
+
+For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using DMC utilise ordinary stochastic integration using MC for the fixed times $ (\tau_{i+1} + \tau_i)/2 $.
+
+\section{Boldification}
+
+
+
+
+\chapter{Results}
+\textcolor{red}{Here we shall summarise what this chapter is about}
+
+\section{Analytical predictions}
+
+\section{Numerics}
+
+\section{Discussion}
+
+
+\chapter{Summary and Conclusions}
+\textcolor{red}{Here we shall summarise what this chapter is about}
+
+
+\begin{appendices}
+\chapter{(make this go away, also Appendix A -> Appendix)}
+
+\section{Heavy theory from the finite temperature formalism}
+
+\section{Derivation of the finite temperature electron Green's function}
+
+\section{Derivation of the finite temperature phonon Green's function}
+\end{appendices}
+
+\bibliography{thebib}
+\bibliographystyle{vancouver}
+
+\end{document}
