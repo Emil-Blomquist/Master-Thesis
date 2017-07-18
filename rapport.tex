@@ -29,6 +29,12 @@
 \usepackage[allowzeroexp=true,numdigits,obeymode=true,redefsymbols,textcelsius,textdegree,textminute,textmu,load={abbr,addn},decimalsymbol=comma]{siunitx}                                                             % SI-units
 \usepackage{float}												        % figures float with text properly
 
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+
 \newenvironment{abstractpage}
   {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
   {\vfill\cleardoublepage}
@@ -46,6 +52,20 @@
 \newcommand*\Diff[1]{\mathop{}\!\mathrm{d^#1}}
 
 \addto{\captionsenglish}{\renewcommand{\bibname}{References}}           % Rename Bibleography
+
+
+
+\definecolor{image}{rgb}{1, 0, 1}
+\definecolor{motivation}{rgb}{0, 0.8, 0}
+\definecolor{question}{rgb}{0.8, 0.5, 0}
+\definecolor{flaw}{rgb}{1, 0, 0}
+\definecolor{todo}{rgb}{0, 0, 1}
+
+\newcommand{\image}[1]{\textcolor{image}{#1}}
+\newcommand{\motivation}[1]{\textcolor{motivation}{#1}}
+\newcommand{\question}[1]{\textcolor{question}{#1}}
+\newcommand{\flaw}[1]{\textcolor{flaw}{#1}}
+\newcommand{\todo}[1]{\textcolor{todo}{#1}}
 
 
 
@@ -86,13 +106,15 @@
 \end{abstract}
 \end{abstractpage}
 
+\todo{Throughout this text $ \hbar = 1 $ has been used.}
+
 \selectlanguage{english}
 
 \tableofcontents
 
 \chapter{Introduction}
 
-\textcolor{red}{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarise what this chapter is about}
 
 \section{Many-particle physics}
 
@@ -100,57 +122,89 @@
 
 \chapter{Background Material}
 
-\textcolor{red}{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarise what this chapter is about}
+
+\section{A few words about finite temperature formalism}
+
+\subsection{Green's function}
+
+\todo{fit to exponential  for large $ \tau $'s etc.}
+
+\todo{G and D derived in the appendix}
 
 \section{Derivation of the Fröhlich Hamiltonian}
 
-What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields} \cite{electronsInLatticeFields}. In this section we will outline the original derivation but also look into some details relevant to us.
+What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields}\cite{electronsInLatticeFields}. In this section we will outline the original derivation but also look into some details relevant to us.
 
-The idea is that we introduce a free electron into a dielectric crystal, e.g. rock salt. This electron will deform the lattice and hance polarise the crystal. This deformation may be described by a displacement vector for each lattice point. However, to simplify matters, we treat this displacement vector as a continuous vector field.
+\subsection{Classical picture}
+
+The idea is that we introduce a free electron into a dielectric crystal, e.g. rock salt. This electron will deform the lattice and hence polarise the crystal. This deformation may be described by a displacement vector for each lattice point. However, to simplify matters, we treat this displacement vector as a continuous vector field.
 
 If we first consider a steady state situation, the polarisation is determined solely by the dielectric permittivity $ \varepsilon_r $. Introducing the electric displacement field $ \vec D = \vec E + 4 \pi \vec P $ (CGS units) for which the source is the free electron, this may be thought of as the external electrical field. If our electron is at position $ \vec r_\text{e} $ , the $ \vec D $-field at a position $ r $ is given by the usual
 
 \begin{equation}
-	\vec D( \vec r, \vec r_\text{e}) = - \nabla \frac{q}{\left| \vec r - \vec r_\text{e} \right|}
+	\vec D( \vec r, \vec r_\text{e}) = - \nabla \frac{Q}{\left| \vec r - \vec r_\text{e} \right|}
 \end{equation}
 
-So that
+so that
 
 \begin{equation}
 	\nabla \cdot \vec D( \vec r, \vec r_\text{e}) = 4 \pi q \, \delta(\vec r - \vec r_\text{e}) \,.
 \end{equation}
 
-In agreement with the definition of the $ \vec D $-field we may also define the electric field due to the bound charges as $ \vec E_\text{bound} = - 4 \pi \vec P $ since $ \vec D = \vec E + 4 \pi \vec P = \vec E - \vec E_\text{bound} \equiv \vec E_\text{free} $.
+Here $ Q $ is the charge of the electron and the second equality is to be thought of as valid inside of an integral. In agreement with the definition of the $ \vec D $-field we may also define the electric field due to the bound charges as $ \vec E_\text{bound} = - 4 \pi \vec P $ since $ \vec D = \vec E + 4 \pi \vec P = \vec E - \vec E_\text{bound} \equiv \vec E_\text{free} $.
 
-The interaction energy, which is minimised when the $ \vec D $-field is parallel to the polarisation, is given by \textcolor{blue}{(why!? Dipole something?)}
+The interaction energy, which is minimised when the $ \vec D $-field is parallel to the polarisation, is given by \question{(why!? Dipole something?)}
 
 \begin{equation}
+	\label{eq:interaction_energy}
 	E_\text{int} = - \int_V \vec D(\vec r, \vec r_\text{e}) \cdot \vec P(\vec r) \diff^3 r \,.
 \end{equation}
-
-\textcolor{red}{Illustration of alignment of $ \vec P $ with $ \vec D $.}
 
 By utilising the scalar potential of the bound electric field $ \vec E_\text{bound} (r) = - \nabla \Phi (\vec r) $ along with the quantities defined above, this interaction energy may be rewritten as
 
 \begin{equation}
-	\begin{split}
-		E_\text{int} 
-		&= - \frac{1}{4 \pi} \int_V \vec D(\vec r, \vec r_\text{e}) \cdot \nabla \Phi(\vec r) \diff^3 r \\
-		&= - \frac{1}{4 \pi} \int_V \nabla \cdot \left[ \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \right] \diff^3 r
-			+ \frac{1}{4 \pi} \int_V \Phi(\vec r) \nabla \cdot \vec D(\vec r, \vec r_\text{e}) \diff^3 r \\
-		&= \frac{1}{4 \pi} \int_{V_{\varepsilon}} \frac{1}{r^2} \frac{\partial \Phi(\vec r)}{\partial r}  \diff^3 r
-			+ q \int_V \Phi(\vec r) \delta(\vec r - \vec r_\text{e}) \diff^3 r \\
-		&= q \, \Phi(\vec r_\text{e}) \,.
-	\end{split}
+	\label{eq:interaction_energy_calculation}
+	\resizebox{\hsize}{!}{$
+	    	\begin{split}
+    			E_\text{int} 
+    			&= - \frac{1}{4 \pi} \int_\Omega \vec D(\vec r, \vec r_\text{e}) \cdot \nabla \Phi(\vec r) \diff^3 r \\
+    			&= - \frac{1}{4 \pi} \int_{\Omega \setminus V_\varepsilon} \vec D(\vec r, \vec r_\text{e}) \cdot \nabla \Phi(\vec r) \diff^3 r
+    				 - \frac{1}{4 \pi} \int_{V_\varepsilon} \vec D(\vec r, \vec r_\text{e}) \cdot \nabla \Phi(\vec r) \diff^3 r \\
+    			&= - \frac{1}{4 \pi} \int_{\Omega \setminus V_\varepsilon} \nabla \cdot \left[ \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \right] \diff^3 r
+    				+ \underbrace{
+    					\frac{1}{4 \pi} \int_{\Omega \setminus V_\varepsilon} \Phi(\vec r) \nabla \cdot \vec D(\vec r, \vec r_\text{e}) \diff^3 r
+    				}_{0}
+    				+ \underbrace{
+    					\frac{q}{4 \pi} \int_{V_{\varepsilon}'} \frac{1}{r^2} \frac{\partial \Phi(\vec r + \vec r_\text{e})}{\partial r}  \diff^3 r
+    				}_{\rightarrow \, 0 \; \text{as} \; \varepsilon \, \rightarrow \, 0} \\
+    			&= \frac{Q}{4 \pi} \int_{-\partial V_{\varepsilon}'} \Phi(\vec r + \vec r_\text{e}) \nabla \frac{1}{r} \cdot \diff^2 \vec{r} \\
+    			&= Q \, \Phi(\vec r_\text{e})
+    		\end{split}
+    	$}
 \end{equation}
 
-Here we have assumed that $ \Phi (\vec r) $ is a smooth function as well as $ \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \rightarrow 0 $ when $ r \rightarrow \infty $ and isolated the electron within a spherical volume $ V_\varepsilon $ with radius $ \varepsilon \rightarrow 0 $ to show that the first integral after the second evaluates to zero.
-
-\textcolor{blue}{Are we really going to be using this quantity}.
+Here we have both assumed that $ \Phi (\vec r) $ has a continuous first derivative as well as $ \allowbreak \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \simeq 0 $ on the boundary $ \vec r \in \partial \Omega $. In order to use the divergence theorem the singularity at $ \vec r_\text{e} $ has been isolated in a spherical volume $ V_\varepsilon $ centered at $ \vec r_\text{e} $ with radius  $ \varepsilon \rightarrow 0 $.
 
 Next we bring back the time dependence and no longer consider a situation which is in steady state. Since each lattice point in our crystal is occupied by a ion, the dynamic in our system is characterised by two time scales. That is, the time it takes to displace the bound electrons relative their nuclei (deformation of ion) and the time it takes to displace the nucleus relative the lattice (deformation of lattice structure). Since the electrons are significantly lighter than their nucleus, the ion deformation time should thus be much smaller than the time it takes to deformation the lattice. Denoting these times as $ t_\text{uv} $ and $ t_\text{ir} $ respectively we thus have that $ t_\text{uv} \ll t_\text{ir} $ which corresponds to $ \omega_\text{uv} \gg \omega_\text{ir} $. The subscripts of course indicate that frequencies lie in the ultraviolet and infrared region respectively. The total deformation is due to these two deformation so that $ \vec P = \vec P_\text{ir} + \vec P_\text{uv} $.
 
-\textcolor{red}{Illustration of the lattice and the two types of deformation.}
+
+
+
+\begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/before"}.pdf}
+        \end{subfigure}\hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/first"}.pdf}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/second"}.pdf}
+        \end{subfigure}
+        \caption{\image{Illustration of the lattice and the two types of deformation. In the two images with polarisation, depict the cumulative polarisation as well. Also there should be subcaptions!}}
+\end{figure}
 
 It is further reasonable to assume that each of these contributions behave as a driven harmonic oscillator, that is
 
@@ -168,7 +222,7 @@ Here $ \gamma $ and $ \delta $ are constants to be determined in what follows. F
 	4 \pi \vec P(\vec r) = (1 - 1/\epsilon) \vec D(\vec r, \vec r_\text{e}) \,.
 \end{equation}
 
-Next we once again turn back time and utilise the high frequency dielectric constant $ \epsilon_\infty $, defined by $ \vec D = \epsilon_\infty \vec E $, under the assumption that the frequency $ \omega_\infty $ of the externa field satisfies  $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. The latter is simply implying that the free electron in our crystal is moving slowly \textcolor{blue}{(right!?)}. This tells us that the UV-part of the polarisation will follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes and may thus be thought of as a negligible constant field in comparison, that is, $ \vec P \simeq \vec P_\text{uv} $. Using this together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $ we find, in similarity to (\ref{eq:static_P_D_relation}),
+Next we once again turn back time and utilise the high frequency dielectric constant $ \epsilon_\infty $, defined by $ \vec D = \epsilon_\infty \vec E $, under the assumption that the frequency $ \omega_\infty $ of the external field satisfies  $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. The latter is simply implying that the free electron in our crystal is moving slowly \motivation{(Fast enough for the IR polarisation not to follow, right!?)}. This tells us that the UV-part of the polarisation will follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes and may thus be thought of as a negligible constant field in comparison, that is, $ \vec P \simeq \vec P_\text{uv} $. Using this together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $ we find, in similarity to (\ref{eq:static_P_D_relation}),
 
 \begin{equation}
 	\label{eq:static_Puv_D_relation}
@@ -182,7 +236,7 @@ Taking the difference between (\ref{eq:static_P_D_relation}) and (\ref{eq:static
 	4 \pi \vec P_\text{ir} (\vec r) =  (1/\epsilon_\infty - 1/\epsilon) \vec D(\vec r, \vec r_\text{e}) \,.
 \end{equation}
 
-Noting that $ \ddot{\vec P}_\text{uv} \approx \omega_\infty^2 \, \vec P_\text{uv} \ll \omega_\text{uv}^2 \, \vec P_\text{uv} $ and assuming that $ \vec P_\text{ir} $ is seemingly constant at timescales of length $ 1/\omega_\text{ir} $, equation (\ref{eq:driven_harmonic_oscillator}) simplifies into
+Noting that $ \ddot{\vec P}_\text{uv} \approx \omega_\infty^2 \, \vec P_\text{uv} \ll \omega_\text{uv}^2 \, \vec P_\text{uv} $ and assuming that $ \vec P_\text{ir} $ is seemingly constant at timescales of length $ 1/\omega_\text{ir} $, equation (\ref{eq:driven_harmonic_oscillator}) simplifies into \motivation{(in the original derivation they simply compared using steady state where the time derivatives obviously are zero, but this must be equivalent due to $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $?)}
 
 \begin{equation}
 	\label{eq:driven_harmonic_oscillator}
@@ -190,7 +244,6 @@ Noting that $ \ddot{\vec P}_\text{uv} \approx \omega_\infty^2 \, \vec P_\text{uv
 	\; , \quad
 	\omega^2_\text{uv} \, \vec P_\text{uv} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \delta } \,.
 \end{equation}
-
 
 Comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_Pir_D_relation}) we find the value of $ \gamma $ and $ \delta $ in terms of know material properties
 
@@ -200,22 +253,177 @@ Comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_
 	\frac{1}{\delta} = \frac{\omega_\text{uv}^2}{4 \pi} \left( 1 - \frac{1}{\epsilon_\infty} \right) \,.
 \end{equation}
 
+Having obtained the equation of motion for the two types of polarisation, our next task is to find the one for the free electron. Since the electron had low in kinetic energy, we may without hesitation treat it in the non relativistic limit. The only force acting on the electron is due to the bound electric field, that is $ \vec F(\vec r_\text{e}) = q \vec E_\text{bound} (\vec r_\text{e}) = - q \nabla \Phi (\vec r_\text{e}) $. Thus $ m \ddot{\vec r}_\text{e} = \dot{\vec p}_\text{e} = - q \nabla \Phi (\vec r_\text{e}) $ where $ m $ is an effective mass which in general is different from the electronic mass $ m_\text{e} $. By treating $ \vec p_\text{e} $,  $ \vec P_\text{uv} (\vec r) $ and $ \vec P_\text{ir} (\vec r) $ as variables, we may by combining all the equation of motions derived above together with expression for the interaction energy (\ref{eq:interaction_energy_calculation}) form the Lagrangian
+
+\begin{equation}
+	\begin{split}
+		L &= \frac{\gamma}{2} \int \left[ \dot{\vec P}_\text{ir}^2 (\vec r) - \omega_\text{ir}^2 \, \vec P_\text{ir}^2 (\vec r) \right] \diff^3 r
+		+ \frac{\delta}{2} \int \left[ \dot{\vec P}_\text{uv}^2 (\vec r) - \omega_\text{uv}^2 \, \vec P_\text{uv}^2 (\vec r) \right] \diff^3 r \\
+		&+ \int \vec D(\vec r, \vec r_\text{e}) \cdot \left[ \vec P_\text{ir}(\vec r) +  \vec P_\text{uv}(\vec r) \right] \diff^3 r
+		+ \frac{\vec p_\text{e}^2}{2m}
+	\end{split}
+\end{equation}
+
+and by a Legendre transformation, the Hamiltonian
+
+\begin{equation}
+	\label{eq:Hamiltonian_raw}
+	\begin{split}
+		H &= \frac{\gamma}{2} \int \left[ \dot{\vec P}_\text{ir}^2 (\vec r) + \omega_\text{ir}^2 \, \vec P_\text{ir}^2 (\vec r) \right] \diff^3 r
+		+ \frac{\delta}{2} \int \left[ \dot{\vec P}_\text{uv}^2 (\vec r) + \omega_\text{uv}^2 \, \vec P_\text{uv}^2 (\vec r) \right] \diff^3 r \\
+		&- \int \vec D(\vec r, \vec r_\text{e}) \cdot \left[ \vec P_\text{ir}(\vec r) +  \vec P_\text{uv}(\vec r) \right] \diff^3 r
+		+ \frac{\vec p_\text{e}^2}{2m}	\,.
+	\end{split}
+\end{equation}
+
+Since the UV-part of the polarisation follows the external field nearly adiabatically, the dynamic solution $ \vec P_\text{uv} $ is approximatively the statical one with respect to current $ \vec D $-field. Because of this $ \vec P_\text{uv} $ will only contribute to the Hamiltonian with a constant and may thus be removed from the theory giving rise only to an energy shift.
+
+Next we observe that the integrals in the expressions above are divergent since $ \vec P_\text{ir} $ according to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_Pir_D_relation}) are proportional to the $ \vec D $-field which is singular at $ \vec r = \vec r_\text{e} $. However this divergence is a resulted from us disregarding the atomic structure when interpreting the displacements as a continuous vector field. To resolve this one should express the polarisation in a Fourier series and omit terms with a wave length smaller than that of the lattice constant. Hence we need not to worry about this divergence.
+
+Further more it is useful to introduce here a complex vector field $ \vec B $,
+
+\begin{equation}
+	\label{eq:B_field_def}
+	\vec B(\vec r) = \sqrt{\frac{\gamma \omega_\text{ir}}{2}} \left[ \vec P_\text{ir}(\vec r) + \frac{i}{\omega_\text{ir}} \dot{\vec P}_\text{ir}(\vec r) \right]
+	\; , \quad
+	\vec B^\dagger(\vec r) = \sqrt{\frac{\gamma \omega_\text{ir}}{2}} \left[ \vec P_\text{ir}(\vec r) - \frac{i}{\omega_\text{ir}} \dot{\vec P}_\text{ir}(\vec r) \right] \,.
+\end{equation}
+
+Here we have also dropped the subscript of $ \omega_\text{ir} $ since $ \omega_\text{uv} $ no longer appears in our theory. The reasons to why one prefer to work with $ \vec B $ rather than $ \vec P_\text{ir} $ will be evident later. With this our now non-divergent Hamiltonian becomes,
+
+\begin{equation}
+	H = \frac{1}{2} m \dot{\vec r}_\text{e}^2
+	+ \omega \int \vec B^\dagger (\vec r) \cdot \vec B (\vec r) \diff^3 r
+	- \sqrt{\frac{1}{2 \gamma \omega}} \int \vec D(\vec r, \vec r_\text{e}) \cdot \left[ \vec B(\vec r) +  \vec B^\dagger(\vec r) \right] \diff^3 r \,.
+\end{equation}
+
+Using a periodic boundary condition over a cube of volume $ V = l^3 $, $ \vec B $ might be expressed as
+
+\begin{equation}
+	\label{eq:B_field_fourier}
+	\vec B (\vec r) = \sum_{\vec q} \frac{\vec q}{q} b_{\vec q} \, \frac{e^{i \vec q \cdot \vec r}}{\sqrt V}
+	\; , \quad
+	\vec B^\dagger (\vec r) = \sum_{\vec q} \frac{\vec q}{q} b^\dagger_{\vec q} \, \frac{e^{-i \vec q \cdot \vec r}}{\sqrt V}
+\end{equation}
+
+with
+
+\begin{equation}
+	\vec q_i = \frac{2\pi}{l} n_i
+	\; ; \quad 
+	n_i = 0, \, \pm 1, \, \pm 2, \cdots , \, \pm N_\text{cut}
+\end{equation}
+
+Here  $ i = x, y, z $, $ | \vec q | = q $ and the cutoff magnitude $ q_\text{cut} = 2 \pi N_\text{cut} / l $ is inversely proportional to the lattice constant in accordance to what was discussed earlier \motivation{($ a \lesssim \lambda = 2 \pi / k \rightarrow k \lesssim a $ right!?)} \todo{(mention $ q_\text{cut} $ since we are only looking at the IR-part)}. Also defining a scalar potential for the IR-part of the polarisation as $ 4 \pi \vec P_\text{ir} = \nabla \Phi_\text{ir} $ we may, by using equation (\ref{eq:interaction_energy_calculation}), express the interaction energy between $ \vec D $ and $ \vec P_\text{ir} $ as $ Q \, \Phi_\text{ir} (\vec r_\text{e}) $. Using (\ref{eq:B_field_def}, \ref{eq:B_field_fourier}) together with $ \Phi_\text{ir} $ the expression for the Hamiltonian becomes
+
+\begin{equation}
+	H = \frac{\vec p_\text{e}^2}{2m}
+	+ \omega \sum_{\vec q} b^\dagger_{\vec q} b_{\vec q}
+	+ i \, 4 \pi Q \sqrt{\frac{1}{2 \gamma \omega V}} \sum_{\vec q} \frac{1}{q} \left( b^\dagger_{\vec q} \, e^{-i \vec q \cdot \vec r_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec r_\text{e}} \right) \,.
+\end{equation}
+
+\todo{Introduce $ V(q) $ as well as $ \alpha $.}
+
+Here it seems as if the interaction part of the Hamiltonian is ill behaved due to the $ \vec q = \vec 0 $ term of the sum. This is a result from the periodic boundary condition imposed on our system. Originally the system contained only one free electron. With a periodic boundary condition however, the system now consists of an infinite number of copies of the cube with volume $ V $, each containing a free electron. These electrons interact with one another due to the long range Coulomb repulsion. To avoid this behaviour when periodically continuing the system, one should introduce in each cube a charge density of $ - Q/V $. Doing this would give rise to an attractive Coulomb force which for each electron would cancel the Coulomb repulsion. Such an interaction would exactly cancel the ill behaved $ \vec q = \vec 0 $ term in the interaction part of the Hamiltonian since the only difference would be the sign of the charge, i.e $ Q \rightarrow -Q $.
+
+\subsection{Quantisation}
+
+Having sorted out these details we are ready to quantise the Hamiltonian. To do so the first step is to symmetrise $ b^\dagger_{\vec q} b_{\vec q} = (b^\dagger_{\vec q} b_{\vec q} + b_{\vec q} b^\dagger_{\vec q})/2 $ \question{(why? source needed.)}. Next up, using\cite{superfluidStatesOfMatter}
+
+\begin{equation}
+	\dot q = \frac{\delta H}{\delta p}
+	\; , \quad
+	\dot p = - \frac{\delta H}{\delta q}
+\end{equation}
+
+together with (\ref{eq:driven_harmonic_oscillator}, \ref{eq:Hamiltonian_raw}) it is easy to verify that $ \vec P_\text{ir} $ and $ \gamma \dot{ \vec P}_\text{ir} $ or equivalent, $ (b^\dagger_{\vec q} + b_{\vec q})/\sqrt{2 \gamma \omega} $ and $ i (b^\dagger_{\vec q} - b_{\vec q}) \sqrt{\gamma \omega / 2} $ for each $ \vec q $, are conjugate variables \question{(how do we arrive at the final set of conjugate variables? Using some sort of transformation perhaps? Try find in the book by Egor.)}.  By promoting to operators $ b_{\vec q} \rightarrow \hat b_{\vec q} $, $ \vec r_\text{e} \rightarrow \hat{\vec r}_\text{e} $, $ \vec p_\text{e} \rightarrow \hat{\vec p}_\text{e} $ and imposing Bose statistics \question{(How do we know this? spinless?)} onto the conjugate variables,
+
+\begin{equation}
+	i \delta_{\vec q, \vec k}
+	= \frac{i}{2} [\hat b^\dagger_{\vec q} + \hat b_{\vec q}, \, \hat b^\dagger_{\vec k} - \hat b_{\vec k}]/2
+\end{equation}
+
+we obtain $ [b_{\vec q}, \, b^\dagger_{\vec k}] = \delta_{\vec q, \vec k} $ and $ [b_{\vec q}, \, b_{\vec k}] = 0 $  \question{(really, they follow?)}. Using the first of these to rewrite $ (\hat b^\dagger_{\vec q} \hat b_{\vec q} + \hat b_{\vec q} \hat b^\dagger_{\vec q})/2  = \hat b^\dagger_{\vec q} \hat b_{\vec q} + \tfrac{1}{2} $ the Hamiltonian, in quantised form, becomes
+
+\begin{equation}
+	\hat H = \frac{\hat{\vec p}_\text{e}^2}{2m}
+	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
+	+ i \, 4 \pi Q \sqrt{\frac{1}{2 \gamma \omega V}} \sum_{\vec q} \frac{1}{q} \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec r}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec r}_\text{e}} \right) \,.
+\end{equation}
+
+Here we have omitted the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $ of the oscillating ions. At this stage it has become evident that $ \hat b^\dagger_{\vec q} $ and $ \hat b_{\vec q} $ may be recognised\cite{electronsInLatticeFields} as the creation and annihilation operator of a harmonic oscillator of mass $ M $, with position and momentum coordinates
+
+\begin{equation}
+	\hat q_{\vec k} = \sqrt{\frac{1}{2M\omega}} \left( \hat b^\dagger_{\vec k} + \hat b_{\vec k} \right)
+	\; , \quad
+	\hat p_{\vec k} = i\, \sqrt{\frac{M \omega}{2}} \left( \hat b^\dagger_{\vec k} - \hat b_{\vec k} \right) \,.
+\end{equation}
+
+The polarisation field $ \vec P_\text{ir} $ is in this manner being represented by a set of harmonic oscillators, all of them having the same frequency $ \omega $.
+
+Having sorted out the quantisation of the $ \vec B $-field we turn our attention towards the electron. In order to later expand the interacting theory using Feynman diagrams, we which to represent the free electron by a many-body Fock state instead of having it represented by a single-body Hilbert state. In order to do this the second quantisation formalism need to utilised. Using the momentum basis as the electronic many-body Fock occupation state with corresponding creation and annihilation operators $ \hat a^\dagger_{\vec k} $ and $ \hat a_{\vec k} $ respectively, the translation of a one-body operator from first-quantisation to second-quantisation is\cite{quantumTheoryOfManyParticleSystems}
+
+\begin{equation}
+	\hat O_2 = \sum_{\vec k, \vec p} \langle \vec k | O_1 | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \,.
+\end{equation}
+
+Here $ \hat O_2 $ is the second-quantised operator and $ O_1 $ is the corresponding first-quantised operator sandwiched between the single-particle Hilbert states $ | \vec k \rangle $, $ | \vec p \rangle $. \todo{Mention that these momenta once again are discretised according to }. Thus
+
+\begin{equation}
+	\frac{\hat{\vec p}_\text{e}^2}{2m} \rightarrow \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p}
+	\; , \quad
+	e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p}
+	\; , \quad
+	e^{i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p + \vec q} \hat a_{\vec p}
+\end{equation}
+
+\motivation{
+\begin{equation}
+	\begin{split}
+		e^{-i \vec q \cdot \hat{ \vec r}_\text{e}}
+		& \rightarrow \sum_{\vec k, \vec p} \langle \vec k | e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \\
+		& = \sum_{\vec k, \vec p} \langle \vec k |
+			\left[ \int | \vec x \rangle \langle \vec x | \diff^3 x \right]
+			e^{-i \vec q \cdot \hat{ \vec r}_\text{e}}
+			\left[ \int | \vec y \rangle \langle \vec y | \diff^3 y \right]
+			| \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \\
+		& = \sum_{\vec k, \vec p} \hat a^\dagger_{\vec k} \hat a_{\vec p}
+			\int \diff^3 x \;
+			\frac{e^{- i \vec k \cdot \vec x}}{\sqrt{V}} \,
+			e^{-i \vec q \cdot \vec x} \,
+			 \frac{e^{i \vec p \cdot \vec x}}{\sqrt{V}} \\
+		& = \sum_{\vec k, \vec p} \hat a^\dagger_{\vec k} \hat a_{\vec p}
+			\; \delta( \vec k + \vec q - \vec p) \\
+		& = \sum_{\vec p} \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p}
+	\end{split}
+\end{equation}
+}
+
+We substitute this into the Hamiltonian, and make in the interaction term use of the fact that the summation over $ \vec q $ is symmetric, to finally obtain
+
+\begin{equation}
+	\hat H
+	= \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p}
+	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
+	+  \sum_{\vec q, \vec p} V (q) \left( \hat b^\dagger_{\vec q} - \hat b_{- \vec q} \right) \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p} \,.
+\end{equation}
+
+\todo{Take the limit $ l \rightarrow \infty $. Perhaps do this where we apply the algorithm? So at the Feynman diagrams Section?}
+
+\todo{what is the interpretation of the $ \vec B $-field. Oscillating displacements in the lattice $ \rightarrow $ phonons.}
+
+\todo{make the reader pay attention to the phonons being dispersionless. Discuss why this model is still a pretty accurate (optical phonons)}
+
+
+
+\section{Feynman diagrams}
 
 
 
 
+\section{Dyson equation}
 
 
-
-\section{Brief introduction to finite temperature formalism}
-
-\subsection{Green's function}
-
-\textcolor{red}{fit to exponential  for large $ \tau $'s etc.}
-
-\textcolor{red}{G and D derived in the appendix}
-
-\subsection{Dyson equation}
 
 \section{Monte Carlo Simulation}
 
@@ -227,7 +435,7 @@ Comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_
 
 \chapter{Diagrammatic Monte Carlo}
 
-\textcolor{red}{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarise what this chapter is about}
 
 \section{General idea}
 
@@ -239,7 +447,7 @@ Comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_
 
 \section{Polaron implementation}
 
-\textcolor{red}{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning.}
+\todo{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning.}
 
 \subsection{Update function 1}
 \subsection{Update function 2}
@@ -278,7 +486,7 @@ For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using D
 
 
 \chapter{Results}
-\textcolor{red}{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarise what this chapter is about}
 
 \section{Analytical predictions}
 
@@ -288,7 +496,7 @@ For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using D
 
 
 \chapter{Summary and Conclusions}
-\textcolor{red}{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarise what this chapter is about}
 
 
 \begin{appendices}
