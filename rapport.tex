@@ -61,11 +61,12 @@
 \definecolor{flaw}{rgb}{1, 0, 0}
 \definecolor{todo}{rgb}{0, 0, 1}
 
-\newcommand{\image}[1]{\textcolor{image}{#1}}
-\newcommand{\motivation}[1]{\textcolor{motivation}{#1}}
-\newcommand{\question}[1]{\textcolor{question}{#1}}
-\newcommand{\flaw}[1]{\textcolor{flaw}{#1}}
-\newcommand{\todo}[1]{\textcolor{todo}{#1}}
+\newcommand{\image}[1]{{\leavevmode\color{image}#1}}
+\newcommand{\motivation}[1]{{\leavevmode\color{motivation}#1}}
+\newcommand{\question}[1]{{\leavevmode\color{question}#1}}
+\newcommand{\flaw}[1]{{\leavevmode\color{flaw}#1}}
+\newcommand{\todo}[1]{{\leavevmode\color{todo}#1}}
+
 
 
 
@@ -98,15 +99,35 @@
 \maketitle
 \begin{abstractpage}
 \begin{abstract}{english}
-...
+\todo{Write an abstract}
 \end{abstract}
 \begin{abstract}{swedish}
-...
+\todo{Skriv en sammanfattning}
 
 \end{abstract}
 \end{abstractpage}
 
-\todo{Throughout this text $ \hbar = 1 $ has been used.}
+
+\section*{Comments guide}
+
+\image{Something about an image}
+
+\motivation{Motivation for myself}
+
+\question{Question about something}
+
+\flaw{There is something wrong, a flaw}
+
+\todo{Todo, things which need to be done at some point}
+
+\newpage
+
+\section*{Notations}
+
+\todo{Throughout this text $ k_\text{B} = \hbar = 1 $ has been used.}
+
+\question{Something else about notations?}
+
 
 \selectlanguage{english}
 
@@ -134,13 +155,28 @@
 
 \section{Derivation of the Fröhlich Hamiltonian}
 
+
 What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields}\cite{electronsInLatticeFields}. In this section we will outline the original derivation but also look into some details relevant to us.
 
 \subsection{Classical picture}
 
-The idea is that we introduce a free electron into a dielectric crystal, e.g. rock salt. This electron will deform the lattice and hence polarise the crystal. This deformation may be described by a displacement vector for each lattice point. However, to simplify matters, we treat this displacement vector as a continuous vector field.
+The model of interest to this thesis is the following. Consider a diatomic crystal, e.g. rock salt. Such a crystal is made up out of ions which pairwise have a zero net charge. This is depicted in figure \ref{fig:illustrationOfDiatomicCrystal} below. Introducing a free electron into such a crystal, the electron will polarize the crystal due to it exerting an electric field. This sort of polarization may be described by a displacement vector for each lattice point. However, to simplify matters, it is preferred to treat this displacement vector as a continuous vector field.
 
-If we first consider a steady state situation, the polarisation is determined solely by the dielectric permittivity $ \varepsilon_r $. Introducing the electric displacement field $ \vec D = \vec E + 4 \pi \vec P $ (CGS units) for which the source is the free electron, this may be thought of as the external electrical field. If our electron is at position $ \vec r_\text{e} $ , the $ \vec D $-field at a position $ r $ is given by the usual
+\begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/description"}.pdf}
+                \caption{The filled circles illustrate four types of charges. The color represent the charge sign; the ones to the left are positively charged and the ones to the right are negatively charged. The quantity of charge is represented by the size; the charges have the same charge quantity within each row, but the ones in the top row have a weaker charge than the ones in the bottom row.}
+        \end{subfigure}\hfill
+        \begin{subfigure}[b]{0.45\textwidth}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/crystal"}.pdf}
+                \caption{A layer of a diatomic crystal. This particular crystal has a face-centered cubic structure.}
+        \end{subfigure}
+        \caption{}
+	\label{fig:illustrationOfDiatomicCrystal}
+\end{figure}
+
+If we first consider a steady state situation, the polarization is determined solely by the dielectric permittivity $ \varepsilon_r $. Introducing the electric displacement field $ \vec D = \vec E + 4 \pi \vec P $ (CGS units) for which the source is the free electron, this may be thought of as the external electrical field. If our electron is at position $ \vec r_\text{e} $ , the $ \vec D $-field at a position $ r $ is given by the usual
 
 \begin{equation}
 	\vec D( \vec r, \vec r_\text{e}) = - \nabla \frac{Q}{\left| \vec r - \vec r_\text{e} \right|}
@@ -186,24 +222,20 @@ By utilising the scalar potential of the bound electric field $ \vec E_\text{bou
 
 Here we have both assumed that $ \Phi (\vec r) $ has a continuous first derivative as well as $ \allowbreak \Phi(\vec r) \vec D(\vec r, \vec r_\text{e}) \simeq 0 $ on the boundary $ \vec r \in \partial \Omega $. In order to use the divergence theorem the singularity at $ \vec r_\text{e} $ has been isolated in a spherical volume $ V_\varepsilon $ centered at $ \vec r_\text{e} $ with radius  $ \varepsilon \rightarrow 0 $.
 
-Next we bring back the time dependence and no longer consider a situation which is in steady state. Since each lattice point in our crystal is occupied by a ion, the dynamic in our system is characterised by two time scales. That is, the time it takes to displace the bound electrons relative their nuclei (deformation of ion) and the time it takes to displace the nucleus relative the lattice (deformation of lattice structure). Since the electrons are significantly lighter than their nucleus, the ion deformation time should thus be much smaller than the time it takes to deformation the lattice. Denoting these times as $ t_\text{uv} $ and $ t_\text{ir} $ respectively we thus have that $ t_\text{uv} \ll t_\text{ir} $ which corresponds to $ \omega_\text{uv} \gg \omega_\text{ir} $. The subscripts of course indicate that frequencies lie in the ultraviolet and infrared region respectively. The total deformation is due to these two deformation so that $ \vec P = \vec P_\text{ir} + \vec P_\text{uv} $.
-
-
-
+Next we bring back the time dependence and no longer consider a situation which is in steady state. Since each lattice point in our crystal is occupied by a ion, the dynamic in our system is characterized by two time scales. That is, the time it takes to displace the bound electrons relative their nuclei (deformation of ion) and the time it takes to displace the nucleus relative the lattice (deformation of lattice structure). These two types of deformation are illustrated in figure \ref{fig:twoTypesOfPolrisation} below. Since the electrons are significantly lighter than their nucleus, the ion deformation time should thus be much smaller than the time it takes to deformation the lattice. Denoting these times as $ t_\text{uv} $ and $ t_\text{ir} $ respectively we thus have that $ t_\text{uv} \ll t_\text{ir} $ which corresponds to $ \omega_\text{uv} \gg \omega_\text{ir} $. The subscripts of course indicate that frequencies lie in the ultraviolet and infrared region respectively. The total deformation is due to these two deformation so that $ \vec P = \vec P_\text{ir} + \vec P_\text{uv} $.
 
 \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/before"}.pdf}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/uv polarization"}.pdf}
+                \caption{Deformation of the ions.}
         \end{subfigure}\hfill
         \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/first"}.pdf}
+                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/ir polarization"}.pdf}
+                \caption{Deformation of the lattice.}
         \end{subfigure}
-        
-        \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/second"}.pdf}
-        \end{subfigure}
-        \caption{\image{Illustration of the lattice and the two types of deformation. In the two images with polarisation, depict the cumulative polarisation as well. Also there should be subcaptions!}}
+        \caption{}
+        \label{fig:twoTypesOfPolrisation}
 \end{figure}
 
 It is further reasonable to assume that each of these contributions behave as a driven harmonic oscillator, that is
@@ -314,15 +346,25 @@ with
 	n_i = 0, \, \pm 1, \, \pm 2, \cdots , \, \pm N_\text{cut}
 \end{equation}
 
-Here  $ i = x, y, z $, $ | \vec q | = q $ and the cutoff magnitude $ q_\text{cut} = 2 \pi N_\text{cut} / l $ is inversely proportional to the lattice constant in accordance to what was discussed earlier \motivation{($ a \lesssim \lambda = 2 \pi / k \rightarrow k \lesssim a $ right!?)} \todo{(mention $ q_\text{cut} $ since we are only looking at the IR-part)}. Also defining a scalar potential for the IR-part of the polarisation as $ 4 \pi \vec P_\text{ir} = \nabla \Phi_\text{ir} $ we may, by using equation (\ref{eq:interaction_energy_calculation}), express the interaction energy between $ \vec D $ and $ \vec P_\text{ir} $ as $ Q \, \Phi_\text{ir} (\vec r_\text{e}) $. Using (\ref{eq:B_field_def}, \ref{eq:B_field_fourier}) together with $ \Phi_\text{ir} $ the expression for the Hamiltonian becomes
+Here  $ i = x, y, z $, $ | \vec q | = q $ and the cutoff magnitude $ q_\text{cut} = 2 \pi N_\text{cut} / l $ is inversely proportional to the lattice constant in accordance to what was discussed earlier \motivation{($ a \lesssim \lambda = 2 \pi / k \rightarrow k \lesssim a $ right!?)} \todo{(to write: $ q_\text{cut} $ since we are only looking at the IR-part which is du to lattice deformations at length scales $ \propto  a $)}. Also defining a scalar potential for the IR-part of the polarization as $ 4 \pi \vec P_\text{ir} = \nabla \Phi_\text{ir} $ we may, by using equation (\ref{eq:interaction_energy_calculation}), express the interaction energy between $ \vec D $ and $ \vec P_\text{ir} $ as $ Q \, \Phi_\text{ir} (\vec r_\text{e}) $. Using (\ref{eq:B_field_def}, \ref{eq:B_field_fourier}) together with $ \Phi_\text{ir} $ the expression for the Hamiltonian becomes
 
 \begin{equation}
 	H = \frac{\vec p_\text{e}^2}{2m}
 	+ \omega \sum_{\vec q} b^\dagger_{\vec q} b_{\vec q}
-	+ i \, 4 \pi Q \sqrt{\frac{1}{2 \gamma \omega V}} \sum_{\vec q} \frac{1}{q} \left( b^\dagger_{\vec q} \, e^{-i \vec q \cdot \vec r_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec r_\text{e}} \right) \,.
+	+ \sum_{\vec q} V(q) \left[ b^\dagger_{\vec q} \, e^{-i \vec q \cdot \vec r_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec r_\text{e}} \right] \,,
 \end{equation}
 
-\todo{Introduce $ V(q) $ as well as $ \alpha $.}
+where we have substituted using
+
+\begin{equation}
+	V(q) = i \left( 2 \sqrt 2 \pi \alpha \right)^{1/2} \sqrt{ \frac{1}{V} } \left( \frac{\omega^3}{m} \right)^{1/4} \frac{1}{q}
+\end{equation}
+
+and introduced the interaction parameter
+
+\begin{equation}
+	\alpha = \frac{1}{2} \left( \frac{1}{\epsilon_\infty} - \frac{1}{\epsilon} \right) \sqrt{ \frac{2m}{\omega} } Q^2 \,.
+\end{equation}
 
 Here it seems as if the interaction part of the Hamiltonian is ill behaved due to the $ \vec q = \vec 0 $ term of the sum. This is a result from the periodic boundary condition imposed on our system. Originally the system contained only one free electron. With a periodic boundary condition however, the system now consists of an infinite number of copies of the cube with volume $ V $, each containing a free electron. These electrons interact with one another due to the long range Coulomb repulsion. To avoid this behaviour when periodically continuing the system, one should introduce in each cube a charge density of $ - Q/V $. Doing this would give rise to an attractive Coulomb force which for each electron would cancel the Coulomb repulsion. Such an interaction would exactly cancel the ill behaved $ \vec q = \vec 0 $ term in the interaction part of the Hamiltonian since the only difference would be the sign of the charge, i.e $ Q \rightarrow -Q $.
 
@@ -348,7 +390,7 @@ we obtain $ [b_{\vec q}, \, b^\dagger_{\vec k}] = \delta_{\vec q, \vec k} $ and 
 \begin{equation}
 	\hat H = \frac{\hat{\vec p}_\text{e}^2}{2m}
 	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
-	+ i \, 4 \pi Q \sqrt{\frac{1}{2 \gamma \omega V}} \sum_{\vec q} \frac{1}{q} \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec r}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec r}_\text{e}} \right) \,.
+	+ \sum_{\vec q} V(q) \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec r}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec r}_\text{e}} \right) \,.
 \end{equation}
 
 Here we have omitted the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $ of the oscillating ions. At this stage it has become evident that $ \hat b^\dagger_{\vec q} $ and $ \hat b_{\vec q} $ may be recognised\cite{electronsInLatticeFields} as the creation and annihilation operator of a harmonic oscillator of mass $ M $, with position and momentum coordinates
@@ -359,7 +401,14 @@ Here we have omitted the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $
 	\hat p_{\vec k} = i\, \sqrt{\frac{M \omega}{2}} \left( \hat b^\dagger_{\vec k} - \hat b_{\vec k} \right) \,.
 \end{equation}
 
-The polarisation field $ \vec P_\text{ir} $ is in this manner being represented by a set of harmonic oscillators, all of them having the same frequency $ \omega $.
+The polarization field $ \vec P_\text{ir} $ is in this manner being represented by a set of harmonic oscillators each corresponding to a quantized mode of vibration in the lattice, i.e. a phonon. Since the frequency of the phonons is momentum independent they are said to be dispersionless \question{(right!?)}. For optical phonons which couple to infrared radiation, this is at low momenta a good approximation as shown in the figure \ref{fig:phononDispersionRelation} below.
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=0.4\textwidth, ]{{"Images/Dispersion relation/dispersion relation"}.pdf}
+	\caption{The upper and lower curves depict the characteristics of an optical and acoustic dispersion relation respectively. The outlined orange region illustrates were the optical dispersion relation might be approximated as momentum independent.}
+	\label{fig:phononDispersionRelation}
+\end{figure}
 
 Having sorted out the quantisation of the $ \vec B $-field we turn our attention towards the electron. In order to later expand the interacting theory using Feynman diagrams, we which to represent the free electron by a many-body Fock state instead of having it represented by a single-body Hilbert state. In order to do this the second quantisation formalism need to utilised. Using the momentum basis as the electronic many-body Fock occupation state with corresponding creation and annihilation operators $ \hat a^\dagger_{\vec k} $ and $ \hat a_{\vec k} $ respectively, the translation of a one-body operator from first-quantisation to second-quantisation is\cite{quantumTheoryOfManyParticleSystems}
 
@@ -367,7 +416,7 @@ Having sorted out the quantisation of the $ \vec B $-field we turn our attention
 	\hat O_2 = \sum_{\vec k, \vec p} \langle \vec k | O_1 | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \,.
 \end{equation}
 
-Here $ \hat O_2 $ is the second-quantised operator and $ O_1 $ is the corresponding first-quantised operator sandwiched between the single-particle Hilbert states $ | \vec k \rangle $, $ | \vec p \rangle $. \todo{Mention that these momenta once again are discretised according to }. Thus
+Here $ \hat O_2 $ is the second-quantized operator and $ O_1 $ is the corresponding first-quantized operator sandwiched between the single-particle Hilbert states $ | \vec k \rangle $, $ | \vec p \rangle $. \todo{Mention that these momenta are discretized in the same way as before but without a cutoff}. Thus
 
 \begin{equation}
 	\frac{\hat{\vec p}_\text{e}^2}{2m} \rightarrow \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p}
@@ -378,6 +427,8 @@ Here $ \hat O_2 $ is the second-quantised operator and $ O_1 $ is the correspond
 \end{equation}
 
 \motivation{
+To be included in the appendix perhaps?
+
 \begin{equation}
 	\begin{split}
 		e^{-i \vec q \cdot \hat{ \vec r}_\text{e}}
@@ -408,15 +459,61 @@ We substitute this into the Hamiltonian, and make in the interaction term use of
 	+  \sum_{\vec q, \vec p} V (q) \left( \hat b^\dagger_{\vec q} - \hat b_{- \vec q} \right) \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p} \,.
 \end{equation}
 
-\todo{Take the limit $ l \rightarrow \infty $. Perhaps do this where we apply the algorithm? So at the Feynman diagrams Section?}
+\question{Where do we assume that the crystal is homogenous/isotropic? Do we even have to do that approximation?}
 
-\todo{what is the interpretation of the $ \vec B $-field. Oscillating displacements in the lattice $ \rightarrow $ phonons.}
+\todo{Take the limit $ l \rightarrow \infty $. Perhaps do this where we apply the algorithm? That is, the Feynman diagrams section?}
+\question{When doing this, what happens to the $ \sqrt V $ in $ V(q) $? According to the other papers $ \sqrt{V} \rightarrow 1 $. However in the $ L \rightarrow \infty $ limit, we normalize the momentum states by the Dirac delta
 
-\todo{make the reader pay attention to the phonons being dispersionless. Discuss why this model is still a pretty accurate (optical phonons)}
+\begin{equation}
+	\frac{e^{i \vec q \cdot \vec r}}{\sqrt V} \rightarrow \frac{e^{i \vec q \cdot \vec r}}{(2 \pi)^{3/2}} \,.
+\end{equation}
+
+In that case, $ \sqrt V \rightarrow (2 \pi)^{3/2} $ and the Hamiltonians do not agree. Solve this by letting $ b_{\vec q} \rightarrow \sqrt{V} b_{\vec q} $. What is the meaning of $ \sqrt{V} $ in the Fourier expansion of $ \vec B $ anyway?
+}
+\motivation{Might be the case that we are using the convention
+
+\begin{equation}
+	\sum_{\vec q} \rightarrow \int \frac{\diff^3 q}{(2 \pi)^{3/2}}
+\end{equation}
+
+instead of the usual
+
+\begin{equation}
+	\sum_{\vec q} \rightarrow \int \frac{\diff^3 q}{(2 \pi)^3} \,.
+\end{equation}
+}
+\question{Might also have something to do with the $ b_{\vec q} $'s being conjugate variables? But it would be weird, if you could not multiply both with a constant and still keep them being conjugate...}
+
 
 
 
 \section{Feynman diagrams}
+
+
+In the $ T = 0 $ formalism
+
+\begin{equation}
+	\begin{split}
+		\frac{\langle \Psi_0 |  \hat O_\text{H}(t)  | \Psi_0 \rangle}{\langle \Psi_0  | \Psi_0 \rangle}
+		&=
+		\sum_{\nu = 0}^\infty \left( - i \right)^\nu \frac{1}{\nu !}
+		\int_{-\infty}^{\infty} \diff t_1 \cdots \int_{-\infty}^{\infty} \diff t_\nu
+		\, e^{- \epsilon \left( |t_1| + \cdots + |t_\nu| \right)} \\[1em]
+		&\times \frac{\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat O_\text{I}(t)] | \Phi_0 \rangle}{\langle \Phi_0  | \hat S |\Phi_0 \rangle}
+	\end{split}
+\end{equation}
+
+Take limit $ \epsilon \rightarrow 0 $ if permissible (for us that is the case). Disconnected diagram cancel.
+
+Looking at
+
+\begin{equation}
+	\langle \Psi_0 |  T[\hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)]  | \Psi_0 \rangle
+	\propto
+	\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)] | \Phi_0 \rangle
+\end{equation}
+
+where the momentum basis is used, the Feynman Diagrams follow from all nonzero possible sandwiches. Better even, use Wicks theorem and make contractions.
 
 
 
