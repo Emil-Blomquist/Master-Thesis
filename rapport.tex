@@ -55,6 +55,10 @@
 
 
 
+
+\newcommand{\Gt}{\mathcal{G}}
+
+
 \definecolor{image}{rgb}{1, 0, 1}
 \definecolor{motivation}{rgb}{0, 0.8, 0}
 \definecolor{question}{rgb}{0.8, 0.5, 0}
@@ -73,7 +77,7 @@
 \title{
 	\vspace{-2.5cm}
 	\begin{center}
-		\includegraphics[width=2.5cm]{img/KTH_CMYK.eps}\\[-1mm]
+		\includegraphics[width=2.5cm]{{"Images/KTH logo/KTH_CMYK"}.eps}\\[-1mm]
 		\hspace{-3mm} {\tiny {\sf Theoretical Physics}}
 	\end{center}
 	\vspace{2cm}
@@ -147,9 +151,165 @@
 
 \section{A few words about finite temperature formalism}
 
+\todo{Point out that we are summarizing from Fetter Walecka.}
+
+When working with field theories at $ T = 0 $, even if the ground state is not the vacuum one, one does not need to be concerned about thermodynamics. At $ T \neq 0 $ however, unless the ground state is the vacuum, things are different. Although the formalism at finite temperature is interesting in itself, and much time could be spent discussing it, will only mention some similarities and differences relative the $ T = 0 $ formalism. \todo{Perhaps we will not even cover that, but only the absolute basics}
+
+Treating a system with variable number of particles at finite temperature, it is beneficial to work with the grand canonical ensemble. The partition function is then given by $ Z_\text{G} = \text{Tr} \, e^{-\beta (\hat H - \mu \hat N)} = \text{Tr} \, e^{-\beta \hat K} $. Here $ \beta $ is the inverse temperature (recall that we use units where $ k_\text{B} = 1 $), $ \hat H $ is the Hamiltonian, $ \hat N $ is the number operator, $ \mu $ is the chemical potential and the trace is taken over a complete set of states. Introduced was also the grand canonical Hamiltonian $ \hat K \equiv \hat H - \mu \hat N $. In accordance to the partition function, the statistical operator is then defined as $ \hat \rho_\text{G} = e^{-\beta \hat K} / Z_\text{G} $.
+
+At zero temperature the Heisenberg picture was used when calculating observables. In this picture the operators are responsible for the time evolution of the observables whilst the state vectors are made time independent. Moreover, an operator in the Heisenberg picture is related to the corresponding operator in the Schrödinger picture through $ \hat O_\text{H}(t) \equiv e^{i \hat H t} \, \hat O_\text{S} \, e^{-i \hat H t} $. To calculate an observable from an operator, one would at $ T = 0 $ simply sandwiches the operator in between the ground state vector as such, $ O(t) = \langle \Psi_0 |  \hat O_\text{H}(t)  | \Psi_0 \rangle $. At finite temperature however, the observable is not given by merely an expectation value from a single state. As pointed out before, the statistics need now to be woven in. In accordance with the partition function, the observable should instead be sandwiched in between a complete set of states, and each weighted using the statistical operator,
+
+\begin{equation}
+	\label{eq:finiteTempObservable}
+	O(t)
+	= \sum_\nu \langle \Psi_\nu |  \hat \rho_\text{G} \, \hat O_\text{H}(t)  | \Psi_\nu \rangle
+	\equiv
+	\text{Tr} \{ \hat \rho_\text{G} \, \hat O_\text{H}(t) \} \,.
+\end{equation}
+
+In equation (\ref{eq:finiteTempObservable}) above, we have both real and imaginary exponents coming from the thermodynamics and quantum mechanics respectively \question{(is it correct to say that, or do I need to be more specific?)}. In order to proceed, it would be convenient if one could treat the two types of exponents on an equal footing, and in order to do so a new picture is introduced. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to itself in the Schrödinger picture as $ \hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} $. From this a perturbative treatment of an expectation value can be developed in a similar manner to what is done at zero temperature.
+
+
+\begin{equation}
+	\text{\todo{Insert equation of an observable expressed as a perturbation series.}}
+\end{equation}
+
+\question{Should I write about having to do an analytical continuation of the temperature greens function in order to obtain frequencies and lifetimes of the excited states at finite temperature? Since we are not concerned about that in this thesis I recon that would be a waste of time.}
+
+
 \subsection{Green's function}
 
-\todo{fit to exponential  for large $ \tau $'s etc.}
+Before introducing the concept of a Green's functions it is probably a good idea to first mention field operators. These operators are superpositions of creation and annihilation operators
+
+\begin{equation}
+	\label{eq:fieldOperator}
+	\hat \psi (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x)
+	\; , \quad
+	\hat \psi^\dagger (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x) \,.
+\end{equation}
+
+Here $ \psi_{\nu}(\vec x) $ is a single-particle wave function of an eigenstate with eigenvalue $ \nu $ of some operator $ \hat o_\nu $ for which $ \hat c^\dagger _\nu $ and $ \hat c _\nu $ are the corresponding many-body creation and annihilation operators respectively. The sum is taken over the complete set of quantum numbers $ \{ \nu \} $. It happens to be so, that it is extremely convenient to work with field operators when converting operators from first-quantized to second-quantized form. Also the Green's functions make use of the field operators.
+
+The Green's function, playing an important role when analyzing an interacting many-particle system, is the quantity of greatest interest in this thesis. At zero temperature, in position and time representation, the single-particle Green's function is defined as
+
+\begin{equation}
+	i G_{\alpha \beta} (x, x')
+	\equiv \frac{\langle \Psi_0 | T[\hat \psi_{\text{H} \alpha} (x) \hat \psi^\dagger_{\text{H} \beta} (x')] |\Psi_0 \rangle}{\langle \Psi_0 |\Psi_0 \rangle} \,.
+\end{equation}
+
+Here $ | \Psi_0 \rangle $ is the ground state vector in the Heisenberg picture, $ \hat \psi_{\text{H} \alpha}(x) $ is the $ \alpha $-th component of a field operator also in the Heisenberg picture, $ T[ \cdots ] $ orders the operators according to their time and $ x $, $ x' $ being position-time four vectors.
+
+\todo{Discuss the interpretation of a Green's function: $ G^2 $ is the probability of finding a particle at $ x $ which was introduced into the system at $ x' $.}
+
+This Green's function contains observable properties such as both the ground state energy and the excitation spectrum of the system.  By using the Lehman representation, the expectation value of any single-particle operator in the ground state of the system might also be extracted \cite{quantumTheoryOfManyParticleSystems}.
+
+Above zero temperature, now working with an imaginary-time $ \tau $, the Green's function of interest to us is the temperature Green's function. In the imaginary-time and position representation, the corresponding single-particle temperature Green's function is defined through
+
+\begin{equation}
+	\Gt_{\alpha \beta} (x, x')
+	\equiv \text{Tr} \{ \hat \rho_\text{G} \, T_\tau [\hat \psi_{\text{K} \alpha}(x) \hat \psi^\dagger_{\text{K} \alpha}(x') ] \} \,.
+\end{equation}
+
+\question{What about the sign!? According to wikipedia the sign should not be there. The sign is chosen differently compared to Fetter Walecka.}
+
+Here $ \psi_{\text{K} \alpha}(x) $ is the $ \alpha $-th component of a field operator in the modified Heisenberg picture, $ T_\tau [\cdots] $ orders the operators according to their value of $ \tau $,  $ \text{Tr} \{ \rho_\text{G} \cdots \} $ is the same weighted sum of inner products as mention before and $ x $, $ x' $ being position-imaginary-time four vectors. Since the temperature single-particle Green's function is not a function of time, it is only possible to directly extract from it observables which neither dependent on time, that is, thermodynamical properties. In order to obtain time dependent properties, one must first relate the temperature Green's function to a real-time Green's function. This is something which wont be of importance to this thesis and thus not discussed. From here on we will stick to the finite temperature formalism and whenever a Green's function is mention it will be understood that a temperature Green's function intended.
+
+Assuming the Hamiltonian in the Schrödinger picture is time independent, and also such that it commutates with the momentum operator $ \hat{ \vec p} $, then the single-particle thermal Green's function will depend only on the difference $ \vec x - \vec x' $ and $ \tau - \tau' $. For the purpose of this thesis it is also sufficient to further assume that the spin dependency of the Green's function might be factored out as
+
+\begin{equation}
+	\Gt_{\alpha \beta}(\vec x, \tau) = \delta_{\alpha \beta} \, \Gt(\vec x, \tau) \,.
+\end{equation}
+
+Here we have transformed the parameters $ \vec x - \vec x' \rightarrow \vec x $ and $ \tau - \tau' \rightarrow \tau $ for a shorter notation. Since the spin dependency is trivial, we will drop it and from now on refer to the single-particle Green's function as $ \Gt (\vec x, \tau) $.
+
+For reasons to become evident later, it is necessary to work within the momentum-imaginary-time representation rather than the position-imaginary-time representation. Hopefully it should not come as a surprise, that in the limit of infinite system size, the single-particle Greens function in momentum space is obtain by the Fourier transform,
+
+\begin{equation}
+	\label{eq:defGpt}
+	\Gt (\vec x, \tau) = \int \frac{\diff^3 k}{(2 \pi)^3} \,  e^{i \vec k \cdot \vec x} \, \Gt (\vec k, \tau) \,.
+\end{equation}
+
+For the sake of the thesis it is not necessary to keep the ground state ensemble of the system completely general. So in order to simplify the following analysis it is permissible to assume the ground state to be empty \question{(do we also need to assume $ T = 0 $ ?)} (this is actually the ground state to be used in the upcoming diagrammatic Monte Carlo algorithm \todo{(better word needed)}). This implies that $ \text{Tr}\{ \cdots \} \rightarrow \langle \text{vac} | \cdots | \text{vac} \rangle $.
+
+
+Assuming the system to be cubic, with a finite volume $ V = l^3 $, accompanied also by periodic boundary conditions, the single-particle wave functions of the momentum eigenstates are found to be
+
+\begin{equation}
+	\psi_{\vec k} (\vec x) = \frac{e^{i \vec k \cdot \vec x}}{\sqrt V} \,.
+\end{equation}
+
+The components of the allowed momenta are then
+
+\begin{equation}
+	\vec k_i = \frac{2\pi}{l} n_i
+	\; ; \quad 
+	n_i = 0, \, \pm 1, \, \pm 2, \cdots \,.
+\end{equation}
+
+Using this set of quantum numbers in the definition (\ref{eq:fieldOperator}) of the field operator, it is possible to rewrite
+
+\begin{equation}
+	\label{eq:Gxt2Gpt}
+	\begin{split}
+		\Gt (\vec x, \tau)
+		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec 0) \langle \text{vac} | \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau) \hat c^\dagger_{\vec p}(0)] | \text{vac} \rangle \\
+		&= \theta(\tau) \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec 0) \delta_{\vec k, \vec p} \langle \text{vac} | \hat c_{\vec k}(\tau) \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \\
+		&= \theta(\tau) \sum_{\vec k} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec k}(\vec 0) \langle \text{vac} | \hat c_{\vec k}(\tau) \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \\
+		&= \theta(\tau) \frac{1}{V} \sum_{\vec k} e^{i \vec k \cdot \vec x} \langle \text{vac} | \hat c_{\vec k}(\tau) \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \\
+	\end{split}
+\end{equation}
+
+Taking the limit $ l \rightarrow \infty $ the separation between the eigen-momenta become infinitesimally small, and one should thus replace with
+
+\begin{equation}
+	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,.
+\end{equation}
+
+By finally comparing expression (\ref{eq:Gxt2Gpt}) with the definition of $ \Gt(\vec k, \tau) $ (\ref{eq:defGpt}), we identify
+
+\begin{equation}
+	\label{eq:GptExpression}
+	\Gt(\vec k, \tau) = \theta(\tau) \langle \text{vac} | \hat c_{\vec k}(\tau) \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \,.
+\end{equation}
+
+
+
+\subsection{Properties}
+
+
+
+According to the modified Heisenberg picture, .
+
+The unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $ may be expressed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = E_\nu(\vec p) \, | \nu (\vec p) \rangle $. Inserting this into expression (\ref{eq:GptExpression}), and recalling that the imaginary-time evolution of the annihilation operator, in the modified Heisenberg picture, is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ we obtain\cite{MishchenkoA.2000DqMC}
+
+\begin{equation}
+	\Gt(\vec k, \tau) = \theta(\tau)
+	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-(E_\nu - E_0)\tau} \,.
+\end{equation}
+
+Here we have used that $ E_0 $ is the ground-state energy $ \hat K \, | \text{vac} \rangle = E_0 \, | \text{vac} \rangle $, and by shifting the energy scale it is permissible to set $ E_0 = 0 $.
+
+The dependence on the imaginary-time difference of the single-particle Green's function is $ 2\beta $-periodic.This implies that there will be a corresponding infinite set of discrete frequencies $ \omega_n $ so that $ \Gt(\vec k, \tau) $ may be expressed as a Fourier series. However, letting $ T \rightarrow \infty $, the frequencies $ \omega_n $ may be treated as a continuous variable $ \omega $. Hence we might introduce the spectral function,
+ 
+ \begin{equation}
+	g_{\vec{k}} (\omega)
+	\equiv \sum_\nu \delta (\omega - E_\nu) \, | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 \,.
+\end{equation}
+
+Assuming the single-particle Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle $ is nothing more than the overlap of that particular eigenstate of $ \hat K $ onto a free electron with momentum $ \vec k $. In terms of therms of the spectral function, the Green's function is expressed as
+
+\begin{equation}
+	\Gt(\vec k, \tau) = \int_0^\infty g_{\vec k} (\omega) \, e^{-i \omega \tau} \diff \omega \,.
+\end{equation}
+
+From this it is clear that the spectral function must be proportional to $ \Gt(\vec k, \omega) = (E(\vec k) - i \omega)^{-1} $ in the $ V \rightarrow \infty $ limit, and thus has poles of frequencies corresponding to stable states.
+
+
+
+
+
+
+\todo{fit to exponential  for large $ \tau $'s and introduce $ Z $-factor.8}
 
 \todo{G and D derived in the appendix}
 
@@ -345,6 +505,8 @@ with
 	\; ; \quad 
 	n_i = 0, \, \pm 1, \, \pm 2, \cdots , \, \pm N_\text{cut}
 \end{equation}
+
+\todo{Refer to these mentioned earlier. However you need to introduce $ N_\text{cut} $.}
 
 Here  $ i = x, y, z $, $ | \vec q | = q $ and the cutoff magnitude $ q_\text{cut} = 2 \pi N_\text{cut} / l $ is inversely proportional to the lattice constant in accordance to what was discussed earlier \motivation{($ a \lesssim \lambda = 2 \pi / k \rightarrow k \lesssim a $ right!?)} \todo{(to write: $ q_\text{cut} $ since we are only looking at the IR-part which is du to lattice deformations at length scales $ \propto  a $)}. Also defining a scalar potential for the IR-part of the polarization as $ 4 \pi \vec P_\text{ir} = \nabla \Phi_\text{ir} $ we may, by using equation (\ref{eq:interaction_energy_calculation}), express the interaction energy between $ \vec D $ and $ \vec P_\text{ir} $ as $ Q \, \Phi_\text{ir} (\vec r_\text{e}) $. Using (\ref{eq:B_field_def}, \ref{eq:B_field_fourier}) together with $ \Phi_\text{ir} $ the expression for the Hamiltonian becomes
 
@@ -588,6 +750,10 @@ For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using D
 \section{Analytical predictions}
 
 \section{Numerics}
+
+\subsection{Discrete Fourier transform}
+
+\todo{Make sure to increase vector lengths. Illustrate what might happen otherwise.}
 
 \section{Discussion}
 
