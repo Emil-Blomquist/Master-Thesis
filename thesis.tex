@@ -132,6 +132,9 @@
 
 \question{Something else about notations?}
 
+\section*{General comments}
+
+\todo{Rewrite the text so the word \textit{we} is nowhere to be found.}
 
 \selectlanguage{english}
 
@@ -139,15 +142,66 @@
 
 \chapter{Introduction}
 
-\todo{Here we shall summarise what this chapter is about}
+\todo{This chapter should be without sections. Just a long text without any equation.}
 
-\section{Many-particle physics}
+\todo{$ \cdot $ Quantum mechanics}
+
+\todo{$ \cdot $ Many-particle physics}
 
 
 
 \chapter{Background Material}
 
-\todo{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarize what this chapter is about}
+
+\section{Quantum field theories}
+
+\subsection{Single- and many-particle quantum mechanics}
+
+In quantum mechanics, utilizing the bra-ket notation, the state of a particle $ | \psi \rangle $ can be projected onto the position basis $ | \vec x \rangle $ to form a wave function $ \langle \vec x | \psi \rangle = \psi (\vec x) $. By using the Schrödinger picture, the dynamics is also contained within the states, i.e. $ | \psi \rangle = | \psi (t) \rangle $ and $ \psi(\vec x) = \psi(\vec x, t) $. Thus, assuming there is no external potential acting on this particle, the time evolution in terms of the wave vector is in the non-relativistic case governed by the Schrödinger equation. The quantity $ \psi^*(\vec x, t) \psi(\vec x, t) $ is real, and according to the Copenhagen interpretation of quantum mechanics it is to be interpreted as the probability density function\todo{[citation]}. The complex conjugated wave function is obtained by $ \psi^*(\vec x, t) = (\langle \vec x | \psi(t) \rangle)^* = \langle \psi(t) | \vec x \rangle $. From this, the expectation value of some quantity, e.g. the position of the particle, is acquired through
+
+\begin{equation}
+	\begin{split}
+		\langle \vec x(t) \rangle
+		&= \int \, \psi^*(\vec x, t) \psi(\vec x, t) \diff^3x \\
+		&= \int \vec x \, \langle \psi(t) | \vec x \rangle \langle \vec x | \psi(t) \rangle \diff^3x \\
+		&= \langle \psi(t) | \left[ \int \vec x \, | \vec x \rangle \langle \vec x | \diff^3x \right] | \psi(t) \rangle \\
+		&= \langle \psi(t) | \, \hat{\vec x} \left[ \int | \vec x \rangle \langle \vec x | \diff^3x \right] | \psi(t) \rangle \\
+		&= \langle \psi(t) | \, \hat{\vec x} \, | \psi(t) \rangle \,.
+	\end{split}
+\end{equation}
+
+That is, sandwich the operator of the sought observable in between the corresponding bra and ket of the particle state. Used to reach the final equality is that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and the fact that this basis is orthonormal so that the unity operator might be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
+
+\todo{Perhaps introduce the Heisenberg picture here?}
+
+\todo{Introduce the concept of a Hamiltonian?}
+
+What has been described so far is single-particle quantum mechanics. However, it is possible to generalize this formalism to many-particle quantum mechanics. In the simple case of $ N $ distinguishable particles, the state of the system will be described by
+
+\begin{equation}
+	\begin{split}
+		| \psi (t) \rangle
+		&= | \psi_0 (t) \rangle \otimes | \psi_1 (t) \rangle \otimes \cdots \otimes | \psi_{N - 1} (t) \rangle \\
+		&= | \psi_0 (t), \, \psi_1 (t), \, \dots,  \, \psi_{N-1}(t) \rangle \,,
+	\end{split}
+\end{equation}
+
+where the $ | \psi_i (t) \rangle $'s are single-particle states multiplied together by tensor products. For indistinguishable particles things become more complicated due to statistics. That is, the state of the entire system must be symmetric when a pair of bosonic single-particle states are exchanged, and similarly for fermions it must be antisymmetric. Another shortcoming with this description of quantum mechanics is that the number of particles of each species must be fixed. Hence it is not possible to have particle creation nor particle annihilation, which is necessary for certain processes.
+
+\subsection{Second-quantization}
+
+The second quantization is a Hamiltonian based method for constructing a quantum field theory. Such a theory does not have the shortcomings of having a fixed set of particles as in the case of the many-particle description of quantum mechanics.
+
+Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states we will now express the state using occupation numbers. That is, in this representation the only thing listed is for each species of particle, the number of particles occupying what states.
+
+For example, consider a system containing five bosons. The possible set of single-particle states which the bosons may occupy is $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $ . The expression describing the state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ is occupied by three and two particles respectively, would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
+
+
+\todo{"combine the individual N-particle state spaces into an extended state space, known as Fock space, which can describe systems of any number of particles"}
+
+\todo{"quantum mechanical system has become a quantum field". The state permeates the space?}
+
 
 \section{A few words about finite temperature formalism}
 
@@ -167,8 +221,11 @@ At zero temperature the Heisenberg picture was used when calculating observables
 	\text{Tr} \{ \hat \rho_\text{G} \, \hat O_\text{H}(t) \} \,.
 \end{equation}
 
-In equation (\ref{eq:finiteTempObservable}) above, we have both real and imaginary exponents coming from the thermodynamics and quantum mechanics respectively \question{(is it correct to say that, or do I need to be more specific?)}. In order to proceed, it would be convenient if one could treat the two types of exponents on an equal footing, and in order to do so a new picture is introduced. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to itself in the Schrödinger picture as $ \hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} $. From this a perturbative treatment of an expectation value can be developed in a similar manner to what is done at zero temperature.
+In equation (\ref{eq:finiteTempObservable}) above, we have both real and imaginary exponents coming from the thermodynamics and quantum mechanics respectively \question{(is it correct to say that, or do I need to be more specific?)}. In order to proceed, it would be convenient if one could treat the two types of exponents on an equal footing, and in order to do so a new picture is introduced. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to itself in the Schrödinger picture as $ \hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} $.
 
+
+
+From this a perturbative treatment of an expectation value can be developed in a similar manner to what is done at zero temperature.
 
 \begin{equation}
 	\text{\todo{Insert equation of an observable expressed as a perturbation series.}}
@@ -178,6 +235,8 @@ In equation (\ref{eq:finiteTempObservable}) above, we have both real and imagina
 
 
 \subsection{Green's function}
+
+\todo{Introduce also the synonymous word \textit{propagator}.}
 
 Before introducing the concept of a Green's functions it is probably a good idea to first mention field operators. These operators are superpositions of creation and annihilation operators
 
@@ -259,6 +318,8 @@ Using this set of quantum numbers in the definition (\ref{eq:fieldOperator}) of 
 	\end{split}
 \end{equation}
 
+\todo{remove the usage of theta perhaps.}
+
 Taking the limit $ l \rightarrow \infty $ the separation between the eigen-momenta become infinitesimally small, and one should thus replace with
 
 \begin{equation}
@@ -276,42 +337,86 @@ By finally comparing expression (\ref{eq:Gxt2Gpt}) with the definition of $ \Gt(
 
 \subsection{Properties}
 
-
-
-According to the modified Heisenberg picture, .
-
-The unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $ may be expressed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = E_\nu(\vec p) \, | \nu (\vec p) \rangle $. Inserting this into expression (\ref{eq:GptExpression}), and recalling that the imaginary-time evolution of the annihilation operator, in the modified Heisenberg picture, is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ we obtain\cite{MishchenkoA.2000DqMC}
+The unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $ may be expressed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = E_\nu(\vec p) \, | \nu (\vec p) \rangle $. Inserting this into expression (\ref{eq:GptExpression}) and recalling that the imaginary-time evolution of the annihilation operator, in the modified Heisenberg picture, is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ we obtain\cite{MishchenkoA.2000DqMC}
 
 \begin{equation}
+	\label{eq:startingPointFreePropagator}
 	\Gt(\vec k, \tau) = \theta(\tau)
-	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-(E_\nu - E_0)\tau} \,.
+	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-(E_\nu - E_\text{vac})\tau} \,.
 \end{equation}
 
-Here we have used that $ E_0 $ is the ground-state energy $ \hat K \, | \text{vac} \rangle = E_0 \, | \text{vac} \rangle $, and by shifting the energy scale it is permissible to set $ E_0 = 0 $.
-
-The dependence on the imaginary-time difference of the single-particle Green's function is $ 2\beta $-periodic.This implies that there will be a corresponding infinite set of discrete frequencies $ \omega_n $ so that $ \Gt(\vec k, \tau) $ may be expressed as a Fourier series. However, letting $ T \rightarrow \infty $, the frequencies $ \omega_n $ may be treated as a continuous variable $ \omega $. Hence we might introduce the spectral function,
+Here we have used that $ E_\text{vac} $ is the vacuum \question{(!?)} energy, i.e. $ \hat K \, | \text{vac} \rangle = E_\text{vac} \, | \text{vac} \rangle $. It happens to be so, that in the model to be used $ E_0 = 0 $, hence from here on $ E_\text{vac} $ will be omitted. Rather than working with some unknown set $ \{ \nu \} $, it is more convenient to parametrize using the frequency. This is done by introducing the spectral density function
  
  \begin{equation}
 	g_{\vec{k}} (\omega)
-	\equiv \sum_\nu \delta (\omega - E_\nu) \, | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 \,.
+	\equiv \sum_\nu \delta (\omega - E_\nu) \, | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 \,,
 \end{equation}
 
-Assuming the single-particle Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle $ is nothing more than the overlap of that particular eigenstate of $ \hat K $ onto a free electron with momentum $ \vec k $. In terms of therms of the spectral function, the Green's function is expressed as
+through which the single-particle Green's function is expressed as
 
 \begin{equation}
-	\Gt(\vec k, \tau) = \int_0^\infty g_{\vec k} (\omega) \, e^{-i \omega \tau} \diff \omega \,.
+	\label{eq:GInTermsOfSpec}
+	\Gt(\vec k, \tau) = \int g_{\vec k} (\omega) \, e^{- \omega \tau} \diff \omega \,.
 \end{equation}
 
-From this it is clear that the spectral function must be proportional to $ \Gt(\vec k, \omega) = (E(\vec k) - i \omega)^{-1} $ in the $ V \rightarrow \infty $ limit, and thus has poles of frequencies corresponding to stable states.
+\question{according to \cite{MishchenkoA.2000DqMC} the spectral density is one sided, why is this? Clearly there exist stable states for which $ E_\nu < 0 $.}
+
+Assuming the single-particle Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 $ is nothing more than the overlap of that particular eigenstate of $ \hat K $ onto a free electron with momentum $ \vec k $, i.e. $ | \vec k \rangle $. If there exist a stable eigenstate $  | \xi_{\vec k} \rangle $ with energy $ E(\vec k) $, the spectral function should contain the term $ | \langle \xi_{\vec k} | \vec k \rangle |^2 \, \delta(\omega - E(\vec k)) $. Being a stable state, the energy $ E(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary-times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
+
+\begin{equation}
+	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- E(\vec k) \tau} \,,
+\end{equation}
+
+where the notation $ Z_0^{\vec k} = | \langle \xi_{\vec k} | \vec k \rangle |^2 $ has been used.
+
+\subsection{Free single-particle Green's function}
+
+A state of a particle obeying a Hamiltonian consisting solely of a kinetic one-body operator, i.e. $ \hat K_0 = \sum_\nu \epsilon_\nu \hat c^\dagger_\nu \hat c_\nu $, is said to be free \question{(another word perhaps?)}. Here the energy $ \epsilon_\nu $ is known from solving the corresponding problem in first-quantization. There is no need to keep a higher level of generality here than done previously, so using those same assumptions expression (\ref{eq:startingPointFreePropagator}) might be reused,
+
+\begin{equation}
+	\Gt_0(\vec k, \tau) = \theta(\tau)
+	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-\epsilon_\nu \tau} \,.
+\end{equation}
+
+However, this time the set of eigenstates $ \{ | \nu \rangle \}  $ are known to be the momentum eigenstates $ \{ | \vec p \rangle \} $ since the Hamiltonian was said to commutate with the momentum operator. Using the orthonormality amongst those states, the expression of the free single-particle Green's function simplifies to
+
+\begin{equation}
+	\Gt_0(\vec k, \tau) = \theta(\tau) \, e^{-\epsilon(\vec k)  \, \tau} \,.
+\end{equation}
+
+Here it is once again assumed that the system is infinite so that $ \vec k $ is treated as being continuous.
+
+\section{Feynman diagrams}
 
 
+In the $ T = 0 $ formalism
+
+\begin{equation}
+	\begin{split}
+		\frac{\langle \Psi_0 |  \hat O_\text{H}(t)  | \Psi_0 \rangle}{\langle \Psi_0  | \Psi_0 \rangle}
+		&=
+		\sum_{\nu = 0}^\infty \left( - i \right)^\nu \frac{1}{\nu !}
+		\int_{-\infty}^{\infty} \diff t_1 \cdots \int_{-\infty}^{\infty} \diff t_\nu
+		\, e^{- \epsilon \left( |t_1| + \cdots + |t_\nu| \right)} \\[1em]
+		&\times \frac{\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat O_\text{I}(t)] | \Phi_0 \rangle}{\langle \Phi_0  | \hat S |\Phi_0 \rangle}
+	\end{split}
+\end{equation}
+
+Take limit $ \epsilon \rightarrow 0 $ if permissible (for us that is the case). Disconnected diagram cancel.
+
+Looking at
+
+\begin{equation}
+	\langle \Psi_0 |  T[\hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)]  | \Psi_0 \rangle
+	\propto
+	\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)] | \Phi_0 \rangle
+\end{equation}
+
+where the momentum basis is used, the Feynman Diagrams follow from all nonzero possible sandwiches. Better even, use Wicks theorem and make contractions.
 
 
+\section{Dyson equation}
 
-
-\todo{fit to exponential  for large $ \tau $'s and introduce $ Z $-factor.8}
-
-\todo{G and D derived in the appendix}
 
 \section{Derivation of the Fröhlich Hamiltonian}
 
@@ -578,6 +683,8 @@ Having sorted out the quantisation of the $ \vec B $-field we turn our attention
 	\hat O_2 = \sum_{\vec k, \vec p} \langle \vec k | O_1 | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \,.
 \end{equation}
 
+\todo{Perhaps move this to a section/subsection about field theory.}
+
 Here $ \hat O_2 $ is the second-quantized operator and $ O_1 $ is the corresponding first-quantized operator sandwiched between the single-particle Hilbert states $ | \vec k \rangle $, $ | \vec p \rangle $. \todo{Mention that these momenta are discretized in the same way as before but without a cutoff}. Thus
 
 \begin{equation}
@@ -646,41 +753,7 @@ instead of the usual
 }
 \question{Might also have something to do with the $ b_{\vec q} $'s being conjugate variables? But it would be weird, if you could not multiply both with a constant and still keep them being conjugate...}
 
-
-
-
-\section{Feynman diagrams}
-
-
-In the $ T = 0 $ formalism
-
-\begin{equation}
-	\begin{split}
-		\frac{\langle \Psi_0 |  \hat O_\text{H}(t)  | \Psi_0 \rangle}{\langle \Psi_0  | \Psi_0 \rangle}
-		&=
-		\sum_{\nu = 0}^\infty \left( - i \right)^\nu \frac{1}{\nu !}
-		\int_{-\infty}^{\infty} \diff t_1 \cdots \int_{-\infty}^{\infty} \diff t_\nu
-		\, e^{- \epsilon \left( |t_1| + \cdots + |t_\nu| \right)} \\[1em]
-		&\times \frac{\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat O_\text{I}(t)] | \Phi_0 \rangle}{\langle \Phi_0  | \hat S |\Phi_0 \rangle}
-	\end{split}
-\end{equation}
-
-Take limit $ \epsilon \rightarrow 0 $ if permissible (for us that is the case). Disconnected diagram cancel.
-
-Looking at
-
-\begin{equation}
-	\langle \Psi_0 |  T[\hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)]  | \Psi_0 \rangle
-	\propto
-	\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)] | \Phi_0 \rangle
-\end{equation}
-
-where the momentum basis is used, the Feynman Diagrams follow from all nonzero possible sandwiches. Better even, use Wicks theorem and make contractions.
-
-
-
-
-\section{Dyson equation}
+\subsection{Feynman diagrams of the Fröhlich Hamiltonian}
 
 
 
@@ -694,11 +767,13 @@ where the momentum basis is used, the Feynman Diagrams follow from all nonzero p
 
 \chapter{Diagrammatic Monte Carlo}
 
-\todo{Here we shall summarise what this chapter is about}
+\todo{Here we shall summarize what this chapter is about}
 
 \section{General idea}
 
-\section{Generalisation of stochastic integration (better name needed)}
+\todo{Matsubara formalism in momentum-imaginary-time representation since the interacting single-particle Greens function become a superposition of different exponentials.}
+
+\section{Generalization of stochastic integration (better name needed)}
 
 \subsection{Example 1}
 \subsection{Example 2}
@@ -706,7 +781,10 @@ where the momentum basis is used, the Feynman Diagrams follow from all nonzero p
 
 \section{Polaron implementation}
 
-\todo{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning.}
+
+\todo{Add to $ \hat H $ the chemical potential. Our energies are to be independent of $ \mu $. mu is simply a tool to prevent the}
+
+\todo{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning. (wtf!?)}
 
 \subsection{Update function 1}
 \subsection{Update function 2}
@@ -762,15 +840,10 @@ For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using D
 \todo{Here we shall summarise what this chapter is about}
 
 
-\begin{appendices}
-\chapter{(make this go away, also Appendix A -> Appendix)}
-
-\section{Heavy theory from the finite temperature formalism}
-
-\section{Derivation of the finite temperature electron Green's function}
-
-\section{Derivation of the finite temperature phonon Green's function}
-\end{appendices}
+%\begin{appendices}
+%\chapter{(make this go away, also Appendix A -> Appendix)}
+%\section{Heavy theory from the finite temperature formalism}
+%\end{appendices}
 
 \bibliography{thebib}
 \bibliographystyle{vancouver}
