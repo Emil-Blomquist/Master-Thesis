@@ -35,6 +35,10 @@
 \usepackage{subcaption}
 
 
+\usepackage{feynmp-auto}			% Feynman diagrams
+\usepackage{slashed}				% Feynman slashes
+
+
 \newenvironment{abstractpage}
   {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
   {\vfill\cleardoublepage}
@@ -57,6 +61,7 @@
 
 
 \newcommand{\Gt}{\mathcal{G}}
+\newcommand{\Dt}{\mathcal{D}}
 
 
 \definecolor{image}{rgb}{1, 0, 1}
@@ -128,13 +133,56 @@
 
 \section*{Notations}
 
-\todo{Throughout this text $ k_\text{B} = \hbar = 1 $ has been used.}
+\textbf{Units}
 
-\question{Something else about notations?}
+Throughout this text $ k_\text{B} = \hbar = 1 $ has been used. With this notation there no difference between wave vectors and momentum.
+
+\textbf{Fourier transform}
+
+A function $ f(x) $ which is defined and integrable on the interval $ x \in [-L/2, \, L/2] $ may be represented as a Fourier series. In this thesis the following convention will be used
+
+\begin{equation}
+	c_k
+	\equiv \int_{-L/2}^{L/2} f(x) \, e^{-i k \cdot x} \diff x
+	\quad \Rightarrow \quad
+	f(x)
+	= \frac{1}{L} \sum_{k} c_k \, e^{i k \cdot x} \,.
+\end{equation}
+
+where the wave vectors are given by $ k = 2 \pi n / L $ and $ n \in \mathbb{Z} $. In the limit $ L \rightarrow \infty $ the Fourier transform is defined accordingly
+
+\begin{equation}
+	\hat f(k)
+	\equiv \int_\mathbb{R} f(x) \,e^{-i k \cdot x} \diff x
+	\quad \Rightarrow \quad
+	f(x)
+	= \frac{1}{2\pi} \int_\mathbb{R} \hat f(k) \, e^{i k \cdot x} \diff k \,.
+\end{equation}
+
+\question{How does this definition affect the conjugate variables in the derivation of the Fröhlich Hamiltonian?}
+
+\todo{
+Perhaps mention something about DOS and motivate
+
+\begin{equation}
+	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,.
+\end{equation}
+
+% http://web.ift.uib.no/AMOS/nazila/LaserAndLight/node8.html
+}
+
+
 
 \section*{General comments}
 
-\todo{Rewrite the text so the word \textit{we} is nowhere to be found.}
+\todo{$ \cdot $ Rewrite the text so the word \textit{we} is nowhere to be found.}
+
+\todo{$ \cdot $ Use either $ \vec x $ or $ \vec r $.}
+
+\todo{$ \cdot $ In the finite temperature formalism: expectation value $ \rightarrow $ ensemble average}
+
+\todo{$ \cdot $ Sometime: momentum $ \rightarrow $ wave vector}
+
 
 \selectlanguage{english}
 
@@ -147,6 +195,8 @@
 \todo{$ \cdot $ Quantum mechanics}
 
 \todo{$ \cdot $ Many-particle physics}
+
+\todo{$ \cdot $ References to recent articles about polarons and DMC}
 
 
 
@@ -173,11 +223,15 @@ In quantum mechanics, utilizing the bra-ket notation, the state of a particle $ 
 
 That is, sandwich the operator of the sought observable in between the corresponding bra and ket of the particle state. Used to reach the final equality is that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and the fact that this basis is orthonormal so that the unity operator might be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
 
-\todo{Perhaps introduce the Heisenberg picture here?}
 
-\todo{Introduce the concept of a Hamiltonian?}
+\todo{Mention Hilbert space. one particle vs. many-particle Hilbert spaces.}
+
+\todo{Perhaps quickly mention the Heisenberg picture here?}
+
 
 What has been described so far is single-particle quantum mechanics. However, it is possible to generalize this formalism to many-particle quantum mechanics. In the simple case of $ N $ distinguishable particles, the state of the system will be described by
+
+\todo{talk only about indistinguishable particles}
 
 \begin{equation}
 	\begin{split}
@@ -193,15 +247,44 @@ where the $ | \psi_i (t) \rangle $'s are single-particle states multiplied toget
 
 The second quantization is a Hamiltonian based method for constructing a quantum field theory. Such a theory does not have the shortcomings of having a fixed set of particles as in the case of the many-particle description of quantum mechanics.
 
-Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states we will now express the state using occupation numbers. That is, in this representation the only thing listed is for each species of particle, the number of particles occupying what states.
+Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states, we will now express the total system state using occupation numbers. That is, in this representation the only information given is for each species of particle, the number of particles occupying what states. For example, given the following set of single-particle states $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $, the expression describing a state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ is occupied by three and two particles respectively would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
 
-For example, consider a system containing five bosons. The possible set of single-particle states which the bosons may occupy is $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $ . The expression describing the state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ is occupied by three and two particles respectively, would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
+In order to allow for the number of particles to be variable the Fock space is used. This space is a combination of Hilbert state spaces for any number of particles; from the empty vacuum state to a state with infinite particles. In order to create and annihilate a particle of a certain quantum number, creation $ \hat c^\dagger_\nu $ and annihilation $ \hat c_\nu $ operators are used. It can be shown that they are the Hermitian conjugate of one another which motivates the notation. These operators incorporate the underlaying statistics of the particle at hand by a set of commutation relations. For bosons they are
 
+\begin{equation}
+	[\hat a_i, \, \hat a^\dagger_j] = \delta_{ij}
+	\;, \quad
+	[\hat a_i, \, \hat a_j] = [\hat a^\dagger_i, \, \hat a^\dagger_j] = 0 \,.
+\end{equation}
 
-\todo{"combine the individual N-particle state spaces into an extended state space, known as Fock space, which can describe systems of any number of particles"}
+These commutation relations are, for each single-particle state, identical to the ladder operators of a harmonic oscillator. For fermions the commutation relations are identical, but the commutator is exchanged in favor of the anticommutator in order to make the state antisymmetric,
 
-\todo{"quantum mechanical system has become a quantum field". The state permeates the space?}
+\begin{equation}
+	\{ \hat b_i, \, \hat b^\dagger_j \} = \delta_{ij}
+	\;, \quad
+	\{ \hat b_i, \, \hat b_j \} = \{ \hat b^\dagger_i, \, \hat b^\dagger_j \} = 0 \,.
+\end{equation}
 
+One interesting property arise from the relation $ \{ \hat b^\dagger_i , \, \hat b^\dagger_i \} = \hat b^\dagger_i \hat b^\dagger_i + \hat b^\dagger_i \hat b^\dagger_i = 0 $, the implication of which become apparent when trying to create two or more particles sharing the same single-particle state; a zero will be multiplied by the resulting state. Hence all observables computed using such a state will be exactly zero. This would affect the physics equally to there being no state of this sort which of course is nothing but the Pauli exclusion principle.
+
+\subsection{Field operators}
+
+When having utilized the second-quantization formalism, the quantum mechanical system is described by a quantum field. That is, rather than being an operator as in single- and many-particle quantum mechanics, the position is now a parameter, just like the time.
+
+Field operators are creation and annihilation operators just like any other. They have gained their special name simply because they change the occupation number of single-particle eigenstates of the position operator. That is, they create nor annihilate at a particular position in space. \todo{(rephrase this shit!)}
+
+Using wave functions $ \psi_{\nu}(\vec x) $ corresponding to a complete orthonormal set of single-particle states $ | \nu \rangle $ along with the creation and annihilation operator $ \hat c^\dagger_\nu $, $ \hat c_\nu $, the field operators may be constructed by the following superposition\cite{quantumTheoryOfManyParticleSystems},
+
+\begin{equation}
+	\label{eq:fieldOperator}
+	\hat \psi (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x)
+	\; , \quad
+	\hat \psi^\dagger (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x) \,.
+\end{equation}
+
+The $ \hat \psi (\vec x) $ will annihilate a particle at position $ \vec x $ whilst $ \hat \psi^\dagger (\vec x) $ will do the opposite and create a particle at position $ \vec x $.
+
+\todo{show special case of the quantum numbers $ \{ \nu \} $ being momentum.}
 
 \section{A few words about finite temperature formalism}
 
@@ -237,17 +320,6 @@ From this a perturbative treatment of an expectation value can be developed in a
 \subsection{Green's function}
 
 \todo{Introduce also the synonymous word \textit{propagator}.}
-
-Before introducing the concept of a Green's functions it is probably a good idea to first mention field operators. These operators are superpositions of creation and annihilation operators
-
-\begin{equation}
-	\label{eq:fieldOperator}
-	\hat \psi (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x)
-	\; , \quad
-	\hat \psi^\dagger (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x) \,.
-\end{equation}
-
-Here $ \psi_{\nu}(\vec x) $ is a single-particle wave function of an eigenstate with eigenvalue $ \nu $ of some operator $ \hat o_\nu $ for which $ \hat c^\dagger _\nu $ and $ \hat c _\nu $ are the corresponding many-body creation and annihilation operators respectively. The sum is taken over the complete set of quantum numbers $ \{ \nu \} $. It happens to be so, that it is extremely convenient to work with field operators when converting operators from first-quantized to second-quantized form. Also the Green's functions make use of the field operators.
 
 The Green's function, playing an important role when analyzing an interacting many-particle system, is the quantity of greatest interest in this thesis. At zero temperature, in position and time representation, the single-particle Green's function is defined as
 
@@ -333,11 +405,7 @@ By finally comparing expression (\ref{eq:Gxt2Gpt}) with the definition of $ \Gt(
 	\Gt(\vec k, \tau) = \theta(\tau) \langle \text{vac} | \hat c_{\vec k}(\tau) \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \,.
 \end{equation}
 
-
-
-\subsection{Properties}
-
-The unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $ may be expressed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = E_\nu(\vec p) \, | \nu (\vec p) \rangle $. Inserting this into expression (\ref{eq:GptExpression}) and recalling that the imaginary-time evolution of the annihilation operator, in the modified Heisenberg picture, is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ we obtain\cite{MishchenkoA.2000DqMC}
+In order to demonstrate some important properties of $ \Gt(\vec k, \tau) $ the unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $, constructed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = E_\nu(\vec p) \, | \nu (\vec p) \rangle $, is inserted into expression (\ref{eq:GptExpression}). By recalling that the imaginary-time evolution of the annihilation operator in the modified Heisenberg picture is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ the expression then boils down to\cite{MishchenkoA.2000DqMC}
 
 \begin{equation}
 	\label{eq:startingPointFreePropagator}
@@ -369,7 +437,9 @@ Assuming the single-particle Green's function to be that of an electron ($ \hat 
 
 where the notation $ Z_0^{\vec k} = | \langle \xi_{\vec k} | \vec k \rangle |^2 $ has been used.
 
-\subsection{Free single-particle Green's function}
+\subsection{Free \question{(bare?)} single-particle Green's function}
+
+\todo{Carry out this derivation without any assumptions on the system at hand.}
 
 A state of a particle obeying a Hamiltonian consisting solely of a kinetic one-body operator, i.e. $ \hat K_0 = \sum_\nu \epsilon_\nu \hat c^\dagger_\nu \hat c_\nu $, is said to be free \question{(another word perhaps?)}. Here the energy $ \epsilon_\nu $ is known from solving the corresponding problem in first-quantization. There is no need to keep a higher level of generality here than done previously, so using those same assumptions expression (\ref{eq:startingPointFreePropagator}) might be reused,
 
@@ -385,38 +455,6 @@ However, this time the set of eigenstates $ \{ | \nu \rangle \}  $ are known to 
 \end{equation}
 
 Here it is once again assumed that the system is infinite so that $ \vec k $ is treated as being continuous.
-
-\section{Feynman diagrams}
-
-
-In the $ T = 0 $ formalism
-
-\begin{equation}
-	\begin{split}
-		\frac{\langle \Psi_0 |  \hat O_\text{H}(t)  | \Psi_0 \rangle}{\langle \Psi_0  | \Psi_0 \rangle}
-		&=
-		\sum_{\nu = 0}^\infty \left( - i \right)^\nu \frac{1}{\nu !}
-		\int_{-\infty}^{\infty} \diff t_1 \cdots \int_{-\infty}^{\infty} \diff t_\nu
-		\, e^{- \epsilon \left( |t_1| + \cdots + |t_\nu| \right)} \\[1em]
-		&\times \frac{\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat O_\text{I}(t)] | \Phi_0 \rangle}{\langle \Phi_0  | \hat S |\Phi_0 \rangle}
-	\end{split}
-\end{equation}
-
-Take limit $ \epsilon \rightarrow 0 $ if permissible (for us that is the case). Disconnected diagram cancel.
-
-Looking at
-
-\begin{equation}
-	\langle \Psi_0 |  T[\hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)]  | \Psi_0 \rangle
-	\propto
-	\langle \Phi_0  | T[\hat H_\text{I} (t_1) \cdots \hat H_\text{I} (t_\nu) \, \hat a_{\vec k}(t) \hat a^\dagger_{\vec k}(0)] | \Phi_0 \rangle
-\end{equation}
-
-where the momentum basis is used, the Feynman Diagrams follow from all nonzero possible sandwiches. Better even, use Wicks theorem and make contractions.
-
-
-\section{Dyson equation}
-
 
 \section{Derivation of the Fröhlich Hamiltonian}
 
@@ -519,7 +557,7 @@ Here $ \gamma $ and $ \delta $ are constants to be determined in what follows. F
 	4 \pi \vec P(\vec r) = (1 - 1/\epsilon) \vec D(\vec r, \vec r_\text{e}) \,.
 \end{equation}
 
-Next we once again turn back time and utilise the high frequency dielectric constant $ \epsilon_\infty $, defined by $ \vec D = \epsilon_\infty \vec E $, under the assumption that the frequency $ \omega_\infty $ of the external field satisfies  $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. The latter is simply implying that the free electron in our crystal is moving slowly \motivation{(Fast enough for the IR polarisation not to follow, right!?)}. This tells us that the UV-part of the polarisation will follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes and may thus be thought of as a negligible constant field in comparison, that is, $ \vec P \simeq \vec P_\text{uv} $. Using this together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $ we find, in similarity to (\ref{eq:static_P_D_relation}),
+Next we once again turn back time and utilize the high frequency dielectric constant $ \epsilon_\infty $, defined by $ \vec D = \epsilon_\infty \vec E $, under the assumption that the frequency $ \omega_\infty $ of the external field satisfies  $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. The latter is simply implying that the free electron in our crystal is moving slowly \motivation{(Fast enough for the IR polarization not to follow, right!?)}. This tells us that the UV-part of the polarization will follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes and may thus be thought of as a negligible constant field in comparison, that is, $ \vec P \simeq \vec P_\text{uv} $. Using this together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $ we find, in similarity to (\ref{eq:static_P_D_relation}),
 
 \begin{equation}
 	\label{eq:static_Puv_D_relation}
@@ -536,7 +574,6 @@ Taking the difference between (\ref{eq:static_P_D_relation}) and (\ref{eq:static
 Noting that $ \ddot{\vec P}_\text{uv} \approx \omega_\infty^2 \, \vec P_\text{uv} \ll \omega_\text{uv}^2 \, \vec P_\text{uv} $ and assuming that $ \vec P_\text{ir} $ is seemingly constant at timescales of length $ 1/\omega_\text{ir} $, equation (\ref{eq:driven_harmonic_oscillator}) simplifies into \motivation{(in the original derivation they simply compared using steady state where the time derivatives obviously are zero, but this must be equivalent due to $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $?)}
 
 \begin{equation}
-	\label{eq:driven_harmonic_oscillator}
 	\omega^2_\text{ir} \, \vec P_\text{ir} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \gamma }
 	\; , \quad
 	\omega^2_\text{uv} \, \vec P_\text{uv} (\vec r) = \frac{ \vec D(\vec r, \vec r_\text{e})}{ \delta } \,.
@@ -594,13 +631,13 @@ Here we have also dropped the subscript of $ \omega_\text{ir} $ since $ \omega_\
 	- \sqrt{\frac{1}{2 \gamma \omega}} \int \vec D(\vec r, \vec r_\text{e}) \cdot \left[ \vec B(\vec r) +  \vec B^\dagger(\vec r) \right] \diff^3 r \,.
 \end{equation}
 
-Using a periodic boundary condition over a cube of volume $ V = l^3 $, $ \vec B $ might be expressed as
+Using a periodic boundary condition over a cube of volume $ V = l^3 $, $ \vec B $ might be expressed by the Fourier series
 
 \begin{equation}
 	\label{eq:B_field_fourier}
-	\vec B (\vec r) = \sum_{\vec q} \frac{\vec q}{q} b_{\vec q} \, \frac{e^{i \vec q \cdot \vec r}}{\sqrt V}
+	\vec B (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b_{\vec q} \, \frac{e^{i \vec q \cdot \vec r}}{V}
 	\; , \quad
-	\vec B^\dagger (\vec r) = \sum_{\vec q} \frac{\vec q}{q} b^\dagger_{\vec q} \, \frac{e^{-i \vec q \cdot \vec r}}{\sqrt V}
+	\vec B^\dagger (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b^\dagger_{\vec q} \, \frac{e^{-i \vec q \cdot \vec r}}{V}
 \end{equation}
 
 with
@@ -618,13 +655,14 @@ Here  $ i = x, y, z $, $ | \vec q | = q $ and the cutoff magnitude $ q_\text{cut
 \begin{equation}
 	H = \frac{\vec p_\text{e}^2}{2m}
 	+ \omega \sum_{\vec q} b^\dagger_{\vec q} b_{\vec q}
-	+ \sum_{\vec q} V(q) \left[ b^\dagger_{\vec q} \, e^{-i \vec q \cdot \vec r_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec r_\text{e}} \right] \,,
+	+ \frac{1}{V} \sum_{\vec q} V(q) \left[ b^\dagger_{\vec q} \, e^{-i \vec q \cdot \vec r_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec r_\text{e}} \right] \,,
 \end{equation}
 
 where we have substituted using
 
 \begin{equation}
-	V(q) = i \left( 2 \sqrt 2 \pi \alpha \right)^{1/2} \sqrt{ \frac{1}{V} } \left( \frac{\omega^3}{m} \right)^{1/4} \frac{1}{q}
+	\label{eq:VofQ}
+	V(q) = i \left( 2 \sqrt 2 \pi \alpha \right)^{1/2} \left( \frac{\omega^3}{m} \right)^{1/4} \frac{1}{q}
 \end{equation}
 
 and introduced the interaction parameter
@@ -657,7 +695,7 @@ we obtain $ [b_{\vec q}, \, b^\dagger_{\vec k}] = \delta_{\vec q, \vec k} $ and 
 \begin{equation}
 	\hat H = \frac{\hat{\vec p}_\text{e}^2}{2m}
 	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
-	+ \sum_{\vec q} V(q) \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec r}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec r}_\text{e}} \right) \,.
+	+ \frac{1}{V} \sum_{\vec q} V(q) \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec r}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec r}_\text{e}} \right) \,.
 \end{equation}
 
 Here we have omitted the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $ of the oscillating ions. At this stage it has become evident that $ \hat b^\dagger_{\vec q} $ and $ \hat b_{\vec q} $ may be recognised\cite{electronsInLatticeFields} as the creation and annihilation operator of a harmonic oscillator of mass $ M $, with position and momentum coordinates
@@ -719,41 +757,304 @@ To be included in the appendix perhaps?
 \end{equation}
 }
 
-We substitute this into the Hamiltonian, and make in the interaction term use of the fact that the summation over $ \vec q $ is symmetric, to finally obtain
+By substituting this into the Hamiltonian and noticing that interaction term is symmetric with respect to $ \vec q $ the fully second-quantized Hamiltonian becomes
 
 \begin{equation}
+	\label{eq:finalHamiltonian}
 	\hat H
 	= \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p}
 	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
-	+  \sum_{\vec q, \vec p} V (q) \left( \hat b^\dagger_{\vec q} - \hat b_{- \vec q} \right) \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p} \,.
+	+ \frac{1}{V} \sum_{\vec q, \vec p} V (q) \left( \hat b^\dagger_{\vec q} - \hat b_{- \vec q} \right) \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p} \,.
 \end{equation}
+
+The grand canonical Hamiltonian $ \hat K $, which is used extensively in the finite temperature field theory, is obtained by adding chemical potentials to $ \hat H $. But, since there is no conservation law regarding the number of phonons it must be the case that $ \mu_\text{phonon} = 0 $. Thus
+
+\begin{equation}
+	\label{eq:finalGrandCanoniclaHamiltonian}
+	\hat K
+	= \sum_{\vec p} \left( \frac{p^2}{2} - \mu \right) \hat a^\dagger_{\vec p} \hat a_{\vec p}
+	+ \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
+	+ \frac{1}{V} \sum_{\vec q, \vec p} V (q) \left( \hat b^\dagger_{\vec q} - \hat b_{- \vec q} \right) \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p}
+\end{equation}
+
+where for convenience $ m = \omega = 1 $ has been used.
+
+\question{Why does the Hamiltonian not agree with the one in other papers? Are they using another convention of the Fourier transform? In such case, what does this mean for $ \hat b, \hat b^\dagger $?}
 
 \question{Where do we assume that the crystal is homogenous/isotropic? Do we even have to do that approximation?}
 
-\todo{Take the limit $ l \rightarrow \infty $. Perhaps do this where we apply the algorithm? That is, the Feynman diagrams section?}
-\question{When doing this, what happens to the $ \sqrt V $ in $ V(q) $? According to the other papers $ \sqrt{V} \rightarrow 1 $. However in the $ L \rightarrow \infty $ limit, we normalize the momentum states by the Dirac delta
+\section{Perturbation theory}
+
+Assume the Hamiltonian to be time-independent in the Schrödinger picture and expressible by the sum $ \hat K = \hat K_0 + \hat K_1 $. Without the interaction term $ \hat K_1 $ the problem would be exactly solvable. However, if this interaction is weak enough, it is reasonable to treat it perturbatively by expanding with respect to some small interaction parameter $ \alpha $. In order to do so it is necessary to introduce yet a new picture, the interaction picture. In the finite temperature formalism, operators in the interaction picture are related to the ones in the Schrödinger picture through $ \hat O_\text{I} (\tau) = e^{\hat K_0 \tau} \, \hat O_\text{S} \, e^{-\hat K_0 \tau} $. Within this picture, it is then possible to express the ensemble average of a $ \tau $-ordered product of operators using a perturbation series,
 
 \begin{equation}
-	\frac{e^{i \vec q \cdot \vec r}}{\sqrt V} \rightarrow \frac{e^{i \vec q \cdot \vec r}}{(2 \pi)^{3/2}} \,.
+	\label{eq:perturbationSeries}
+	\begin{split}
+		\text{Tr} \{ \hat \rho_\text{G} \, T_\tau [\hat A_\text{H}(x_a) \, \hat B_\text{H}(x_b) \, \dots \, \hat F_\text{H}(x_f) ] \}
+		= \\
+		\frac{
+			\sum_{n=0}^\infty \frac{(-1)^n}{n!} \int_0^\beta \diff \tau_1 \dots \int_0^\beta \diff \tau_n \, 
+			\text{Tr} \left\{ e^{- \beta \hat K_0} T_\tau [\hat K_1 (\tau_1) \dots \hat K_1 (\tau_n) \, \hat A(x_a) \, \hat B(x_b) \, \dots \, \hat F(x_f)] \right\}
+		}{
+			\sum_{n=0}^\infty \frac{(-1)^n}{n!} \int_0^\beta \diff \tau_1 \dots \int_0^\beta \diff \tau_n \,
+			\text{Tr} \left\{ e^{- \beta \hat K_0} T_\tau [\hat K_1 (\tau_1) \dots \hat K_1 (\tau_n)] \right\}
+		} \,.
+	\end{split}
 \end{equation}
 
-In that case, $ \sqrt V \rightarrow (2 \pi)^{3/2} $ and the Hamiltonians do not agree. Solve this by letting $ b_{\vec q} \rightarrow \sqrt{V} b_{\vec q} $. What is the meaning of $ \sqrt{V} $ in the Fourier expansion of $ \vec B $ anyway?
-}
-\motivation{Might be the case that we are using the convention
+
+
+In both the nominator and denominator of the expression above, there is the frequently appearing factor
 
 \begin{equation}
-	\sum_{\vec q} \rightarrow \int \frac{\diff^3 q}{(2 \pi)^{3/2}}
+	\label{eq:bareStatcalEnsembleAverage}
+	\text{Tr} \{ e^{-\beta \hat K_0 } T_\tau [ \hat A \, \hat B \dots\,  \hat F] \} \,.
 \end{equation}
 
-instead of the usual
+It was proved by Matsubara\todo{[cite the original paper by Matsubara]} that this factor could be rewritten as a sum of permutations of contractions $ \hat A^\cdot \hat B^\cdot \equiv \text{Tr} \{ \hat \rho_{\text{G}0} \, T_\tau [ \hat A \,\hat B ] \} $ amongst the operators $ \hat A, \, \hat B, \, \dots , \, \hat F $. Here $ \hat \rho_{\text{G}0} $ is the bare statistical operator, defined in accordance with $ \hat \rho_\text{G} $ but having the full Hamiltonian replaced by the noninteracting part only. Since the Hamiltonian usually is written in terms of creation and annihilation operators, it is worth noting that the following contraction
 
 \begin{equation}
-	\sum_{\vec q} \rightarrow \int \frac{\diff^3 q}{(2 \pi)^3} \,.
+	\hat c_{\vec k} (\tau) ^\cdot \hat c^\dagger_{\vec k} (\tau') ^\cdot
+	= \text{Tr} \{ \hat \rho_{\text{G}0} \, T_\tau [ \hat c_{\vec k} (\tau) \, \hat c^\dagger_{\vec k} (\tau') ] \}
+	= \Gt_0(\vec k, \tau) \,,
 \end{equation}
-}
-\question{Might also have something to do with the $ b_{\vec q} $'s being conjugate variables? But it would be weird, if you could not multiply both with a constant and still keep them being conjugate...}
 
-\subsection{Feynman diagrams of the Fröhlich Hamiltonian}
+is nothing but the definition of the bare propagator \todo{(refer to earlier derivation)}. Even though there are a multitude of permutations of contractions amongst the operators in (\ref{eq:bareStatcalEnsembleAverage}), most of the turn out to be zero, such as $ \hat c_{\vec k}(\tau)^\cdot \, \hat c_{\vec k}(\tau')^\cdot \, $, $ \hat c^\dagger_{\vec k}(\tau)^\cdot \, \hat c^\dagger_{\vec k}(\tau')^\cdot \, $ and $ \hat c_{\vec k}(\tau)^\cdot \, \hat c^\dagger_{\vec p}(\tau')^\cdot \, $ for $ \vec k \neq \vec p $. Hence only a small fraction of terms survive, and these are the ones which may be represented pictorially in terms of Feynman diagrams. Also the denominator of (\ref{eq:perturbationSeries}) will serve to precisely cancel out any unconnected parts of diagrams from the nominator. What is left of the perturbations series is then an infinite number of Feynman diagrams which are easily constructed from a set of Feynman rules.
+
+\subsection{Diagrammatic analysis}
+
+In this thesis only the electronic single-particle Green's function will be studied in terms of Feynman diagrams. In order to do this, the operators $ \hat A \, \hat B \, \dots \, \hat F $ in the perturbation series (\ref{eq:perturbationSeries}) should be replaced by $ \hat a_{\vec k} \hat a^\dagger_{\vec k} $. The constituents of the resulting Feynman diagrams are easily obtained just by analyzing the Hamiltonian (\ref{eq:finalGrandCanoniclaHamiltonian}). Using the ground state ensemble of vacuum as promised earlier, the bare electronic and phononic propagators, referred to as $ \Gt_0 $ and $ \Dt_0 $ respectively, are found to be
+
+
+\begin{fmffile}{propagator-electron}
+	\begin{equation}
+		\label{eq:G0ofKt}
+		0 \,
+		\begin{gathered}
+			\begin{fmfgraph*}(80,6)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{fermion, label=$\vec p$}{i,o}
+			\end{fmfgraph*}
+		\end{gathered}
+		\; \tau
+		\quad = \Gt_0(\vec p, \tau)
+		= \exp \left \{ -\left( \frac{p^2}{2} - \mu \right) \tau \right \}
+		\quad \tau \geq 0 \,,
+	\end{equation}
+\end{fmffile}
+
+\begin{fmffile}{propagator-phonon}
+	\begin{equation}
+		\label{eq:D0ofKt}
+		0 \,
+		\begin{gathered}
+			\begin{fmfgraph*}(80,6)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{dashes, label=$\vec q$}{i,o}
+			\end{fmfgraph*}
+		\end{gathered}
+		\; \tau
+		\quad = \Dt_0(\vec q, \tau)
+		= \exp \left \{ - \tau \right \}
+		\quad \tau \geq 0 \,.
+	\end{equation}
+\end{fmffile}
+
+Since any propagator going backwards in time is identically zero, it is possible to use the convention that the momentum is carried in the direction of increased time, which throughout this paper will be to the right. By examining the interaction part of the Hamiltonian, the possible vertices and their contribution are found to be
+
+\begin{fmffile}{vertices}
+	\begin{equation}
+		\begin{gathered}
+			\begin{fmfgraph*}(150, 60)
+				\fmfleft{i1,i2}
+				\fmfright{o1,o2}
+				\fmf{fermion, label=$\vec p$}{i1,v1}
+				\fmf{fermion, label=$\vec p - \vec q$}{v1,o1}
+				\fmf{dashes, tension=0, left=0.45, label=$\vec q$}{v1,o2}
+				\fmfdot{v1}
+			\end{fmfgraph*}
+		\end{gathered}
+		=
+		\begin{gathered}
+			\begin{fmfgraph*}(150, 60)
+				\fmfleft{i1,i2}
+				\fmfright{o1,o2}
+				\fmf{fermion, label=$\vec p - \vec q$}{i1,v1}
+				\fmf{fermion, label=$\vec p$}{v1,o1}
+				\fmf{dashes, tension=0, right=0.45, label=$\vec q$}{v1,i2}
+				\fmfdot{v1}
+			\end{fmfgraph*}
+		\end{gathered}
+		=
+		V(\vec q)
+	\end{equation}
+\end{fmffile}
+
+with $ V(\vec q) $ as defined in (\ref{eq:VofQ}).
+
+In order to construct the relevant diagrams from these building blocks, the Feynman rules dictate:
+
+\begin{enumerate}
+	\item Draw all topologically distinct diagrams with $ 2n + 1 $ electron lines and $ n $ phonon lines.
+	\item With each particle line associate a factor $ \Gt $ in case of an electron, and $ \Dt $ in case of a phonon.
+	\item Each vertex contributes with the factor $ V(\vec q) $, where $ \vec q $ is the momentum of the connected phonon.
+	\item Conserve the total momentum at every vertex.
+	\item The external legs should both be assigned the external momentum $ \vec p $ of the interacting Green's function $ \Gt(\vec p, \tau) $. The ingoing external leg should start at the imaginary-time $ 0 $ and the outgoing external leg should terminate at $ \tau $.
+	\item For each of the $ n $ internal momenta, sum over all allowed momentum values.
+	\item For each of the $ n $ internal imaginary-times, integrate from $ 0 $ to $ \beta $.
+	\item Multiply each diagram with the factor $ (-V)^{-n} $.
+\end{enumerate}
+
+In this paper the single-particle Green's function will be studied in the limit $ V \rightarrow \infty $ so that the replacement
+
+\begin{equation}
+	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots
+\end{equation}
+
+should be made in the $ \hat K_1(\tau) $ factors within the perturbation expansion. Instead of summing over the $ n $ internal momenta, there will now be integrals. Also the last one of the Feynman rules should be modified so that multiplicative factor becomes $ (-(2\pi)^3)^{-n} $. Further more $ T = 0 $ will be used and hence the upper bound in the imaginary-time integrals becomes infinite.
+
+Having the ground state ensemble equal to that of vacuum, the propagators become identically zero for negative imaginary-times as stated in (\ref{eq:G0ofKt}) and (\ref{eq:D0ofKt}). Because of this the contribution from diagrams containing tadpoles, electron loops and similar structures to those depicted below vanishes.
+
+\begin{fmffile}{tadpoleAndLoop}
+	\begin{equation*}
+		\begin{gathered}
+			\begin{fmfgraph*}(80, 70)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{dashes}{i,v1}
+				\fmf{fermion, tension=0.2, right}{v1,o,v1}
+				\fmfdot{v1}
+			\end{fmfgraph*}
+		\end{gathered}
+		\;
+		\propto \langle \text{vac} | \hat a^\dagger \hat a | \text{vac} \rangle = 0
+		\quad \quad \quad
+		\begin{gathered}
+			\begin{fmfgraph*}(150, 70)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{dashes, tension=2}{i,v1}
+				\fmf{dashes, tension=2}{v2,o}
+				\fmf{fermion, right, tension=0.8}{v1,v2}
+				\fmf{fermion, right, tension=0.8, label=$ \Gt(\tau - \tau' < 0) = 0 $}{v2,v1}
+				\fmfdot{v1,v2}
+				\fmfv{label=$ \tau $, label.angle=120}{v1}
+				\fmfv{label=$ \tau' $, label.angle=60}{v2}
+			\end{fmfgraph*}
+		\end{gathered}
+	\end{equation*}
+\end{fmffile}
+
+\todo{Put these example diagrams inside a figure.}
+
+Then the only contributing diagrams are those where all electron propagators follow after one another in a line, and phonon propagators spawn and die on the vertices in this line. That is,
+
+\begin{fmffile}{GUpToSecondOrder}
+	\begin{equation}
+		\begin{split}
+			\Gt(\vec p, \tau)
+			&= \quad
+	        		\begin{gathered}
+				\begin{fmfgraph*}(75, 6)
+					\fmfleft{i}
+					\fmfright{o}
+					\fmf{fermion, label=$\vec p$, label.side=left}{i,o}
+					\fmfv{label=$ 0 $, label.angle=-180}{i}
+					\fmfv{label=$ \tau $, label.angle=0}{o}
+				\end{fmfgraph*}
+        			\end{gathered} \\[4em]
+			&+ \quad
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(225, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
+        					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{v2,o}
+        					\fmf{dashes,  label=$\vec q$, left, tension=0}{v1,v2}
+        					\fmfv{label=$ \tau_1 $, label.angle=-90}{v1}
+        					\fmfv{label=$ \tau_2 $, label.angle=-90}{v2}
+        					\fmfv{label=$ 0 $, label.angle=-180}{i}
+        					\fmfv{label=$ \tau $, label.angle=0}{o}
+        					\fmfdot{v1,v2}
+        				\end{fmfgraph*}
+        			\end{gathered} \\[5em]
+			&+ \quad
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(375, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
+        					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{v2,v3}
+        					\fmf{fermion, label=$\vec p - \vec k$, label.side=left}{v3,v4}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{v4,o}
+        					\fmf{dashes,  label=$\vec q$, left, tension=0}{v1,v2}
+        					\fmf{dashes,  label=$\vec k$, left, tension=0}{v3,v4}
+        					\fmfv{label=$ \tau_1 $, label.angle=-90}{v1}
+        					\fmfv{label=$ \tau_2 $, label.angle=-90}{v2}
+        					\fmfv{label=$ \tau_3 $, label.angle=-90}{v3}
+        					\fmfv{label=$ \tau_4 $, label.angle=-90}{v4}
+        					\fmfv{label=$ 0 $, label.angle=-180}{i}
+        					\fmfv{label=$ \tau $, label.angle=0}{o}
+        					\fmfdot{v1,v2,v3,v4}
+        				\end{fmfgraph*}
+        			\end{gathered} \\[9em]
+			&+ \quad
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(375, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
+        					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
+        					\fmf{fermion, label=$\vec p - \vec q - \vec k$, label.side=left}{v2,v3}
+        					\fmf{fermion, label=$\vec p - \vec k$, label.side=left}{v3,v4}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{v4,o}
+        					\fmf{dashes,  label=$\vec q$, left, tension=0}{v1,v3}
+        					\fmf{dashes,  label=$\vec k$, left, tension=0}{v2,v4}
+        					\fmfv{label=$ \tau_1 $, label.angle=-90}{v1}
+        					\fmfv{label=$ \tau_2 $, label.angle=-90}{v2}
+        					\fmfv{label=$ \tau_3 $, label.angle=-90}{v3}
+        					\fmfv{label=$ \tau_4 $, label.angle=-90}{v4}
+        					\fmfv{label=$ 0 $, label.angle=-180}{i}
+        					\fmfv{label=$ \tau $, label.angle=0}{o}
+        					\fmfdot{v1,v2,v3,v4}
+        				\end{fmfgraph*}
+        			\end{gathered} \\[12em]
+			&+ \quad
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(375, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
+        					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
+        					\fmf{fermion, label=$\vec p - \vec q - \vec k$, label.side=left}{v2,v3}
+        					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v3,v4}
+        					\fmf{fermion, label=$\vec p$, label.side=left}{v4,o}
+        					\fmf{dashes,  label=$\vec q$, left, tension=0}{v1,v4}
+        					\fmf{dashes,  label=$\vec k$, left, tension=0}{v2,v3}
+        					\fmfv{label=$ \tau_1 $, label.angle=-90}{v1}
+        					\fmfv{label=$ \tau_2 $, label.angle=-90}{v2}
+        					\fmfv{label=$ \tau_3 $, label.angle=-90}{v3}
+        					\fmfv{label=$ \tau_4 $, label.angle=-90}{v4}
+        					\fmfv{label=$ 0 $, label.angle=-180}{i}
+        					\fmfv{label=$ \tau $, label.angle=0}{o}
+        					\fmfdot{v1,v2,v3,v4}
+        				\end{fmfgraph*}
+        			\end{gathered} \\[2em]
+			&+ \quad \cdots  \,.
+		\end{split}
+	\end{equation}
+\end{fmffile}
+
+It is important to note that theses diagrams clearly only contribute if the times are ordered chronologically, i.e. $ 0 \le \tau_1 \le \tau_2 \le \dots \le \tau_n \le \tau $. If this is not the case at least one propagator will propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
+
+\todo{positive contribution}
+
+
+\subsection{Dyson equation}
 
 
 
