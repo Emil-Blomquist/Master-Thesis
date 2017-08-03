@@ -723,23 +723,21 @@ Having sorted out the quantisation of the $ \vec B $-field we turn our attention
 
 \todo{Perhaps move this to a section/subsection about field theory.}
 
-Here $ \hat O_2 $ is the second-quantized operator and $ O_1 $ is the corresponding first-quantized operator sandwiched between the single-particle Hilbert states $ | \vec k \rangle $, $ | \vec p \rangle $. \todo{Mention that these momenta are discretized in the same way as before but without a cutoff}. Thus
+Here $ \hat O_2 $ is the second-quantized operator and $ O_1 $ is the corresponding first-quantized operator sandwiched between the single-particle Hilbert states $ | \vec k \rangle $, $ | \vec p \rangle $. \todo{Mention that these momenta are discretized in the same way as before but without a cutoff}. The second-quantized operators then become
 
 \begin{equation}
 	\frac{\hat{\vec p}_\text{e}^2}{2m} \rightarrow \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p}
 	\; , \quad
 	e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p}
 	\; , \quad
-	e^{i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p + \vec q} \hat a_{\vec p}
+	e^{i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p + \vec q} \hat a_{\vec p} \,.
 \end{equation}
 
-\motivation{
-To be included in the appendix perhaps?
+The form of the second operator follow from
 
 \begin{equation}
 	\begin{split}
-		e^{-i \vec q \cdot \hat{ \vec r}_\text{e}}
-		& \rightarrow \sum_{\vec k, \vec p} \langle \vec k | e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \\
+		\sum_{\vec k, \vec p} \langle \vec k | e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p}
 		& = \sum_{\vec k, \vec p} \langle \vec k |
 			\left[ \int | \vec x \rangle \langle \vec x | \diff^3 x \right]
 			e^{-i \vec q \cdot \hat{ \vec r}_\text{e}}
@@ -755,9 +753,8 @@ To be included in the appendix perhaps?
 		& = \sum_{\vec p} \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p}
 	\end{split}
 \end{equation}
-}
 
-By substituting this into the Hamiltonian and noticing that interaction term is symmetric with respect to $ \vec q $ the fully second-quantized Hamiltonian becomes
+and similarly for the last of the three operators. By substituting this into the Hamiltonian and using that interaction term is symmetric with respect to $ \vec q $, the fully second-quantized Hamiltonian becomes
 
 \begin{equation}
 	\label{eq:finalHamiltonian}
@@ -913,7 +910,7 @@ In this paper the single-particle Green's function will be studied in the limit 
 	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots
 \end{equation}
 
-should be made in the $ \hat K_1(\tau) $ factors within the perturbation expansion. Instead of summing over the $ n $ internal momenta, there will now be integrals. Also the last one of the Feynman rules should be modified so that multiplicative factor becomes $ (-(2\pi)^3)^{-n} $. Further more $ T = 0 $ will be used and hence the upper bound in the imaginary-time integrals becomes infinite.
+should be made in the $ \hat K_1(\tau) $ factors within the perturbation expansion. Instead of summing over the $ n $ internal momenta, there will now be integrals. Also the last one of the Feynman rules should be modified so that multiplicative factor becomes $ (-2\pi)^{-3n} $. Further more $ T = 0 $ will be used and hence the upper bound in the imaginary-time integrals becomes infinite.
 
 Having the ground state ensemble equal to that of vacuum, the propagators become identically zero for negative imaginary-times as stated in (\ref{eq:G0ofKt}) and (\ref{eq:D0ofKt}). Because of this the contribution from diagrams containing tadpoles, electron loops and similar structures to those depicted below vanishes.
 
@@ -964,8 +961,8 @@ Then the only contributing diagrams are those where all electron propagators fol
 					\fmfv{label=$ 0 $, label.angle=-180}{i}
 					\fmfv{label=$ \tau $, label.angle=0}{o}
 				\end{fmfgraph*}
-        			\end{gathered} \\[4em]
-			&+ \quad
+        			\end{gathered}
+			\quad + \quad
 	        		\begin{gathered}
         				\begin{fmfgraph*}(225, 6)
         					\fmfleft{i}
@@ -980,7 +977,7 @@ Then the only contributing diagrams are those where all electron propagators fol
         					\fmfv{label=$ \tau $, label.angle=0}{o}
         					\fmfdot{v1,v2}
         				\end{fmfgraph*}
-        			\end{gathered} \\[5em]
+        			\end{gathered} \\[6em]
 			&+ \quad
 	        		\begin{gathered}
         				\begin{fmfgraph*}(375, 6)
@@ -1049,12 +1046,218 @@ Then the only contributing diagrams are those where all electron propagators fol
 	\end{equation}
 \end{fmffile}
 
-It is important to note that theses diagrams clearly only contribute if the times are ordered chronologically, i.e. $ 0 \le \tau_1 \le \tau_2 \le \dots \le \tau_n \le \tau $. If this is not the case at least one propagator will propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
+It is obvious that theses diagrams only contribute if the times are ordered chronologically, i.e. $ 0 \le \tau_1 \le \tau_2 \le \dots \le \tau_n \le \tau $. Because if this was not the case at least one propagator would propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
 
-\todo{positive contribution}
-
+Another important property of these diagrams is that they all carry a positive definite contribution to $ \Gt $. This since the value of a propagator always is larger than or equal to zero, and the sign from the factor $ (-2\pi)^{-3n} $ cancel the $ i^{2n} $ contained within $ V(\vec q)^{2n} $.
 
 \subsection{Dyson equation}
+
+Working at zero temperature allows for a full Fourier representation of the single-particle Green's function, i.e.
+
+\begin{equation}
+	G(\vec x, \tau) = \frac{1}{(2\pi)^4} \int \diff^3 k \int \diff \omega \, e^{i (\vec k \cdot \vec x - \omega \tau)} G(\vec k, \omega)
+	\; ; \quad G = \Gt, \, \Dt, \, \Gt_0, \, \Dt_0 \,.
+\end{equation}
+
+It so happens to be more pleasant working in $ \vec k $-$ \omega $ space for a lot of reasons but what will be of importance here is the conservation of total four momentum $ k = (\omega, \vec k) $ at all vertices in a Feynman diagram. In that way the external legs of a diagram no longer depend upon any internal variables and may then be factored out from the nasty integral expression. Hence it is convenient to define the interacting single-particle Green's function, here depicted as a double line, in terms of the self-energy as
+
+\begin{fmffile}{GinTermsOfSelfEnergy}
+	\begin{equation}
+	\label{eq:boldLine}
+	        	\begin{gathered}
+			\begin{fmfgraph*}(75, 6)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{heavy, label=$ k $, label.side=left}{i,o}
+			\end{fmfgraph*}
+        		\end{gathered}
+		=
+	        	\begin{gathered}
+			\begin{fmfgraph*}(75, 6)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{fermion, label=$ k $, label.side=left}{i,o}
+			\end{fmfgraph*}
+        		\end{gathered}
+		+
+	        	\begin{gathered}
+        			\begin{fmfgraph*}(200, 6)
+        				\fmfleft{i}
+        				\fmfright{o}
+        				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
+        				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=.2w,l=$\Sigma(k)$,l.dist=0,decoration.size=.2w}{v1}
+        			\end{fmfgraph*}
+        		\end{gathered} \,,
+	\end{equation}
+\end{fmffile}
+
+so that
+
+\begin{fmffile}{selfEnergy}
+	\begin{equation}
+		\label{eq:selfEnergy}
+		\begin{split}
+			\begin{gathered}
+				\begin{fmfgraph*}(39, 5)
+					\fmftop{i}
+					\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma(k)$,l.dist=0,right=0.5h}{i}
+				\end{fmfgraph*}
+			\end{gathered}
+			\, &= \,
+	        		\begin{gathered}
+				\begin{fmfgraph*}(75, 6)
+					\fmfleft{i}
+					\fmfright{o}
+					\fmf{fermion, label=$ k - q $, label.side=left}{i,o}
+					\fmf{dashes, label=$q$, label.side=left, left}{i,o}
+					\fmfdot{i,o}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\, +
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(225, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+					\fmf{fermion, label=$ k - q $, label.side=left}{i,v1}
+					\fmf{dashes, label=$q$, label.side=left, left, tension=0}{i,v1}
+					\fmf{fermion, label=$ k $, label.side=left}{v1,v2}
+					\fmf{fermion, label=$ k - s $, label.side=left}{v2,o}
+					\fmf{dashes, label=$s$, label.side=left, left, tension=0}{v2,o}
+					\fmfdot{i,o,v1,v2}
+        				\end{fmfgraph*}
+        			\end{gathered} \\[8em]
+			&+ \,
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(225, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+					\fmf{fermion, label=$ k - q $, label.side=left}{i,v1}
+					\fmf{dashes, label=$q$, label.side=left, left, tension=0}{i,v2}
+					\fmf{fermion, label=$ k $, label.side=left}{v1,v2}
+					\fmf{fermion, label=$ k - q - s $, label.side=left}{v2,o}
+					\fmf{dashes, label=$s$, label.side=left, left, tension=0}{v1,o}
+					\fmfdot{i,o,v1,v2}
+        				\end{fmfgraph*}
+        			\end{gathered} \\[11em]
+			&+ \,
+	        		\begin{gathered}
+        				\begin{fmfgraph*}(225, 6)
+        					\fmfleft{i}
+        					\fmfright{o}
+					\fmf{fermion, label=$ k - q $, label.side=left}{i,v1}
+					\fmf{dashes, label=$q$, label.side=left, left, tension=0}{i,o}
+					\fmf{fermion, label=$ k -q - s $, label.side=left}{v1,v2}
+					\fmf{fermion, label=$ k - q $, label.side=left}{v2,o}
+					\fmf{dashes, label=$s$, label.side=left, left, tension=0}{v1,v2}
+					\fmfdot{i,o,v1,v2}
+        				\end{fmfgraph*}
+        			\end{gathered}
+			\; + \cdots \,.
+		\end{split}
+	\end{equation}
+\end{fmffile}
+
+A related quantity is the proper self-energy $ \Sigma^*(k) $ which is made up by a subset of the self-energy diagrams. These diagrams are said to be irreducible, meaning that they cannot be split in two by cutting only one propagator, e.g. the first, third and fourth diagram in (\ref{eq:selfEnergy}). The second diagram in the same expression can be split in half by cutting the electronic propagator with four-momenta $ k $ and is then said to be a reducible diagram. With this definition of the proper self-energy, the self-energy is nothing but
+
+\begin{fmffile}{selfEnergyInTermsOfProperSelfEnergy}
+	\begin{equation}
+		\label{eq:selfEnergyInTermsOfProperSelfEnergy}
+		\begin{gathered}
+			\begin{fmfgraph*}(39, 5)
+				\fmftop{i}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma(k)$,l.dist=0,right=0.5h}{i}
+			\end{fmfgraph*}
+		\end{gathered}
+		\;\; = \;
+		\begin{gathered}
+			\begin{fmfgraph*}(39, 5)
+				\fmftop{i}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
+			\end{fmfgraph*}
+		\end{gathered}
+		\;\; + \;
+        		\begin{gathered}
+			\begin{fmfgraph*}(39, 100)
+				\fmftop{o}
+				\fmfbottom{i}
+				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
+				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
+			\end{fmfgraph*}
+		\end{gathered}
+		\;\; + \;
+        		\begin{gathered}
+			\begin{fmfgraph*}(39, 166)
+				\fmftop{o}
+				\fmfbottom{i}
+				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
+				\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v1,v2}
+				\fmf{fermion, label=$ k $, label.side=left}{v2,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v2}
+			\end{fmfgraph*}
+		\end{gathered}
+		\;\; + \;
+        		\begin{gathered}
+			\begin{fmfgraph*}(39, 232)
+				\fmftop{o}
+				\fmfbottom{i}
+				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
+				\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v1,v2}
+				\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v2,v3}
+				\fmf{fermion, label=$ k $, label.side=left}{v3,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v2}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v3}
+			\end{fmfgraph*}
+		\end{gathered} \\[1em]
+		\;\; + \;
+		\cdots \,.
+	\end{equation}
+\end{fmffile}
+
+By inserting (\ref{eq:selfEnergyInTermsOfProperSelfEnergy}) into (\ref{eq:boldLine}), breaking out the factor $ \Gt_0(k) \, \Sigma^*(k) $ from every diagram but the bare propagator and identifying what is left with $ \Gt(k) $ one obtains a self consistent expression for $ \Gt(k) $ known as Dyson's equation,
+
+\begin{fmffile}{DysonsEquation}
+	\begin{equation}
+	        	\begin{gathered}
+			\begin{fmfgraph*}(75, 6)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{heavy, label=$ k $, label.side=left}{i,o}
+			\end{fmfgraph*}
+        		\end{gathered}
+		=
+	        	\begin{gathered}
+			\begin{fmfgraph*}(75, 6)
+				\fmfleft{i}
+				\fmfright{o}
+				\fmf{fermion, label=$ k $, label.side=left}{i,o}
+			\end{fmfgraph*}
+        		\end{gathered}
+		+
+	        	\begin{gathered}
+        			\begin{fmfgraph*}(200, 6)
+        				\fmfleft{i}
+        				\fmfright{o}
+        				\fmf{heavy, label=$ k $, label.side=left}{i,v1}
+        				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=.2w,l=$\Sigma^*(k)$,l.dist=0,decoration.size=.2w}{v1}
+        			\end{fmfgraph*}
+        		\end{gathered} \,.
+	\end{equation}
+\end{fmffile}
+
+Hence the equation for $ \Gt(k) $ in terms of $ \Gt_0(k) $ and $ \Sigma^*(k) $ becomes
+
+\begin{equation}
+	\Gt(k) = \frac{1}{\Gt_0(k)^{-1} - \Sigma^*(k)} \,.
+\end{equation}
+
+
+
+
 
 
 
