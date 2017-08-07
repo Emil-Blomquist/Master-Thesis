@@ -1,0 +1,116 @@
+
+\todo{Here we shall summarize what this chapter is about}
+
+\section{General idea}
+
+Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof?ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
+
+\begin{equation}
+	\label{eq:integralSeries}
+	Q(\{ y \})
+	= \sum_{n=0}^\infty \sum_{\xi_n} \int \diff x_1 \dots \diff x_n \, D_n(\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) \,.
+\end{equation}
+
+Here $ \{y\} $ is a set of external variables and $ \xi_n $ indexes the different terms of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
+
+The method is based on the Metropolis-Hastings algorithm which samples terms of the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
+
+To clarify any ambiguities, the DMC method will next be demonstrated by a few simple examples.
+
+
+%Including external variables in the random walk will increased the parameter space so that more statistics is needed to reach the same level of certainty as having them fixed. Not to surprisingly, it therefore becomes a trade off between having more degrees of freedom in $ Q $ but then having to spend more time computing.
+
+
+
+\subsection{Example 1}
+
+In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral series (\ref{eq:integralSeries}) will then consist out of two constant zeroth order terms only, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively. Hence this is probably the simplest possible implementation of DMC and will make for a good first encounter.
+
+To follow the recipe of the Metropolis-Hastings algorithm, the function $ f $ is defined as being nothing but $ D_0(\xi_0) $ from (\ref{eq:integralSeries}). By this definition $ f $ becomes proportional to the probability density function 
+
+\begin{equation}
+	\rho(x) = \frac{f(x)}{\sum_y f(y)} = \frac{f(x)}{1 + C}
+	\; ; \quad
+	x \in \{1\,, C \} \,,
+\end{equation}
+
+from whose probability distribution function $ P $ the sequence of $ \xi_0 $'s will be drawn. Further more there can be at most four types of transitions between the two states in parameter space. By introducing the corresponding transition probabilities: $ P(1|C) $, $ P(C|1) $, $ P(1|1) $ and $ P(C|C) $, the Markov process \question{(is this the correct word?)} to be simulated may then be illustrated as in figure (\ref{fig:example1}) below.
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Examples/First example"}.pdf}
+	\caption{\todo{Caption this plz!}}
+	\label{fig:example1}
+\end{figure}
+
+To simplify matters, the proposal distributions $ W(1|C) $, $ W(1|1) $, $ W(C|1) $ and $ W(C|C) $ are all chosen to have the same probability of $ 1/2 $. Then, according to (\ref{eq:acceptanceRatio}), the acceptance-rejection ratios will be given by $ A(1|1) = A(1|C) = A(C|C) = 1 $ and $ A(C|1) = 1/C $. By keeping track of how many times $ \xi_0 = 0 $ appears in the generated sequence, lets say $ N_0 $ times, as well as the the total length $ N $ of the sequence, it is possible to calculate $ 1 + C $. This since
+
+\begin{equation}
+	N_0 \propto \rho(1) \propto 1
+	\; , \quad
+	N - N_0 \propto \rho(C) \propto C
+	\quad \Rightarrow \quad
+	\frac{N_0}{N - N_0} = \frac{1}{C}
+\end{equation}
+
+so that
+
+\begin{equation}
+	1 + C = 1 + \frac{N - N_0}{N_0} \,.
+\end{equation}
+
+\todo{Include an implementation written in python?}
+
+\subsection{Example 2}
+
+In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $ which is not much more difficult then what was done in the first example. Instead of having two zeroth order terms there is now a zeroth and first order term, meaning that the parameter space is no longer completely discrete with merely two possible states. The parameters corresponding to the two terms $ 1 $ and $ x $ are now $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ respectively.
+
+
+
+
+
+
+\subsection{Example 3}
+
+\section{Polaron implementation}
+
+\todo{semi definite integrands (?)}
+
+
+\todo{Add to $ \hat H $ the chemical potential. Our energies are to be independent of $ \mu $. mu is simply a tool to prevent the}
+
+\todo{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning. (wtf!?)}
+
+\subsection{Update function 1}
+\subsection{Update function 2}
+\subsection{Update function 3}
+
+\section{Sample self energy}
+
+\subsection{Divergent diagram}
+
+The first order proper self energy diagram is proportional to $ 1/\sqrt{\tau} $ for small $ \tau $ and thus diverges when $ \tau \rightarrow 0 $. This combined with a discretized histogram becomes a problem for the bins in the neighborhood of $ \tau = 0 $ since they acquire more mass then they are supposed to. In order to fix this we could use a much finer discretization or calculate the value for these bins somehow else.
+
+The value of the diagram for $ \vec p = \vec 0 $ and $ \Delta G = 0 $ is
+
+\begin{equation}
+	S^{(1)}(\tau) = \frac{\alpha}{\sqrt{\pi \tau}} e^{(\mu - \omega)\tau}
+\end{equation}
+
+The value of the bins in our histogram is
+
+\begin{equation}
+	\tilde V_i \propto \frac{1}{\Delta \tau} \int_{\tau_i}^{\tau_{i + 1}} S^{(1)} (t) \diff t
+	= \frac{\alpha}{\Delta \tau \sqrt{\omega - \mu}} \left[ \text{erf}\left(\sqrt{\omega - \mu} \sqrt{\tau_{i+1}}\right) - \text{erf}\left(\sqrt{\omega - \mu} \sqrt{\tau_i}\right) \right]
+\end{equation}
+
+ but the true value should be
+ 
+\begin{equation}
+	V_i \propto S^{(1)} \left( \tfrac{\tau_{i+1} + \tau_i}{2} \right)	
+\end{equation}
+
+For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using DMC utilise ordinary stochastic integration using MC for the fixed times $ (\tau_{i+1} + \tau_i)/2 $.
+
+\section{Boldification}
+

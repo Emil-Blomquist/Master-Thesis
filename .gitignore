@@ -17,4 +17,4 @@
 *.t4
 *.t5
 
-img/*-eps-converted-to.pdf
+*-eps-converted-to.pdf
