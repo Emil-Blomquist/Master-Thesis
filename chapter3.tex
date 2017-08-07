@@ -1,3 +1,4 @@
+% !TEX root = thesis.tex
 
 \todo{Here we shall summarize what this chapter is about}
 
@@ -63,7 +64,33 @@ so that
 
 \subsection{Example 2}
 
-In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $ which is not much more difficult then what was done in the first example. Instead of having two zeroth order terms there is now a zeroth and first order term, meaning that the parameter space is no longer completely discrete with merely two possible states. The parameters corresponding to the two terms $ 1 $ and $ x $ are now $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ respectively.
+In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $. Instead of having of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Using this notation, a function $ f $ is defined by
+\begin{equation}
+	f(x) =
+	\begin{dcases}
+		D_0(\xi_0 = 0) = 1 \; , \quad x = 1 \\
+		D_1(\xi_1 = 0, x) = x \; , \quad x \in [a, \, b] \,,
+   	\end{dcases}
+\end{equation}
+and thus becomes proportional to the probability density
+\begin{equation}
+	\rho(x)
+	= \frac{f(x)}{\sum_y \rho(y)}
+	= \frac{f(x)}{1 + \int_a^b x \diff x}
+	\; ; \quad
+	x \in \{1\} \cup [a, \, b] \,.
+\end{equation}
+
+In order to cover the whole parameter space, it is more than sufficient to consider four types of transitions, having the transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ and thus corresponds to a state of the first order term.
+
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Examples/Second example"}.pdf}
+	\caption{\todo{Caption this plz!}}
+	\label{fig:example2}
+\end{figure}
+
 
 
 
