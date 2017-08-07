@@ -3,6 +3,7 @@
 
 \documentclass[12pt]{report}
 
+
 \usepackage{amsmath, amsfonts, amssymb, graphicx, verbatim, nicefrac}
 \oddsidemargin=0in
 \evensidemargin=0in
@@ -1178,24 +1179,25 @@ A related quantity is the proper self-energy $ \Sigma^*(k) $ which is made up by
 		\end{gathered}
 		\;\; + \;
         		\begin{gathered}
-			\begin{fmfgraph*}(39, 100)
+			\begin{fmfgraph*}(39, 77)
 				\fmftop{o}
 				\fmfbottom{i}
-				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
-				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
-				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
+				\fmf{fermion, label=$ k $, label.side=left}{i,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{o}
 			\end{fmfgraph*}
 		\end{gathered}
 		\;\; + \;
         		\begin{gathered}
-			\begin{fmfgraph*}(39, 166)
+			\begin{fmfgraph*}(39, 156)
 				\fmftop{o}
 				\fmfbottom{i}
 				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
-				\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v1,v2}
-				\fmf{fermion, label=$ k $, label.side=left}{v2,o}
+				%\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v1,v2}
+				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
-				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v2}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{o}
 			\end{fmfgraph*}
 		\end{gathered}
 		\;\; + \;
@@ -1204,12 +1206,12 @@ A related quantity is the proper self-energy $ \Sigma^*(k) $ which is made up by
 				\fmftop{o}
 				\fmfbottom{i}
 				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
-				\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v1,v2}
-				\fmf{fermion, label=$ k $, label.side=left, tension=0.66}{v2,v3}
-				\fmf{fermion, label=$ k $, label.side=left}{v3,o}
+				\fmf{fermion, label=$ k $, label.side=left}{v1,v2}
+				\fmf{fermion, label=$ k $, label.side=left}{v2,o}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v2}
-				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v3}
+				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{o}
 			\end{fmfgraph*}
 		\end{gathered} \\[1em]
 		\;\; + \;
@@ -1256,16 +1258,58 @@ Hence the equation for $ \Gt(k) $ in terms of $ \Gt_0(k) $ and $ \Sigma^*(k) $ b
 \end{equation}
 
 
+\section{Monte Carlo Methods}
 
+\todo{$ \cdot $ Rely on repeated sampling of random numbers to obtain results.}
 
+\todo{$ \cdot $ Use randomness to solve problems which might be deterministic in principle.}
 
+\todo{$ \cdot $ Useful when there is difficult to approach the problem in other way.}
 
-
-\section{Monte Carlo Simulation}
+\todo{$ \cdot $ Draw a sequence on numbers from a probability distribution.}
 
 \subsection{Detailed balance and ergodicity}
 
-\subsection{Metropolis-Hastings algorithm}
+\todo{Mention what a Markov process is and what is meant by a stationary distribution for a Markov process}
+
+\subsection{Metropolis-Hastings algorithm} \label{section:MEA}
+
+The Metropolis-Hastings algorithm is a Markov chain Monte Carlo method for obtaining a sequence of random samples from a probability distribution for which direct sampling would be difficult. Briefly speaking, this algorithm is able to draw samples from any distribution $ P(x) $ given that it is possible to compute the value of a function $ f(x) $ which is proportional to the probability density function $ \rho(x) $ of the distribution $ P(x) $. The Metropolis-Hastings algorithm suggests constructing transition probabilities $ P(x|x') $ in order to design a Markov process for which the stationary distribution $ \pi(x) $ is chosen to be $ P(x) $. By using a Markov process, any random sample being generated is then dependent only on the preceding one.
+
+The starting point to derive the Metropolis-Hastings algorithm is to consider detailed balance between any two states $ x $ and $ x' $,
+
+\begin{equation}
+	\label{eq:detailedBalance}
+	P(x) \, P(x|x') = P(x') \, P(x'|x) \,,
+\end{equation}
+
+\todo{Move up to the section above which is about detailed balance.}
+
+and then to separate the transitional probabilities into two parts; the proposal $ W(x|x') $ and acceptance-rejection $ A(x|x') $. Here $ W(x|x') $ is the conditional probability distribution of proposing state $ x' $ given state $ x $ and similarly $ A(x|x') $ is the conditional probability distribution of accepting the proposed state $ x' $ given $ x $. Expressing the transitional probability as a product of these two parts, i.e. $ P(x|x') = W(x|x') \, A(x|x') $, equation (\ref{eq:detailedBalance}) might be rewritten as
+
+\begin{equation}
+	\frac{A(x|x')}{A(x'|x)} = \frac{P(x)}{P(x')} \frac{W(x'|x)}{W(x|x')} \,.
+\end{equation}
+
+In order to fulfill the condition above, it is common to use the Metropolis choice for the acceptance,
+
+\begin{equation}
+	\label{eq:acceptanceRatio}
+	A(x|x')
+	= \text{min}\left( 1, \, \frac{P(x)}{P(x')} \frac{W(x'|x)}{W(x|x')} \right)
+	= \text{min}\left( 1, \, \frac{f(x)}{f(x')} \frac{W(x'|x)}{W(x|x')} \right) \,.
+\end{equation}
+
+where the proportionality between the density of $ P $ and $ f $ has been used in order to reach the last equality. The new state $ x' $ is then accepted according to $ A(x|x') $. In practice this is done by sampling a uniform random number $ a $ between 0 and 1 and accepting the proposed transition if $ A(x|x') > a $, otherwise the transition is rejected. Important to realize here is that if the proposed state $ x' $ is rejected, the old state $ x $ is then to be thought of as having been sampled yet again in the sequence of states.
+
+\todo{Wanting an $ A $ close to unity in order to make the algorithm more effective.}
+
+Having performed the algorithm for a while, the state at hand may be considered independent from the initial state. At that point, starting to keep track of how many times a state $ x $ is sampled should in the long time limit converge to $ \pi(x) $ apart from a normalization factor. \todo{Mention something about ergodicity being important since it otherwise would be impossible to reach some states.}
+
+
+
+
+
 
 
 
@@ -1275,15 +1319,78 @@ Hence the equation for $ \Gt(k) $ in terms of $ \Gt_0(k) $ and $ \Sigma^*(k) $ b
 
 \section{General idea}
 
-\todo{Matsubara formalism in momentum-imaginary-time representation since the interacting single-particle Greens function become a superposition of different exponentials.}
+Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof’ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
 
-\section{Generalization of stochastic integration (better name needed)}
+\begin{equation}
+	\label{eq:integralSeries}
+	Q(\{ y \})
+	= \sum_{n=0}^\infty \sum_{\xi_n} \int \diff x_1 \dots \diff x_n \, D_n(\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) \,.
+\end{equation}
+
+Here $ \{y\} $ is a set of external variables and $ \xi_n $ indexes the different terms of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
+
+The method is based on the Metropolis-Hastings algorithm which samples terms of the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
+
+To clarify any ambiguities, the DMC method will next be demonstrated by a few simple examples.
+
+
+%Including external variables in the random walk will increased the parameter space so that more statistics is needed to reach the same level of certainty as having them fixed. Not to surprisingly, it therefore becomes a trade off between having more degrees of freedom in $ Q $ but then having to spend more time computing.
+
+
 
 \subsection{Example 1}
+
+In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral series (\ref{eq:integralSeries}) will then consist out of two constant zeroth order terms only, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively. Hence this is probably the simplest possible implementation of DMC and will make for a good first encounter.
+
+To follow the recipe of the Metropolis-Hastings algorithm, the function $ f $ is defined as being nothing but $ D_0(\xi_0) $ from (\ref{eq:integralSeries}). By this definition $ f $ becomes proportional to the probability density function 
+
+\begin{equation}
+	\rho(x) = \frac{f(x)}{\sum_y f(y)} = \frac{f(x)}{1 + C}
+	\; ; \quad
+	x \in \{1\,, C \} \,,
+\end{equation}
+
+from whose probability distribution function $ P $ the sequence of $ \xi_0 $'s will be drawn. Further more there can be at most four types of transitions between the two states in parameter space. By introducing the corresponding transition probabilities: $ P(1|C) $, $ P(C|1) $, $ P(1|1) $ and $ P(C|C) $, the Markov process \question{(is this the correct word?)} to be simulated may then be illustrated as in figure (\ref{fig:example1}) below.
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Examples/First example"}.pdf}
+	\caption{\todo{Caption this plz!}}
+	\label{fig:example1}
+\end{figure}
+
+To simplify matters, the proposal distributions $ W(1|C) $, $ W(1|1) $, $ W(C|1) $ and $ W(C|C) $ are all chosen to have the same probability of $ 1/2 $. Then, according to (\ref{eq:acceptanceRatio}), the acceptance-rejection ratios will be given by $ A(1|1) = A(1|C) = A(C|C) = 1 $ and $ A(C|1) = 1/C $. By keeping track of how many times $ \xi_0 = 0 $ appears in the generated sequence, lets say $ N_0 $ times, as well as the the total length $ N $ of the sequence, it is possible to calculate $ 1 + C $. This since
+
+\begin{equation}
+	N_0 \propto \rho(1) \propto 1
+	\; , \quad
+	N - N_0 \propto \rho(C) \propto C
+	\quad \Rightarrow \quad
+	\frac{N_0}{N - N_0} = \frac{1}{C}
+\end{equation}
+
+so that
+
+\begin{equation}
+	1 + C = 1 + \frac{N - N_0}{N_0} \,.
+\end{equation}
+
+\todo{Include an implementation written in python?}
+
 \subsection{Example 2}
+
+In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $ which is not much more difficult then what was done in the first example. Instead of having two zeroth order terms there is now a zeroth and first order term, meaning that the parameter space is no longer completely discrete with merely two possible states. The parameters corresponding to the two terms $ 1 $ and $ x $ are now $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ respectively.
+
+
+
+
+
+
 \subsection{Example 3}
 
 \section{Polaron implementation}
+
+\todo{semi definite integrands (?)}
 
 
 \todo{Add to $ \hat H $ the chemical potential. Our energies are to be independent of $ \mu $. mu is simply a tool to prevent the}
