@@ -34,7 +34,6 @@ To follow the recipe of the Metropolis-Hastings algorithm, the function $ f $ is
 	\; ; \quad
 	x \in \{1\,, C \} \,,
 \end{equation}
-
 from whose probability distribution function $ P $ the sequence of $ \xi_0 $'s will be drawn. Further more there can be at most four types of transitions between the two states in parameter space. By introducing the corresponding transition probabilities: $ P(1|C) $, $ P(C|1) $, $ P(1|1) $ and $ P(C|C) $, the Markov process \question{(is this the correct word?)} to be simulated may then be illustrated as in figure (\ref{fig:example1}) below.
 
 \begin{figure}[H]
@@ -45,18 +44,17 @@ from whose probability distribution function $ P $ the sequence of $ \xi_0 $'s w
 \end{figure}
 
 To simplify matters, the proposal distributions $ W(1|C) $, $ W(1|1) $, $ W(C|1) $ and $ W(C|C) $ are all chosen to have the same probability of $ 1/2 $. Then, according to (\ref{eq:acceptanceRatio}), the acceptance-rejection ratios will be given by $ A(1|1) = A(1|C) = A(C|C) = 1 $ and $ A(C|1) = 1/C $. By keeping track of how many times $ \xi_0 = 0 $ appears in the generated sequence, lets say $ N_0 $ times, as well as the the total length $ N $ of the sequence, it is possible to calculate $ 1 + C $. This since
-
 \begin{equation}
+	\label{eq:example1Prop}
 	N_0 \propto \rho(1) \propto 1
 	\; , \quad
 	N - N_0 \propto \rho(C) \propto C
 	\quad \Rightarrow \quad
 	\frac{N_0}{N - N_0} = \frac{1}{C}
 \end{equation}
-
 so that
-
 \begin{equation}
+	\label{eq:example1Answ}
 	1 + C = 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
@@ -68,8 +66,8 @@ In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $
 \begin{equation}
 	f(x) =
 	\begin{dcases}
-		D_0(\xi_0 = 0) = 1 \; , \quad x = 1 \\
-		D_1(\xi_1 = 0, x) = x \; , \quad x \in [a, \, b] \,,
+		D_0(\xi_0 = 0) = 1 \; , \quad &x = 1 \\
+		D_1(\xi_1 = 0, x) = x \; , \quad &x \in [a, \, b] \,,
    	\end{dcases}
 \end{equation}
 and thus becomes proportional to the probability density
@@ -81,8 +79,7 @@ and thus becomes proportional to the probability density
 	x \in \{1\} \cup [a, \, b] \,.
 \end{equation}
 
-In order to cover the whole parameter space, it is more than sufficient to consider four types of transitions, having the transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ and thus corresponds to a state of the first order term.
-
+In order to cover the whole parameter space, it is more than sufficient to consider four types of transitions having the transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ and thus corresponds to a state of the first order term. This Markov process might be illustrated as figure \ref{fig:example2} below.
 
 \begin{figure}[H]
 	\centering
@@ -91,13 +88,61 @@ In order to cover the whole parameter space, it is more than sufficient to consi
 	\label{fig:example2}
 \end{figure}
 
+In order to construct proposal distributions to or from the first order term, it is convenient to introduce the collection of states referred to as $ \smallint $, in which all states $ x \in [a, \, b] $. Using this notation, the proposal distributions are chosen to be
+\begin{equation}
+	\begin{split}
+		W(1|1) &= \tfrac{1}{2} \\
+		W(x|1) &= W(\smallint | 1) = \tfrac{1}{2}
+	\end{split}
+	\quad \quad
+	\begin{split}
+		W(1|x) &= W(1 | \smallint) \, U(x) = \tfrac{1}{2} \tfrac{1}{b-a} \\
+		W(x|x') &= W(\smallint | \smallint) \,U(x') = \tfrac{1}{2} \tfrac{1}{b-a} \,.
+	\end{split}
+\end{equation}
+The quantities $ W(1|1) $, $ W(1|\smallint) $, $ W(\smallint | 1) $ and $ W(\smallint | \smallint) $ are simply the probability of proposing a state corresponding to a certain term in the integral series and have been set equally probable. The quantity $ U(x) $ is the uniform probability distribution on the interval $ [a, \, b] $ which $ x $ is sampled from. Then, from the proposal distributions follow the acceptance rations
+\begin{equation}
+	\begin{split}
+		A(1|1) &= 1 \\
+		A(x|1) &= \text{min} \left( 1, \,  \tfrac{1}{x[b - a]} \right) \\
+	\end{split}
+	\quad \quad
+	\begin{split}
+		A(1|x) &= \text{min} \left( 1, \, x[b - a] \right) \\
+		A(x|x') &= \text{min} \left( 1, \, \tfrac{x'}{x} \right) \,.
+	\end{split}
+\end{equation}
 
-
-
-
-
+By keeping track of the $ N_0 $ number of times $ x = 1 $ appears in the sequence of states and also the length $ N $ of the sequence, it follows from (\ref{eq:example1Prop}) and (\ref{eq:example1Answ}) that
+\begin{equation}
+	1 + \int_a^b x \diff x = 1 + \frac{N - N_0}{N_0} \,.
+\end{equation}
 
 \subsection{Example 3}
+
+In this third and final example, the task is to compute something which is more similar to the actual problem. Hence, the sum to compute is of the form,
+\begin{equation}
+	\Sigma = 1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z} \,,
+\end{equation}
+and consists of a zeroth, first and second order term. By assuming that $ b > a > 1 $, a similar one-to-one mapping of the states in parameter space as used in the previous example may also be used here. Again the zeroth and first order terms are chosen to be represented by $ x = 1 $ and $ x \in [a, \, b] $ respectively, whilst the second order term is to be represented by $ x = (y, z) \in [a', \, b'] \times [a'', \, b''] $. In terms of this parameter $ x $, the function $ f $ is defined as
+\begin{equation}
+	f(x) =
+	\begin{dcases}
+		D_0(\xi_0 = 0) = 1 \; , \quad &x = 1 \\
+		D_1(\xi_1 = 0, x) = e^{-x} \; , \quad &x \in [a, \, b] \\
+		D_2(\xi_2 = 0, x) = e^{-y - z} \; , \quad &x \in [a', \, b'] \times [a'', \, b''] \,.
+   	\end{dcases}
+\end{equation}
+Normalizing this function the following probability density function is obtained,
+\begin{equation}
+	\rho(x) = \frac{f(x)}{\Sigma}
+	\; ; \quad
+	x \in \{1\} \cup [a, \, b] \cup [a', \, b'] \times [a'', \, b'']\,.
+\end{equation}
+
+
+
+
 
 \section{Polaron implementation}
 
