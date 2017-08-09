@@ -259,6 +259,8 @@ Here it is once again assumed that the system is infinite so that $ \vec k $ is 
 
 What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields}\cite{electronsInLatticeFields}. In this section we will outline the original derivation but also look into some details relevant to us.
 
+\todo{mention something out of the polaron book?}
+
 \subsection{Classical picture}
 
 The model of interest to this thesis is the following. Consider a diatomic crystal, e.g. rock salt. Such a crystal is made up out of ions which pairwise have a zero net charge. This is depicted in figure \ref{fig:illustrationOfDiatomicCrystal} below. Introducing a free electron into such a crystal, the electron will polarize the crystal due to it exerting an electric field. This sort of polarization may be described by a displacement vector for each lattice point. However, to simplify matters, it is preferred to treat this displacement vector as a continuous vector field.
@@ -750,6 +752,7 @@ Then the only contributing diagrams are those where all electron propagators fol
 
 \begin{fmffile}{GUpToSecondOrder}
 	\begin{equation}
+		\label{eq:GinTermsOfDiagrams}
 		\begin{split}
 			\Gt(\vec p, \tau)
 			&= \quad
@@ -845,6 +848,10 @@ Then the only contributing diagrams are those where all electron propagators fol
 		\end{split}
 	\end{equation}
 \end{fmffile}
+
+\todo{Number of diagrams at each order $ \tfrac{(2n)!}{n!2^n} $}
+
+\todo{Since there is no preferred direction of the external momentum $ \vec p $, the Green's function will depend only upon the magnitude $ p = | \vec p | $, i.e. $ \Gt = \Gt(\alpha, \mu, p, \tau) $.}
 
 It is obvious that theses diagrams only contribute if the times are ordered chronologically, i.e. $ 0 \le \tau_1 \le \tau_2 \le \dots \le \tau_n \le \tau $. Because if this was not the case at least one propagator would propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
 

@@ -4,28 +4,23 @@
 
 \section{General idea}
 
-Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof?ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
-
+Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
 \begin{equation}
 	\label{eq:integralSeries}
 	Q(\{ y \})
 	= \sum_{n=0}^\infty \sum_{\xi_n} \int \diff x_1 \dots \diff x_n \, D_n(\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) \,.
 \end{equation}
-
 Here $ \{y\} $ is a set of external variables and $ \xi_n $ indexes the different terms of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
 
 The method is based on the Metropolis-Hastings algorithm which samples terms of the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
 
 To clarify any ambiguities, the DMC method will next be demonstrated by a few simple examples.
 
-
-%Including external variables in the random walk will increased the parameter space so that more statistics is needed to reach the same level of certainty as having them fixed. Not to surprisingly, it therefore becomes a trade off between having more degrees of freedom in $ Q $ but then having to spend more time computing.
-
-
-
 \subsection{Example 1}
 
 In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral series (\ref{eq:integralSeries}) will then consist out of two constant zeroth order terms only, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively. Hence this is probably the simplest possible implementation of DMC and will make for a good first encounter.
+
+\todo{The function $ D_n $ here play the role of $ f $ in the previous section about the MH algorithm.}
 
 To follow the recipe of the Metropolis-Hastings algorithm, the function $ f $ is defined as being nothing but $ D_0(\xi_0) $ from (\ref{eq:integralSeries}). By this definition $ f $ becomes proportional to the probability density function 
 
@@ -62,7 +57,11 @@ so that
 
 \subsection{Example 2}
 
-In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $. Instead of having of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Using this notation, a function $ f $ is defined by
+In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $.
+
+\todo{the only unknown here is the value of the integral. The $ 1 $ is solely used for normalization purposes.}
+
+Instead of having of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Using this notation, a function $ f $ is defined by
 \begin{equation}
 	f(x) =
 	\begin{dcases}
@@ -96,20 +95,20 @@ In order to construct proposal distributions to or from the first order term, it
 	\end{split}
 	\quad \quad
 	\begin{split}
-		W(1|x) &= W(1 | \smallint) \, U(x) = \tfrac{1}{2} \tfrac{1}{b-a} \\
-		W(x|x') &= W(\smallint | \smallint) \,U(x') = \tfrac{1}{2} \tfrac{1}{b-a} \,.
+		W(1|x) &= W(1 | \smallint) \, U_{a,b}(x) = \tfrac{1}{2} \tfrac{1}{b-a} \\
+		W(x|x') &= W(\smallint | \smallint) \,U_{a,b}(x') = \tfrac{1}{2} \tfrac{1}{b-a} \,.
 	\end{split}
 \end{equation}
-The quantities $ W(1|1) $, $ W(1|\smallint) $, $ W(\smallint | 1) $ and $ W(\smallint | \smallint) $ are simply the probability of proposing a state corresponding to a certain term in the integral series and have been set equally probable. The quantity $ U(x) $ is the uniform probability distribution on the interval $ [a, \, b] $ which $ x $ is sampled from. Then, from the proposal distributions follow the acceptance rations
+The quantities $ W(1|1) $, $ W(1|\smallint) $, $ W(\smallint | 1) $ and $ W(\smallint | \smallint) $ are simply the probability of proposing a state corresponding to a certain term in the integral series and have been set equally probable. The quantity $ U_{a,b}(x) = [b - a]^{-1} $ is the uniform probability distribution on the interval $ [a, \, b] $ from which $ x $ is sampled. Then, from the proposal distributions follow the acceptance rations
 \begin{equation}
 	\begin{split}
 		A(1|1) &= 1 \\
-		A(x|1) &= \text{min} \left( 1, \,  \tfrac{1}{x[b - a]} \right) \\
+		A(x|1) &= \text{min} \Big( 1, \,  [b - a]^{-1} \, x^{-1} \Big) \\
 	\end{split}
 	\quad \quad
 	\begin{split}
-		A(1|x) &= \text{min} \left( 1, \, x[b - a] \right) \\
-		A(x|x') &= \text{min} \left( 1, \, \tfrac{x'}{x} \right) \,.
+		A(1|x) &= \text{min} \Big( 1, \,  [b - a] \, x \Big) \\
+		A(x|x') &= \text{min} \Big( 1, \, x^{-1} \, x' \Big) \,.
 	\end{split}
 \end{equation}
 
@@ -122,7 +121,7 @@ By keeping track of the $ N_0 $ number of times $ x = 1 $ appears in the sequenc
 
 In this third and final example, the task is to compute something which is more similar to the actual problem. Hence, the sum to compute is of the form,
 \begin{equation}
-	\Sigma = 1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z} \,,
+	1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z} \,,
 \end{equation}
 and consists of a zeroth, first and second order term. By assuming that $ b > a > 1 $, a similar one-to-one mapping of the states in parameter space as used in the previous example may also be used here. Again the zeroth and first order terms are chosen to be represented by $ x = 1 $ and $ x \in [a, \, b] $ respectively, whilst the second order term is to be represented by $ x = (y, z) \in [a', \, b'] \times [a'', \, b''] $. In terms of this parameter $ x $, the function $ f $ is defined as
 \begin{equation}
@@ -133,29 +132,125 @@ and consists of a zeroth, first and second order term. By assuming that $ b > a 
 		D_2(\xi_2 = 0, x) = e^{-y - z} \; , \quad &x \in [a', \, b'] \times [a'', \, b''] \,.
    	\end{dcases}
 \end{equation}
-Normalizing this function the following probability density function is obtained,
+By normalization a probability density function $ \rho $ is obtained whose probability distribution $ P $ and seven types of transitions form a Markov process illustrated in figure \ref{fig:example3}.
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Examples/Third example"}.pdf}
+	\caption{\todo{Caption this plz!}}
+	\label{fig:example3}
+\end{figure}
+
+In order to construct transition probabilities it is convenient to introduce the collection of states $ \smallint $ and $ \smallint \!\! \smallint $. These contain all states in parameter space corresponding the first and second order term respectively. The transition probabilities are then chosen as
 \begin{equation}
-	\rho(x) = \frac{f(x)}{\Sigma}
-	\; ; \quad
-	x \in \{1\} \cup [a, \, b] \cup [a', \, b'] \times [a'', \, b'']\,.
+	\begin{split}
+		W(1|x) &= W(1|\smallint) \, U_{a,b}(x) \\
+		W(x|1) &= W(\smallint|1) \\
+		W(y,z|x) &= W(\smallint \!\! \smallint | \smallint) \, U_{a,b}(x) \\
+		W(x|x') &= W(\smallint | \smallint) \,U_{a,b}(x') \,,
+	\end{split}
+	\quad \quad
+	\begin{split}
+		W(x|y,z) &= W(\smallint | \smallint \!\! \smallint) \, U_{a',b'}(y) \, U_{a'',b''}(z) \\
+		W(y,z|y',z) &= W(\smallint \!\! \smallint | \smallint \!\! \smallint) \, W(\smallint \!\! \smallint | y') \, U_{a',b'}(y') \\
+		W(y,z|y,z') &= W(\smallint \!\! \smallint | \smallint \!\! \smallint) \, \, W(\smallint \!\! \smallint | z') \, U_{a'',b''}(z') \\
+		\;
+	\end{split}
+\end{equation}
+where
+\begin{equation}
+	\begin{split}
+		W(1|\smallint) &= 1 \\
+		W(\smallint | 1) &= W(\smallint | \smallint) = W(\smallint | \smallint \!\! \smallint) = \tfrac{1}{3} \\
+		W(\smallint \!\! \smallint | \smallint) &= W(\smallint \!\! \smallint | \smallint \!\! \smallint) = W(\smallint \!\! \smallint | y') = W(\smallint \!\! \smallint | z') = \tfrac{1}{2} \,.
+	\end{split}
+\end{equation}
+The discrete proposal distributions $ W(\smallint \!\! \smallint | y') $ and $ W(\smallint \!\! \smallint | z') $ correspond to choosing to update either the $ y $ or the $ z $ part of the state $ x $. Having all of this information it is then trivial to calculate the acceptance ratios, which become
+\begin{equation}
+	\begin{split}
+		W(1|x) &= \text{min} \Big(1, \, \tfrac{1}{3} [b - a] \, e^{-x} \Big) \\
+		W(x|1) &= \text{min} \Big(1, \, 3 \, [b - a]^{-1} \, e^{x} \Big) \\
+		W(x|x') &= \text{min} \Big(1, \, e^{x - x'} \Big) \\
+		W(x|y,z) &=\text{min} \Big(1, \, \tfrac{2}{3} [b' - a'][b'' - a''][b - a]^{-1} \, e^{x - y - z} \Big) \\
+		W(y,z|x) &= \text{min} \Big(1, \, \tfrac{3}{2} [b' - a']^{-1}[b'' - a'']^{-1}[b - a] \, e^{y + z - x} \Big) \\
+		W(y,z|y',z) &= \text{min} \Big(1, \, e^{y - y'} \Big) \\
+		W(y,z|y,z') &= \text{min} \Big(1, \, e^{z - z'} \Big) \,.
+	\end{split}
+\end{equation}
+
+By defining $ N_0 $ and $ N $ in accordance to what was done in the previous example, the value of the sum is obtained by
+\begin{equation}
+	1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z}
+	= 1 + \frac{N - N_0}{N_0} \,.
+\end{equation}
+
+\section{Polaron implementation}
+
+The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integral series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. By then representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
+\begin{equation}
+	\int \frac{\diff^3 q}{(2 \pi)^3}
+	\rightarrow
+	\int \limits_{q=0}^\infty \int \limits_{\theta=0}^{\pi} \int \limits_{\varphi=0}^{2\pi} \frac{q^2 \sin \theta \diff q \diff \theta \diff \varphi}{(2 \pi)^3} \,.
+\end{equation}
+The beauty of this is realized when recalling that each phonon brings with it a factor $ V(q)^2 \propto q^{-2} $, whose momentum dependence exactly cancel with that of the integral. For example, the expression corresponding the first order diagram then becomes
+\begin{equation}
+	-
+	\int \limits_{0}^{\tau} \diff \tau_2
+	\int \limits_{0}^{\tau_2} \diff \tau_1
+	\int \limits_0^\infty \diff q
+	\int \limits_0^\pi \diff \theta
+	\int \limits_0^{2 \pi} \diff \varphi
+	\, \Gt_0(\vec p, \tau_1)
+	\Gt_0(\vec p - \vec q, \tau_2 - \tau_1)
+	\tilde \Dt_0(\vec q, \tau_2 - \tau_1)
+	\Gt_0(\vec p, \tau - \tau_2) \,,
+\end{equation}
+where $ \tilde \Dt_0(\vec q, \tau) $ is a phonon propagator which has absorbed the factor $ q^2 \sin \theta  \, (2\pi)^{-3} $ originating from the integral, the interaction potential $ V(q)^2 $ along with the factor $ -1 $ from the Feynman rules. Thus
+\begin{equation}
+	\tilde \Dt_0(\vec q, \tau)
+	=
+	\frac{2\sqrt 2 \pi \alpha}{(2\pi)^3} \sin \theta \, \exp \{ - \tau\}
+\end{equation}
+which is a quantity always larger than or equal to zero. The integrand of each and every integral in the integral series will be entirely made up out of $ \Gt_0 $'s and $ \tilde \Dt_0 $'s which implies that every contribution to $ \Gt $ is a positive contribution. This will simplify the DMC implementation since it wont be necessary to calculate what sign each sampled parameter space state comes with.
+
+The external parameters $ \vec p $ and $ \tau $ will be the only ones allowed to change during the Markov process. Including $ \alpha $ and/or $ \mu $ would cause the parameter space to increase and the statistics to be spread out. Thus more computation time would be needed to calculate quantities to the same level of certainty as having $ \alpha $ and $ \mu $ fixed.
+
+The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ and the resolution is chosen in terms of $ \Delta p $ and $ \Delta \tau $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables. Thus the bin $ N_{i,j} $ of the histogram will be covering the range $ p \in [p_i - \Delta p/2, \, p_i + \Delta p/2] $ and $ \tau \in [\tau_j - \Delta \tau/2, \, \tau_j + \Delta \tau/2] $ of the external parameter values. The value of every the bin in the histogram and $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt_0(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by 1, if not, the bin of the histogram according to the external parameters is increased by 1.
+
+\todo{something something...}
+
+\begin{equation}
+	N_0
+	\propto
+	\int \limits_{0}^{N\Delta p} \diff p \int \limits_{0}^{M\Delta p} \diff \tau \, \Gt_0(\vec p, \tau)
+	\approx
+	\Delta p \Delta \tau \sum_{k,l} \Gt_0(\vec p_k, \tau_l)
+\end{equation}
+
+\begin{equation}
+	N_{i,j}
+	\propto
+	\int \limits_{p_{i - 0.5}}^{p_{i + 0.5}} \diff p \int \limits_{\tau_{j - 0.5}}^{\tau_{j + 0.5}} \diff \tau \left[ \Gt(\vec p, \tau) - \Gt_0(\vec p, \tau) \right]
+	\approx
+	\Delta p \Delta \tau \left[ \Gt(\vec p_i, \tau_j) - \Gt_0(\vec p_i, \tau_j) \right]
+\end{equation}
+
+\begin{equation}
+	\Gt(\vec p_i, \tau_j)
+	=
+	\Gt_0(\vec p_i, \tau_j) + N_{i, j} \frac{\sum_{k, l} \Gt_0(\vec p_k, \tau_l)}{N_0}
 \end{equation}
 
 
 
 
 
-\section{Polaron implementation}
-
-\todo{semi definite integrands (?)}
-
 
 \todo{Add to $ \hat H $ the chemical potential. Our energies are to be independent of $ \mu $. mu is simply a tool to prevent the}
 
-\todo{Here we will demonstrate what happens when we are using $ T = 0 $ and not having any free electrons in the system at the beginning. (wtf!?)}
-
-\subsection{Update function 1}
-\subsection{Update function 2}
-\subsection{Update function 3}
+\subsection*{Update function 1}
+\subsection*{Update function 2}
+\subsection*{Update function 3}
 
 \section{Sample self energy}
 
