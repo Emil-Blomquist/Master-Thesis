@@ -1,8 +1,10 @@
-% !TEX root = thesis.tex
+% !TEX root = ../thesis.tex
 
 \todo{Here we shall summarize what this chapter is about}
 
 \section{General idea}
+
+\todo{In thermal equilibrium}
 
 Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
 \begin{equation}
@@ -184,7 +186,7 @@ By defining $ N_0 $ and $ N $ in accordance to what was done in the previous exa
 	= 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
-\section{Polaron implementation}
+\section{Polaron implementation \question{Propagator sampling?}}
 
 The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integral series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. By then representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
 \begin{equation}
@@ -215,44 +217,154 @@ which is a quantity always larger than or equal to zero. The integrand of each a
 
 The external parameters $ \vec p $ and $ \tau $ will be the only ones allowed to change during the Markov process. Including $ \alpha $ and/or $ \mu $ would cause the parameter space to increase and the statistics to be spread out. Thus more computation time would be needed to calculate quantities to the same level of certainty as having $ \alpha $ and $ \mu $ fixed.
 
-The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ and the resolution is chosen in terms of $ \Delta p $ and $ \Delta \tau $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables. Thus the bin $ N_{i,j} $ of the histogram will be covering the range $ p \in [p_i - \Delta p/2, \, p_i + \Delta p/2] $ and $ \tau \in [\tau_j - \Delta \tau/2, \, \tau_j + \Delta \tau/2] $ of the external parameter values. The value of every the bin in the histogram and $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt_0(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by 1, if not, the bin of the histogram according to the external parameters is increased by 1.
-
-\todo{something something...}
-
+The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ and the resolution is chosen in terms of $ \Delta p $ and $ \Delta \tau $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables. Thus the bin $ N_{i,j} $ of the histogram will be covering the range $ p \in [p_i - \Delta p/2, \, p_i + \Delta p/2] $ and $ \tau \in [\tau_j - \Delta \tau/2, \, \tau_j + \Delta \tau/2] $ of the external parameter values. The value of every bin in the histogram along with $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt_0(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by 1, if not, the bin in the histogram according to the external parameters is increased by 1. By doing this, the quantities $ N_0 $ and $ N_{i,j} $ can be shown to be proportional to
 \begin{equation}
-	N_0
-	\propto
-	\int \limits_{0}^{N\Delta p} \diff p \int \limits_{0}^{M\Delta p} \diff \tau \, \Gt_0(\vec p, \tau)
-	\approx
-	\Delta p \Delta \tau \sum_{k,l} \Gt_0(\vec p_k, \tau_l)
+	\begin{split}
+		N_0
+		&\propto
+		\int \limits_{0}^{N\Delta p} \! \! \diff p \int \limits_{0}^{M\Delta p} \! \! \diff \tau \, \Gt_0(\vec p, \tau) \\
+		&=
+		\Delta p \, \Delta \tau \sum_{k,l} \Gt_0(\vec p_k, \tau_l) + \mathcal{O} \left( [\Delta p]^3 + [\Delta \tau]^3 \right)
+	\end{split}
 \end{equation}
-
+and
 \begin{equation}
-	N_{i,j}
-	\propto
-	\int \limits_{p_{i - 0.5}}^{p_{i + 0.5}} \diff p \int \limits_{\tau_{j - 0.5}}^{\tau_{j + 0.5}} \diff \tau \left[ \Gt(\vec p, \tau) - \Gt_0(\vec p, \tau) \right]
-	\approx
-	\Delta p \Delta \tau \left[ \Gt(\vec p_i, \tau_j) - \Gt_0(\vec p_i, \tau_j) \right]
+	\begin{split}
+		N_{i,j}
+		&\propto
+		\int \limits_{p_{i - 0.5}}^{p_{i + 0.5}} \! \! \! \diff p \int \limits_{\tau_{j - 0.5}}^{\tau_{j + 0.5}} \! \! \! \diff \tau \left[ \Gt(\vec p, \tau) - \Gt_0(\vec p, \tau) \right] \\
+		&=
+		\Delta p \, \Delta \tau \left[ \Gt(\vec p_i, \tau_j) - \Gt_0(\vec p_i, \tau_j) \right] + \mathcal{O} \left( [\Delta p]^3 + [\Delta \tau]^3 \right)
+	\end{split}
 \end{equation}
-
+respectively. Omitting the errors due to discretization, the interacting electronic propagator is then found to be
 \begin{equation}
 	\Gt(\vec p_i, \tau_j)
 	=
-	\Gt_0(\vec p_i, \tau_j) + N_{i, j} \frac{\sum_{k, l} \Gt_0(\vec p_k, \tau_l)}{N_0}
+	\Gt_0(\vec p_i, \tau_j) + N_{i, j} \frac{\sum_{k, l} \Gt_0(\vec p_k, \tau_l)}{N_0} \,.
 \end{equation}
 
+What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral series will be used. That is, the functions $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space and thus maintaining ergodicity. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed, which is the topic to follow.
+
+
+
+\subsection*{Change of diagram length in time, type 1}
+
+\begin{figure}[H]
+	\begin{fmffile}{NORMALchangeOfDiagramLengthType1}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6}
+					\fmfbottom{b1,b2,b3,b4,b5,b6}
+					\fmf{dots, tension=2}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dashes}{b2,t2}
+					\fmf{dashes}{b4,t4}
+					\fmfdot{b2,b4}
+					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
+        					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6}
+					\fmfbottom{b1,b2,b3,b4,b5,b6}
+					\fmf{dots, tension=2}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dashes}{b2,t2}
+					\fmf{dashes}{b4,t4}
+					\fmfdot{b2,b4}
+					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
+        					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALcodl1}
+\end{figure}
 
 
 
 
 
-\todo{Add to $ \hat H $ the chemical potential. Our energies are to be independent of $ \mu $. mu is simply a tool to prevent the}
 
-\subsection*{Update function 1}
-\subsection*{Update function 2}
-\subsection*{Update function 3}
+\subsection*{Change of diagram length in time, type 2}
 
-\section{Sample self energy}
+
+
+\begin{figure}[H]
+	\begin{fmffile}{NORMALchangeOfDiagramLengthType2}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6}
+					\fmfbottom{b1,b2,b3,b4,b5,b6}
+					\fmf{dots, tension=2}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dashes}{b2,t2}
+					\fmf{dashes}{b4,t4}
+					\fmfdot{b2,b4}
+					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
+        					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6}
+					\fmfbottom{b1,b2,b3,b4,b5,b6}
+					\fmf{dots, tension=2}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dashes}{b2,t2}
+					\fmf{dashes}{b4,t4}
+					\fmfdot{b2,b4}
+					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
+        					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALcodl2}
+\end{figure}
+
+
+
+\subsection*{Change of external momentum}
+\todo{Isotropic problem $ \rightarrow $ direction independence. Do we keep the direction constant?}
+
+\subsection*{Change of transferred momentum magnitude}
+\todo{Momentum transferred via a phonon propagator}
+
+\subsection*{Change of transferred momentum direction}
+
+\subsection*{Vertex shift in time}
+
+\subsection*{Change of diagram structure}
+
+\subsection*{Change of digram order}
+
+
+
+
+
+
+\section{Self energy sampling}
 
 \subsection{Divergent diagram}
 

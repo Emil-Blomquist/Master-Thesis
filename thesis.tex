@@ -48,6 +48,7 @@
 \issn{???}
 \isrn{???}
 
+
 %
 %  optional parameters
 %
@@ -83,6 +84,8 @@
 \definecolor{flaw}{rgb}{1, 0, 0}
 \definecolor{todo}{rgb}{0, 0, 1}
 
+\definecolor{highlight}{rgb}{1, 0, 1}
+
 \newcommand{\image}[1]{{\leavevmode\color{image}#1}}
 \newcommand{\motivation}[1]{{\leavevmode\color{motivation}#1}}
 \newcommand{\question}[1]{{\leavevmode\color{question}#1}}
@@ -106,17 +109,17 @@
 \begin{document}
 
 \begin{abstract}
-\input{abstract}
+\input{Texts/abstract}
 \end{abstract}
 
 \begin{otherlanguage}{swedish}
 \begin{foreginabstract}
-\input{sammanfattning}
+\input{Texts/sammanfattning}
 \end{foreginabstract}
 \end{otherlanguage}
 
 \begin{preface}
-\input{preface}
+\input{Texts/preface}
 \end{preface}
 
 \tableofcontents
@@ -126,22 +129,22 @@
 
 %\part{Introduction and background material}
 
-\input{commentsAndNotations}
+\input{Texts/commentsAndNotations}
 
 \chapter{Introduction}
-\input{chapter1}
+\input{Texts/chapter1}
 
 \chapter{Background material}
-\input{chapter2}
+\input{Texts/chapter2}
 
 \chapter{Diagrammatic Monte Carlo}
-\input{chapter3}
+\input{Texts/chapter3}
 
 \chapter{Numerical Results}
-\input{chapter4}
+\input{Texts/chapter4}
 
 \chapter{Summary and Conclusions}
-\input{chapter5}
+\input{Texts/chapter5}
 
 % This starts the appendices.
 %\appendix
