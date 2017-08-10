@@ -258,7 +258,7 @@ What remains to be discussed is how the sampling of states in parameter space oc
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6}
 					\fmfbottom{b1,b2,b3,b4,b5,b6}
-					\fmf{dots, tension=2}{b1,b2}
+					\fmf{dots}{b1,b2}
 					\fmf{fermion}{b2,b4}
 					\fmf{fermion}{b4,b6}
 					\fmf{dashes}{b2,t2}
@@ -269,13 +269,13 @@ What remains to be discussed is how the sampling of states in parameter space oc
         					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
 				\end{fmfgraph*}
         			\end{gathered}
-			\quad \quad \rightarrow \quad \quad
+			\quad \quad \rightarrow \quad
 		        	\begin{gathered}
 				\begin{fmfgraph*}(40, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6}
 					\fmfbottom{b1,b2,b3,b4,b5,b6}
-					\fmf{dots, tension=2}{b1,b2}
+					\fmf{dots}{b1,b2}
 					\fmf{fermion}{b2,b4}
 					\fmf{fermion}{b4,b6}
 					\fmf{dashes}{b2,t2}
@@ -305,36 +305,48 @@ What remains to be discussed is how the sampling of states in parameter space oc
 	\begin{fmffile}{NORMALchangeOfDiagramLengthType2}
 		\begin{equation*}
 		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+				\begin{fmfgraph*}(50, 7)
 					\fmfstraight
-					\fmftop{t1,t2,t3,t4,t5,t6}
-					\fmfbottom{b1,b2,b3,b4,b5,b6}
-					\fmf{dots, tension=2}{b1,b2}
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9}
+					\fmf{dots}{b1,b2}
 					\fmf{fermion}{b2,b4}
 					\fmf{fermion}{b4,b6}
+					\fmf{dots}{b6,b7}
+					\fmf{fermion}{b7,b9}
 					\fmf{dashes}{b2,t2}
 					\fmf{dashes}{b4,t4}
-					\fmfdot{b2,b4}
-					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
-					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
-        					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
+					\fmf{dashes}{b6,t6}
+					\fmf{dashes}{b7,t7}
+					\fmfdot{b2,b4,b6,b7}
+					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
+					\fmfv{label=$ \textcolor{highlight}{ \tau_{k} } $, label.angle=-90}{b4}
+					\fmfv{label=$ \textcolor{highlight}{ \tau_{k + 1} \;\;\; } $, label.angle=-90}{b6}
+					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n - 1} } $, label.angle=-90}{b7}
+        					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b9}
 				\end{fmfgraph*}
         			\end{gathered}
-			\quad \quad \rightarrow \quad \quad
+			\quad \quad \rightarrow \quad
 		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+				\begin{fmfgraph*}(50, 7)
 					\fmfstraight
-					\fmftop{t1,t2,t3,t4,t5,t6}
-					\fmfbottom{b1,b2,b3,b4,b5,b6}
-					\fmf{dots, tension=2}{b1,b2}
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9}
+					\fmf{dots}{b1,b2}
 					\fmf{fermion}{b2,b4}
 					\fmf{fermion}{b4,b6}
+					\fmf{dots}{b6,b7}
+					\fmf{fermion}{b7,b9}
 					\fmf{dashes}{b2,t2}
 					\fmf{dashes}{b4,t4}
-					\fmfdot{b2,b4}
-					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
-					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
-        					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
+					\fmf{dashes}{b6,t6}
+					\fmf{dashes}{b7,t7}
+					\fmfdot{b2,b4,b6,b7}
+					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
+					\fmfv{label=$ \textcolor{highlight}{ \tau_{k}' } $, label.angle=-90}{b4}
+					\fmfv{label=$ \textcolor{highlight}{ \tau_{k + 1}' \;\;\; } $, label.angle=-90}{b6}
+					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n - 1}' } $, label.angle=-90}{b7}
+        					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b9}
 				\end{fmfgraph*}
         			\end{gathered}
 		\end{equation*}
@@ -348,12 +360,144 @@ What remains to be discussed is how the sampling of states in parameter space oc
 \subsection*{Change of external momentum}
 \todo{Isotropic problem $ \rightarrow $ direction independence. Do we keep the direction constant?}
 
+\begin{figure}[H]
+	\begin{fmffile}{NORMALchangeOfExternalMomentum}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b1,b3}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_0} $, label.side=left}{b3,b5}
+					\fmf{dots}{b5,b6}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b6,b8}
+					\fmf{dashes}{b3,t3}
+					\fmf{dashes}{b5,t5}
+					\fmf{dashes}{b6,t6}
+					\fmfdot{b3,b5,b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b1,b3}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_0'} $, label.side=left}{b3,b5}
+					\fmf{dots}{b5,b6}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b6,b8}
+					\fmf{dashes}{b3,t3}
+					\fmf{dashes}{b5,t5}
+					\fmf{dashes}{b6,t6}
+					\fmfdot{b3,b5,b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALcoem}
+\end{figure}
+
 \subsection*{Change of transferred momentum magnitude}
 \todo{Momentum transferred via a phonon propagator}
+
+\begin{figure}[H]
+	\begin{fmffile}{NORMALchangeOfTransferredMomentum}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 20)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_k} $, label.side=left}{b2,b4}
+					\fmf{dots}{b4,b5}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_l} $, label.side=left}{b5,b7}
+					\fmf{dots}{b7,b8}
+					\fmf{dashes, tension=1.5}{b4,v1}
+					\fmf{phantom}{v1,t4}
+					\fmf{dashes, tension=1.5}{b5,v2}
+					\fmf{phantom}{v2,t5}
+					\fmf{dashes, left, tension=0, label=$ \textcolor{highlight}{\vec q_k} $, label.side=left}{b2,b7}
+					\fmfdot{b2,b4,b5,b7}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 20)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_k'} $, label.side=left}{b2,b4}
+					\fmf{dots}{b4,b5}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_l'} $, label.side=left}{b5,b7}
+					\fmf{dots}{b7,b8}
+					\fmf{dashes, tension=1.5}{b4,v1}
+					\fmf{phantom}{v1,t4}
+					\fmf{dashes, tension=1.5}{b5,v2}
+					\fmf{phantom}{v2,t5}
+					\fmf{dashes, left, tension=0, label=$ \textcolor{highlight}{\vec q_k'} $, label.side=left}{b2,b7}
+					\fmfdot{b2,b4,b5,b7}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALcotm}
+\end{figure}
 
 \subsection*{Change of transferred momentum direction}
 
 \subsection*{Vertex shift in time}
+
+\begin{figure}[H]
+	\begin{fmffile}{NORMALvertexShiftInTime}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dots}{b6,b7}
+					\fmf{dashes}{b2,t2}
+					\fmf{dashes}{b4,t4}
+					\fmf{dashes}{b6,t6}
+					\fmfdot{b2,b4,b6}
+					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
+					\fmfv{label=$ \textcolor{highlight}{ \tau_{k} } $, label.angle=-90}{b4}
+					\fmfv{label=$ \tau_{k + 1} $, label.angle=-90}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 7)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dots}{b6,b7}
+					\fmf{dashes}{b2,t2}
+					\fmf{dashes}{b4,t4}
+					\fmf{dashes}{b6,t6}
+					\fmfdot{b2,b4,b6}
+					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
+					\fmfv{label=$ \textcolor{highlight}{ \tau_{k}' } $, label.angle=-90}{b4}
+					\fmfv{label=$ \tau_{k + 1} $, label.angle=-90}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALvsit}
+\end{figure}
 
 \subsection*{Change of diagram structure}
 
