@@ -246,7 +246,11 @@ respectively. Omitting the errors due to discretization, the interacting electro
 
 What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral series will be used. That is, the functions $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space and thus maintaining ergodicity. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed, which is the topic to follow.
 
+\begin{itemize}
+	\item \todo{introduce $ \tau_\text{max} $ and $ p_\text{max} $.}
 
+	\item \todo{Quickly mention the code implementation. momenta belongs to lines, time to nodes.}
+\end{itemize}
 
 \subsection*{Change of diagram length in time, type 1}
 
@@ -288,18 +292,23 @@ What remains to be discussed is how the sampling of states in parameter space oc
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{The only affected parameter is the highlighted imaginary-time of the end point node.}
 	\label{fig:NORMALcodl1}
 \end{figure}
+This update procedure merely changes the external imaginary-time parameter $ \tau $, which is nothing but the diagram length in time. In the first update type this is achieved by altering the time of the end point node in the diagram, i.e. $ \tau \rightarrow \tau' $, as illustrated in figure \ref{fig:NORMALcodl1}. The only affected quantity of such an update will be the value of the very last $ \Gt_0 $ in the diagram so that
+\begin{equation}
+	\frac{D_n(\tau')}{D_n(\tau)}
+	= \frac{\Gt_0(\vec p, \tau' - \tau_{2n - 1})}{\Gt_0(\vec p, \tau - \tau_{2n - 1})} 
+	= \frac{\exp \left\{ -\left(\frac{p^2}{2} - \mu \right) \tau' \right\}}{\exp \left\{ -\left(\frac{p^2}{2} - \mu \right) \tau \right\}}
+\end{equation}
 
-
-
-
-
+Now consider an exponential distribution on the interval $ [\tau_{2n - 1}, \, \tau_\text{max}] $ with rate parameter $ \lambda = p^2/2 - \mu $ of which the density is
+\begin{equation}
+	\rho(\tau) = \frac{\lambda \, e^{-\lambda (\tau - \tau_{2n - 1})}}{1 - e^{- \lambda (\tau_\text{max} - \tau_{2n - 1})}} \,.
+\end{equation}
+By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\tau | \tau') $ will be the inverse of $ D_n'/D_n $. Hence the acceptance ratio $ A(\tau | \tau') $ of this update procedure becomes 1, and any proposed $ \tau' $ is always be accepted.
 
 \subsection*{Change of diagram length in time, type 2}
-
-
 
 \begin{figure}[H]
 	\begin{fmffile}{NORMALchangeOfDiagramLengthType2}
@@ -351,54 +360,110 @@ What remains to be discussed is how the sampling of states in parameter space oc
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{The highlighted $ \tau $'s are the parameters affected by this update.}
 	\label{fig:NORMALcodl2}
 \end{figure}
 
+This update procedure also changes the external imaginary-time parameter, although it does so in a slightly different by letting any $ \Gt_0 $ in the diagram be lengthen or shortened in time, not just the last one. This is achieved by randomly picking any but the leading node in the diagram to assign a new imaginary-time $ \tau_k' $ from the interval $ [\tau_{k-1}, \, \tau_\text{max} - (\tau - \tau_k)] $. In order to only modify the length of the electronic propagator just in front of the chosen node, every node proceeding this node must clearly have the difference $ \tau_k' - \tau_k $  added to its time. This is illustrated in figure \ref{fig:NORMALcodl2}.
 
+This update does not merely affect the one $ \Gt_0 $, but phonon propagators with start and end points on different sides of the chosen node would also have their length modified by the difference $ \tau_k' - \tau_k $. If there are $ m $ such phonons, the quota of the diagram values become
+\begin{equation}
+	\begin{split}
+		\frac{D_n(\tau')}{D_n(\tau)}
+		&= \frac{
+			\Gt_0(\vec p, \tau_k - \tau_{k-1}) \prod \limits_{i=0}^{m-1} \tilde \Dt_0(\vec q_i, \Delta \tau_i)
+		}{
+			\Gt_0(\vec p, \tau_k' - \tau_{k-1}) \prod \limits_{j=0}^{m-1} \tilde \Dt_0(\vec q_j, \Delta \tau_j + [\tau_k' - \tau_k])
+		} \\[6pt]
+		&= \frac{\exp \left\{ -\left(\frac{p^2}{2} - \mu + m \right) \tau_k' \right\}}{\exp \left\{ -\left(\frac{p^2}{2} - \mu + m \right) \tau_k \right\}} \,,
+	\end{split}
+\end{equation}
+where $ \Delta \tau_i $ is the length in time of the $ i $th phonon propagator. By sampling the $ \tau_k' $ from an exponential distribution with rate parameter $ \lambda = p^2/2 - \mu + m $, the acceptance ration for this update procedure also becomes unity.
+
+This second version of the change of diagram length update procedure is more complex than the first one, and may therefore be chosen less often. In a worst case scenario the complexity scales as $ \mathcal{O} (2n) $, due to figuring out the number of phonons $ m $ just discussed. Only one of the procedures changing the length of the diagram would be sufficient, but having an over complete set of update procedures is necessarily not something negative and could potentially enhance the statistics.
 
 \subsection*{Change of external momentum}
-\todo{Isotropic problem $ \rightarrow $ direction independence. Do we keep the direction constant?}
 
 \begin{figure}[H]
 	\begin{fmffile}{NORMALchangeOfExternalMomentum}
 		\begin{equation*}
 		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+				\begin{fmfgraph*}(50, 7)
 					\fmfstraight
-					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
-					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b1,b3}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_0} $, label.side=left}{b3,b5}
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9,t10}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9,b10}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_0} $, label.side=left}{b1,b3}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_1} $, label.side=left}{b3,b5}
 					\fmf{dots}{b5,b6}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b6,b8}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_{2n - 1}} $, label.side=left}{b6,b8}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_{2n}} $, label.side=left}{b8,b10}
 					\fmf{dashes}{b3,t3}
 					\fmf{dashes}{b5,t5}
 					\fmf{dashes}{b6,t6}
-					\fmfdot{b3,b5,b6}
+					\fmf{dashes}{b8,t8}
+					\fmfdot{b3,b5,b6,b8}
 				\end{fmfgraph*}
         			\end{gathered}
 			\quad \quad \rightarrow \quad \quad
 		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+				\begin{fmfgraph*}(50, 7)
 					\fmfstraight
-					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
-					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b1,b3}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_0'} $, label.side=left}{b3,b5}
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9,t10}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9,b10}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'_0} $, label.side=left}{b1,b3}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'_1} $, label.side=left}{b3,b5}
 					\fmf{dots}{b5,b6}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b6,b8}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'_{2n - 1}} $, label.side=left}{b6,b8}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'_{2n}} $, label.side=left}{b8,b10}
 					\fmf{dashes}{b3,t3}
 					\fmf{dashes}{b5,t5}
 					\fmf{dashes}{b6,t6}
-					\fmfdot{b3,b5,b6}
+					\fmf{dashes}{b8,t8}
+					\fmfdot{b3,b5,b6,b8}
 				\end{fmfgraph*}
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{This update procedure changes the momentum of every $ \Gt_0 $ in the diagram by the external momentum difference $ \vec p' - \vec p $. Surely it must be the case that $ \vec p_0  = \vec p_{2n} = \vec p $ and the same is of course true in primed case as well.}
 	\label{fig:NORMALcoem}
 \end{figure}
+
+Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltonian}), the Green's function $ \Gt $ becomes dependent merely upon the magnitude of the external momentum $ \vec p $. \todo{(this is supposed to have been discussed at an earlier point!)} This update procedure is thus constructed to keep the direction constant while changing only the magnitude $ p \rightarrow p' $. In order to satisfy momentum conservation at each vertex, the $ \Gt_0 $'s are chosen to absorbs the external momentum difference $ \vec p' - \vec p $ leaving the value of the $ \tilde \Dt_0 $'s the same. This is illustrated in figure \ref{fig:NORMALcoem}. The ratio of the diagram value after to before such an update then becomes
+\begin{equation}
+	\begin{split}
+		\frac{D_n(\vec p')}{D_n'(\vec p)}
+		&= \frac{
+			\prod \limits_{i=0}^{2n} \Gt_0(\vec p'_i, \tau_{i + 1} - \tau_i)
+		}{
+			\prod \limits_{j=0}^{2n} \Gt_0(\vec p_j, \tau_{j + 1} - \tau_j)
+		} \\
+		&= \exp \left\{ - \frac{1}{2} \sum \limits_{i=0}^{2n} \left( \left[ \vec p_i - (\vec p' - \vec p) \right]^2  - p_i^2 \right) (\tau_{i + 1} - \tau_i) \right\} \\
+		&= \exp \left\{ - \frac{1}{2} \left( [p' - p]^2 - \langle \vec p \rangle \cdot [\vec p' - \vec p] \right) \tau \right\} \,,
+	\end{split}
+\end{equation}
+where the mean electronic momentum is defined as
+\begin{equation}
+	\langle \vec p \rangle \equiv \sum \limits_{i = 0}^{2n} \frac{\tau_{i + 1} - \tau_i}{\tau} \, \vec p_i \,.
+\end{equation}
+By sampling $ p' $ from a half-normal distribution whose corresponding normal distribution have the standard deviation $ \sigma = 1/\sqrt \tau $, the fraction of the proposal distributions take the value
+\begin{equation}
+	\frac{W(\vec p' | \vec p)}{W(\vec p | \vec p')} = \exp \left\{ - \frac{1}{2} (p^2 - p'^2) \, \tau \right\}
+\end{equation}
+so that the acceptance ratio is found to be
+\begin{equation}
+	\begin{split}
+		A(p|p')
+		&= \text{min} \Big( 1, \, \exp \big\{ - (\vec p' - \vec p) \cdot (\langle \vec p \rangle - \vec p) \, \tau \big\} \Big) \\
+		&= \text{min} \Big( 1, \, \exp \big\{ - (p' - p) \, (\langle p_z \rangle - p) \, \tau \big\} \Big) \,.
+	\end{split}
+\end{equation}
+In the final equality the vectors has ben represented in a Cartesian coordinate system with the $ z $-axis parallel to the external momentum. On average $ \langle p_z \rangle $ should not differ to much from $ p $, implying that both the exponential and the acceptance ration should be close to unity most of the time. This of course being the reason why the update procedure is constructed the way it is.
+
+\question{Perhaps $ \langle p_z \rangle = p $ on average?}
+
+
+
+
 
 \subsection*{Change of transferred momentum magnitude}
 \todo{Momentum transferred via a phonon propagator}
@@ -501,9 +566,103 @@ What remains to be discussed is how the sampling of states in parameter space oc
 
 \subsection*{Change of diagram structure}
 
+\begin{figure}[H]
+	\begin{fmffile}{NORMALchangeOfDiagramStructure}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 15)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5}
+					\fmfbottom{b1,b2,b3,b4,b5}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_k} $, label.side=left}{b2,b4}
+					\fmf{dots}{b4,b5}
+					\fmf{dashes, foreground=(0,,0,,1)}{b2,t2}
+					\fmf{dashes, foreground=(1,,0,,0)}{b4,t4}
+					\fmfdot{b2,b4}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 15)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5}
+					\fmfbottom{b1,b2,b3,b4,b5}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_k'} $, label.side=left}{b2,b4}
+					\fmf{dots}{b4,b5}
+					\fmf{dashes, foreground=(1,,0,,0), left=0.4}{b2,t4}
+					\fmf{dashes, foreground=(0,,0,,1), right=0.4}{b4,t2}
+					\fmfdot{b2,b4}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALcods}
+\end{figure}
+
+
+
 \subsection*{Change of digram order}
 
 
+\begin{figure}[H]
+	\begin{fmffile}{NORMALchangeOfDiagramOrder}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 15)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion, label=$ \vec p_i $, label.side=left}{b2,b4}
+					\fmf{dots}{b4,b5}
+					\fmf{fermion, label=$ \vec p_j $, label.side=left}{b5,b7}
+					\fmf{dots}{b7,b8}
+					\fmf{dashes}{b2,v1}
+					\fmf{phantom}{v1,t2}
+					\fmf{dashes}{b4,v2}
+					\fmf{phantom}{v2,t4}
+					\fmf{dashes}{b5,v3}
+					\fmf{phantom}{v3,t5}
+					\fmf{dashes}{b7,v4}
+					\fmf{phantom}{v4,t7}
+					\fmfdot{b2,b4,b5,b7}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \leftrightarrow \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(60, 15)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
+					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion, label=$ \vec p_i $, label.side=left}{b2,b3}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_i'} $, label.side=left}{b3,b4}
+					\fmf{dots}{b4,b5}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_j'} $, label.side=left}{b5,b6}
+					\fmf{fermion, label=$ \vec p_j $, label.side=left}{b6,b7}
+					\fmf{dots}{b7,b8}
+					\fmf{dashes}{b2,v1}
+					\fmf{phantom}{v1,t2}
+					\fmf{dashes}{b4,v2}
+					\fmf{phantom}{v2,t4}
+					\fmf{dashes}{b5,v3}
+					\fmf{phantom}{v3,t5}
+					\fmf{dashes}{b7,v4}
+					\fmf{phantom}{v4,t7}
+					\fmf{dashes, left, foreground=(1,,0,,0), label=$ \textcolor{highlight}{\vec q_k} $}{b3,b6}
+					\fmfdot{b2,b3,b4,b5,b6,b7}
+					\fmfv{foreground=(1,,0,,0), label=$ \textcolor{highlight}{\tau_l} $, label.a=-90}{b3}
+					\fmfv{foreground=(1,,0,,0), label=$ \textcolor{highlight}{\tau_m} $, label.a=-90}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{\todo{A caption.}}
+	\label{fig:NORMALcodo}
+\end{figure}
 
 
 

@@ -22,9 +22,11 @@ In quantum mechanics, utilizing the bra-ket notation, the state of a particle $ 
 That is, sandwich the operator of the sought observable in between the corresponding bra and ket of the particle state. Used to reach the final equality is that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and the fact that this basis is orthonormal so that the unity operator might be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
 
 
-\todo{Mention Hilbert space. one particle vs. many-particle Hilbert spaces.}
+\begin{itemize}
+	\item \todo{Mention Hilbert space. one particle vs. many-particle Hilbert spaces.}
 
-\todo{Perhaps quickly mention the Heisenberg picture here?}
+	\item \todo{Perhaps quickly mention the Heisenberg picture here?}
+\end{itemize}
 
 
 What has been described so far is single-particle quantum mechanics. However, it is possible to generalize this formalism to many-particle quantum mechanics. In the simple case of $ N $ distinguishable particles, the state of the system will be described by
@@ -1065,13 +1067,17 @@ Hence the equation for $ \Gt(k) $ in terms of $ \Gt_0(k) $ and $ \Sigma^*(k) $ b
 
 \section{Monte Carlo Methods}
 
-\todo{$ \cdot $ Rely on repeated sampling of random numbers to obtain results.}
+\begin{itemize}
 
-\todo{$ \cdot $ Use randomness to solve problems which might be deterministic in principle.}
+\item \todo{Rely on repeated sampling of random numbers to obtain results.}
 
-\todo{$ \cdot $ Useful when there is difficult to approach the problem in other way.}
+\item \todo{Use randomness to solve problems which might be deterministic in principle.}
 
-\todo{$ \cdot $ Draw a sequence on numbers from a probability distribution.}
+\item \todo{Useful when there is difficult to approach the problem in other way.}
+
+\item \todo{Draw a sequence on numbers from a probability distribution.}
+
+\end{itemize}
 
 \subsection{Detailed balance and ergodicity}
 
@@ -1107,8 +1113,14 @@ In order to fulfill the condition above, it is common to use the Metropolis choi
 
 where the proportionality between the density of $ P $ and $ f $ has been used in order to reach the last equality. The new state $ x' $ is then accepted according to $ A(x|x') $. In practice this is done by sampling a uniform random number $ a $ between 0 and 1 and accepting the proposed transition if $ A(x|x') > a $, otherwise the transition is rejected. Important to realize here is that if the proposed state $ x' $ is rejected, the old state $ x $ is then to be thought of as having been sampled yet again in the sequence of states.
 
-\todo{Wanting an $ A $ close to unity in order to make the algorithm more effective.}
+\begin{itemize}
+	\item \todo{Mention why $ A = 1 $ is pursued. Better statistics something...}
+\end{itemize}
 
-Having performed the algorithm for a while, the state at hand may be considered independent from the initial state. At that point, starting to keep track of how many times a state $ x $ is sampled should in the long time limit converge to $ \pi(x) $ apart from a normalization factor. \todo{Mention something about ergodicity being important since it otherwise would be impossible to reach some states.}
+Having performed the algorithm for a while, the state at hand may be considered independent from the initial state. At that point, starting to keep track of how many times a state $ x $ is sampled should in the long time limit converge to $ \pi(x) $ apart from a normalization factor. 
+
+\begin{itemize}
+	\item \todo{Mention something about ergodicity being important since it otherwise would be impossible to reach some states.}
+\end{itemize}
 
 
