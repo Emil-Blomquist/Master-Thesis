@@ -102,7 +102,21 @@
 \renewcommand{\vec}[1]{\boldsymbol{\mathbf{#1}}}                        % bold face vectors
 \renewcommand{\min}[1]{\text{min} \left(#1\right)}                        % bold face vectors
 
-
+% arrows for photons: http://tex.stackexchange.com/questions/206799/how-does-one-draw-a-momentum-arrow-along-a-line-in-feynmf
+\newcommand{\marrow}[5]{
+    \fmfcmd{style_def marrow#1
+    expr p = drawarrow subpath (1/4, 3/4) of p shifted 6 #2 withpen pencircle scaled 0.4;
+    label.#3(btex #4 etex, point 0.5 of p shifted 6 #2);
+    enddef;}
+    \fmf{marrow#1,tension=0}{#5}
+}
+\newcommand{\Marrow}[6]{
+    \fmfcmd{style_def marrow#1
+    expr p = drawarrow subpath (1/4, 3/4) of p shifted #6 #2 withpen pencircle scaled 0.4;
+    label.#3(btex #4 etex, point 0.5 of p shifted #6 #2);
+    enddef;}
+    \fmf{marrow#1,tension=0}{#5}
+}
 
 \unitlength=1mm
 

@@ -249,7 +249,7 @@ What remains to be discussed is how the sampling of states in parameter space oc
 \begin{itemize}
 	\item \todo{introduce $ \tau_\text{max} $ and $ p_\text{max} $.}
 
-	\item \todo{Quickly mention the code implementation. momenta belongs to lines, time to nodes.}
+	\item \todo{Quickly mention the code implementation. momenta belongs to lines, time to nodes. Nodes instead of vertices in order to keep things general (when sampling $ \Sigma* $)}
 \end{itemize}
 
 \subsection*{Change of diagram length in time, type 1}
@@ -430,6 +430,7 @@ This second version of the change of diagram length update procedure is more com
 
 Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltonian}), the Green's function $ \Gt $ becomes dependent merely upon the magnitude of the external momentum $ \vec p $. \todo{(this is supposed to have been discussed at an earlier point!)} This update procedure is thus constructed to keep the direction constant while changing only the magnitude $ p \rightarrow p' $. In order to satisfy momentum conservation at each vertex, the $ \Gt_0 $'s are chosen to absorbs the external momentum difference $ \vec p' - \vec p $ leaving the value of the $ \tilde \Dt_0 $'s the same. This is illustrated in figure \ref{fig:NORMALcoem}. The ratio of the diagram value after to before such an update then becomes
 \begin{equation}
+	\label{eq:externalMomentumUpdateRatio}
 	\begin{split}
 		\frac{D_n(\vec p')}{D_n'(\vec p)}
 		&= \frac{
@@ -437,36 +438,32 @@ Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltoni
 		}{
 			\prod \limits_{j=0}^{2n} \Gt_0(\vec p_j, \tau_{j + 1} - \tau_j)
 		} \\
-		&= \exp \left\{ - \frac{1}{2} \sum \limits_{i=0}^{2n} \left( \left[ \vec p_i - (\vec p' - \vec p) \right]^2  - p_i^2 \right) (\tau_{i + 1} - \tau_i) \right\} \\
-		&= \exp \left\{ - \frac{1}{2} \left( [p' - p]^2 - \langle \vec p \rangle \cdot [\vec p' - \vec p] \right) \tau \right\} \,,
+		&= \exp \left\{ - \frac{1}{2} \sum \limits_{i=0}^{2n} \left( \left[ \vec p_i + (\vec p' - \vec p) \right]^2  - p_i^2 \right) (\tau_{i + 1} - \tau_i) \right\} \\
+		&= \exp \left\{ - \frac{\tau}{2} \left( [p' - p]^2 + 2 \langle \vec p \rangle_{0, 2n} \cdot [\vec p' - \vec p] \right) \right\}
 	\end{split}
 \end{equation}
 where the mean electronic momentum is defined as
 \begin{equation}
-	\langle \vec p \rangle \equiv \sum \limits_{i = 0}^{2n} \frac{\tau_{i + 1} - \tau_i}{\tau} \, \vec p_i \,.
+	\langle \vec p \rangle_{k,l} \equiv \sum \limits_{i = k}^{l} \frac{\tau_{i + 1} - \tau_i}{\tau} \, \vec p_i \,.
 \end{equation}
-By sampling $ p' $ from a half-normal distribution whose corresponding normal distribution have the standard deviation $ \sigma = 1/\sqrt \tau $, the fraction of the proposal distributions take the value
+
+By sampling $ p' \in [0, \, p_\text{max}] $ using a truncated half-normal distribution whose corresponding normal distribution would have the standard deviation $ \sigma = 1/\sqrt \tau $, the fraction of the proposal distributions take the value
 \begin{equation}
-	\frac{W(\vec p' | \vec p)}{W(\vec p | \vec p')} = \exp \left\{ - \frac{1}{2} (p^2 - p'^2) \, \tau \right\}
+	\frac{W(\vec p' | \vec p)}{W(\vec p | \vec p')} = \exp \left\{ - \frac{\tau}{2} (p^2 - p'^2) \right\}
 \end{equation}
 so that the acceptance ratio is found to be
 \begin{equation}
 	\begin{split}
 		A(p|p')
-		&= \text{min} \Big( 1, \, \exp \big\{ - (\vec p' - \vec p) \cdot (\langle \vec p \rangle - \vec p) \, \tau \big\} \Big) \\
-		&= \text{min} \Big( 1, \, \exp \big\{ - (p' - p) \, (\langle p_z \rangle - p) \, \tau \big\} \Big) \,.
+		&= \text{min} \Big( 1, \, \exp \big\{ - (\vec p' - \vec p) \cdot (\langle \vec p \rangle_{0,2n} - \vec p) \, \tau \big\} \Big) \\
+		&= \text{min} \Big( 1, \, \exp \big\{ - (p' - p) \, (\langle p_z \rangle_{0,2n} - p) \, \tau \big\} \Big) \,.
 	\end{split}
 \end{equation}
-In the final equality the vectors has ben represented in a Cartesian coordinate system with the $ z $-axis parallel to the external momentum. On average $ \langle p_z \rangle $ should not differ to much from $ p $, implying that both the exponential and the acceptance ration should be close to unity most of the time. This of course being the reason why the update procedure is constructed the way it is.
+In the final equality the vectors has ben represented in a Cartesian coordinate system with the $ z $-axis parallel to the external momentum. On average $ \langle p_z \rangle_{0,2n} $ should not differ to much from $ p $, implying that both the exponential and the acceptance ration should be close to unity most of the time. This of course being the reason why the update procedure is constructed the way it is.
 
-\question{Perhaps $ \langle p_z \rangle = p $ on average?}
-
-
-
-
+\question{Perhaps $ \langle p_z \rangle_{0,2n} = p $ on average?}
 
 \subsection*{Change of transferred momentum magnitude}
-\todo{Momentum transferred via a phonon propagator}
 
 \begin{figure}[H]
 	\begin{fmffile}{NORMALchangeOfTransferredMomentum}
@@ -477,9 +474,9 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
 					\fmf{dots}{b1,b2}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_k} $, label.side=left}{b2,b4}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_a} $, label.side=left}{b2,b4}
 					\fmf{dots}{b4,b5}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_l} $, label.side=left}{b5,b7}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_b} $, label.side=left}{b5,b7}
 					\fmf{dots}{b7,b8}
 					\fmf{dashes, tension=1.5}{b4,v1}
 					\fmf{phantom}{v1,t4}
@@ -487,6 +484,8 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmf{phantom}{v2,t5}
 					\fmf{dashes, left, tension=0, label=$ \textcolor{highlight}{\vec q_k} $, label.side=left}{b2,b7}
 					\fmfdot{b2,b4,b5,b7}
+					\fmfv{label=$ \tau_a $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{b+1} $, label.angle=-90}{b7}
 				\end{fmfgraph*}
         			\end{gathered}
 			\quad \quad \rightarrow \quad \quad
@@ -496,9 +495,9 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
 					\fmf{dots}{b1,b2}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_k'} $, label.side=left}{b2,b4}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'_a} $, label.side=left}{b2,b4}
 					\fmf{dots}{b4,b5}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p_l'} $, label.side=left}{b5,b7}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'_b} $, label.side=left}{b5,b7}
 					\fmf{dots}{b7,b8}
 					\fmf{dashes, tension=1.5}{b4,v1}
 					\fmf{phantom}{v1,t4}
@@ -506,15 +505,69 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmf{phantom}{v2,t5}
 					\fmf{dashes, left, tension=0, label=$ \textcolor{highlight}{\vec q_k'} $, label.side=left}{b2,b7}
 					\fmfdot{b2,b4,b5,b7}
+					\fmfv{label=$ \tau_a $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{b+1} $, label.angle=-90}{b7}
 				\end{fmfgraph*}
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{The momentum transferred via an internal phonon propagator is updated. In order obey momentum conservation at every vertex, electronic propagators beneath the phonon arc absorb the momentum difference.}
 	\label{fig:NORMALcotm}
 \end{figure}
 
+This update procedure is designed to be very similar to that of the external momentum. However, the main difference of course being that the magnitude of momentum transferred via a phonon propagator is updated rather than the external momentum. In order to achieve this, a $ \tilde \Dt_0 $ is randomly picked and has a new momentum magnitude assigned to it $ q_k \rightarrow q'_k $ while keeping the direction fixed. In order to conserve momentum at the two vertices connected to the phonon propagator, the $ \Gt_0 $'s located beneath the phonon arc should absorb the momentum difference $ \vec q_k - \vec q'_k $. This is illustrated in figure \ref{fig:NORMALcotm}. Since the $ \tilde \Dt(\vec q, \tau) $'s does not depend on the magnitude $ q = | \vec q | $, the ratio of diagram values become
+\begin{equation}
+	\begin{split}
+		\frac{D_n(\vec q'_k)}{D_n(\vec q_k)}
+		&= \frac{
+			\prod \limits_{i=a}^{b} \Gt_0(\vec p'_i, \tau_{i + 1} - \tau_i)
+		}{
+			\prod \limits_{j=a}^{b} \Gt_0(\vec p_j, \tau_{j + 1} - \tau_j)
+		} \\
+		&= \exp \left\{ - \frac{1}{2} \sum \limits_{i=a}^b \left( \left[ \vec p_i + (\vec q_k - \vec q'_k) \right]^2  - p_i^2 \right) (\tau_{i + 1} - \tau_i) \right\} \\
+		&= \exp \left\{ - \frac{\tau_{b + 1} - \tau_a}{2} \left( [q_k - q'_k]^2 + 2 \langle \vec p \rangle_{a,b} \cdot [\vec q_k - \vec q'_k] \right) \right\} \,,
+	\end{split}
+\end{equation}
+which indeed is similar to (\ref{eq:externalMomentumUpdateRatio}). Following in the footsteps of the previous update procedure, $ q'_k \in [0, \infty[ $ is sampled from a half-normal distribution whose corresponding normal distribution would have the standard deviation $ \sigma = 1/\sqrt{\tau_{b+1} - \tau_a} $. The acceptance ration is then found to be,
+\begin{equation}
+	A(\vec q_k | \vec q'_k)
+	=
+	\text{min} \Big( 1, \, \exp \big\{ - (\vec q_k - \vec q'_k) \cdot (\langle \vec p \rangle_{a,b} + \vec q_k) \, [\tau_{b+1} - \tau_a] \big\} \Big) \,.
+\end{equation}
+It is reasonable to assume that on average, $ \langle \vec p \rangle_{a,b} + \vec q_k $ does not differ too much from the external momentum $ \vec p $. Hence this update procedure should have an acceptance ration close to unity at low external momenta whilst performing worse at higher external momenta.
+
+\begin{itemize}
+	\item \todo{Implement this!}
+\end{itemize}
+
+
 \subsection*{Change of transferred momentum direction}
+
+This update procedure changes the direction $ (\theta_k, \, \varphi_k) \rightarrow (\theta'_k, \, \varphi'_k) $ of the momentum transferred via a phonon propagator. As in the previous update procedure, the electronic propagators below the phonon arc absorb the momentum difference $ \vec q_k - \vec q'_k $ which is illustrated in figure \ref{fig:NORMALcotm}. This time, since $ \tilde \Dt \propto \sin \theta $ the ratio of the diagram values becomes slightly different
+\begin{equation}
+	\begin{split}
+		\frac{D_n(\vec q'_k)}{D_n(\vec q_k)}
+		&= \frac{\sin \theta'_k}{\sin \theta_k}
+		\frac{
+			\prod \limits_{i=a}^{b} \Gt_0(\vec p'_i, \tau_{i + 1} - \tau_i)
+		}{
+			\prod \limits_{j=a}^{b} \Gt_0(\vec p_j, \tau_{j + 1} - \tau_j)
+		} \\
+		&= \frac{\sin \theta'_k}{\sin \theta_k}
+		\exp \left\{ - \frac{\tau_{b + 1} - \tau_a}{2} \left( [\vec q_k - \vec q'_k]^2 + 2 \langle \vec p \rangle_{a,b} \cdot [\vec q_k - \vec q'_k] \right) \right\} \,.
+	\end{split}
+\end{equation}
+By sampling the azimuthal angle uniformly on the interval $ \varphi'_k \in [0, \, 2\pi ] $, and the polar angle $ \theta'_k \in [0, \, \pi] $ from a probability distribution whose density $ \rho(\theta'_k) = \tfrac{1}{2} \sin \theta'_k $, one obtains the acceptance ratio
+\begin{equation}
+	A(\vec q_k | \vec q'_k)
+	= \min{1, \, \exp \left\{ - \frac{\tau_{b + 1} - \tau_a}{2} \left( [\vec q_k - \vec q'_k]^2 + 2 \langle \vec p \rangle_{a,b} \cdot [\vec q_k - \vec q'_k] \right) \right\} } \,.
+\end{equation}
+
+\begin{itemize}
+	\item \todo{Implement this!}
+\end{itemize}
+
+
 
 \subsection*{Vertex shift in time}
 
@@ -560,9 +613,23 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{The imaginary-time of internal node $ k $ is updated.}
 	\label{fig:NORMALvsit}
 \end{figure}
+
+This update procedure changes the imaginary-time $ \tau_k \rightarrow \tau'_k $ of a randomly chosen internal node whilst keeping the chronological ordering, i.e $ \tau_{k-1} < \tau'_k < \tau_{k+1} $. The procedure is illustrated in figure \ref{fig:NORMALvsit}, and as can be seen, it does only affect the three propagators connected to the node so that
+\begin{equation}
+	\begin{split}
+		\frac{D_n(\tau'_k)}{D_n(\tau_k)}
+		&= \frac{
+			\Gt_0(\vec p_{k-1}, \tau'_k - \tau_{k_1}) \, \Gt_0(\vec p_k, \tau_{k+1} - \tau'_k) \, \tilde \Dt_0(\vec q_k, \pm (\tau_l - \tau'_k))
+		}{
+			\Gt_0(\vec p_{k-1}, \tau'_k - \tau_{k_1}) \, \Gt_0(\vec p_k, \tau_{k+1} - \tau_k) \, \tilde \Dt_0(\vec q_k, \pm (\tau_l - \tau_k))
+		} \\
+		&= \exp \left\{  - \left[ \frac{p_{k-1}^2}{2} - \frac{p_k^2}{2}  \mp 1 \right] (\tau' - \tau) \right\} \,.
+	\end{split}
+\end{equation}
+Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon propagator is leaving to node $ l $ from node $ k $. If instead $ \tau_l < \tau_k $, the lower sign should be used and the situation becomes the opposite. By sampling $ \tau'_k $ from the interval $ [\tau_{k-1}, \, \tau_{k+1}] $ using an exponential distribution with rate parameter $ \lambda = p_{k-1}^2/2 - p_k^2/2  \mp 1 $, the acceptance ration becomes unity.
 
 \subsection*{Change of diagram structure}
 
@@ -580,6 +647,8 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmf{dashes, foreground=(0,,0,,1)}{b2,t2}
 					\fmf{dashes, foreground=(1,,0,,0)}{b4,t4}
 					\fmfdot{b2,b4}
+        					\marrow{a}{left}{lft}{$ c_1 q_1 $}{b2,t2}
+        					\marrow{b}{right}{rt}{$ c_2 q_2 $}{b4,t4}
 				\end{fmfgraph*}
         			\end{gathered}
 			\quad \quad \rightarrow \quad \quad
@@ -594,13 +663,29 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmf{dashes, foreground=(1,,0,,0), left=0.4}{b2,t4}
 					\fmf{dashes, foreground=(0,,0,,1), right=0.4}{b4,t2}
 					\fmfdot{b2,b4}
+        					\Marrow{a}{left}{lft}{$ c_2 q_2 $}{b2,t3}{12}
+        					\Marrow{b}{right}{rt}{$ c_1 q_1 $}{b4,t3}{12}
 				\end{fmfgraph*}
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{The diagram structure is modified by interchanging the phonon propagators connected to two neighboring nodes. \todo{Bold face: $ \vec q_1 $ and $ \vec q_2 $}}
 	\label{fig:NORMALcods}
 \end{figure}
+
+
+This update procedure, as illustrated in figure \ref{fig:NORMALcods}, interchange the two phonon propagators connected to a pair of randomly selected neighboring nodes. In order to conserve momentum, the $ \Gt_0 $ connected to both of the selected nodes must absorb the difference $ \vec p'_k - \vec p_k = c_1 \vec q_1 - c_2 \vec q_2 $. Here the $ c_i $ tells whether the propagator is propagating towards any of the two nodes ($ c_i = -1 $) or if it is propagating away from any of the two nodes ($ c_i = 1 $). The ratio of the diagram value prior to and after the update then becomes
+\begin{equation}
+	\begin{split}
+		\frac{D_n(\xi'_n)}{D_n(\xi_n)}
+		&= \frac{
+			\Dt_0 (\vec q_1, c_1[\tau_i - \tau_{k+1}]) \, \Dt_0 (\vec q_2, c_2[\tau_j - \tau_k]) \, \Gt_0 (\vec p'_k, \tau_{k+1} - \tau_k)
+		}{
+			\Dt_0 (\vec q_1, c_1[\tau_i - \tau_k]) \, \Dt_0 (\vec q_2, c_2[\tau_j - \tau_{k+1}]) \, \Gt_0 (\vec p_k, \tau_{k+1} - \tau_k)
+		} \\
+		&=
+	\end{split}
+\end{equation}
 
 
 
@@ -668,6 +753,10 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 
 
 \section{Self energy sampling}
+
+\begin{itemize}
+	\item \todo{Different type of increase/lower diagram order update procedure}
+\end{itemize}
 
 \subsection{Divergent diagram}
 
