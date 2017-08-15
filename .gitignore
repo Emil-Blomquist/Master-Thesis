@@ -19,3 +19,7 @@
 *.t5
 
 *-eps-converted-to.pdf
+
+*.pyc
+*.sublime-project
+*.sublime-workspace

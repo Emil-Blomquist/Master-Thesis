@@ -186,7 +186,7 @@ By defining $ N_0 $ and $ N $ in accordance to what was done in the previous exa
 	= 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
-\section{Polaron implementation \question{Propagator sampling?}}
+\section{Implementation}
 
 The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integral series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. By then representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
 \begin{equation}
@@ -244,13 +244,22 @@ respectively. Omitting the errors due to discretization, the interacting electro
 	\Gt_0(\vec p_i, \tau_j) + N_{i, j} \frac{\sum_{k, l} \Gt_0(\vec p_k, \tau_l)}{N_0} \,.
 \end{equation}
 
-What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral series will be used. That is, the functions $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space and thus maintaining ergodicity. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed, which is the topic to follow.
+\todo{On the other hand, if the external momentum is held fixed at a value $ \vec p_0 $, the propagator would only be a discrete function of the imaginary-time...}
+\begin{equation}
+	\Gt(\vec p_0, \tau_j) = \Gt_0(\vec p_0, \tau_j) + N_j \frac{\sum_l \Gt_0(\vec p_0, \tau_l)}{N_0} \,.
+\end{equation}
+
 
 \begin{itemize}
 	\item \todo{introduce $ \tau_\text{max} $ and $ p_\text{max} $.}
 
 	\item \todo{Quickly mention the code implementation. momenta belongs to lines, time to nodes. Nodes instead of vertices in order to keep things general (when sampling $ \Sigma* $)}
 \end{itemize}
+
+\section{Bare scheme update procedures for $ \Gt$}
+
+What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral series will be used. That is, the functions $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space and thus maintaining ergodicity. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed.
+
 
 \subsection*{Change of diagram length in time, type 1}
 
@@ -309,6 +318,10 @@ Now consider an exponential distribution on the interval $ [\tau_{2n - 1}, \, \t
 By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\tau | \tau') $ will be the inverse of $ D_n'/D_n $. Hence the acceptance ratio $ A(\tau | \tau') $ of this update procedure becomes 1, and any proposed $ \tau' $ is always be accepted.
 
 \subsection*{Change of diagram length in time, type 2}
+
+\begin{itemize}
+	\item \todo{Mention something about the probability of choosing a node on random will cancel is chosen uniformly. Tell the reader that this is also the case for all other updates procedures as long as nothing else is said.}
+\end{itemize}
 
 \begin{figure}[H]
 	\begin{fmffile}{NORMALchangeOfDiagramLengthType2}
@@ -536,11 +549,6 @@ which indeed is similar to (\ref{eq:externalMomentumUpdateRatio}). Following in 
 \end{equation}
 It is reasonable to assume that on average, $ \langle \vec p \rangle_{a,b} + \vec q_k $ does not differ too much from the external momentum $ \vec p $. Hence this update procedure should have an acceptance ration close to unity at low external momenta whilst performing worse at higher external momenta.
 
-\begin{itemize}
-	\item \todo{Implement this!}
-\end{itemize}
-
-
 \subsection*{Change of transferred momentum direction}
 
 This update procedure changes the direction $ (\theta_k, \, \varphi_k) \rightarrow (\theta'_k, \, \varphi'_k) $ of the momentum transferred via a phonon propagator. As in the previous update procedure, the electronic propagators below the phonon arc absorb the momentum difference $ \vec q_k - \vec q'_k $ which is illustrated in figure \ref{fig:NORMALcotm}. This time, since $ \tilde \Dt \propto \sin \theta $ the ratio of the diagram values becomes slightly different
@@ -562,11 +570,6 @@ By sampling the azimuthal angle uniformly on the interval $ \varphi'_k \in [0, \
 	A(\vec q_k | \vec q'_k)
 	= \min{1, \, \exp \left\{ - \frac{\tau_{b + 1} - \tau_a}{2} \left( [\vec q_k - \vec q'_k]^2 + 2 \langle \vec p \rangle_{a,b} \cdot [\vec q_k - \vec q'_k] \right) \right\} } \,.
 \end{equation}
-
-\begin{itemize}
-	\item \todo{Implement this!}
-\end{itemize}
-
 
 
 \subsection*{Vertex shift in time}
@@ -649,6 +652,8 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
 					\fmfdot{b2,b4}
         					\marrow{a}{left}{lft}{$ c_1 q_1 $}{b2,t2}
         					\marrow{b}{right}{rt}{$ c_2 q_2 $}{b4,t4}
+					\fmfv{label=$ \tau_k $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{k+1} $, label.angle=-90}{b4}
 				\end{fmfgraph*}
         			\end{gathered}
 			\quad \quad \rightarrow \quad \quad
@@ -665,6 +670,8 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
 					\fmfdot{b2,b4}
         					\Marrow{a}{left}{lft}{$ c_2 q_2 $}{b2,t3}{12}
         					\Marrow{b}{right}{rt}{$ c_1 q_1 $}{b4,t3}{12}
+					\fmfv{label=$ \tau_k $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{k+1} $, label.angle=-90}{b4}
 				\end{fmfgraph*}
         			\end{gathered}
 		\end{equation*}
@@ -682,15 +689,17 @@ This update procedure, as illustrated in figure \ref{fig:NORMALcods}, interchang
 			\Dt_0 (\vec q_1, c_1[\tau_i - \tau_{k+1}]) \, \Dt_0 (\vec q_2, c_2[\tau_j - \tau_k]) \, \Gt_0 (\vec p'_k, \tau_{k+1} - \tau_k)
 		}{
 			\Dt_0 (\vec q_1, c_1[\tau_i - \tau_k]) \, \Dt_0 (\vec q_2, c_2[\tau_j - \tau_{k+1}]) \, \Gt_0 (\vec p_k, \tau_{k+1} - \tau_k)
-		} \\
-		&=
+		} \\[4pt]
+		&= \exp \left\{ -\left[ \frac{(\vec p_k + c_1 \vec q_1 - c_2 \vec q_2)^2}{2} - \frac{p_k^2}{2} - c_1 + c_2 \right] (\tau_{k+1} - \tau_k) \right\} \,.
 	\end{split}
+\end{equation}
+Other than the pair of nodes to be picked, there are no parameters to be sampled in order to change the diagram structure in this way. Thus $ W(\xi_n|\xi'_n) = W(\xi'_n|\xi_n) $ and the update procedure should be accepted according to
+\begin{equation}
+	A(\xi_n|\xi'_n) = \min{1, \, \frac{D_n(\xi'_n)}{D_n(\xi_n)}} \,.
 \end{equation}
 
 
-
 \subsection*{Change of digram order}
-
 
 \begin{figure}[H]
 	\begin{fmffile}{NORMALchangeOfDiagramOrder}
@@ -745,17 +754,148 @@ This update procedure, as illustrated in figure \ref{fig:NORMALcods}, interchang
         			\end{gathered}
 		\end{equation*}
 	\end{fmffile}
-	\caption{\todo{A caption.}}
+	\caption{An illustration of the change of diagram order procedure.}
 	\label{fig:NORMALcodo}
 \end{figure}
 
+This final update procedure which is illustrated in figure \ref{fig:NORMALcodo}, is the only one which changes the order of the diagram at hand. To increase the diagram order, an electronic propagator $ \Gt_{0, i} $ is selected on random and then split at a time $ \tau_l $, which is sampled uniformly on the interval $ [\tau_i, \, \tau_{i+1}] $. After this, another imaginary time $ \tau_m $ is sampled on the interval $ \tau_m \in[\tau_l, \tau] $ using an exponential distribution with a rate parameter $ \lambda = 1 $. The $ \Gt_{0,j} $ which happen to occupy the imaginary-time $ \tau_m $ is split in twice at that point as well. For each of the two times $ \tau_l $ and $ \tau_m $, a node is inserted so that the loose ends of the $ \Gt_0 $'s have something to connect to. The two newly introduced nodes are then further connected to a new phonon propagator $ \tilde \Dt_0 $, for which the momentum $ \vec q_k $ is sampled according to the \textit{change of transferred momentum} procedures introduced earlier. In order to obey momentum conservation at each node, the $ \Gt_0 $'s under the newly added phonon arc have their momentum subtracted by $ \vec q_k $. In this way, the probability distribution of increasing the diagram order becomes
+\begin{equation}
+	\begin{split}
+		W(n|n+1)
+		&=
+		P_\text{R} \;
+		\frac{1}{2n + 1} \frac{1}{\tau_{i+1}  - \tau_i} \;
+		\frac{e^{- (\tau_m - \tau_l)}}{1 - e^{- (\tau - \tau_l)}} \;
+		\frac{\sin \theta_k}{2} \frac{1}{2 \pi} \\[4pt]
+		& \times \sqrt{\frac{2 (\tau_m - \tau_l)}{\pi}} \exp \left\{- \frac{q_k^2}{2} (\tau_m - \tau_l) \right\} \,.
+	\end{split}
+\end{equation}
+Here $ P_\text{R}(n) $ is the probability of choosing to raise the diagram order once having selected the \textit{change of diagram order} procedure. Of course the corresponding probability of choosing to lower the diagram order is then nothing but $ 1 - P_\text{R}(n) $. Further more, the ratio of the diagram value prior to and after the update is realized to be
+\begin{equation}
+	\begin{split}
+		\frac{D_{n+1}}{D_n}
+		&= \tilde \Dt_0(\vec q_k, \tau_m - \tau_l) \,
+		\frac{
+			\prod \limits_{i=l}^{m-1} \Gt_0(\vec p_i - \vec q_k, \tau_{i + 1} - \tau_i)
+		}{
+			\prod \limits_{i=l}^{m-1} \Gt_0(\vec p_i, \tau_{i + 1} - \tau_i)
+		} \\
+		&= \frac{2 \sqrt 2 \pi \alpha}{(2\pi)^3} \, \sin \theta_k \, \exp \left\{ - \left[ \frac{q_k^2}{2} + 1 - \langle \vec p \rangle_{l,m-1} \cdot \vec q_k \right] (\tau_m - \tau_l) \right\} \,.
+	\end{split}
+\end{equation}
 
+The procedure of lowering the diagram order is much more simplistic; it is only necessary to randomly pick a $ \tilde \Dt $ which is to be removed. Hence $ W(n+1|n) = (1 - P_\text{R}(n+1)) \, [n+1]^{-1} $, and by introducing the quantity
+\begin{equation}
+	\begin{split}
+		R(n|n+1)
+		&= \frac{D_{n+1}}{D_n} \frac{W(n+1|n)}{W(n|n+1)} \\[4pt]
+		&=
+		\frac{1 - P_\text{R}(n+1)}{P_\text{R}(n)}
+		\frac{\alpha}{\sqrt \pi}
+		\frac{2n + 1}{n+1}
+		\frac{\tau_{i+1} - \tau_i}{\sqrt{\tau_m - \tau_l}} \\
+		&\times \left[ 1 - e^{-(\tau - \tau_l)} \right]
+		\exp \big\{ [\langle \vec p \rangle_{l,m-1} \cdot \vec q_k] (\tau_m - \tau_l) \big\} \,
+	\end{split}
+\end{equation}
+the acceptance ratios may be expressed as
+\begin{equation}
+	A(n|n+1) = \min{1, \, R(n|n+1)}
+	\; , \quad
+	A(n+1|n) = \min{1, \, 1/R(n|n+1)} \,.
+\end{equation}
+By requiring that
+\begin{equation}
+	\frac{1 - P_\text{R}(n+1)}{P_\text{R}(n)} = \frac{\sqrt \pi}{2 \alpha}
+	\quad \Rightarrow \quad
+	P_\text{R}(n) = P_\text{R} = \left[ 1 + \frac{\sqrt \pi}{2 \alpha}\right]^{-1}
+\end{equation}
+these acceptance ratios become independent of the coupling constant $ \alpha $ and less dependent of the diagram order $ n $
 
-
-\section{Self energy sampling}
+Clearly it should not be possible to lower the diagram order any further than $ n=0 $. Also, one could think of implementing a maximum order $ n_\text{max} $ for which the diagram order 
+should not be able to rise above. To achieve this, it is extremely important not to set $ P_\text{R} = 1 $ and $ P_\text{R} = 0 $ at $ n=0 $ and $ n=n_\text{max} $ respectively, since this would ruin the detailed balance. Rather one should approach this by simply refusing such an update. For example, if the procedure to increase the diagram order happen to be chosen when $ n = n_\text{max} $, it should be refused and a new update procedure chosen instead.
 
 \begin{itemize}
-	\item \todo{Different type of increase/lower diagram order update procedure}
+	\item \todo{Check the acceptance ratio!\textbf{}}
+\end{itemize}
+
+\subsection{Results}
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_p0_bare"}.pdf}
+	\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -1.1 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
+	\label{fig:GtOfP0}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_p15_bare"}.pdf}
+		\caption{The acquired value of $ \Gt(p = 1.5, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -0.25 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
+	\label{fig:GtOfP1.5}
+\end{figure}
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{r | l | l} 
+		 	$ \tau $ & $ \Gt(p = 0, \tau) $ & $ \Gt(p = 1.5, \tau) $ \\ 
+		 	\specialrule{.1em}{.05em}{.05em} 
+0.01 & 0.9905685 & 0.988137 \\
+1.01 & 0.6241805 & 0.4938275 \\
+2.01 & 0.522485 & 0.363129 \\
+3.01 & 0.467273 & 0.306567 \\
+4.01 & 0.425932 & 0.274499 \\
+5.01 & 0.3907045 & 0.2528175 \\
+6.01 & 0.359004 & 0.2364785 \\
+7.01 & 0.3300515 & 0.2230085 \\
+8.01 & 0.3041385 & 0.211315 \\
+9.01 & 0.279727 & 0.200281 \\
+10.01 & 0.257335 & 0.190181 \\
+11.01 & 0.237363 & 0.180648 \\
+12.01 & 0.2174565 & 0.171495 \\
+13.01 & 0.2003495 & 0.163467 \\
+14.01 & 0.1844085 & 0.155187 \\
+15.01 & 0.169466 & 0.147606 \\
+16.01 & 0.156047 & 0.140906 \\
+17.01 & 0.143584 & 0.1340965 \\
+18.01 & 0.131918 & 0.127592 \\
+19.01 & 0.1213235 & 0.121574 \\
+20.01 & 0.1116015 & 0.115719 \\
+21.01 & 0.1025415 & 0.110319 \\
+22.01 & 0.094341 & 0.105099 \\
+23.01 & 0.0868875 & 0.099854 \\
+24.01 & 0.079825 & 0.0952285 \\
+25.01 & 0.0736285 & 0.090897 \\
+26.01 & 0.067637 & 0.0865115 \\
+27.01 & 0.0621675 & 0.082502 \\
+28.01 & 0.057182 & 0.0784385 \\
+29.01 & 0.052717 & 0.0747105 \\
+30.01 & 0.048613 & 0.0710195 \\
+31.01 & 0.044576 & 0.067424 \\
+32.01 & 0.040984 & 0.0640415 \\
+33.01 & 0.0379385 & 0.0613055 \\
+34.01 & 0.0348165 & 0.0583585 \\
+35.01 & 0.0319025 & 0.0552485 \\
+36.01 & 0.0294495 & 0.052687 \\
+37.01 & 0.0272275 & 0.050223 \\
+38.01 & 0.025092 & 0.0478835 \\
+39.01 & 0.022881 & 0.04576 \\
+		\end{tabular}
+	\end{center}
+	\caption{\todo{caption this please!} \flaw{Less precision!}}
+	\label{tab:truthTables}   
+\end{table}
+
+\begin{itemize}
+	\item \todo{A samples of the Green's function at $ p = 0 $ and $ p = 1.5 $. There should also be a table with 10 or so values from these $ \Gt $'s}
+\end{itemize}
+
+
+\section{Bare scheme update procedures for $ \Sigma^* $}
+
+\begin{itemize}
+	\item \todo{Different type of increase/lower diagram order update procedure.}
+	\item \todo{only proper self energy diagrams}
 \end{itemize}
 
 \subsection{Divergent diagram}
@@ -783,5 +923,9 @@ The value of the bins in our histogram is
 
 For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using DMC utilise ordinary stochastic integration using MC for the fixed times $ (\tau_{i+1} + \tau_i)/2 $.
 
-\section{Boldification}
+\subsection{Results}
+
+
+
+\section{Bold scheme \question{?}}
 
