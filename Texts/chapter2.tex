@@ -585,12 +585,12 @@ where for convenience $ m = \omega = 1 $ has been used.
 \section{Perturbation theory}
 
 Assume the Hamiltonian to be time-independent in the Schrödinger picture and expressible by the sum $ \hat K = \hat K_0 + \hat K_1 $. Without the interaction term $ \hat K_1 $ the problem would be exactly solvable. However, if this interaction is weak enough, it is reasonable to treat it perturbatively by expanding with respect to some small interaction parameter $ \alpha $. In order to do so it is necessary to introduce yet a new picture, the interaction picture. In the finite temperature formalism, operators in the interaction picture are related to the ones in the Schrödinger picture through $ \hat O_\text{I} (\tau) = e^{\hat K_0 \tau} \, \hat O_\text{S} \, e^{-\hat K_0 \tau} $. Within this picture, it is then possible to express the ensemble average of a $ \tau $-ordered product of operators using a perturbation series,
-
 \begin{equation}
 	\label{eq:perturbationSeries}
-	\begin{split}
-		\text{Tr} \{ \hat \rho_\text{G} \, T_\tau [\hat A_\text{H}(x_a) \, \hat B_\text{H}(x_b) \, \dots \, \hat F_\text{H}(x_f) ] \}
+	\begin{gathered}
+		\text{Tr} \{ \hat \rho_\text{G} \, T_\tau [\hat A_\text{H}(x_a) \, \hat B_\text{H}(x_b) \, \dots \, \hat F_\text{H}(x_f) ] \} \\
 		= \\
+\resizebox{\textwidth}{!}{$
 		\frac{
 			\sum_{n=0}^\infty \frac{(-1)^n}{n!} \int_0^\beta \diff \tau_1 \dots \int_0^\beta \diff \tau_n \, 
 			\text{Tr} \left\{ e^{- \beta \hat K_0} T_\tau [\hat K_1 (\tau_1) \dots \hat K_1 (\tau_n) \, \hat A(x_a) \, \hat B(x_b) \, \dots \, \hat F(x_f)] \right\}
@@ -598,13 +598,10 @@ Assume the Hamiltonian to be time-independent in the Schrödinger picture and exp
 			\sum_{n=0}^\infty \frac{(-1)^n}{n!} \int_0^\beta \diff \tau_1 \dots \int_0^\beta \diff \tau_n \,
 			\text{Tr} \left\{ e^{- \beta \hat K_0} T_\tau [\hat K_1 (\tau_1) \dots \hat K_1 (\tau_n)] \right\}
 		} \,.
-	\end{split}
+$}
+	\end{gathered}
 \end{equation}
-
-
-
 In both the nominator and denominator of the expression above, there is the frequently appearing factor
-
 \begin{equation}
 	\label{eq:bareStatcalEnsembleAverage}
 	\text{Tr} \{ e^{-\beta \hat K_0 } T_\tau [ \hat A \, \hat B \dots\,  \hat F] \} \,.
@@ -1061,6 +1058,7 @@ By inserting (\ref{eq:selfEnergyInTermsOfProperSelfEnergy}) into (\ref{eq:boldLi
 Hence the equation for $ \Gt(k) $ in terms of $ \Gt_0(k) $ and $ \Sigma^*(k) $ becomes
 
 \begin{equation}
+	\label{eq:dysonEquation}
 	\Gt(k) = \frac{1}{\Gt_0(k)^{-1} - \Sigma^*(k)} \,.
 \end{equation}
 

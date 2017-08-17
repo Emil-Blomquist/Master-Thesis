@@ -35,7 +35,7 @@ from whose probability distribution function $ P $ the sequence of $ \xi_0 $'s w
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Examples/First example"}.pdf}
+ 	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/First example"}.pdf}
 	\caption{\todo{Caption this plz!}}
 	\label{fig:example1}
 \end{figure}
@@ -138,7 +138,7 @@ By normalization a probability density function $ \rho $ is obtained whose proba
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Examples/Third example"}.pdf}
+ 	\includegraphics[width=0.8\textwidth, ]{{"Images/Examples/Third example"}.pdf}
 	\caption{\todo{Caption this plz!}}
 	\label{fig:example3}
 \end{figure}
@@ -179,7 +179,6 @@ The discrete proposal distributions $ W(\smallint \!\! \smallint | y') $ and $ W
 		W(y,z|y,z') &= \text{min} \Big(1, \, e^{z - z'} \Big) \,.
 	\end{split}
 \end{equation}
-
 By defining $ N_0 $ and $ N $ in accordance to what was done in the previous example, the value of the sum is obtained by
 \begin{equation}
 	1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z}
@@ -219,6 +218,7 @@ The external parameters $ \vec p $ and $ \tau $ will be the only ones allowed to
 
 The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ and the resolution is chosen in terms of $ \Delta p $ and $ \Delta \tau $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables. Thus the bin $ N_{i,j} $ of the histogram will be covering the range $ p \in [p_i - \Delta p/2, \, p_i + \Delta p/2] $ and $ \tau \in [\tau_j - \Delta \tau/2, \, \tau_j + \Delta \tau/2] $ of the external parameter values. The value of every bin in the histogram along with $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt_0(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by 1, if not, the bin in the histogram according to the external parameters is increased by 1. By doing this, the quantities $ N_0 $ and $ N_{i,j} $ can be shown to be proportional to
 \begin{equation}
+	\label{eq:int2sum1}
 	\begin{split}
 		N_0
 		&\propto
@@ -229,6 +229,7 @@ The value of the propagator $ \Gt $ will be computed at the discrete set of poin
 \end{equation}
 and
 \begin{equation}
+	\label{eq:int2sum2}
 	\begin{split}
 		N_{i,j}
 		&\propto
@@ -239,15 +240,17 @@ and
 \end{equation}
 respectively. Omitting the errors due to discretization, the interacting electronic propagator is then found to be
 \begin{equation}
+	\label{eq:GtofTandP}
 	\Gt(\vec p_i, \tau_j)
 	=
 	\Gt_0(\vec p_i, \tau_j) + N_{i, j} \frac{\sum_{k, l} \Gt_0(\vec p_k, \tau_l)}{N_0} \,.
 \end{equation}
-
-\todo{On the other hand, if the external momentum is held fixed at a value $ \vec p_0 $, the propagator would only be a discrete function of the imaginary-time...}
+On the other hand, if the external momentum where to be held fixed at $ \vec p_0 $, the value of $ \Gt $ at the set of imaginary-times $ \{ \tau_j \} $ would similarly become
 \begin{equation}
+	\label{eq:GtofT}
 	\Gt(\vec p_0, \tau_j) = \Gt_0(\vec p_0, \tau_j) + N_j \frac{\sum_l \Gt_0(\vec p_0, \tau_l)}{N_0} \,.
 \end{equation}
+Here the histogram $ N $ has only one dimension corresponding to the different $ \tau_j $.
 
 
 \begin{itemize}
@@ -257,6 +260,7 @@ respectively. Omitting the errors due to discretization, the interacting electro
 \end{itemize}
 
 \section{Bare scheme update procedures for $ \Gt$}
+\label{eq:secSampleGBare}
 
 What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral series will be used. That is, the functions $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space and thus maintaining ergodicity. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed.
 
@@ -277,8 +281,8 @@ What remains to be discussed is how the sampling of states in parameter space oc
 					\fmf{dashes}{b2,t2}
 					\fmf{dashes}{b4,t4}
 					\fmfdot{b2,b4}
-					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
-					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
+					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n} $, label.angle=-90}{b4}
         					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
 				\end{fmfgraph*}
         			\end{gathered}
@@ -294,8 +298,8 @@ What remains to be discussed is how the sampling of states in parameter space oc
 					\fmf{dashes}{b2,t2}
 					\fmf{dashes}{b4,t4}
 					\fmfdot{b2,b4}
-					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b2}
-					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b4}
+					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n} $, label.angle=-90}{b4}
         					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
 				\end{fmfgraph*}
         			\end{gathered}
@@ -307,13 +311,13 @@ What remains to be discussed is how the sampling of states in parameter space oc
 This update procedure merely changes the external imaginary-time parameter $ \tau $, which is nothing but the diagram length in time. In the first update type this is achieved by altering the time of the end point node in the diagram, i.e. $ \tau \rightarrow \tau' $, as illustrated in figure \ref{fig:NORMALcodl1}. The only affected quantity of such an update will be the value of the very last $ \Gt_0 $ in the diagram so that
 \begin{equation}
 	\frac{D_n(\tau')}{D_n(\tau)}
-	= \frac{\Gt_0(\vec p, \tau' - \tau_{2n - 1})}{\Gt_0(\vec p, \tau - \tau_{2n - 1})} 
+	= \frac{\Gt_0(\vec p, \tau' - \tau_{2n})}{\Gt_0(\vec p, \tau - \tau_{2n})} 
 	= \frac{\exp \left\{ -\left(\frac{p^2}{2} - \mu \right) \tau' \right\}}{\exp \left\{ -\left(\frac{p^2}{2} - \mu \right) \tau \right\}}
 \end{equation}
 
-Now consider an exponential distribution on the interval $ [\tau_{2n - 1}, \, \tau_\text{max}] $ with rate parameter $ \lambda = p^2/2 - \mu $ of which the density is
+Now consider an exponential distribution on the interval $ [\tau_{2n}, \, \tau_\text{max}] $ with rate parameter $ \lambda = p^2/2 - \mu $ of which the density is
 \begin{equation}
-	\rho(\tau) = \frac{\lambda \, e^{-\lambda (\tau - \tau_{2n - 1})}}{1 - e^{- \lambda (\tau_\text{max} - \tau_{2n - 1})}} \,.
+	\rho(\tau) = \frac{\lambda \, e^{-\lambda (\tau - \tau_{2n})}}{1 - e^{- \lambda (\tau_\text{max} - \tau_{2n})}} \,.
 \end{equation}
 By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\tau | \tau') $ will be the inverse of $ D_n'/D_n $. Hence the acceptance ratio $ A(\tau | \tau') $ of this update procedure becomes 1, and any proposed $ \tau' $ is always be accepted.
 
@@ -344,7 +348,7 @@ By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\t
 					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k} } $, label.angle=-90}{b4}
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k + 1} \;\;\; } $, label.angle=-90}{b6}
-					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n - 1} } $, label.angle=-90}{b7}
+					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n} } $, label.angle=-90}{b7}
         					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b9}
 				\end{fmfgraph*}
         			\end{gathered}
@@ -367,7 +371,7 @@ By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\t
 					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k}' } $, label.angle=-90}{b4}
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k + 1}' \;\;\; } $, label.angle=-90}{b6}
-					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n - 1}' } $, label.angle=-90}{b7}
+					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n}' } $, label.angle=-90}{b7}
         					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b9}
 				\end{fmfgraph*}
         			\end{gathered}
@@ -441,7 +445,7 @@ This second version of the change of diagram length update procedure is more com
 	\label{fig:NORMALcoem}
 \end{figure}
 
-Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltonian}), the Green's function $ \Gt $ becomes dependent merely upon the magnitude of the external momentum $ \vec p $. \todo{(this is supposed to have been discussed at an earlier point!)} This update procedure is thus constructed to keep the direction constant while changing only the magnitude $ p \rightarrow p' $. In order to satisfy momentum conservation at each vertex, the $ \Gt_0 $'s are chosen to absorbs the external momentum difference $ \vec p' - \vec p $ leaving the value of the $ \tilde \Dt_0 $'s the same. This is illustrated in figure \ref{fig:NORMALcoem}. The ratio of the diagram value after to before such an update then becomes
+Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltonian}), the Green's function $ \Gt $ becomes dependent merely upon the magnitude of the external momentum $ \vec p $. \todo{(this is supposed to have been discussed at an earlier point!)} This update procedure is thus constructed to keep the direction constant while changing only the magnitude $ p \rightarrow p' $. In order to satisfy momentum conservation at each vertex, the $ \Gt_0 $'s are chosen to absorb the external momentum difference $ \vec p' - \vec p $ leaving the value of the $ \tilde \Dt_0 $'s the same. This is illustrated in figure \ref{fig:NORMALcoem}. The ratio of the diagram value after to before such an update then becomes
 \begin{equation}
 	\label{eq:externalMomentumUpdateRatio}
 	\begin{split}
@@ -760,10 +764,11 @@ Other than the pair of nodes to be picked, there are no parameters to be sampled
 
 This final update procedure which is illustrated in figure \ref{fig:NORMALcodo}, is the only one which changes the order of the diagram at hand. To increase the diagram order, an electronic propagator $ \Gt_{0, i} $ is selected on random and then split at a time $ \tau_l $, which is sampled uniformly on the interval $ [\tau_i, \, \tau_{i+1}] $. After this, another imaginary time $ \tau_m $ is sampled on the interval $ \tau_m \in[\tau_l, \tau] $ using an exponential distribution with a rate parameter $ \lambda = 1 $. The $ \Gt_{0,j} $ which happen to occupy the imaginary-time $ \tau_m $ is split in twice at that point as well. For each of the two times $ \tau_l $ and $ \tau_m $, a node is inserted so that the loose ends of the $ \Gt_0 $'s have something to connect to. The two newly introduced nodes are then further connected to a new phonon propagator $ \tilde \Dt_0 $, for which the momentum $ \vec q_k $ is sampled according to the \textit{change of transferred momentum} procedures introduced earlier. In order to obey momentum conservation at each node, the $ \Gt_0 $'s under the newly added phonon arc have their momentum subtracted by $ \vec q_k $. In this way, the probability distribution of increasing the diagram order becomes
 \begin{equation}
+	\label{eq:transitionUp}
 	\begin{split}
 		W(n|n+1)
 		&=
-		P_\text{R} \;
+		P_\text{R}(n) \;
 		\frac{1}{2n + 1} \frac{1}{\tau_{i+1}  - \tau_i} \;
 		\frac{e^{- (\tau_m - \tau_l)}}{1 - e^{- (\tau - \tau_l)}} \;
 		\frac{\sin \theta_k}{2} \frac{1}{2 \pi} \\[4pt]
@@ -786,6 +791,7 @@ Here $ P_\text{R}(n) $ is the probability of choosing to raise the diagram order
 
 The procedure of lowering the diagram order is much more simplistic; it is only necessary to randomly pick a $ \tilde \Dt $ which is to be removed. Hence $ W(n+1|n) = (1 - P_\text{R}(n+1)) \, [n+1]^{-1} $, and by introducing the quantity
 \begin{equation}
+	\label{eq:changeOrderR}
 	\begin{split}
 		R(n|n+1)
 		&= \frac{D_{n+1}}{D_n} \frac{W(n+1|n)}{W(n|n+1)} \\[4pt]
@@ -800,6 +806,7 @@ The procedure of lowering the diagram order is much more simplistic; it is only 
 \end{equation}
 the acceptance ratios may be expressed as
 \begin{equation}
+	\label{eq:acceptanceRatioChangeOrder}
 	A(n|n+1) = \min{1, \, R(n|n+1)}
 	\; , \quad
 	A(n+1|n) = \min{1, \, 1/R(n|n+1)} \,.
@@ -821,111 +828,313 @@ should not be able to rise above. To achieve this, it is extremely important not
 
 \subsection{Results}
 
+\todo{$ \Gt( \alpha = 2, p = 0) $}
+
+Here follow some results obtained when simulating $ \Gt $ using the bare scheme update procedures described above. However, the external momentum $ \vec p $ has been fixed during these simulations in order to not spread the statistics out over external parameters for which the data is not shown.
+
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_p0_bare"}.pdf}
-	\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -1.1 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
-	\label{fig:GtOfP0}
+ 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_a1_p0_bare"}.pdf}
+	\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -1.1 $ and interaction parameter $ \alpha = 1 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
+	\label{fig:GtOfA1P0}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_p15_bare"}.pdf}
-		\caption{The acquired value of $ \Gt(p = 1.5, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -0.25 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
-	\label{fig:GtOfP1.5}
+ 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_a1_p15_bare"}.pdf}
+		\caption{The acquired value of $ \Gt(p = 1.5, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -0.25 $ and interaction parameter $ \alpha = 1 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
+	\label{fig:GtOfA1P1.5}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_a2_p0_bare"}.pdf}
+		\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -2.2 $ and interaction parameter $ \alpha = 2 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
+	\label{fig:GtOfA2P0}
 \end{figure}
 
 \begin{table}[H]
 	\begin{center}
-		\begin{tabular}{r | l | l} 
-		 	$ \tau $ & $ \Gt(p = 0, \tau) $ & $ \Gt(p = 1.5, \tau) $ \\ 
+		\begin{tabular}{r | c | c | c} 
+		 	$ \tau $ & $ \Gt(0, 1, -1.1) $ & $ \Gt(1.5, 1, -0.25) $ & $ \Gt(0, 2, -2.2) $ \\ 
 		 	\specialrule{.1em}{.05em}{.05em} 
-0.01 & 0.9905685 & 0.988137 \\
-1.01 & 0.6241805 & 0.4938275 \\
-2.01 & 0.522485 & 0.363129 \\
-3.01 & 0.467273 & 0.306567 \\
-4.01 & 0.425932 & 0.274499 \\
-5.01 & 0.3907045 & 0.2528175 \\
-6.01 & 0.359004 & 0.2364785 \\
-7.01 & 0.3300515 & 0.2230085 \\
-8.01 & 0.3041385 & 0.211315 \\
-9.01 & 0.279727 & 0.200281 \\
-10.01 & 0.257335 & 0.190181 \\
-11.01 & 0.237363 & 0.180648 \\
-12.01 & 0.2174565 & 0.171495 \\
-13.01 & 0.2003495 & 0.163467 \\
-14.01 & 0.1844085 & 0.155187 \\
-15.01 & 0.169466 & 0.147606 \\
-16.01 & 0.156047 & 0.140906 \\
-17.01 & 0.143584 & 0.1340965 \\
-18.01 & 0.131918 & 0.127592 \\
-19.01 & 0.1213235 & 0.121574 \\
-20.01 & 0.1116015 & 0.115719 \\
-21.01 & 0.1025415 & 0.110319 \\
-22.01 & 0.094341 & 0.105099 \\
-23.01 & 0.0868875 & 0.099854 \\
-24.01 & 0.079825 & 0.0952285 \\
-25.01 & 0.0736285 & 0.090897 \\
-26.01 & 0.067637 & 0.0865115 \\
-27.01 & 0.0621675 & 0.082502 \\
-28.01 & 0.057182 & 0.0784385 \\
-29.01 & 0.052717 & 0.0747105 \\
-30.01 & 0.048613 & 0.0710195 \\
-31.01 & 0.044576 & 0.067424 \\
-32.01 & 0.040984 & 0.0640415 \\
-33.01 & 0.0379385 & 0.0613055 \\
-34.01 & 0.0348165 & 0.0583585 \\
-35.01 & 0.0319025 & 0.0552485 \\
-36.01 & 0.0294495 & 0.052687 \\
-37.01 & 0.0272275 & 0.050223 \\
-38.01 & 0.025092 & 0.0478835 \\
-39.01 & 0.022881 & 0.04576 \\
+0.01 & 0.991 & 0.988 & 0.98 \\
+1.01 & 0.624 & 0.494 & 0.392 \\
+2.01 & 0.522 & 0.363 & 0.281 \\
+3.01 & 0.467 & 0.307 & 0.231 \\
+4.01 & 0.426 & 0.274 & 0.199 \\
+5.01 & 0.391 & 0.253 & 0.174 \\
+6.01 & 0.359 & 0.236 & 0.152 \\
+7.01 & 0.330 & 0.223 & 0.134 \\
+8.01 & 0.304 & 0.211 & 0.118 \\
+9.01 & 0.280 & 0.200 & 0.103 \\
+10.01 & 0.257 & 0.190 & 0.091 \\
+11.01 & 0.237 & 0.181 & 0.080 \\
+12.01 & 0.217 & 0.171 & 0.070 \\
+13.01 & 0.200 & 0.163 & 0.062 \\
+14.01 & 0.184 & 0.155 & 0.054 \\
+15.01 & 0.169 & 0.148 & 0.048 \\
+16.01 & 0.156 & 0.141 & 0.042 \\
+17.01 & 0.144 & 0.134 & 0.037 \\
+18.01 & 0.132 & 0.128 & 0.032 \\
+19.01 & 0.121 & 0.122 & 0.029 \\
+20.01 & 0.112 & 0.116 & 0.025 \\
+21.01 & 0.103 & 0.110 & 0.022 \\
+22.01 & 0.094 & 0.105 & 0.019 \\
+23.01 & 0.087 & 0.100 & 0.017 \\
+24.01 & 0.080 & 0.095 & 0.015 \\
+25.01 & 0.074 & 0.091 & 0.013 \\
+26.01 & 0.068 & 0.087 & 0.012 \\
+27.01 & 0.062 & 0.083 & 0.010 \\
+28.01 & 0.057 & 0.078 & 0.009 \\
+29.01 & 0.053 & 0.075 & 0.008 \\
+30.01 & 0.049 & 0.071 & 0.007 \\
+31.01 & 0.045 & 0.067 & 0.006 \\
+32.01 & 0.041 & 0.064 & 0.005 \\
+33.01 & 0.038 & 0.061 & 0.005 \\
+34.01 & 0.035 & 0.058 & 0.004 \\
+35.01 & 0.032 & 0.055 & 0.004 \\
+36.01 & 0.029 & 0.053 & 0.003 \\
+37.01 & 0.027 & 0.050 & 0.003 \\
+38.01 & 0.025 & 0.048 & 0.003 \\
+39.01 & 0.023 & 0.046 & 0.002 \\
+39.99 & 0.021 & 0.044 & 0.002 \\
 		\end{tabular}
 	\end{center}
-	\caption{\todo{caption this please!} \flaw{Less precision!}}
+	\caption{Some values of $ \Gt(p, \alpha, \mu) $ from the plots in figures \ref{fig:GtOfA1P0}, \ref{fig:GtOfA1P1.5} and \ref{fig:GtOfA2P0}}
 	\label{tab:truthTables}   
 \end{table}
-
-\begin{itemize}
-	\item \todo{A samples of the Green's function at $ p = 0 $ and $ p = 1.5 $. There should also be a table with 10 or so values from these $ \Gt $'s}
-\end{itemize}
-
+\todo{same precision for all cells!!}
 
 \section{Bare scheme update procedures for $ \Sigma^* $}
 
-\begin{itemize}
-	\item \todo{Different type of increase/lower diagram order update procedure.}
-	\item \todo{only proper self energy diagrams}
-\end{itemize}
+Rather than calculating $ \Gt(\vec p, \tau) $ directly using DMC, it is also possible and even so preferred \question{(motivate this from papers. Cover more diagrams and so on...)} to instead simulate the proper self energy $ \Sigma^*(\vec p, \tau) $, from which the electronic propagator is calculated using the Dyson equation (\ref{eq:dysonEquation}).
+In order to do this, the random walk must now cover diagrams without external legs but also be able to reach the bare propagator $ \Gt_0 $ for normalization purposes. This is easily accomplished by a slight modification of some of the update procedures introduced in the previous section, and will be discussed in more detail shortly.
+
+Before that however, it is important to realize that no longer all types of diagrams ($ n > 0 $) should be binned. In order to calculate $ \Sigma^* $ it is critical that the histogram $ N $ merely have contributions from irreducible diagrams. Then, in similarity to (\ref{eq:GtofTandP}) and (\ref{eq:GtofT}) the value of $ \Sigma^* $ is calculated in terms $ N_0 $ and $ N $ in the following way
+\begin{equation}
+	\Sigma^* (\vec p_i, \tau_j) = N_{i,j} \frac{\sum_{k,l} \Gt_0 (\vec p_k, \tau_l)}{N_0}
+	\; , \quad
+	\Sigma^* (\vec p_0, \tau_j) = N_{j} \frac{\sum_{l} \Gt_0 (\vec p_0, \tau_l)}{N_0} \,.
+\end{equation}
+An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt_0 $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm.
+
+Now, returning to the update procedures, there are only two which need to be modified. The others stay the same but might have some trivial change of notation for quantities, such as $ \langle \vec p \rangle_{0,2n} \rightarrow \langle \vec p \rangle_{0, 2n-1} $ in the case of the \textit{change of external momentum} procedure.
+
+\subsection*{Change of diagram length in time, type 1}
+
+\begin{figure}[H]
+	\begin{fmffile}{SchangeOfDiagramLengthType1}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 14)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6}
+					\fmfbottom{b1,b2,b3,b4,b5,b6}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dashes}{b2,v1}
+					\fmf{phantom}{v1,t2}
+					\fmf{dashes}{b4,v2}
+					\fmf{phantom}{v2,t4}
+					\fmf{dashes, right=0.4}{b6,t4}
+					\fmfdot{b2,b4,b6}
+					\fmfv{label=$ \tau_{2n - 3} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b4}
+        					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad \quad \rightarrow \quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 14)
+					\fmfstraight
+					\fmftop{t1,t2,t3,t4,t5,t6}
+					\fmfbottom{b1,b2,b3,b4,b5,b6}
+					\fmf{dots}{b1,b2}
+					\fmf{fermion}{b2,b4}
+					\fmf{fermion}{b4,b6}
+					\fmf{dashes}{b2,v1}
+					\fmf{phantom}{v1,t2}
+					\fmf{dashes}{b4,v2}
+					\fmf{phantom}{v2,t4}
+					\fmf{dashes, right=0.4}{b6,t4}
+					\fmfdot{b2,b4,b6}
+					\fmfv{label=$ \tau_{2n - 3} $, label.angle=-90}{b2}
+					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b4}
+        					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{An illustration of the first kind of update procedure for changing the length of a diagram without external legs.}
+	\label{fig:Scodl1}
+\end{figure}
+
+At $ n > 0 $, there is now a phonon propagator connected to the end point node of the diagram as depicted in figure \ref{fig:Scodl1}. Thus, in accordance with the \textit{change of diagram length in time, type 2} update procedure,
+\begin{equation}
+	\frac{D_n(\tau')}{D_n(\tau)}
+	= \exp \left\{ -\left[\frac{p^2}{2} - \mu + 1 \right] (\tau' - \tau) \right\} \,.
+\end{equation}
+Hence, to maintain the acceptance ratio at unity, the only modification needed is to change the rate parameter of the distribution from which $ \tau' $ is sampled, i.e. $ \lambda \rightarrow \lambda' = \lambda + 1 $.
+
+\subsection*{Change of diagram order}
+
+\begin{figure}[H]
+	\begin{fmffile}{SchangeOfDiagramOrder}
+		\begin{equation*}
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 20)
+					\fmfstraight
+					\fmfbottom{b1,b2}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b1,b2}
+					\fmfv{label=$ 0 $, label.angle=-180}{b1}
+					\fmfv{label=$ \tau $, label.angle=0}{b2}
+				\end{fmfgraph*}
+        			\end{gathered}
+			\quad\quad \leftrightarrow \quad\quad
+		        	\begin{gathered}
+				\begin{fmfgraph*}(40, 20)
+					\fmfstraight
+					\fmfbottom{b1,b2}
+					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b1,b2}
+					\fmf{dashes, left, foreground=(1,,0,,0), label=$ \textcolor{highlight}{\vec q} $}{b1,b2}
+					\fmfdot{b1,b2}
+					\fmfv{foreground=(1,,0,,0), label=$ 0 $, label.a=180}{b1}
+					\fmfv{foreground=(1,,0,,0), label=$ \tau $, label.a=0}{b2}
+				\end{fmfgraph*}
+        			\end{gathered}
+		\end{equation*}
+	\end{fmffile}
+	\caption{An illustration of the change of diagram order procedure between zeroth and first order diagrams.}
+	\label{fig:Scodo}
+\end{figure}
+
+In order to prevent generating diagrams with external legs, it is necessary only to modify the transition between a zeroth and a first order diagram. Instead of sampling two times where new nodes then will be inserted for the phonon to connect to, the already existing start and end point node of diagram will be used. This is illustrated in figure \ref{fig:Scodo}. Other than that this transition is no different from the ordinary \textit{change of diagram order} update procedure so that
+\begin{equation}
+	W(n = 0 | n = 1)
+	=
+	P_\text{R} \;
+	\frac{\sin \theta_k}{2} \frac{1}{2 \pi} \\[4pt]
+	\sqrt{\frac{2 \tau}{\pi}} \exp \left\{- \frac{q_k^2}{2} \tau \, \right\} \,.
+\end{equation}
+The acceptance ratio may thus be expressed as previously (\ref{eq:acceptanceRatioChangeOrder}) with
+\begin{equation}
+	\begin{split}
+		R(n=0|n=1)
+		&= \frac{D_{n=1}}{D_{n=0}} \frac{W(n=1|n=0)}{W(n=0|n=1)} \\[4pt]
+		&=
+		\frac{1 - P_\text{R}}{P_\text{R}}
+		\frac{\alpha}{\sqrt \pi}
+		\frac{1}{\sqrt{\tau}}
+		\exp \big\{ [\langle \vec p \rangle_{l,m-1} \cdot \vec q_k - 1] \tau \big\} \,.
+	\end{split}
+\end{equation}
+
+The transitions procedure between diagrams of order $ n > 0 $, as introduce in section \ref{eq:secSampleGBare}, can not add any external legs since both the start and end point node of the diagram will be connected to phonons. However, there are now $ 2n -1 $ rather than $ 2n + 1 $ number of $ \Gt_0 $'s to chose from when sampling the starting point time of the phonon propagator.
+Hence the "$ 2n + 1 $" in equation (\ref{eq:transitionUp}) and (\ref{eq:changeOrderR}) should be replaced by "$ 2n - 1 $" to incorporate this.
+
 
 \subsection{Divergent diagram}
 
-The first order proper self energy diagram is proportional to $ 1/\sqrt{\tau} $ for small $ \tau $ and thus diverges when $ \tau \rightarrow 0 $. This combined with a discretized histogram becomes a problem for the bins in the neighborhood of $ \tau = 0 $ since they acquire more mass then they are supposed to. In order to fix this we could use a much finer discretization or calculate the value for these bins somehow else.
 
-The value of the diagram for $ \vec p = \vec 0 $ and $ \Delta G = 0 $ is
-
+It can be shown that the first order self energy diagram is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \Delta x/2 < x < x_i + \Delta x/2 $ with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
 \begin{equation}
-	S^{(1)}(\tau) = \frac{\alpha}{\sqrt{\pi \tau}} e^{(\mu - \omega)\tau}
+	\begin{split}
+		&\frac{1}{\Delta x} \bigintsss_{x_i - \Delta x/2}^{x_i + \Delta x/2} \mkern-36mu f(t) \diff t \\
+		&\qquad= \frac{1}{\Delta x} \bigintsss_{x_i - \Delta x/2}^{x_i + \Delta x/2} \mkern-36mu f(x_i + [t - x_i]) \diff t \\
+		&\qquad= \frac{1}{\Delta x} \bigintsss_{x_i - \Delta x/2}^{x_i + \Delta x/2} \mkern-36mu \left[ f(x_i) + f'(x_i) \, [t - x_i] + \tfrac{1}{2} f''(x_i) \, [t - x_i]^2 + \cdots \right] \diff t \\
+		&\qquad= f(x_i) + \tfrac{1}{24} f''(x_i) \, [\Delta x]^2 + \mathcal{O}([\Delta x]^4) \,.
+	\end{split}
 \end{equation}
+In order for this mean value to be well approximated by $ f(x_i) $, it is required that $ f''(x_i) \, [\Delta x]^2 \ll f(x_i) $. However, in the case of $ f(x) = 1/\sqrt x $ and $ x_i = \Delta x/2 $ this is not fulfilled, no matter the size of $ \Delta x $, since $ f''(x_i) \, [\Delta x]^2 = 3 \sqrt 2 / \sqrt{ \Delta x} $ whilst $ f(x_i) = 2 / \sqrt{\Delta x} $. The ability of a histogram to approximate the function $ 1/ \sqrt x $ in the vicinity of $ x = 0 $ is illustrated in figure \ref{fig:HistogramApproximationOfDivergentDistribution}.
+\begin{figure}[H]
+	\centering
+ 	\includegraphics[width=\textwidth, ]{{"Images/Histogram illustration/Divergent distribution"}.pdf}
+	\caption{The function $ 1/ \sqrt x $ approximated by a histogram with bin size $ \Delta x  = 0.02 $ in the vicinity of $ x = 0 $. As can be seen, the approximative value at $ x_0 = 0.01 $ is quite far off from the true one.}
+	\label{fig:HistogramApproximationOfDivergentDistribution}
+\end{figure}
 
-The value of the bins in our histogram is
-
+The true value of the first order self energy diagram at zero external momentum is
 \begin{equation}
-	\tilde V_i \propto \frac{1}{\Delta \tau} \int_{\tau_i}^{\tau_{i + 1}} S^{(1)} (t) \diff t
-	= \frac{\alpha}{\Delta \tau \sqrt{\omega - \mu}} \left[ \text{erf}\left(\sqrt{\omega - \mu} \sqrt{\tau_{i+1}}\right) - \text{erf}\left(\sqrt{\omega - \mu} \sqrt{\tau_i}\right) \right]
+	\Sigma^{* (1)} (\vec p = \vec 0, \tau) = \frac{\alpha}{\sqrt \pi} \frac{e^{-(1 - \mu)\tau}}{\sqrt \tau} \,.
 \end{equation}
-
- but the true value should be
- 
+When approximating this function with a histogram of bin size $ \Delta \tau $, the value of the bin corresponding to $ \tau_i $ becomes
 \begin{equation}
-	V_i \propto S^{(1)} \left( \tfrac{\tau_{i+1} + \tau_i}{2} \right)	
+	\begin{split}
+		&\langle \Sigma^{* (1)} (\vec p = \vec 0) \rangle_j \\
+		&\qquad=
+		\frac{1}{\Delta \tau} \bigintsss_{\tau_j - \Delta \tau/2}^{\tau_j + \Delta \tau/2} \mkern-36mu \Sigma^{* (1)} (\vec p = \vec 0, t) \diff t \\
+		&\qquad= \frac{1}{\Delta \tau} \frac{\alpha}{\sqrt{1 - \mu}}
+		\left[
+			\text{erf} \left\{ \sqrt{(1 - \mu) \left( \tau_j + \tfrac{\Delta \tau}{2} \right) } \right\}
+			- \text{erf} \left\{ \sqrt{(1 - \mu) \left( \tau_j - \tfrac{\Delta \tau}{2} \right) } \right\}
+		\right]
+	\end{split}
 \end{equation}
+However, for external momentum $ \vec p \neq \vec 0 $ it seems next to impossible to find an analytical expression of $ \Sigma^{* (1)} (\vec p, \tau) $ due to cumbersome integrals. Nevertheless, by the usage of Monte Carlo integration these integrals may be calculated to an extremely good precision in a matter of seconds.
 
-For all bins which fulfil $ \tilde V_i  - V_i > \epsilon $ we instead of using DMC utilise ordinary stochastic integration using MC for the fixed times $ (\tau_{i+1} + \tau_i)/2 $.
+In order to find out whether a value of $ \Sigma^{*(1)} (\vec p_i, \tau_j) $ should be calculated using DMC or Monte Carlo integration, it is reasonable to look at the difference $ \Delta \Sigma^{*(1)}_j = \langle \Sigma^{* (1)} (\vec p = \vec 0) \rangle_j  - \Sigma^{* (1)} (\vec p = \vec 0, \tau_j)$. For times $ \tau_j  < \tau_\text{threshold} $ where this difference is larger than a threshold value $ \varepsilon $, Monte Carlo integration should be used, otherwise DMC will be sufficient. The DMC code written during this master project has the threshold set to $ \varepsilon = 0.001 $. In table \ref{tab:SigmaDiffs} the value of $ \Delta \Sigma^{*(1)}_j $ is given for the first six $ j $'s. 
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{r !{\vrule width .1em} c | c | c | c | c | c | c} 
+		 	$ j $ & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\[2pt]
+			\hline
+			\rule{0pt}{3ex} $ \Delta \Sigma^{*(1)}_j $ & 2.34 & 0.0486 & 0.0133 & 0.0058 & 0.00314 & 0.00193 & 0.00129
+		\end{tabular}
+	\end{center}
+	\caption{Here $ \Delta \Sigma^{*(1)}_j $ is calculated for different values of $ j $. The parameters used are $ \alpha = 1 $, $ \mu = -1.1 $ and $ \Delta \tau = 0.02 $.}
+	\label{tab:SigmaDiffs}   
+\end{table}
+
+It is crucial that there will be no contribution from $ \Sigma^{*(1)} $ to the histogram $ N $ for times where it is calculated using Monte Carlo integration. However, to avoid such a double contribution it is as simple as to not bin a first order self energy diagram if the length $ \tau $ of which belongs to a bin $ N_{i,j} $ of time $ \tau_j < \tau_\text{threshold} $.
 
 \subsection{Results}
 
 
+\subsection{Implementing Dyson equation numerically}
+
+It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. As an example, a distribution which falls off to slow wont be properly inverse transformed.
+
+\todo{To avoid any difficulty regarding...}
+
+
+
+\begin{equation}
+	\begin{split}
+		\Delta \Gt(\vec p, \omega)
+		&= \Gt(\vec p, \omega) - \Gt_0(\vec p, \omega) \\
+		&= \frac{1}{i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega)} - \frac{1}{i \omega + \xi(\vec p)} \\
+		&= \frac{\Sigma^*(\vec p, \omega)}{\left( i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega) \right) \left( i \omega + \xi(\vec p) \right)} \\
+	\end{split}
+\end{equation}
+
+
+\begin{equation}
+	\Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2}
+\end{equation}
+
+Because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto 1/\sqrt \omega $ ... \question{make sure about this}.
+
+
+since the both the Fourier transform and it's inverse are linear
+\begin{equation}
+	\mathcal{F}^{-1}_{\omega} \left\{ \Delta \Gt(\omega) \right\} = \Delta \Gt(\tau) = \Gt(\tau) - \Gt_0(\tau)
+\end{equation}
+
+
+
+
+
+
+\todo{
+\begin{itemize}
+	\item Singular part of diagram
+	\item $ 1/\omega^2 $ and shit
+	\item High resolution needed
+	\item Show $ \Gt $ obtained via Dyson
+\end{itemize}
+}
 
 \section{Bold scheme \question{?}}
 
