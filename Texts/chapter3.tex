@@ -4,6 +4,12 @@
 
 \section{General idea}
 
+\todo{"The diagrammatic Monte Carlo (DMC) method [1] is a
+technique that allows one to simulate quantities specified
+in terms of convergent diagrammatic sums, i.e., sums of
+integrals with integrands represented by a diagrammatic
+structure"}
+
 \todo{In thermal equilibrium}
 
 Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
@@ -268,10 +274,12 @@ What remains to be discussed is how the sampling of states in parameter space oc
 \subsection*{Change of diagram length in time, type 1}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALchangeOfDiagramLengthType1}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+	\begin{fmffile}{FMFFILEPropagatorChangeOfDiagramLengthType1}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][5][5]{
+						\begin{fmfgraph*}(40, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6}
 					\fmfbottom{b1,b2,b3,b4,b5,b6}
@@ -284,11 +292,15 @@ What remains to be discussed is how the sampling of states in parameter space oc
 					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b2}
 					\fmfv{label=$ \tau_{2n} $, label.angle=-90}{b4}
         					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][5][5]{
+						\begin{fmfgraph*}(40, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6}
 					\fmfbottom{b1,b2,b3,b4,b5,b6}
@@ -301,10 +313,12 @@ What remains to be discussed is how the sampling of states in parameter space oc
 					\fmfv{label=$ \tau_{2n - 1} $, label.angle=-90}{b2}
 					\fmfv{label=$ \tau_{2n} $, label.angle=-90}{b4}
         					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{The only affected parameter is the highlighted imaginary-time of the end point node.}
 	\label{fig:NORMALcodl1}
 \end{figure}
@@ -328,10 +342,12 @@ By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\t
 \end{itemize}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALchangeOfDiagramLengthType2}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(50, 7)
+	\begin{fmffile}{FMFFILEPropagatorChangeOfDiagramLengthType2}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][5][6]{
+						\begin{fmfgraph*}(50, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9}
@@ -350,11 +366,15 @@ By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\t
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k + 1} \;\;\; } $, label.angle=-90}{b6}
 					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n} } $, label.angle=-90}{b7}
         					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b9}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(50, 7)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][5][6]{
+						\begin{fmfgraph*}(50, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9}
@@ -373,10 +393,12 @@ By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\t
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k + 1}' \;\;\; } $, label.angle=-90}{b6}
 					\fmfv{label=$ \;\;\;\;\; \textcolor{highlight}{ \tau_{2n}' } $, label.angle=-90}{b7}
         					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b9}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{The highlighted $ \tau $'s are the parameters affected by this update.}
 	\label{fig:NORMALcodl2}
 \end{figure}
@@ -402,10 +424,12 @@ This second version of the change of diagram length update procedure is more com
 \subsection*{Change of external momentum}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALchangeOfExternalMomentum}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(50, 7)
+	\begin{fmffile}{FMFFILEPropagatorChangeOfExternalMomentum}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][1][0]{
+						\begin{fmfgraph*}(50, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9,t10}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9,b10}
@@ -419,11 +443,15 @@ This second version of the change of diagram length update procedure is more com
 					\fmf{dashes}{b6,t6}
 					\fmf{dashes}{b8,t8}
 					\fmfdot{b3,b5,b6,b8}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(50, 7)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][1][0]{
+						\begin{fmfgraph*}(50, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8,t9,t10}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8,b9,b10}
@@ -437,10 +465,12 @@ This second version of the change of diagram length update procedure is more com
 					\fmf{dashes}{b6,t6}
 					\fmf{dashes}{b8,t8}
 					\fmfdot{b3,b5,b6,b8}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{This update procedure changes the momentum of every $ \Gt_0 $ in the diagram by the external momentum difference $ \vec p' - \vec p $. Surely it must be the case that $ \vec p_0  = \vec p_{2n} = \vec p $ and the same is of course true in primed case as well.}
 	\label{fig:NORMALcoem}
 \end{figure}
@@ -464,7 +494,12 @@ where the mean electronic momentum is defined as
 	\langle \vec p \rangle_{k,l} \equiv \sum \limits_{i = k}^{l} \frac{\tau_{i + 1} - \tau_i}{\tau} \, \vec p_i \,.
 \end{equation}
 
-By sampling $ p' \in [0, \, p_\text{max}] $ using a truncated half-normal distribution whose corresponding normal distribution would have the standard deviation $ \sigma = 1/\sqrt \tau $, the fraction of the proposal distributions take the value
+\begin{itemize}
+\item
+\todo{Introduce $ p_\text{min} $ earlier in the thesis}
+\end{itemize}
+
+By sampling $ p' \in [p_\text{min}, \, p_\text{max}] $ using a truncated half-normal distribution whose corresponding normal distribution would have the standard deviation $ \sigma = 1/\sqrt \tau $, the fraction of the proposal distributions take the value
 \begin{equation}
 	\frac{W(\vec p' | \vec p)}{W(\vec p | \vec p')} = \exp \left\{ - \frac{\tau}{2} (p^2 - p'^2) \right\}
 \end{equation}
@@ -483,10 +518,12 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 \subsection*{Change of transferred momentum magnitude}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALchangeOfTransferredMomentum}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 20)
+	\begin{fmffile}{FMFFILEPropagatorChangeOfTransferredMomentum}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][1][1][5]{
+						\begin{fmfgraph*}(40, 20)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
@@ -503,11 +540,15 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmfdot{b2,b4,b5,b7}
 					\fmfv{label=$ \tau_a $, label.angle=-90}{b2}
 					\fmfv{label=$ \tau_{b+1} $, label.angle=-90}{b7}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 20)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][1][1][5]{
+						\begin{fmfgraph*}(40, 20)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
@@ -524,10 +565,12 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
 					\fmfdot{b2,b4,b5,b7}
 					\fmfv{label=$ \tau_a $, label.angle=-90}{b2}
 					\fmfv{label=$ \tau_{b+1} $, label.angle=-90}{b7}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{The momentum transferred via an internal phonon propagator is updated. In order obey momentum conservation at every vertex, electronic propagators beneath the phonon arc absorb the momentum difference.}
 	\label{fig:NORMALcotm}
 \end{figure}
@@ -579,10 +622,12 @@ By sampling the azimuthal angle uniformly on the interval $ \varphi'_k \in [0, \
 \subsection*{Vertex shift in time}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALvertexShiftInTime}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+	\begin{fmffile}{FMFFILEPropagatorVertexShiftInTime}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][1][6]{
+						\begin{fmfgraph*}(40, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7}
@@ -597,11 +642,15 @@ By sampling the azimuthal angle uniformly on the interval $ \varphi'_k \in [0, \
 					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k} } $, label.angle=-90}{b4}
 					\fmfv{label=$ \tau_{k + 1} $, label.angle=-90}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 7)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][1][6]{
+						\begin{fmfgraph*}(40, 7)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7}
@@ -616,10 +665,12 @@ By sampling the azimuthal angle uniformly on the interval $ \varphi'_k \in [0, \
 					\fmfv{label=$ \tau_{k -1} $, label.angle=-90}{b2}
 					\fmfv{label=$ \textcolor{highlight}{ \tau_{k}' } $, label.angle=-90}{b4}
 					\fmfv{label=$ \tau_{k + 1} $, label.angle=-90}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{The imaginary-time of internal node $ k $ is updated.}
 	\label{fig:NORMALvsit}
 \end{figure}
@@ -641,10 +692,12 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
 \subsection*{Change of diagram structure}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALchangeOfDiagramStructure}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 15)
+	\begin{fmffile}{FMFFILEPropagatorChangeOfDiagramStructure}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][1][1][5]{
+						\begin{fmfgraph*}(40, 15)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5}
 					\fmfbottom{b1,b2,b3,b4,b5}
@@ -658,11 +711,15 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
         					\marrow{b}{right}{rt}{$ c_2 q_2 $}{b4,t4}
 					\fmfv{label=$ \tau_k $, label.angle=-90}{b2}
 					\fmfv{label=$ \tau_{k+1} $, label.angle=-90}{b4}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 15)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][1][1][5]{
+						\begin{fmfgraph*}(40, 15)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5}
 					\fmfbottom{b1,b2,b3,b4,b5}
@@ -676,10 +733,12 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
         					\Marrow{b}{right}{rt}{$ c_1 q_1 $}{b4,t3}{12}
 					\fmfv{label=$ \tau_k $, label.angle=-90}{b2}
 					\fmfv{label=$ \tau_{k+1} $, label.angle=-90}{b4}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{The diagram structure is modified by interchanging the phonon propagators connected to two neighboring nodes. \todo{Bold face: $ \vec q_1 $ and $ \vec q_2 $}}
 	\label{fig:NORMALcods}
 \end{figure}
@@ -706,10 +765,12 @@ Other than the pair of nodes to be picked, there are no parameters to be sampled
 \subsection*{Change of digram order}
 
 \begin{figure}[H]
-	\begin{fmffile}{NORMALchangeOfDiagramOrder}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 15)
+	\begin{fmffile}{FMFFILEPropagatorChangeOfDiagramOrder}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][4][1][5]{
+						\begin{fmfgraph*}(40, 15)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
@@ -727,11 +788,15 @@ Other than the pair of nodes to be picked, there are no parameters to be sampled
 					\fmf{dashes}{b7,v4}
 					\fmf{phantom}{v4,t7}
 					\fmfdot{b2,b4,b5,b7}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \leftrightarrow \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(60, 15)
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\leftrightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][4][1][5]{
+						\begin{fmfgraph*}(60, 15)
 					\fmfstraight
 					\fmftop{t1,t2,t3,t4,t5,t6,t7,t8}
 					\fmfbottom{b1,b2,b3,b4,b5,b6,b7,b8}
@@ -754,10 +819,12 @@ Other than the pair of nodes to be picked, there are no parameters to be sampled
 					\fmfdot{b2,b3,b4,b5,b6,b7}
 					\fmfv{foreground=(1,,0,,0), label=$ \textcolor{highlight}{\tau_l} $, label.a=-90}{b3}
 					\fmfv{foreground=(1,,0,,0), label=$ \textcolor{highlight}{\tau_m} $, label.a=-90}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{An illustration of the change of diagram order procedure.}
 	\label{fig:NORMALcodo}
 \end{figure}
@@ -828,83 +895,81 @@ should not be able to rise above. To achieve this, it is extremely important not
 
 \subsection{Results}
 
-\todo{$ \Gt( \alpha = 2, p = 0) $}
+\begin{itemize}
+\item
+\todo{Result should be independent on weight of each update function}
+\end{itemize}
 
-Here follow some results obtained when simulating $ \Gt $ using the bare scheme update procedures described above. However, the external momentum $ \vec p $ has been fixed during these simulations in order to not spread the statistics out over external parameters for which the data is not shown.
+Here follow some results obtained when simulating $ \Gt $ using the bare scheme update procedures described above. The external momentum $ \vec p $ has been fixed during these simulations in order to not spread the statistics out over external parameters for which the data is not shown.
 
-\begin{figure}[H]
-	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_a1_p0_bare"}.pdf}
-	\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -1.1 $ and interaction parameter $ \alpha = 1 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
-	\label{fig:GtOfA1P0}
-\end{figure}
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_a1_p15_bare"}.pdf}
-		\caption{The acquired value of $ \Gt(p = 1.5, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -0.25 $ and interaction parameter $ \alpha = 1 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
-	\label{fig:GtOfA1P1.5}
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/Gt/Gt_a1_p0_bare"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/Gt/Gt_a1_p15_bare"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/Gt/Gt_a2_p0_bare"}.pdf}
+	\end{subfigure}
+	\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $ has been used.}
+	\label{fig:GOft}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Plots/Gt/Gt_a2_p0_bare"}.pdf}
-		\caption{The acquired value of $ \Gt(p = 0, \, \tau) $ after 80 minutes of core time using the chemical potential $ \mu = -2.2 $ and interaction parameter $ \alpha = 2 $. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $.}
-	\label{fig:GtOfA2P0}
-\end{figure}
 
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{r | c | c | c} 
 		 	$ \tau $ & $ \Gt(0, 1, -1.1) $ & $ \Gt(1.5, 1, -0.25) $ & $ \Gt(0, 2, -2.2) $ \\ 
 		 	\specialrule{.1em}{.05em}{.05em} 
-0.01 & 0.991 & 0.988 & 0.98 \\
-1.01 & 0.624 & 0.494 & 0.392 \\
-2.01 & 0.522 & 0.363 & 0.281 \\
-3.01 & 0.467 & 0.307 & 0.231 \\
-4.01 & 0.426 & 0.274 & 0.199 \\
-5.01 & 0.391 & 0.253 & 0.174 \\
-6.01 & 0.359 & 0.236 & 0.152 \\
-7.01 & 0.330 & 0.223 & 0.134 \\
-8.01 & 0.304 & 0.211 & 0.118 \\
-9.01 & 0.280 & 0.200 & 0.103 \\
-10.01 & 0.257 & 0.190 & 0.091 \\
-11.01 & 0.237 & 0.181 & 0.080 \\
-12.01 & 0.217 & 0.171 & 0.070 \\
-13.01 & 0.200 & 0.163 & 0.062 \\
-14.01 & 0.184 & 0.155 & 0.054 \\
-15.01 & 0.169 & 0.148 & 0.048 \\
-16.01 & 0.156 & 0.141 & 0.042 \\
-17.01 & 0.144 & 0.134 & 0.037 \\
-18.01 & 0.132 & 0.128 & 0.032 \\
-19.01 & 0.121 & 0.122 & 0.029 \\
-20.01 & 0.112 & 0.116 & 0.025 \\
-21.01 & 0.103 & 0.110 & 0.022 \\
-22.01 & 0.094 & 0.105 & 0.019 \\
-23.01 & 0.087 & 0.100 & 0.017 \\
-24.01 & 0.080 & 0.095 & 0.015 \\
-25.01 & 0.074 & 0.091 & 0.013 \\
-26.01 & 0.068 & 0.087 & 0.012 \\
-27.01 & 0.062 & 0.083 & 0.010 \\
-28.01 & 0.057 & 0.078 & 0.009 \\
-29.01 & 0.053 & 0.075 & 0.008 \\
-30.01 & 0.049 & 0.071 & 0.007 \\
-31.01 & 0.045 & 0.067 & 0.006 \\
-32.01 & 0.041 & 0.064 & 0.005 \\
-33.01 & 0.038 & 0.061 & 0.005 \\
-34.01 & 0.035 & 0.058 & 0.004 \\
-35.01 & 0.032 & 0.055 & 0.004 \\
-36.01 & 0.029 & 0.053 & 0.003 \\
-37.01 & 0.027 & 0.050 & 0.003 \\
-38.01 & 0.025 & 0.048 & 0.003 \\
-39.01 & 0.023 & 0.046 & 0.002 \\
-39.99 & 0.021 & 0.044 & 0.002 \\
+0.01 & 0.9906 & 0.9881 & 0.9797 \\
+1.01 & 0.6242 & 0.4938 & 0.3922 \\
+2.01 & 0.5225 & 0.3631 & 0.2808 \\
+3.01 & 0.4673 & 0.3066 & 0.2314 \\
+4.01 & 0.4259 & 0.2745 & 0.1993 \\
+5.01 & 0.3907 & 0.2528 & 0.1738 \\
+6.01 & 0.359 & 0.2365 & 0.1524 \\
+7.01 & 0.3301 & 0.223 & 0.1339 \\
+8.01 & 0.3041 & 0.2113 & 0.1176 \\
+9.01 & 0.2797 & 0.2003 & 0.1031 \\
+10.01 & 0.2573 & 0.1902 & 0.09057 \\
+11.01 & 0.2374 & 0.1806 & 0.07967 \\
+12.01 & 0.2175 & 0.1715 & 0.07009 \\
+13.01 & 0.2003 & 0.1635 & 0.0617 \\
+14.01 & 0.1844 & 0.1552 & 0.05428 \\
+15.01 & 0.1695 & 0.1476 & 0.04763 \\
+16.01 & 0.156 & 0.1409 & 0.04189 \\
+17.01 & 0.1436 & 0.1341 & 0.03696 \\
+18.01 & 0.1319 & 0.1276 & 0.03243 \\
+19.01 & 0.1213 & 0.1216 & 0.02866 \\
+20.01 & 0.1116 & 0.1157 & 0.02498 \\
+21.01 & 0.1025 & 0.1103 & 0.02211 \\
+22.01 & 0.09434 & 0.1051 & 0.01937 \\
+23.01 & 0.08689 & 0.09985 & 0.01701 \\
+24.01 & 0.07983 & 0.09523 & 0.01492 \\
+25.01 & 0.07363 & 0.0909 & 0.01322 \\
+26.01 & 0.06764 & 0.08651 & 0.01168 \\
+27.01 & 0.06217 & 0.0825 & 0.01027 \\
+28.01 & 0.05718 & 0.07844 & 0.009083 \\
+29.01 & 0.05272 & 0.07471 & 0.007966 \\
+30.01 & 0.04861 & 0.07102 & 0.007016 \\
+31.01 & 0.04458 & 0.06742 & 0.006182 \\
+32.01 & 0.04098 & 0.06404 & 0.005393 \\
+33.01 & 0.03794 & 0.06131 & 0.004762 \\
+34.01 & 0.03482 & 0.05836 & 0.00411 \\
+35.01 & 0.0319 & 0.05525 & 0.003671 \\
+36.01 & 0.02945 & 0.05269 & 0.003204 \\
+37.01 & 0.02723 & 0.05022 & 0.002901 \\
+38.01 & 0.02509 & 0.04788 & 0.002536 \\
+39.01 & 0.02288 & 0.04576 & 0.002207 \\
+39.99 & 0.02102 & 0.04357 & 0.001962 \\
 		\end{tabular}
 	\end{center}
-	\caption{Some values of $ \Gt(p, \alpha, \mu) $ from the plots in figures \ref{fig:GtOfA1P0}, \ref{fig:GtOfA1P1.5} and \ref{fig:GtOfA2P0}}
+	\caption{Some values of $ \Gt(p, \alpha, \mu) $ from the plots in figure \ref{fig:GOft}.}
 	\label{tab:truthTables}   
 \end{table}
-\todo{same precision for all cells!!}
 
 \section{Bare scheme update procedures for $ \Sigma^* $}
 
@@ -924,49 +989,57 @@ Now, returning to the update procedures, there are only two which need to be mod
 \subsection*{Change of diagram length in time, type 1}
 
 \begin{figure}[H]
-	\begin{fmffile}{SchangeOfDiagramLengthType1}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 14)
-					\fmfstraight
-					\fmftop{t1,t2,t3,t4,t5,t6}
-					\fmfbottom{b1,b2,b3,b4,b5,b6}
-					\fmf{dots}{b1,b2}
-					\fmf{fermion}{b2,b4}
-					\fmf{fermion}{b4,b6}
-					\fmf{dashes}{b2,v1}
-					\fmf{phantom}{v1,t2}
-					\fmf{dashes}{b4,v2}
-					\fmf{phantom}{v2,t4}
-					\fmf{dashes, right=0.4}{b6,t4}
-					\fmfdot{b2,b4,b6}
-					\fmfv{label=$ \tau_{2n - 3} $, label.angle=-90}{b2}
-					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b4}
-        					\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad \quad \rightarrow \quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 14)
-					\fmfstraight
-					\fmftop{t1,t2,t3,t4,t5,t6}
-					\fmfbottom{b1,b2,b3,b4,b5,b6}
-					\fmf{dots}{b1,b2}
-					\fmf{fermion}{b2,b4}
-					\fmf{fermion}{b4,b6}
-					\fmf{dashes}{b2,v1}
-					\fmf{phantom}{v1,t2}
-					\fmf{dashes}{b4,v2}
-					\fmf{phantom}{v2,t4}
-					\fmf{dashes, right=0.4}{b6,t4}
-					\fmfdot{b2,b4,b6}
-					\fmfv{label=$ \tau_{2n - 3} $, label.angle=-90}{b2}
-					\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b4}
-        					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+	\begin{fmffile}{FMFFILESelfEnergyDiagramLengthChaneTyp1}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][4][5]{
+						\begin{fmfgraph*}(40, 14)
+							\fmfstraight
+							\fmftop{t1,t2,t3,t4,t5,t6}
+							\fmfbottom{b1,b2,b3,b4,b5,b6}
+							\fmf{dots}{b1,b2}
+							\fmf{fermion}{b2,b4}
+							\fmf{fermion}{b4,b6}
+							\fmf{dashes}{b2,v1}
+							\fmf{phantom}{v1,t2}
+							\fmf{dashes}{b4,v2}
+							\fmf{phantom}{v2,t4}
+							\fmf{dashes, right=0.4}{b6,t4}
+							\fmfdot{b2,b4,b6}
+							\fmfv{label=$ \tau_{2n - 3} $, label.angle=-90}{b2}
+							\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b4}
+        							\fmfv{label=$ \textcolor{highlight}{\tau} $, label.angle=0}{b6}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\rightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][0][5][5]{
+						\begin{fmfgraph*}(40, 14)
+							\fmfstraight
+							\fmftop{t1,t2,t3,t4,t5,t6}
+							\fmfbottom{b1,b2,b3,b4,b5,b6}
+							\fmf{dots}{b1,b2}
+							\fmf{fermion}{b2,b4}
+							\fmf{fermion}{b4,b6}
+							\fmf{dashes}{b2,v1}
+							\fmf{phantom}{v1,t2}
+							\fmf{dashes}{b4,v2}
+							\fmf{phantom}{v2,t4}
+							\fmf{dashes, right=0.4}{b6,t4}
+							\fmfdot{b2,b4,b6}
+							\fmfv{label=$ \tau_{2n - 3} $, label.angle=-90}{b2}
+							\fmfv{label=$ \tau_{2n - 2} $, label.angle=-90}{b4}
+       		 					\fmfv{label=$ \textcolor{highlight}{\tau'} $, label.angle=0}{b6}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{An illustration of the first kind of update procedure for changing the length of a diagram without external legs.}
 	\label{fig:Scodl1}
 \end{figure}
@@ -981,34 +1054,45 @@ Hence, to maintain the acceptance ratio at unity, the only modification needed i
 \subsection*{Change of diagram order}
 
 \begin{figure}[H]
-	\begin{fmffile}{SchangeOfDiagramOrder}
-		\begin{equation*}
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 20)
-					\fmfstraight
-					\fmfbottom{b1,b2}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b1,b2}
-					\fmfv{label=$ 0 $, label.angle=-180}{b1}
-					\fmfv{label=$ \tau $, label.angle=0}{b2}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad\quad \leftrightarrow \quad\quad
-		        	\begin{gathered}
-				\begin{fmfgraph*}(40, 20)
-					\fmfstraight
-					\fmfbottom{b1,b2}
-					\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b1,b2}
-					\fmf{dashes, left, foreground=(1,,0,,0), label=$ \textcolor{highlight}{\vec q} $}{b1,b2}
-					\fmfdot{b1,b2}
-					\fmfv{foreground=(1,,0,,0), label=$ 0 $, label.a=180}{b1}
-					\fmfv{foreground=(1,,0,,0), label=$ \tau $, label.a=0}{b2}
-				\end{fmfgraph*}
-        			\end{gathered}
-		\end{equation*}
-	\end{fmffile}
+	\begin{fmffile}{FMFFILESelfEnergyOrderChange}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[4][5][4][2]{
+						\begin{fmfgraph*}(40, 20)
+							\fmfstraight
+							\fmfbottom{b1,b2}
+							\fmf{fermion, label=$ \textcolor{highlight}{\vec p} $, label.side=left}{b1,b2}
+							\fmfv{label=$ 0 $, label.angle=-180}{b1}
+							\fmfv{label=$ \tau $, label.angle=0}{b2}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\leftrightarrow
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[4][5][4][2]{
+						\begin{fmfgraph*}(40, 20)
+							\fmfstraight
+							\fmfbottom{b1,b2}
+							\fmf{fermion, label=$ \textcolor{highlight}{\vec p'} $, label.side=left}{b1,b2}
+							\fmf{dashes, left, foreground=(1,,0,,0), label=$ \textcolor{highlight}{\vec q} $}{b1,b2}
+							\fmfdot{b1,b2}
+							\fmfv{foreground=(1,,0,,0), label=$ 0 $, label.a=180}{b1}
+							\fmfv{foreground=(1,,0,,0), label=$ \tau $, label.a=0}{b2}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
 	\caption{An illustration of the change of diagram order procedure between zeroth and first order diagrams.}
 	\label{fig:Scodo}
 \end{figure}
+
+
+
 
 In order to prevent generating diagrams with external legs, it is necessary only to modify the transition between a zeroth and a first order diagram. Instead of sampling two times where new nodes then will be inserted for the phonon to connect to, the already existing start and end point node of diagram will be used. This is illustrated in figure \ref{fig:Scodo}. Other than that this transition is no different from the ordinary \textit{change of diagram order} update procedure so that
 \begin{equation}
@@ -1038,7 +1122,7 @@ Hence the "$ 2n + 1 $" in equation (\ref{eq:transitionUp}) and (\ref{eq:changeOr
 \subsection{Divergent diagram}
 
 
-It can be shown that the first order self energy diagram is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \Delta x/2 < x < x_i + \Delta x/2 $ with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
+It can be shown that the first order self energy diagram $ \Sigma^{*(1)}(\vec p, |tau) $ is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \Delta x/2 < x < x_i + \Delta x/2 $ with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
 \begin{equation}
 	\begin{split}
 		&\frac{1}{\Delta x} \bigintsss_{x_i - \Delta x/2}^{x_i + \Delta x/2} \mkern-36mu f(t) \diff t \\
@@ -1057,7 +1141,9 @@ In order for this mean value to be well approximated by $ f(x_i) $, it is requir
 
 The true value of the first order self energy diagram at zero external momentum is
 \begin{equation}
-	\Sigma^{* (1)} (\vec p = \vec 0, \tau) = \frac{\alpha}{\sqrt \pi} \frac{e^{-(1 - \mu)\tau}}{\sqrt \tau} \,.
+	\label{eq:prop1OSelfEnergy}
+	\Sigma^{* (1)} (\vec p = \vec 0, \tau) = \frac{\alpha}{\sqrt \pi} \frac{e^{-(1 - \mu)\tau}}{\sqrt \tau}
+	\quad \tau \geq 0\,.
 \end{equation}
 When approximating this function with a histogram of bin size $ \Delta \tau $, the value of the bin corresponding to $ \tau_i $ becomes
 \begin{equation}
@@ -1091,50 +1177,655 @@ It is crucial that there will be no contribution from $ \Sigma^{*(1)} $ to the h
 
 \subsection{Results}
 
+Here follow some results obtained when simulating $ \Sigma^* $ using the bare scheme update procedures described above. For the same reasons as given before the external momentum $ \vec p $ has again been kept fixed during these simulations .
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/St/St_a1_p0"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/St/St_a1_p15"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/St/St_a2_p0"}.pdf}
+	\end{subfigure}
+	\caption{The acquired value of $ \Sigma^*(p = 0, \, 0 \leq \tau \leq 5 ) $ after 80 minutes of core time. Here $ \tau_{max} = 40 $ and $ \Delta \tau = 0.02 $ has been used.}
+	\label{fig:SOft}
+\end{figure}
+
+
+\begin{table}[H]
+	\begin{center}
+		\begin{tabular}{r | c | c | c} 
+		 	$ \tau $ & $ \Sigma^*(0, 1, -1.1) $ & $ \Sigma^*(1.5, 1, -0.25) $ & $ \Sigma^*(0, 2, -2.2) $ \\ 
+		 	\specialrule{.1em}{.05em}{.05em} 
+0.01 & 5.531 & 5.537 & 10.96 \\
+0.21 & 0.892 & 0.9145 & 1.591 \\
+0.41 & 0.5063 & 0.5362 & 0.8721 \\
+0.61 & 0.3417 & 0.3757 & 0.5845 \\
+0.81 & 0.2484 & 0.2877 & 0.4318 \\
+1.01 & 0.1889 & 0.2312 & 0.3366 \\
+1.21 & 0.1481 & 0.1924 & 0.2724 \\
+1.41 & 0.1184 & 0.1638 & 0.2249 \\
+1.61 & 0.09575 & 0.1419 & 0.1887 \\
+1.81 & 0.07845 & 0.1248 & 0.1613 \\
+2.01 & 0.0643 & 0.1114 & 0.1377 \\
+2.21 & 0.05323 & 0.0994 & 0.1191 \\
+2.41 & 0.04421 & 0.08949 & 0.103 \\
+2.61 & 0.03667 & 0.08083 & 0.08986 \\
+2.81 & 0.03072 & 0.07354 & 0.07825 \\
+3.01 & 0.02576 & 0.06704 & 0.06804 \\
+3.21 & 0.02159 & 0.06117 & 0.05961 \\
+3.41 & 0.01814 & 0.05634 & 0.05227 \\
+3.61 & 0.01523 & 0.05141 & 0.046 \\
+3.81 & 0.01287 & 0.04739 & 0.04028 \\
+4.01 & 0.0109 & 0.04374 & 0.03547 \\
+4.21 & 0.009089 & 0.04027 & 0.03091 \\
+4.41 & 0.007704 & 0.03723 & 0.02729 \\
+4.61 & 0.006375 & 0.03454 & 0.02392 \\
+4.81 & 0.00551 & 0.03193 & 0.02108 \\
+4.99 & 0.004662 & 0.02981 & 0.01871 \\
+		\end{tabular}
+	\end{center}
+	\caption{Some values of $ \Sigma^*(p, \alpha, \mu) $ from the plots in figure \ref{fig:SOft}.}
+	\label{tab:truthTables}   
+\end{table}
 
 \subsection{Implementing Dyson equation numerically}
 
-It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. As an example, a distribution which falls off to slow wont be properly inverse transformed.
-
-\todo{To avoid any difficulty regarding...}
-
-
-
+It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. First of all, the proper self energy must be transformed into frequency space, but due to the singularity at $ \tau = 0 $ it is not preferable to transform this quantity directly. However, knowing the analytical expression of this singular contribution, it can then be subtracted from the self energy so that the discrete Fourier transform may be applied to the resulting regular expression. The singular part is then Fourier transformed analytically and once in $ \omega $-space it is added to the transformed regular expression. That is,
 \begin{equation}
-	\begin{split}
-		\Delta \Gt(\vec p, \omega)
-		&= \Gt(\vec p, \omega) - \Gt_0(\vec p, \omega) \\
-		&= \frac{1}{i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega)} - \frac{1}{i \omega + \xi(\vec p)} \\
-		&= \frac{\Sigma^*(\vec p, \omega)}{\left( i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega) \right) \left( i \omega + \xi(\vec p) \right)} \\
-	\end{split}
+	\Sigma^{*}(\vec p_i, \omega_j)
+	= \mathcal{F}_\text{DFT} \left\{ \Sigma^{*}(\vec p_i, \tau_j) - \Sigma^{*}_\text{singular}(\vec p_i, \tau_j) \right\}
+	+ \Sigma^{*}_\text{singular}(\vec p_i, \omega_j) \,,
+\end{equation}
+which is possible due to the linearity of the Fourier transform. A possible choice of the singular part is $ \Sigma^{*}_\text{singular}(\vec p_i, \tau_j) = \Sigma^{*(1)}(\vec p = \vec 0, \tau_j) $ for which the expression is (\ref{eq:prop1OSelfEnergy}) and thus
+\begin{equation}
+	\Sigma^{*}_\text{singular}(\vec p_i, \omega_j) = \frac{\alpha}{\sqrt{1 - \mu + i\omega_j}} \,.
 \end{equation}
 
-
+Having the proper self energy in momentum and frequency space, Dyson equation is given by (\ref{eq:dysonEquation}). However, it is not possible to directly transform back to $ \Gt(\vec p_i, \tau_j) $ using the inverse discrete Fourier transform. This has to do with the fact that $ \Gt(\vec p, \omega) $ falls of as $ 1/\omega $ when $ \omega \rightarrow \infty $, which it too slow. Instead one may transform the difference
 \begin{equation}
-	\Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2}
+	\Delta \Gt(\vec p, \omega)
+	= \Gt(\vec p, \omega) - \Gt_0(\vec p, \omega)
+	= \frac{\Sigma^*(\vec p, \omega)}{\left( i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega) \right) \left( i \omega + \xi(\vec p) \right)}
+\end{equation}
+which has the proportionality $ \Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2} $ because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto \omega^{-1/2} $. Since also the inverse Fourier transform is linear, it follows that
+\begin{equation}
+	\mathcal{F}^{-1}_{DFT} \left\{ \Delta \Gt(\vec p_i, \omega_j) \right\} = \Delta \Gt(\vec p_i, \tau_j) = \Gt(\vec p_i, \tau_j) - \Gt_0(\vec p_i, \tau_j) \,.
+\end{equation}
+The interacting electronic propagator in $ \tau $-space is finally obtained by
+\begin{equation}
+	\Gt(\vec p_i, \tau_j) = \Gt_0(\vec p_i, \tau_j) + \Delta \Gt(\vec p_i, \tau_j) \,.
 \end{equation}
 
-Because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto 1/\sqrt \omega $ ... \question{make sure about this}.
+In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\Sigma^*} $ obtained using Dyson equation and the directly simulated $ \Gt $ is plotted against $ \tau $ for both $ \Delta \tau = 0.02 $ and $ \Delta \tau = 0.01 $. As can be seen the difference is smaller than the size of $ \Delta \tau $ in both cases. The agreement also seems to improve somewhat linearly with smaller $ \Delta \tau $, the drawback is however more noise since there is less statistics contributing to each bin $ N_j $.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/GfromSminusG/dt=0.02"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/GfromSminusG/dt=0.01"}.pdf}
+	\end{subfigure}
+	\caption{The relative difference between $ \Gt_{\Sigma^*} $ obtained using Dyson equation and the directly simulated $ \Gt $. For each of these simulations a core time of 24 hours has been used.}
+	\label{fig:dysonDifference}
+\end{figure}
+
+\section{Bold-line scheme \question{?}}
+
+The bold-line scheme \cite{PhysRevLett.99.250201} is a self consistent scheme making use of bold-line tricks iteratively in order to partially of fully sum up a diagram series. Dyson equation is one such bold-line trick and is the only one to be investigated in this thesis.
+
+Here the propagator  $ \Gt_{i + 1} = \Gt^{(0)} + \Delta \Gt_{i + 1} $  is obtained when employing Dyson equation to the self energy $ S_{i+1} $, made up of self energy diagrams subjected to certain constraints in order to prevent double counting. However, rather than using the bare propagator when calculating $ S_{i+1} $, the $ \Gt_i $ computed in the previous iteration of the scheme is instead used. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e. $ \Gt_0 = \Gt^{(0)} $. This scheme will converge given an appropriate choice of parameters so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 4 or so iterations.
+
+\subsection{Skeleton diagrams}
+
+In order for certain diagrams to not contribute more than once to $ \Gt_i $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self energy diagrams referred to as skeleton diagrams \cite{mattuck2012guide}. This diagram class is characterized by the lack of insertions, i.e. diagram parts which act like self energies to some of the constituents of the diagram. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams} with diagrams present in the series of $ \Gt $.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.499\textwidth}%
+		\begin{center}
+			\begin{fmffile}{FMFFILEsampleSkeletonDiagramA}%
+				\FDframe{%
+					\begin{fmfgraph*}(50, 20)
+						\fmfstraight
+						\fmfbottom{i,o}
+						\fmf{fermion}{i,v1}
+						\fmf{fermion, foreground=(1,,0,,1)}{v1,v2}
+						\fmf{fermion}{v2,v3}
+						\fmf{fermion}{v3,v4}
+						\fmf{fermion}{v4,o}
+						\fmf{dashes, left, tension=0}{i,v4}
+						\fmf{dashes, left, tension=0, foreground=(1,,0,,1)}{v1,v2}
+						\fmf{dashes, left, tension=0}{v3,o}
+						\fmfdot{i,o,v1,v2,v3,v4}
+						\fmfv{foreground=(1,,0,,1)}{v1}
+						\fmfv{foreground=(1,,0,,1)}{v2}
+					\end{fmfgraph*}%
+				}
+			\end{fmffile}%
+		\end{center}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.499\textwidth}
+		\begin{center}
+			\begin{fmffile}{FMFFILEsampleSkeletonDiagramB}
+				\FDframe{
+					\begin{fmfgraph*}(50, 20)
+						\fmfstraight
+						\fmfbottom{i,o}
+						\fmf{fermion}{i,v1}
+						\fmf{fermion}{v1,v2}
+						\fmf{fermion}{v2,v3}
+						\fmf{fermion}{v3,v4}
+						\fmf{fermion}{v4,o}
+						\fmf{dashes, left, tension=0}{i,v4}
+						\fmf{dashes, left, tension=0}{v1,v3}
+						\fmf{dashes, left, tension=0}{v2,o}
+						\fmfdot{i,o,v1,v2,v3,v4}
+					\end{fmfgraph*}%
+				}
+			\end{fmffile}%
+		\end{center}
+	\end{subfigure} \\[2em]
+	\begin{subfigure}[b]{0.499\textwidth}
+		\begin{center}
+			\begin{fmffile}{FMFFILEsampleSkeletonDiagramC}
+				\FDframe{
+					\begin{fmfgraph*}(50, 25)
+						\fmfstraight
+						\fmfbottom{i,o}
+						\fmf{fermion}{i,v1}
+						\fmf{fermion, foreground=(1,,0,,1)}{v1,v2}
+						\fmf{fermion, foreground=(1,,0,,1)}{v2,v3}
+						\fmf{fermion, foreground=(1,,0,,1)}{v3,v4}
+						\fmf{fermion}{v4,o}
+						\fmf{dashes, left, tension=0}{i,o}
+						\fmf{dashes, left, tension=0, foreground=(1,,0,,1)}{v1,v3}
+						\fmf{dashes, left, tension=0, foreground=(1,,0,,1)}{v2,v4}
+						\fmfdot{i,o,v1,v2,v3,v4}
+						\fmfv{foreground=(1,,0,,1)}{v1}
+						\fmfv{foreground=(1,,0,,1)}{v2}
+						\fmfv{foreground=(1,,0,,1)}{v3}
+						\fmfv{foreground=(1,,0,,1)}{v4}
+					\end{fmfgraph*}%
+				}
+			\end{fmffile}%
+		\end{center}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.499\textwidth}
+		\begin{center}
+			\begin{fmffile}{FMFFILEsampleSkeletonDiagramD}
+				\FDframe{
+					\begin{fmfgraph*}(50, 25)
+						\fmfstraight
+						\fmfbottom{i,o}
+						\fmf{fermion}{i,v1}
+						\fmf{fermion}{v1,v2}
+						\fmf{fermion}{v2,v3}
+						\fmf{fermion}{v3,v4}
+						\fmf{fermion}{v4,o}
+						\fmf{dashes, left, tension=0}{i,v2}
+						\fmf{dashes, left, tension=0}{v1,v4}
+						\fmf{dashes, left, tension=0}{v3,o}
+						\fmfdot{i,o,v1,v2,v3,v4}
+					\end{fmfgraph*}%
+				}
+			\end{fmffile}%
+		\end{center}
+	\end{subfigure}
+	\caption{\image{caption me please}}
+	\label{fig:sampleSkeletonDiagrams}
+\end{figure}
 
 
-since the both the Fourier transform and it's inverse are linear
-\begin{equation}
-	\mathcal{F}^{-1}_{\omega} \left\{ \Delta \Gt(\omega) \right\} = \Delta \Gt(\tau) = \Gt(\tau) - \Gt_0(\tau)
-\end{equation}
-
-
-
-
-
-
-\todo{
 \begin{itemize}
-	\item Singular part of diagram
-	\item $ 1/\omega^2 $ and shit
-	\item High resolution needed
-	\item Show $ \Gt $ obtained via Dyson
+	\item \todo{By putting an upper bound $ n \leq n_\text{max} $ of the generated diagrams in the Markov process... }
 \end{itemize}
-}
 
-\section{Bold scheme \question{?}}
+
+
+To illustrate...
+
+
+For simplicity it is used that $ n_\text{max} = 1 $ so that
+
+
+
+\noindent \textbf{First iteration}
+
+\begin{fmffile}{FMFFILEfirstIterationSelfEnergy}
+    	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+	    	\Sigma^*_1 =
+	    	\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	    		\node {
+	    			\FDframe{
+    				\begin{fmfgraph*}(11, 6)
+    					\fmfbottom{b1,b2}
+    					\fmf{fermion}{b1,b2}
+    					\fmf{dashes, left}{b1,b2}
+    					\fmfdot{b1,b2}
+    				\end{fmfgraph*}%
+    				}
+    			};%
+    		\end{tikzpicture}%
+    	\end{empheq}
+\end{fmffile}%
+
+\begin{fmffile}{FMFFILEfirstIterationG}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
+		\label{eq:BoldG1}
+		\begin{split}
+			\Gt_1
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion, foreground=(1,,0,,0)}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture} \\
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+			+
+		    	\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(33, 5.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+							\fmf{fermion}{v2,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmfdot{v1,v2}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(55, 5.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmf{dashes, left, tension=0}{v3,v4}
+							\fmfdot{v1,v2,v3,v4}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+ \cdots
+		\end{split}
+	\end{empheq}
+\end{fmffile}%
+
+\noindent \textbf{Second iteration}
+
+\noindent During the simulation of $ \Sigma^*_2 $, the propagator $ \Gt_1 $, obtained from the first iteration, is used in favor of the bare $ \Gt^{(0)} $. Hence
+\begin{fmffile}{FMFFILEsecondIterationSelfEnergy}
+    	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+	    	\Sigma^*_2 =
+	    	\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+	    		\node {
+	    			\FDframe{
+    				\begin{fmfgraph*}(11, 6)
+    					\fmfbottom{b1,b2}
+    					\fmf{fermion, foreground=(1,,0,,0)}{b1,b2}
+    					\fmf{dashes, left}{b1,b2}
+    					\fmfdot{b1,b2}
+    				\end{fmfgraph*}%
+    				}
+    			};%
+    		\end{tikzpicture} \,,
+    	\end{empheq}
+\end{fmffile}%
+and according to dyson Dyson equation 
+\begin{fmffile}{FMFFILEsecondIterationDyson}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+		\begin{split}
+			\Gt_2
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion, foreground=(0,,0,,1)}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture} \\
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+			+
+		    	\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(33, 5.5)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion, foreground=(1,,0,,0)}{v1,v2}
+							\fmf{fermion}{v2,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmfdot{v1,v2}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(55, 5.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion, foreground=(1,,0,,0)}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion, foreground=(1,,0,,0)}{v3,v4}
+							\fmf{fermion}{v4,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmf{dashes, left, tension=0}{v3,v4}
+							\fmfdot{v1,v2,v3,v4}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+ \cdots \,.
+		\end{split}
+	\end{empheq}
+\end{fmffile}%
+By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2 $ is expressed entirely out of bare constituents, i.e.  
+\begin{fmffile}{FMFFILEsecondIterationG}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+		\begin{split}
+			\Gt_2
+			&=				
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+			+
+		    	\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(33, 5.5)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+							\fmf{fermion}{v2,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmfdot{v1,v2}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(55, 16.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,o}
+							\fmf{dashes, left, tension=0}{v1,v4}
+							\fmf{dashes, left, tension=0}{v2,v3}
+							\fmfdot{v1,v2,v3,v4}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(77, 27.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,v5}
+							\fmf{fermion}{v5,v6}
+							\fmf{fermion}{v6,o}
+							\fmf{dashes, left, tension=0}{v1,v6}
+							\fmf{dashes, left, tension=0}{v2,v3}
+							\fmf{dashes, left, tension=0}{v4,v5}
+							\fmfdot{v1,v2,v3,v4,v5,v6}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+ \cdots \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(55, 5.5)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmf{dashes, left, tension=0}{v3,v4}
+							\fmfdot{v1,v2,v3,v4}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(77, 16.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,v5}
+							\fmf{fermion}{v5,v6}
+							\fmf{fermion}{v6,o}
+							\fmf{dashes, left, tension=0}{v1,v4}
+							\fmf{dashes, left, tension=0}{v2,v3}
+							\fmf{dashes, left, tension=0}{v5,v6}
+							\fmfdot{v1,v2,v3,v4,v5,v6}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+ \cdots
+		\end{split}
+	\end{empheq}
+\end{fmffile}%
+
+
+
+
+\begin{itemize}
+	\item \todo{Diagram with intersecting phonon lines wont appear in this diagram series...}
+\end{itemize}
+
+
+
+
+
+
+\subsection{Update procedures}
+
+\subsection{Results}
+
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=1_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=1_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=2_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=2_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=3_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=3_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=4_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=4_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=5_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=5_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=6_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=6_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=7_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=7_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=8_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=8_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=9_p=0.01"}.pdf}
+	\end{subfigure} \\
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=9_p=0.01"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+
+
+
+\begin{itemize}
+	\item \todo{E vs \#iteration plot}
+\end{itemize}
+
+
+
+\section{Numerical Results}
 

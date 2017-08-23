@@ -268,16 +268,16 @@ What will happen to a dielectric medium if one introduces a charged particle, an
 The model of interest to this thesis is the following. Consider a diatomic crystal, e.g. rock salt. Such a crystal is made up out of ions which pairwise have a zero net charge. This is depicted in figure \ref{fig:illustrationOfDiatomicCrystal} below. Introducing a free electron into such a crystal, the electron will polarize the crystal due to it exerting an electric field. This sort of polarization may be described by a displacement vector for each lattice point. However, to simplify matters, it is preferred to treat this displacement vector as a continuous vector field.
 
 \begin{figure}[H]
-        \centering
-        \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/description"}.pdf}
-                \caption{The filled circles illustrate four types of charges. The color represent the charge sign; the ones to the left are positively charged and the ones to the right are negatively charged. The quantity of charge is represented by the size; the charges have the same charge quantity within each row, but the ones in the top row have a weaker charge than the ones in the bottom row.}
-        \end{subfigure}\hfill
-        \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/crystal"}.pdf}
-                \caption{A layer of a diatomic crystal. This particular crystal has a face-centered cubic structure.}
-        \end{subfigure}
-        \caption{}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Crystal illustration/description"}.pdf}
+		\caption{The filled circles illustrate four types of charges. The color represent the charge sign; the ones to the left are positively charged and the ones to the right are negatively charged. The quantity of charge is represented by the size; the charges have the same charge quantity within each row, but the ones in the top row have a weaker charge than the ones in the bottom row.}
+	\end{subfigure}\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Crystal illustration/crystal"}.pdf}
+		\caption{A layer of a diatomic crystal. This particular crystal has a face-centered cubic structure.}
+	\end{subfigure}
+	\caption{}
 	\label{fig:illustrationOfDiatomicCrystal}
 \end{figure}
 
@@ -492,6 +492,8 @@ together with (\ref{eq:driven_harmonic_oscillator}, \ref{eq:Hamiltonian_raw}) it
 	= \frac{i}{2} [\hat b^\dagger_{\vec q} + \hat b_{\vec q}, \, \hat b^\dagger_{\vec k} - \hat b_{\vec k}]/2
 \end{equation}
 
+\question{Perhaps $ V $ is important for the equation above?}
+
 we obtain $ [b_{\vec q}, \, b^\dagger_{\vec k}] = \delta_{\vec q, \vec k} $ and $ [b_{\vec q}, \, b_{\vec k}] = 0 $  \question{(really, they follow?)}. Using the first of these to rewrite $ (\hat b^\dagger_{\vec q} \hat b_{\vec q} + \hat b_{\vec q} \hat b^\dagger_{\vec q})/2  = \hat b^\dagger_{\vec q} \hat b_{\vec q} + \tfrac{1}{2} $ the Hamiltonian, in quantised form, becomes
 
 \begin{equation}
@@ -620,76 +622,87 @@ is nothing but the definition of the bare propagator \todo{(refer to earlier der
 \subsection{Diagrammatic analysis}
 
 In this thesis only the electronic single-particle Green's function will be studied in terms of Feynman diagrams. In order to do this, the operators $ \hat A \, \hat B \, \dots \, \hat F $ in the perturbation series (\ref{eq:perturbationSeries}) should be replaced by $ \hat a_{\vec k} \hat a^\dagger_{\vec k} $. The constituents of the resulting Feynman diagrams are easily obtained just by analyzing the Hamiltonian (\ref{eq:finalGrandCanoniclaHamiltonian}). Using the ground state ensemble of vacuum as promised earlier, the bare electronic and phononic propagators, referred to as $ \Gt_0 $ and $ \Dt_0 $ respectively, are found to be
-
-
-\begin{fmffile}{propagator-electron}
-	\begin{equation}
+\begin{fmffile}{FMFFILEelectronPropagator}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\label{eq:G0ofKt}
-		\begin{gathered}
-			\begin{fmfgraph*}(25, 1.5)
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[4][5][4][5]{
+					\begin{fmfgraph*}(25, 1.5)
 				\fmfleft{i}
 				\fmfright{o}
 				\fmf{fermion, label=$\vec p$}{i,o}
 				\fmfv{label=$ 0 $, label.angle=-180}{i}
 				\fmfv{label=$ \tau $, label.angle=0}{o}
-			\end{fmfgraph*}
-		\end{gathered}
-		\quad\; =  \, 
+					\end{fmfgraph*}%
+				}%
+			};
+		\end{tikzpicture}
+		=  \, 
 		\Gt_0(\vec p, \tau)
 		= \exp \left \{ -\left( \frac{p^2}{2} - \mu \right) \tau \right \}
 		\quad \tau \geq 0 \,,
-	\end{equation}
-\end{fmffile}
-
-\begin{fmffile}{propagator-phonon}
-	\begin{equation}
+	\end{empheq}
+\end{fmffile}%
+\begin{fmffile}{FMFFILEelectronPropagatorphononPropagator}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\label{eq:D0ofKt}
-		\begin{gathered}
-			\begin{fmfgraph*}(25, 1.5)
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[4][5][4][5]{
+					\begin{fmfgraph*}(25, 1.5)
 				\fmfleft{i}
 				\fmfright{o}
 				\fmf{dashes, label=$\vec q$}{i,o}
 				\fmfv{label=$ 0 $, label.angle=-180}{i}
 				\fmfv{label=$ \tau $, label.angle=0}{o}
-			\end{fmfgraph*}
-		\end{gathered}
-		\quad\; =  \, 
+					\end{fmfgraph*}%
+				}%
+			};
+		\end{tikzpicture}
+		=  \, 
 		\Dt_0(\vec q, \tau)
 		= \exp \left \{ - \tau \right \}
 		\quad \tau \geq 0 \,.
-	\end{equation}
-\end{fmffile}
-
+	\end{empheq}
+\end{fmffile}%
 Since any propagator going backwards in time is identically zero, it is possible to use the convention that the momentum is carried in the direction of increased time, which throughout this paper will be to the right. By examining the interaction part of the Hamiltonian, the possible vertices and their contribution are found to be
-
-\begin{fmffile}{vertices}
-	\begin{equation}
-		\begin{gathered}
-			\begin{fmfgraph*}(47, 19)
+\begin{fmffile}{FMFFILEelectronPropagatorvertices}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[0][0][0][5]{
+					\begin{fmfgraph*}(47, 19)
+				\fmfstraight
 				\fmfleft{i1,i2}
 				\fmfright{o1,o2}
 				\fmf{fermion, label=$\vec p$}{i1,v1}
 				\fmf{fermion, label=$\vec p - \vec q$}{v1,o1}
-				\fmf{dashes, tension=0, left=0.45, label=$\vec q$}{v1,o2}
+				\fmf{dashes, tension=0, left=0.36, label=$\vec q$}{v1,o2}
 				\fmfdot{v1}
-			\end{fmfgraph*}
-		\end{gathered}
+					\end{fmfgraph*}%
+				}%
+			};
+		\end{tikzpicture}
 		=
-		\begin{gathered}
-			\begin{fmfgraph*}(47, 19)
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[0][0][0][5]{
+					\begin{fmfgraph*}(47, 19)
+				\fmfstraight
 				\fmfleft{i1,i2}
 				\fmfright{o1,o2}
 				\fmf{fermion, label=$\vec p - \vec q$}{i1,v1}
 				\fmf{fermion, label=$\vec p$}{v1,o1}
-				\fmf{dashes, tension=0, right=0.45, label=$\vec q$}{v1,i2}
+				\fmf{dashes, tension=0, right=0.36, label=$\vec q$}{v1,i2}
 				\fmfdot{v1}
-			\end{fmfgraph*}
-		\end{gathered}
-		=
-		V(\vec q)
-	\end{equation}
-\end{fmffile}
-
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
+		= V(\vec q)
+	\end{empheq}
+\end{fmffile}%
 with $ V(\vec q) $ as defined in (\ref{eq:VofQ}).
 
 In order to construct the relevant diagrams from these building blocks, the Feynman rules dictate:
@@ -713,24 +726,29 @@ In this paper the single-particle Green's function will be studied in the limit 
 
 should be made in the $ \hat K_1(\tau) $ factors within the perturbation expansion. Instead of summing over the $ n $ internal momenta, there will now be integrals. Also the last one of the Feynman rules should be modified so that multiplicative factor becomes $ (-2\pi)^{-3n} $. Further more $ T = 0 $ will be used and hence the upper bound in the imaginary-time integrals becomes infinite.
 
-Having the ground state ensemble equal to that of vacuum, the propagators become identically zero for negative imaginary-times as stated in (\ref{eq:G0ofKt}) and (\ref{eq:D0ofKt}). Because of this the contribution from diagrams containing tadpoles, electron loops and similar structures to those depicted below vanishes.
-
-\begin{fmffile}{tadpoleAndLoop}
-	\begin{equation*}
-		\begin{gathered}
-			\begin{fmfgraph*}(25, 22)
-				\fmfleft{i}
-				\fmfright{o}
-				\fmf{dashes}{i,v1}
-				\fmf{fermion, tension=0.2, right}{v1,o,v1}
-				\fmfdot{v1}
-			\end{fmfgraph*}
-		\end{gathered}
-		\;
-		\propto \langle \text{vac} | \hat a^\dagger \hat a | \text{vac} \rangle = 0
-		\quad \quad \quad
-		\begin{gathered}
-			\begin{fmfgraph*}(46, 22)
+Having the ground state ensemble equal to that of vacuum, the propagators become identically zero for negative imaginary-times as stated in (\ref{eq:G0ofKt}) and (\ref{eq:D0ofKt}). Because of this the contribution from diagrams containing tadpoles, electron loops and similar structures to those depicted in figure \ref{fig:vanishingContributions} vanishes.
+\begin{figure}[H]
+	\begin{fmffile}{FMFFILEtadpoleAndLoop}
+		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][5][33][0]{
+						\begin{fmfgraph*}(25, 22)
+							\fmfleft{i}
+							\fmfright{o}
+							\fmf{dashes}{i,v1}
+							\fmf{fermion, tension=0.2, right}{v1,o,v1}
+							\fmfdot{v1}
+							\fmfv{label=$ \propto \langle \text{vac} | \hat a^\dagger \hat a | \text{vac} \rangle = 0 $, label.angle=0}{o}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			\quad \qquad
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe[1][5][1][0]{
+						\begin{fmfgraph*}(46, 22)
 				\fmfleft{i}
 				\fmfright{o}
 				\fmf{dashes, tension=2}{i,v1}
@@ -738,37 +756,44 @@ Having the ground state ensemble equal to that of vacuum, the propagators become
 				\fmf{fermion, right, tension=0.8}{v1,v2}
 				\fmf{fermion, right, tension=0.8, label=$ \Gt(\tau - \tau' < 0) = 0 $}{v2,v1}
 				\fmfdot{v1,v2}
-				\fmfv{label=$ \tau $, label.angle=120}{v1}
-				\fmfv{label=$ \tau' $, label.angle=60}{v2}
-			\end{fmfgraph*}
-		\end{gathered}
-	\end{equation*}
-\end{fmffile}
-
-\todo{Put these example diagrams inside a figure.}
-
+				\fmfv{label=$ \tau $, label.angle=-120}{v1}
+				\fmfv{label=$ \tau' $, label.angle=-60}{v2}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+		\end{empheq}
+	\end{fmffile}%
+	\caption{\image{caption me plx!}}
+	\label{fig:vanishingContributions}
+\end{figure}
 Then the only contributing diagrams are those where all electron propagators follow after one another in a line, and phonon propagators spawn and die on the vertices in this line. That is,
-
-\begin{fmffile}{GUpToSecondOrder}
-	\begin{equation}
-		\label{eq:GinTermsOfDiagrams}
+\begin{fmffile}{FMFFILEGUpToSecondOrder}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
+	\label{eq:GinTermsOfDiagrams}
 		\begin{split}
 			\Gt(\vec p, \tau)
-			&= \quad
-	        		\begin{gathered}
-				\begin{fmfgraph*}(19, 1.5)
-					\fmfleft{i}
-					\fmfright{o}
+			&=
+			\begin{tikzpicture}[baseline={([yshift=15]current bounding box.south)}]
+				\node {
+					\FDframe[4][0][4][5]{
+						\begin{fmfgraph*}(20, 5)
+					\fmfstraight
+					\fmfbottom{i,o}
 					\fmf{fermion, label=$\vec p$, label.side=left}{i,o}
 					\fmfv{label=$ 0 $, label.angle=-180}{i}
 					\fmfv{label=$ \tau $, label.angle=0}{o}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\quad + \quad
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(60, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+
+			\begin{tikzpicture}[baseline={([yshift=15]current bounding box.south)}]
+				\node {
+					\FDframe[4][5][4][5]{
+						\begin{fmfgraph*}(60, 10)
+					\fmfstraight
+					\fmfbottom{i,o}
         					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
         					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
         					\fmf{fermion, label=$\vec p$, label.side=left}{v2,o}
@@ -778,13 +803,17 @@ Then the only contributing diagrams are those where all electron propagators fol
         					\fmfv{label=$ 0 $, label.angle=-180}{i}
         					\fmfv{label=$ \tau $, label.angle=0}{o}
         					\fmfdot{v1,v2}
-        				\end{fmfgraph*}
-        			\end{gathered} \\[6em]
-			&+ \quad
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(100, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=15]current bounding box.south)}]
+				\node {
+					\FDframe[4][5][4][5]{
+						\begin{fmfgraph*}(100, 10)
+					\fmfstraight
+					\fmfbottom{i,o}
         					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
         					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
         					\fmf{fermion, label=$\vec p$, label.side=left}{v2,v3}
@@ -799,13 +828,17 @@ Then the only contributing diagrams are those where all electron propagators fol
         					\fmfv{label=$ 0 $, label.angle=-180}{i}
         					\fmfv{label=$ \tau $, label.angle=0}{o}
         					\fmfdot{v1,v2,v3,v4}
-        				\end{fmfgraph*}
-        			\end{gathered} \\[9em]
-			&+ \quad
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(100, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=15]current bounding box.south)}]
+				\node {
+					\FDframe[4][5][4][5]{
+						\begin{fmfgraph*}(100, 20)
+					\fmfstraight
+					\fmfbottom{i,o}
         					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
         					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
         					\fmf{fermion, label=$\vec p - \vec q - \vec k$, label.side=left}{v2,v3}
@@ -820,13 +853,17 @@ Then the only contributing diagrams are those where all electron propagators fol
         					\fmfv{label=$ 0 $, label.angle=-180}{i}
         					\fmfv{label=$ \tau $, label.angle=0}{o}
         					\fmfdot{v1,v2,v3,v4}
-        				\end{fmfgraph*}
-        			\end{gathered} \\[12em]
-			&+ \quad
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(100, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=15]current bounding box.south)}]
+				\node {
+					\FDframe[4][5][4][5]{
+						\begin{fmfgraph*}(100, 30)
+					\fmfstraight
+					\fmfbottom{i,o}
         					\fmf{fermion, label=$\vec p$, label.side=left}{i,v1}
         					\fmf{fermion, label=$\vec p - \vec q$, label.side=left}{v1,v2}
         					\fmf{fermion, label=$\vec p - \vec q - \vec k$, label.side=left}{v2,v3}
@@ -841,160 +878,198 @@ Then the only contributing diagrams are those where all electron propagators fol
         					\fmfv{label=$ 0 $, label.angle=-180}{i}
         					\fmfv{label=$ \tau $, label.angle=0}{o}
         					\fmfdot{v1,v2,v3,v4}
-        				\end{fmfgraph*}
-        			\end{gathered} \\[2em]
-			&+ \quad \cdots  \,.
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+ \cdots \,.
 		\end{split}
-	\end{equation}
-\end{fmffile}
+	\end{empheq}
+\end{fmffile}%
 
 \todo{Number of diagrams at each order $ \tfrac{(2n)!}{n!2^n} $}
 
 \todo{Since there is no preferred direction of the external momentum $ \vec p $, the Green's function will depend only upon the magnitude $ p = | \vec p | $, i.e. $ \Gt = \Gt(\alpha, \mu, p, \tau) $.}
 
-It is obvious that theses diagrams only contribute if the times are ordered chronologically, i.e. $ 0 \le \tau_1 \le \tau_2 \le \dots \le \tau_n \le \tau $. Because if this was not the case at least one propagator would propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
+It is obvious that theses diagrams only contribute if the times are ordered chronologically, i.e. $ 0 = \tau_0 \le \tau_1 \le \tau_2 \le \dots \le \tau_{2n - 1} = \tau $. Because if this was not the case at least one propagator would propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
 
 Another important property of these diagrams is that they all carry a positive definite contribution to $ \Gt $. This since the value of a propagator always is larger than or equal to zero, and the sign from the factor $ (-2\pi)^{-3n} $ cancel the $ i^{2n} $ contained within $ V(\vec q)^{2n} $.
 
 \subsection{Dyson equation}
 
 Working at zero temperature allows for a full Fourier representation of the single-particle Green's function, i.e.
-
 \begin{equation}
 	G(\vec x, \tau) = \frac{1}{(2\pi)^4} \int \diff^3 k \int \diff \omega \, e^{i (\vec k \cdot \vec x - \omega \tau)} G(\vec k, \omega)
 	\; ; \quad G = \Gt, \, \Dt, \, \Gt_0, \, \Dt_0 \,.
 \end{equation}
-
 It so happens to be more pleasant working in $ \vec k $-$ \omega $ space for a lot of reasons but what will be of importance here is the conservation of total four momentum $ k = (\omega, \vec k) $ at all vertices in a Feynman diagram. In that way the external legs of a diagram no longer depend upon any internal variables and may then be factored out from the nasty integral expression. Hence it is convenient to define the interacting single-particle Green's function, here depicted as a double line, in terms of the self-energy as
-
-\begin{fmffile}{GinTermsOfSelfEnergy}
-	\begin{equation}
+\begin{fmffile}{FMFFILEGinTermsOfSelfEnergy}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 	\label{eq:boldLine}
-	        	\begin{gathered}
-			\begin{fmfgraph*}(19, 1.5)
-				\fmfleft{i}
-				\fmfright{o}
-				\fmf{heavy, label=$ k $, label.side=left}{i,o}
-			\end{fmfgraph*}
-        		\end{gathered}
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(19, 12)
+			\fmfleft{i}
+			\fmfright{o}
+			\fmf{heavy, label=$ k $, label.side=left}{i,o}
+					\end{fmfgraph*}%
+				}%
+			};
+		\end{tikzpicture}
 		=
-	        	\begin{gathered}
-			\begin{fmfgraph*}(19, 1.5)
-				\fmfleft{i}
-				\fmfright{o}
-				\fmf{fermion, label=$ k $, label.side=left}{i,o}
-			\end{fmfgraph*}
-        		\end{gathered}
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(19, 12)
+			\fmfleft{i}
+			\fmfright{o}
+			\fmf{fermion, label=$ k $, label.side=left}{i,o}
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
 		+
-	        	\begin{gathered}
-        			\begin{fmfgraph*}(53, 1.5)
-        				\fmfleft{i}
-        				\fmfright{o}
-        				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
-        				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
-				\fmfv{d.sh=circle,d.f=empty,d.si=.2w,l=$\Sigma(k)$,l.dist=0,decoration.size=.2w}{v1}
-        			\end{fmfgraph*}
-        		\end{gathered} \,,
-	\end{equation}
-\end{fmffile}
-
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(53, 12)
+			\fmfleft{i}
+			\fmfright{o}
+			\fmf{fermion, label=$ k $, label.side=left}{i,v1}
+			\fmf{fermion, label=$ k $, label.side=left}{v1,o}
+			\fmfv{d.sh=circle,d.f=empty,d.si=.2w,l=$\Sigma(k)$,l.dist=0,decoration.size=.2w}{v1}
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture} \,,
+	\end{empheq}
+\end{fmffile}%
 so that
-
-\begin{fmffile}{selfEnergy}
-	\begin{equation}
-		\label{eq:selfEnergy}
+\begin{fmffile}{FMFFILEselfEnergy}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\begin{split}
-			\begin{gathered}
-				\begin{fmfgraph*}(12, 1.5)
-					\fmftop{i}
-					\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma(k)$,l.dist=0,right=0.5h}{i}
-				\end{fmfgraph*}
-			\end{gathered}
-			\, &= \,
-	        		\begin{gathered}
-				\begin{fmfgraph*}(23, 1.5)
-					\fmfleft{i}
-					\fmfright{o}
+		\label{eq:selfEnergy}
+			\begin{tikzpicture}[baseline={([yshift=0]current bounding box.south)}]
+				\node {
+					\FDframe[0][0][0][-6]{
+						\begin{fmfgraph*}(12, 12)
+					\fmfiv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma(k)$,l.dist=0,right=0.5h}{c}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture}
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe[0][5][0][0]{
+						\begin{fmfgraph*}(22, 11)
+					\fmfstraight
+					\fmfbottom{i,o}
 					\fmf{fermion, label=$ k - q $, label.side=left}{i,o}
 					\fmf{dashes, label=$q$, label.side=left, left}{i,o}
 					\fmfdot{i,o}
-				\end{fmfgraph*}
-        			\end{gathered}
-			\, +
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(70, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe[0][5][0][0]{
+						\begin{fmfgraph*}(66, 11)
+					\fmfstraight
+        					\fmfbottom{i,o}
 					\fmf{fermion, label=$ k - q $, label.side=left}{i,v1}
 					\fmf{dashes, label=$q$, label.side=left, left, tension=0}{i,v1}
 					\fmf{fermion, label=$ k $, label.side=left}{v1,v2}
 					\fmf{fermion, label=$ k - s $, label.side=left}{v2,o}
 					\fmf{dashes, label=$s$, label.side=left, left, tension=0}{v2,o}
 					\fmfdot{i,o,v1,v2}
-        				\end{fmfgraph*}
-        			\end{gathered} \\[8em]
-			&+ \,
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(70, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe[0][5][0][0]{
+						\begin{fmfgraph*}(66, 22)
+					\fmfstraight
+        					\fmfbottom{i,o}
 					\fmf{fermion, label=$ k - q $, label.side=left}{i,v1}
 					\fmf{dashes, label=$q$, label.side=left, left, tension=0}{i,v2}
 					\fmf{fermion, label=$ k $, label.side=left}{v1,v2}
 					\fmf{fermion, label=$ k - q - s $, label.side=left}{v2,o}
 					\fmf{dashes, label=$s$, label.side=left, left, tension=0}{v1,o}
 					\fmfdot{i,o,v1,v2}
-        				\end{fmfgraph*}
-        			\end{gathered} \\[11em]
-			&+ \,
-	        		\begin{gathered}
-        				\begin{fmfgraph*}(70, 1.5)
-        					\fmfleft{i}
-        					\fmfright{o}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe[0][5][0][0]{
+						\begin{fmfgraph*}(66, 33)
+					\fmfstraight
+        					\fmfbottom{i,o}
 					\fmf{fermion, label=$ k - q $, label.side=left}{i,v1}
 					\fmf{dashes, label=$q$, label.side=left, left, tension=0}{i,o}
 					\fmf{fermion, label=$ k -q - s $, label.side=left}{v1,v2}
 					\fmf{fermion, label=$ k - q $, label.side=left}{v2,o}
 					\fmf{dashes, label=$s$, label.side=left, left, tension=0}{v1,v2}
 					\fmfdot{i,o,v1,v2}
-        				\end{fmfgraph*}
-        			\end{gathered}
-			\; + \cdots \,.
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+ \cdots \,.
 		\end{split}
-	\end{equation}
-\end{fmffile}
-
+	\end{empheq}
+\end{fmffile}%
 A related quantity is the proper self-energy $ \Sigma^*(k) $ which is made up by a subset of the self-energy diagrams. These diagrams are said to be irreducible, meaning that they cannot be split in two by cutting only one propagator, e.g. the first, third and fourth diagram in (\ref{eq:selfEnergy}). The second diagram in the same expression can be split in half by cutting the electronic propagator with four-momenta $ k $ and is then said to be a reducible diagram. With this definition of the proper self-energy, the self-energy is nothing but
-
-\begin{fmffile}{selfEnergyInTermsOfProperSelfEnergy}
-	\begin{equation}
+\begin{fmffile}{FMFFILEselfEnergyInTermsOfProperSelfEnergy}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\label{eq:selfEnergyInTermsOfProperSelfEnergy}
-		\begin{gathered}
-			\begin{fmfgraph*}(12, 1.5)
-				\fmftop{i}
-				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma(k)$,l.dist=0,right=0.5h}{i}
-			\end{fmfgraph*}
-		\end{gathered}
-		\;\; = \;
-		\begin{gathered}
-			\begin{fmfgraph*}(12, 1.5)
-				\fmftop{i}
-				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
-			\end{fmfgraph*}
-		\end{gathered}
-		\;\; + \;
-        		\begin{gathered}
-			\begin{fmfgraph*}(12, 24)
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(12, 12)
+				\fmfiv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma(k)$,l.dist=0,right=0.5h}{c}
+					\end{fmfgraph*}%
+				}%
+			};
+		\end{tikzpicture}
+		=
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(12, 12)
+				\fmfiv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{c}
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
+		+
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[0][6][0][6]{
+					\begin{fmfgraph*}(12, 24)
 				\fmftop{o}
 				\fmfbottom{i}
 				\fmf{fermion, label=$ k $, label.side=left}{i,o}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{o}
-			\end{fmfgraph*}
-		\end{gathered}
-		\;\; + \;
-        		\begin{gathered}
-			\begin{fmfgraph*}(12, 49)
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
+		+
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[0][6][0][6]{
+					\begin{fmfgraph*}(12, 49)
 				\fmftop{o}
 				\fmfbottom{i}
 				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
@@ -1002,11 +1077,15 @@ A related quantity is the proper self-energy $ \Sigma^*(k) $ which is made up by
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{i}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{o}
-			\end{fmfgraph*}
-		\end{gathered}
-		\;\; + \;
-        		\begin{gathered}
-			\begin{fmfgraph*}(12, 73)
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
+		+
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe[0][6][0][6]{
+					\begin{fmfgraph*}(12, 73)
 				\fmftop{o}
 				\fmfbottom{i}
 				\fmf{fermion, label=$ k $, label.side=left}{i,v1}
@@ -1016,47 +1095,56 @@ A related quantity is the proper self-energy $ \Sigma^*(k) $ which is made up by
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v1}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{v2}
 				\fmfv{d.sh=circle,d.f=empty,d.si=1w,l=$\Sigma^*(k)$,l.dist=0}{o}
-			\end{fmfgraph*}
-		\end{gathered} \\[1em]
-		\;\; + \;
-		\cdots \,.
-	\end{equation}
-\end{fmffile}
-
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
+		+ \cdots \,.
+	\end{empheq}
+\end{fmffile}%
 By inserting (\ref{eq:selfEnergyInTermsOfProperSelfEnergy}) into (\ref{eq:boldLine}), breaking out the factor $ \Gt_0(k) \, \Sigma^*(k) $ from every diagram but the bare propagator and identifying what is left with $ \Gt(k) $ one obtains a self consistent expression for $ \Gt(k) $ known as Dyson's equation,
-
-\begin{fmffile}{DysonsEquation}
-	\begin{equation}
-	        	\begin{gathered}
-			\begin{fmfgraph*}(19, 1.5)
-				\fmfleft{i}
-				\fmfright{o}
-				\fmf{heavy, label=$ k $, label.side=left}{i,o}
-			\end{fmfgraph*}
-        		\end{gathered}
+\begin{fmffile}{FMFFILEDysonEquation}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(19, 12)
+			\fmfleft{i}
+			\fmfright{o}
+			\fmf{heavy, label=$ k $, label.side=left}{i,o}
+					\end{fmfgraph*}%
+				}%
+			};
+		\end{tikzpicture}
 		=
-	        	\begin{gathered}
-			\begin{fmfgraph*}(19, 1.5)
-				\fmfleft{i}
-				\fmfright{o}
-				\fmf{fermion, label=$ k $, label.side=left}{i,o}
-			\end{fmfgraph*}
-        		\end{gathered}
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(19, 12)
+			\fmfleft{i}
+			\fmfright{o}
+			\fmf{fermion, label=$ k $, label.side=left}{i,o}
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture}
 		+
-	        	\begin{gathered}
-        			\begin{fmfgraph*}(53, 1.5)
-        				\fmfleft{i}
-        				\fmfright{o}
-        				\fmf{heavy, label=$ k $, label.side=left}{i,v1}
-        				\fmf{fermion, label=$ k $, label.side=left}{v1,o}
-				\fmfv{d.sh=circle,d.f=empty,d.si=.2w,l=$\Sigma^*(k)$,l.dist=0,decoration.size=.2w}{v1}
-        			\end{fmfgraph*}
-        		\end{gathered} \,.
-	\end{equation}
-\end{fmffile}
-
+		\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+			\node {
+				\FDframe{
+					\begin{fmfgraph*}(53, 12)
+			\fmfleft{i}
+			\fmfright{o}
+			\fmf{heavy, label=$ k $, label.side=left}{i,v1}
+			\fmf{fermion, label=$ k $, label.side=left}{v1,o}
+			\fmfv{d.sh=circle,d.f=empty,d.si=.2w,l=$\Sigma^*(k)$,l.dist=0,decoration.size=.2w}{v1}
+					\end{fmfgraph*}%
+				}%
+			};%
+		\end{tikzpicture} \,.
+	\end{empheq}
+\end{fmffile}%
 Hence the equation for $ \Gt(k) $ in terms of $ \Gt_0(k) $ and $ \Sigma^*(k) $ becomes
-
 \begin{equation}
 	\label{eq:dysonEquation}
 	\Gt(k) = \frac{1}{\Gt_0(k)^{-1} - \Sigma^*(k)} \,.

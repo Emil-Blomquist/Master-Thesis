@@ -21,11 +21,11 @@ func, = plt.plot(x, x**-0.5, ':')
 true, = plt.plot(t, t**-0.5, 'o')
 
 
-plt.legend([func, true, hist], [r'$ 1/\sqrt{x}$', 'True value', 'Histogram approximation'])
+plt.legend([func, true, hist], [r'$ 1/\sqrt{x}$', 'True value', 'Histogram approximation'], fontsize=18)
 e = 0.001
 plt.xlim([0 - e, n*dt + e])
 plt.ylim([0, 20])
 plt.tight_layout()
-plt.savefig('plot.pdf')
+plt.savefig('plots/plot.pdf')
 plt.show() 
 

@@ -80,6 +80,9 @@
 \usepackage{ctable}
 \usepackage{bigints}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{empheq}
+\usepackage{xparse}
 
 \definecolor{image}{rgb}{1, 0, 1}
 \definecolor{motivation}{rgb}{0, 0.8, 0}
@@ -88,6 +91,50 @@
 \definecolor{todo}{rgb}{0, 0, 1}
 
 \definecolor{highlight}{rgb}{1, 0, 1}
+
+
+\definecolor{myblue}{rgb}{.95, .95, .95}
+\definecolor{FDbg}{rgb}{0.9, 0.9, 0.9}
+%\definecolor{myblue}{rgb}{1, 1, 1}
+%\definecolor{FDbg}{rgb}{1, 1, 1}
+
+\newlength\mytemplen
+\newsavebox\mytempbox
+
+\makeatletter
+\newcommand\FDbox{%
+    \@ifnextchar[%]
+       {\@FDbox}%
+       {\@FDbox[0pt]}}
+
+\def\@FDbox[#1]{%
+    \@ifnextchar[%]
+       {\@@FDbox[#1]}%
+       {\@@FDbox[#1][0pt]}}
+
+\def\@@FDbox[#1][#2]#3{
+    \sbox\mytempbox{#3}%
+    \mytemplen\ht\mytempbox%
+    \advance\mytemplen #1\relax%
+    \ht\mytempbox\mytemplen%
+    \mytemplen\dp\mytempbox%
+    \advance\mytemplen #2\relax%
+    \dp\mytempbox\mytemplen%
+    \colorbox{myblue}{\usebox{\mytempbox}}}
+
+\makeatother
+
+\fboxsep0pt
+
+\DeclareDocumentCommand{\FDframe}{ O{0} O{0} O{0} O{0} m }{%
+	\colorbox{FDbg}{%
+		\fmfframe(#1,#2)(#3,#4){%
+			#5%
+		}%
+	}%
+}
+
+
 
 \newcommand{\image}[1]{{\leavevmode\color{image}#1}}
 \newcommand{\motivation}[1]{{\leavevmode\color{motivation}#1}}
@@ -157,11 +204,8 @@
 \chapter{Diagrammatic Monte Carlo}
 \input{Texts/chapter3}
 
-\chapter{Numerical Results}
-\input{Texts/chapter4}
-
 \chapter{Summary and Conclusions}
-\input{Texts/chapter5}
+\input{Texts/chapter4}
 
 % This starts the appendices.
 %\appendix

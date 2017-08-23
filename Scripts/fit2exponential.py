@@ -94,7 +94,7 @@ def fit2exponential (G, t, p, mu, plot = False):
     axarr[2].set_ylabel(r'$G - G_{\mathrm{fit}}$')
 
     plt.tight_layout()
-    plt.savefig('plot.pdf')
+    plt.savefig('plots/plot.pdf')
     plt.show()
 
   return E, Z

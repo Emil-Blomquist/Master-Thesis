@@ -44,4 +44,4 @@ def Dyson (SE_t, t, a, p, mu):
   G0 = G0_t[0: G0_t.size - dN]
   dG = dG_t[0: dG_t.size - dN]
 
-  return np.array(G0 + dG)
+  return np.real(np.array(G0 + dG))

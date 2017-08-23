@@ -38,4 +38,7 @@ ts = np.linspace(0, (n - 1)*dt, n) + 0.5*dt
 Ds = mS(ts) - S(ts) 
 
 for D in Ds:
+  # m = np.floor(np.log(D)/np.log(10))
+  # d = D/10**m
+  # print(np.round(d*100)/100 * 10**m)
   print('%.2E' % Decimal(D))
