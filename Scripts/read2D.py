@@ -1,7 +1,7 @@
 from __future__ import division
 import numpy as np
 
-def read2D (path):
+def read2D (path, pi = False):
   with open(path) as fp:
 
     Ts = Ps = np.array([])
@@ -28,7 +28,22 @@ def read2D (path):
           if not any(char in value for char in stringCharacters):
             parameters[key] = float(parameters[key])
 
-      else:
+      if pi is not False and i - 1 == pi:
+        # useful quantities
+        Nt = int(round(parameters['tmax']/parameters['dt']))
+        dp = parameters['dp']
+        dt = parameters['dt']
+        t = np.linspace(0, parameters['tmax'] - dt, Nt) + 0.5*dt
+
+        # parse line
+        line = line.split('\n')[0]
+        line = line.split(' ')
+
+        H = [float(part) for part in line]
+
+        return t, H, parameters
+
+      elif pi is False:
         if i == 1:
           # useful quantities
           Np = int(round(parameters['pmax']/parameters['dp']))
@@ -52,4 +67,8 @@ def read2D (path):
         # H[i - 2, :] = [float(part)*scaleFactor for part in line]
         H[i - 1, :] = [float(part) for part in line]
 
-  return Ts, Ps, H, parameters
+  if pi is False:
+    return Ts, Ps, H, parameters
+  else:
+    # pi not found
+    return [], [], parameters

@@ -1278,12 +1278,11 @@ In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\
 
 The bold-line scheme \cite{PhysRevLett.99.250201} is a self consistent scheme making use of bold-line tricks iteratively in order to partially of fully sum up a diagram series. Dyson equation is one such bold-line trick and is the only one to be investigated in this thesis.
 
-Here the propagator  $ \Gt_{i + 1} = \Gt^{(0)} + \Delta \Gt_{i + 1} $  is obtained when employing Dyson equation to the self energy $ S_{i+1} $, made up of self energy diagrams subjected to certain constraints in order to prevent double counting. However, rather than using the bare propagator when calculating $ S_{i+1} $, the $ \Gt_i $ computed in the previous iteration of the scheme is instead used. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e. $ \Gt_0 = \Gt^{(0)} $. This scheme will converge given an appropriate choice of parameters so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 4 or so iterations.
+Here the propagator  $ \Gt_{k + 1} = \Gt^{(0)} + \Delta \Gt_{k + 1} $  is obtained when employing Dyson equation to the self energy $ S_{k+1} $, made up of self energy diagrams subjected to certain constraints in order to prevent double counting. However, rather than using the bare propagator when calculating $ S_{k+1} $, the $ \Gt_k $ computed in the previous iteration of the scheme is instead used. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e. $ \Gt_0 = \Gt^{(0)} $. This scheme will converge given an appropriate choice of parameters so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 4 or so iterations.
 
 \subsection{Skeleton diagrams}
 
-In order for certain diagrams to not contribute more than once to $ \Gt_i $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self energy diagrams referred to as skeleton diagrams \cite{mattuck2012guide}. This diagram class is characterized by the lack of insertions, i.e. diagram parts which act like self energies to some of the constituents of the diagram. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams} with diagrams present in the series of $ \Gt $.
-
+In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e. diagram parts which act like self energies to some of the constituents of the diagram. It is easy to convince one self, that these skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. If the phonon propagators of a self energy diagram are entirely interconnected in the sense that they intersect with one another when they are all drawn on one side of the straight line of electronic propagators, the diagram is a skeleton one. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.499\textwidth}%
@@ -1376,48 +1375,31 @@ In order for certain diagrams to not contribute more than once to $ \Gt_i $, it 
 			\end{fmffile}%
 		\end{center}
 	\end{subfigure}
-	\caption{\image{caption me please}}
+	\caption{The diagrams to the left belong to the class of skeleton diagrams whilst the ones to the right merely belong to the class of proper self energy diagrams. The insertions of the proper self energy diagrams are here highlighted.}
 	\label{fig:sampleSkeletonDiagrams}
 \end{figure}
 
-
-\begin{itemize}
-	\item \todo{By putting an upper bound $ n \leq n_\text{max} $ of the generated diagrams in the Markov process... }
-\end{itemize}
-
-
-
-To illustrate...
-
-
-For simplicity it is used that $ n_\text{max} = 1 $ so that
-
-
+Even by restricting to merely a subset of skeleton diagrams, bounded by the diagram order $ n \leq n_\text{max} $, the range of diagrams contributing to $ \Gt_k $ will grow extremely fast with the bold-line iteration $ k $. This will now be illustrated in the case of $ n_\text{max} = 1\ $.
 
 \noindent \textbf{First iteration}
-
-\begin{fmffile}{FMFFILEfirstIterationSelfEnergy}
-    	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
-	    	\Sigma^*_1 =
-	    	\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	    		\node {
-	    			\FDframe{
-    				\begin{fmfgraph*}(11, 6)
-    					\fmfbottom{b1,b2}
-    					\fmf{fermion}{b1,b2}
-    					\fmf{dashes, left}{b1,b2}
-    					\fmfdot{b1,b2}
-    				\end{fmfgraph*}%
-    				}
-    			};%
-    		\end{tikzpicture}%
-    	\end{empheq}
-\end{fmffile}%
-
-\begin{fmffile}{FMFFILEfirstIterationG}
+\begin{fmffile}{FMFFILEfirstIterationGandS}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\label{eq:BoldG1}
 		\begin{split}
+			S_1
+			&=
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 6)
+							\fmfbottom{b1,b2}
+							\fmf{fermion}{b1,b2}
+							\fmf{dashes, left}{b1,b2}
+							\fmfdot{b1,b2}
+						\end{fmfgraph*}%
+					}
+				};%
+			\end{tikzpicture} \\
 			\Gt_1
 			&=
 			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
@@ -1426,7 +1408,7 @@ For simplicity it is used that $ n_\text{max} = 1 $ so that
 						\begin{fmfgraph*}(11, 1)
 							\fmfstraight
 							\fmfbottom{i,o}
-							\fmf{fermion, foreground=(1,,0,,0)}{i,o}
+							\fmf{heavy, foreground=(1,,0,,0)}{i,o}
 						\end{fmfgraph*}%
 					}%
 				};
@@ -1481,32 +1463,25 @@ For simplicity it is used that $ n_\text{max} = 1 $ so that
 			&+ \cdots
 		\end{split}
 	\end{empheq}
-\end{fmffile}%
+\end{fmffile}
 
 \noindent \textbf{Second iteration}
-
-\noindent During the simulation of $ \Sigma^*_2 $, the propagator $ \Gt_1 $, obtained from the first iteration, is used in favor of the bare $ \Gt^{(0)} $. Hence
-\begin{fmffile}{FMFFILEsecondIterationSelfEnergy}
-    	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
-	    	\Sigma^*_2 =
-	    	\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
-	    		\node {
-	    			\FDframe{
-    				\begin{fmfgraph*}(11, 6)
-    					\fmfbottom{b1,b2}
-    					\fmf{fermion, foreground=(1,,0,,0)}{b1,b2}
-    					\fmf{dashes, left}{b1,b2}
-    					\fmfdot{b1,b2}
-    				\end{fmfgraph*}%
-    				}
-    			};%
-    		\end{tikzpicture} \,,
-    	\end{empheq}
-\end{fmffile}%
-and according to dyson Dyson equation 
-\begin{fmffile}{FMFFILEsecondIterationDyson}
+\begin{fmffile}{FMFFILEsecondIterationGandS}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
 		\begin{split}
+			S_2 &=
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 6)
+							\fmfbottom{b1,b2}
+							\fmf{heavy, foreground=(1,,0,,0)}{b1,b2}
+							\fmf{dashes, left}{b1,b2}
+							\fmfdot{b1,b2}
+						\end{fmfgraph*}%
+					}
+				};%
+			\end{tikzpicture} \\
 			\Gt_2
 			&=
 			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
@@ -1515,7 +1490,7 @@ and according to dyson Dyson equation
 						\begin{fmfgraph*}(11, 1)					
 							\fmfstraight
 							\fmfbottom{i,o}
-							\fmf{fermion, foreground=(0,,0,,1)}{i,o}
+							\fmf{heavy, foreground=(0,,0,,1)}{i,o}
 						\end{fmfgraph*}%
 					}%
 				};
@@ -1540,7 +1515,7 @@ and according to dyson Dyson equation
 							\fmfstraight
 							\fmfbottom{i,o}
 							\fmf{fermion}{i,v1}
-							\fmf{fermion, foreground=(1,,0,,0)}{v1,v2}
+							\fmf{heavy, foreground=(1,,0,,0)}{v1,v2}
 							\fmf{fermion}{v2,o}
 							\fmf{dashes, left, tension=0}{v1,v2}
 							\fmfdot{v1,v2}
@@ -1556,9 +1531,9 @@ and according to dyson Dyson equation
 							\fmfstraight
 							\fmfbottom{i,o}
 							\fmf{fermion}{i,v1}
-							\fmf{fermion, foreground=(1,,0,,0)}{v1,v2}
+							\fmf{heavy, foreground=(1,,0,,0)}{v1,v2}
  							\fmf{fermion}{v2,v3}
-							\fmf{fermion, foreground=(1,,0,,0)}{v3,v4}
+							\fmf{heavy, foreground=(1,,0,,0)}{v3,v4}
 							\fmf{fermion}{v4,o}
 							\fmf{dashes, left, tension=0}{v1,v2}
 							\fmf{dashes, left, tension=0}{v3,v4}
@@ -1571,40 +1546,14 @@ and according to dyson Dyson equation
 		\end{split}
 	\end{empheq}
 \end{fmffile}%
-By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2 $ is expressed entirely out of bare constituents, i.e.  
+By substituting with $ \Gt_1 $ in terms of the diagrams series (\ref{eq:BoldG1}) into the diagram series of $ \Gt_2 $, this series, expressed in terms of bare constituents, becomes
 \begin{fmffile}{FMFFILEsecondIterationG}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
 		\begin{split}
 			\Gt_2
-			&=				
-			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
-				\node {
-					\FDframe{
-						\begin{fmfgraph*}(11, 1)					
-							\fmfstraight
-							\fmfbottom{i,o}
-							\fmf{fermion}{i,o}
-						\end{fmfgraph*}%
-					}%
-				};%
-    			\end{tikzpicture}
-			+
-		    	\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
-				\node {
-					\FDframe{
-						\begin{fmfgraph*}(33, 5.5)					
-							\fmfstraight
-							\fmfbottom{i,o}
-							\fmf{fermion}{i,v1}
-							\fmf{fermion}{v1,v2}
-							\fmf{fermion}{v2,o}
-							\fmf{dashes, left, tension=0}{v1,v2}
-							\fmfdot{v1,v2}
-						\end{fmfgraph*}%
-					}%
-				};%
-			\end{tikzpicture}
-			+
+			&=
+			\Gt_1 \\
+			&+
 			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
 				\node {
 					\FDframe{
@@ -1650,25 +1599,6 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
 				\node {
 					\FDframe{
-						\begin{fmfgraph*}(55, 5.5)					
-							\fmfstraight
-							\fmfbottom{i,o}
-							\fmf{fermion}{i,v1}
-							\fmf{fermion}{v1,v2}
- 							\fmf{fermion}{v2,v3}
-							\fmf{fermion}{v3,v4}
-							\fmf{fermion}{v4,o}
-							\fmf{dashes, left, tension=0}{v1,v2}
-							\fmf{dashes, left, tension=0}{v3,v4}
-							\fmfdot{v1,v2,v3,v4}
-						\end{fmfgraph*}%
-					}%
-				};%
-			\end{tikzpicture} \\
-			&+
-			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
-				\node {
-					\FDframe{
 						\begin{fmfgraph*}(77, 16.5)
 							\fmfstraight
 							\fmfbottom{i,o}
@@ -1687,12 +1617,150 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 					}%
 				};%
 			\end{tikzpicture}
-			+ \cdots
+			+ \cdots \,.
 		\end{split}
 	\end{empheq}
 \end{fmffile}%
 
-
+\noindent \textbf{Third iteration}
+\begin{fmffile}{FMFFILEthirdIterationGandS}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+		\begin{split}
+			S_3 &=
+			\begin{tikzpicture}[baseline={([yshift=-.5ex]current bounding box.center)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 6)
+							\fmfbottom{b1,b2}
+							\fmf{heavy, foreground=(0.8,,0.2,,1)}{b1,b2}
+							\fmf{dashes, left}{b1,b2}
+							\fmfdot{b1,b2}
+						\end{fmfgraph*}%
+					}
+				};%
+			\end{tikzpicture} \\
+			\Gt_3
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{heavy, foreground=(0,,0,,1)}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};
+			\end{tikzpicture} \\
+			&=
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(11, 1)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,o}
+						\end{fmfgraph*}%
+					}%
+				};%
+    			\end{tikzpicture}
+			+
+		    	\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(33, 5.5)					
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{heavy, foreground=(0,,0,,1)}{v1,v2}
+							\fmf{fermion}{v2,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmfdot{v1,v2}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(55, 5.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{heavy, foreground=(0,,0,,1)}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{heavy, foreground=(0,,0,,1)}{v3,v4}
+							\fmf{fermion}{v4,o}
+							\fmf{dashes, left, tension=0}{v1,v2}
+							\fmf{dashes, left, tension=0}{v3,v4}
+							\fmfdot{v1,v2,v3,v4}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+ \cdots \,.
+		\end{split}
+	\end{empheq}
+\end{fmffile}%
+Similarly to before, by substituting with $ \Gt_2 $ into $ \Gt_3 $, one obtains 
+\begin{fmffile}{FMFFILEthirdIterationG}
+	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
+		\begin{split}
+			\Gt_3
+			&=
+			\Gt_2 \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(77, 27.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,v5}
+							\fmf{fermion}{v5,v6}
+							\fmf{fermion}{v6,o}
+							\fmf{dashes, left, tension=0}{v1,v6}
+							\fmf{dashes, left, tension=0}{v2,v5}
+							\fmf{dashes, left, tension=0}{v3,v4}
+							\fmfdot{v1,v2,v3,v4,v5,v6}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture} \\
+			&+
+			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
+				\node {
+					\FDframe{
+						\begin{fmfgraph*}(99, 38.5)
+							\fmfstraight
+							\fmfbottom{i,o}
+							\fmf{fermion}{i,v1}
+							\fmf{fermion}{v1,v2}
+ 							\fmf{fermion}{v2,v3}
+							\fmf{fermion}{v3,v4}
+							\fmf{fermion}{v4,v5}
+							\fmf{fermion}{v5,v6}
+							\fmf{fermion}{v6,v7}
+							\fmf{fermion}{v7,v8}
+							\fmf{fermion}{v8,o}
+							\fmf{dashes, left, tension=0}{v1,v8}
+							\fmf{dashes, left, tension=0}{v2,v5}
+							\fmf{dashes, left, tension=0}{v3,v4}
+							\fmf{dashes, left, tension=0}{v6,v7}
+							\fmfdot{v1,v2,v3,v4,v5,v6,v7,v8}
+						\end{fmfgraph*}%
+					}%
+				};%
+			\end{tikzpicture}
+			+ \cdots \,.
+		\end{split}
+	\end{empheq}
+\end{fmffile}%
 
 
 \begin{itemize}
@@ -1706,6 +1774,16 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 
 \subsection{Update procedures}
 
+\begin{itemize}
+	\item \todo{Talk in general about how the update procedures are changed.}
+	\item \todo{When times are being sampled, they are taken from a new distribution which is an exponential fit in time of $ \Gt_k(\vec p_i, \tau_i) $.}
+	\item \todo{$ \Gt_k(\vec p_i, \tau_j) = \Gt^{(0)}(\vec p_i, \tau_j) + \Delta \Gt_k(\vec p_i, \tau_j) = e^{- \xi_k(\vec p_i, \tau_j) \, \tau_j} \Gt^{(0)}(\vec p_i, \tau_j) $. The $ \xi_k (\vec p_i, \tau_j) = \xi_{k,i,j} $ is a discrete function. Introduce then the "imaginary" phase $ \varphi(\vec p, \tau) = - \xi_k(\vec p_l, \tau_m) \, \tau $ where $ p_l - \Delta p/2 \leq p \leq p_l + \Delta p/2 $ and $ \tau_m - \Delta \tau /2 \leq \tau \leq \tau_m + \Delta \tau /2 $.}
+\end{itemize}
+
+
+
+
+
 \subsection{Results}
 
 
@@ -1713,10 +1791,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=1_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=1_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=1_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1725,10 +1800,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=2_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=2_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=2_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1737,10 +1809,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=3_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=3_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=3_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1749,10 +1818,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=4_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=4_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=4_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1761,10 +1827,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=5_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=5_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=5_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1773,10 +1836,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=6_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=6_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=6_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1785,10 +1845,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=7_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=7_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=7_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1797,10 +1854,7 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=8_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=8_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=8_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
@@ -1809,23 +1863,38 @@ By substituting with the diagram series for $ \Gt_1 $ (\ref{eq:BoldG1}), $ \Gt_2
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/S/boldplot_a_S_nmax=9_p=0.01"}.pdf}
-	\end{subfigure} \\
-	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/G/boldplot_a_G_nmax=9_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=9_p=0.01"}.pdf}
 	\end{subfigure}
 	\caption{\image{caption me plx}}
 	\label{fig:??}
 \end{figure}
-
 
 
 
 \begin{itemize}
-	\item \todo{E vs \#iteration plot}
+	\item \todo{Discuss and show a picture of how $ E_0 $ and $ Z_0 $ are extracted.}
 \end{itemize}
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/BoldE0andZ0vsN"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
 
+\begin{itemize}
+	\item \todo{$ E_0 $ and $ Z_0 $ vs bold-line iteration $ k $ plot for each $ n_\text{max} $.}
+	\item \todo{Discuss why there is a discrepancy. Might be a discretization error or perhaps not all diagrams are taken into account.}
+\end{itemize}
 
 \section{Numerical Results}
+
+This thesis would not be complete without...
+
+\begin{itemize}
+	\item \todo{$ E_0 $ and $ Z_0 $ vs $ p $ plot at $ \alpha = 1 $}
+	\item \todo{$ E_0 $ and $ Z_0 $ vs $ \alpha $ plot at $ p = 0 $}
+\end{itemize}
 
