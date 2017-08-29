@@ -29,7 +29,7 @@ def calculateEandZ (files, plot = False):
       N = parameters['N']
 
       G = Dyson(S, t, a, p, mu)
-      E, Z = fit2exponential(G, t, p, mu)
+      E, Z = fit2exponential(G, t, p, mu, True, False)
 
       Es += [E]
       Zs += [Z]
@@ -87,7 +87,7 @@ colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e3
 
 
 
-if False:
+if True:
   f, axarr = plt.subplots(1, 2, sharex=True, figsize=(10, 12))
 
   for n in ns:

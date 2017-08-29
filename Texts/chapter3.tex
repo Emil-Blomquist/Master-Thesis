@@ -976,13 +976,14 @@ Here follow some results obtained when simulating $ \Gt $ using the bare scheme 
 Rather than calculating $ \Gt(\vec p, \tau) $ directly using DMC, it is also possible and even so preferred \question{(motivate this from papers. Cover more diagrams and so on...)} to instead simulate the proper self energy $ \Sigma^*(\vec p, \tau) $, from which the electronic propagator is calculated using the Dyson equation (\ref{eq:dysonEquation}).
 In order to do this, the random walk must now cover diagrams without external legs but also be able to reach the bare propagator $ \Gt_0 $ for normalization purposes. This is easily accomplished by a slight modification of some of the update procedures introduced in the previous section, and will be discussed in more detail shortly.
 
-Before that however, it is important to realize that no longer all types of diagrams ($ n > 0 $) should be binned. In order to calculate $ \Sigma^* $ it is critical that the histogram $ N $ merely have contributions from irreducible diagrams. Then, in similarity to (\ref{eq:GtofTandP}) and (\ref{eq:GtofT}) the value of $ \Sigma^* $ is calculated in terms $ N_0 $ and $ N $ in the following way
+Before that however, it is important to realize that no longer all types of diagrams ($ n > 0 $) should be binned. In order to calculate $ \Sigma^* $ it is critical that the histogram merely have contributions from irreducible diagrams. Then, in similarity to (\ref{eq:GtofTandP}) and (\ref{eq:GtofT}) the value of $ \Sigma^* $ is calculated in terms $ N_0 $ and $ N $ in the following way
 \begin{equation}
+	\label{eq:properSnormalization}
 	\Sigma^* (\vec p_i, \tau_j) = N_{i,j} \frac{\sum_{k,l} \Gt_0 (\vec p_k, \tau_l)}{N_0}
 	\; , \quad
 	\Sigma^* (\vec p_0, \tau_j) = N_{j} \frac{\sum_{l} \Gt_0 (\vec p_0, \tau_l)}{N_0} \,.
 \end{equation}
-An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt_0 $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm.
+An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt_0 $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm. To recapitulate, all self energy diagrams (together with the bare propagator for normalization purposes) should be sampled, but only proper ones are allowed to increment the bins values $ N_{i,j} $ of the histogram.
 
 Now, returning to the update procedures, there are only two which need to be modified. The others stay the same but might have some trivial change of notation for quantities, such as $ \langle \vec p \rangle_{0,2n} \rightarrow \langle \vec p \rangle_{0, 2n-1} $ in the case of the \textit{change of external momentum} procedure.
 
@@ -1282,7 +1283,7 @@ Here the propagator  $ \Gt_{k + 1} = \Gt^{(0)} + \Delta \Gt_{k + 1} $  is obtain
 
 \subsection{Skeleton diagrams}
 
-In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e. diagram parts which act like self energies to some of the constituents of the diagram. It is easy to convince one self, that these skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. If the phonon propagators of a self energy diagram are entirely interconnected in the sense that they intersect with one another when they are all drawn on one side of the straight line of electronic propagators, the diagram is a skeleton one. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
+In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e. diagram parts which act like self energies to some of the constituents of the diagram. It is easily realized, that the skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. That is, if the phonon propagators of a self energy diagram are entirely interconnected, the diagram is a skeleton one. Here interconnected phonon propagator is referred to those who intersect with at least another one when they are all drawn on one side of the straight line of electronic propagators, as done throughout this paper. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.499\textwidth}%
@@ -1379,7 +1380,7 @@ In order for certain diagrams to not contribute more than once to the $ \Gt_k $,
 	\label{fig:sampleSkeletonDiagrams}
 \end{figure}
 
-Even by restricting to merely a subset of skeleton diagrams, bounded by the diagram order $ n \leq n_\text{max} $, the range of diagrams contributing to $ \Gt_k $ will grow extremely fast with the bold-line iteration $ k $. This will now be illustrated in the case of $ n_\text{max} = 1\ $.
+Even by restricting to merely a subset of skeleton diagrams, bounded by the diagram order $ n \leq n_\text{max} $, the range of diagrams contributing to $ \Gt_k $ will grow extremely fast with the bold-line iteration $ k $. This will now be demonstrated in the case of $ n_\text{max} = 1 $.
 
 \noindent \textbf{First iteration}
 \begin{fmffile}{FMFFILEfirstIterationGandS}
@@ -1546,7 +1547,7 @@ Even by restricting to merely a subset of skeleton diagrams, bounded by the diag
 		\end{split}
 	\end{empheq}
 \end{fmffile}%
-By substituting with $ \Gt_1 $ in terms of the diagrams series (\ref{eq:BoldG1}) into the diagram series of $ \Gt_2 $, this series, expressed in terms of bare constituents, becomes
+By substituting with $ \Gt_1 $ in terms of the diagram series (\ref{eq:BoldG1}) into the diagram series of $ \Gt_2 $, this series, expressed in terms of the bare constituents, becomes
 \begin{fmffile}{FMFFILEsecondIterationG}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
 		\begin{split}
@@ -1761,32 +1762,47 @@ Similarly to before, by substituting with $ \Gt_2 $ into $ \Gt_3 $, one obtains
 		\end{split}
 	\end{empheq}
 \end{fmffile}%
+Already at this point, a wide range of diagrams contribute to $ \Gt_3 $. However, even if one continues this iterative process, a skeleton diagram of order $ n > 1 $ in which phonon propagators intersect wont be encountered in the series.
 
+\subsection{Implementation}
 
-\begin{itemize}
-	\item \todo{Diagram with intersecting phonon lines wont appear in this diagram series...}
-	\item \todo{Quickly mention how to calculate $ S_i $ normalization wise.}
-\end{itemize}
+The diagram update procedures, for bold-line iterations $ k > 1 $, need to be altered in order to account for the replacement of the bare propagators within the diagram in favor of $ \Gt_i $. However, rather than expressing $ \Gt_i $ in terms of the difference $ \Delta \Gt_k $ to the bare propagator, it is more convenient to work with an additional imaginary phase $ \varphi_k (\vec p, \tau) $, so that
+\begin{equation}
+	\Gt_k(\vec p, \tau) = e^{\varphi_k (\vec p, \tau)} \Gt^{(0)}(\vec p, \tau) \,.
+\end{equation}
+This phase is defined through
+\begin{equation}
+	\label{eq:imaginaryPhase}
+	\varphi(\vec p, \tau) = - \tau \, \Delta \xi_k( p_l, \tau_m)
+\end{equation}
+where $ \Delta \xi_k $ is an additional energy
+\begin{equation}
+	\Delta \xi_k(\vec p_i, \tau_j) = \frac{1}{\tau_j} \log \frac{\Gt^{(0)}(\vec p_i, \tau_j)}{\Gt_k(\vec p_i, \tau_j)} \,.
+\end{equation}
+In equation (\ref{eq:imaginaryPhase}), $ p_l $ and $ \tau_m $ are chosen to obey $ p_l - \tfrac{1}{2} \Delta p \leq p \leq p_l + \tfrac{1}{2} \Delta p $ and $ \tau_m - \tfrac{1}{2} \Delta \tau \leq \tau \leq \tau_m + \tfrac{1}{2} \Delta $ respectively. However, in the case of momentum magnitudes $ p > p_{N-1} + \tfrac{1}{2} \Delta p $, it is natural to use $ p_{N-1} $. During the discretization it is then important to chose a large enough cutoff momentum $ p_\text{max} $ in order for the true $ G_k(\vec p, \tau) $ to be reasonably approximated by $ e^{\varphi_k (\vec p, \tau)} \Gt^{(0)}(\vec p, \tau) $ at momentum magnitudes $ p > p_{N-1} + \tfrac{1}{2} \Delta p $. Thus, if the $ p_\text{max} $ is chosen to small, the $ \Gt_k $ wont converge to the true interacting propagator $ \Gt $.
 
+Now, with $ \Gt_k (\vec p, \tau) $ defined in this way, the only modification needed in order for the update procedures to reflect the change $ \Gt^{(0)} \rightarrow \Gt_k $, is to multiply the quota of the diagram values $ D'/ D $ with the factor
+\begin{equation}
+	\exp \left\{ \sum_{a \in A} \varphi(\vec p_a, \tau_a) - \sum_{b \in B} \varphi(\vec p_b, \tau_b) \right\} \,.
+\end{equation}
+Here $ B $ and $ A $ is the set of affected electronic propagators before and after the update procedure respectively.
 
+But wait, there is more. Update procedures involving the sampling of imaginary-times from an exponential distribution with momentum dependent rate parameter must further be slightly modified in order to improve the otherwise disastrous statistics. This since the quota $ W(\tau'_l | \tau_l) / W(\tau_l | \tau'_l) = \exp \{ -\lambda (\tau_l - \tau'_l) \}$, for certain differences $ \tau_l - \tau'_l $, poorly mimics the ratio $ D(\tau'_l) / D(\tau_l) $ due to the choice of rate parameter $ \lambda(\vec p) $. This is easily realized by comparing the $ \Gt(\vec p, \tau) $'s in figure \ref{fig:GOft} to their corresponding bare propagators $ \Gt^{(0)}(\vec p, \tau) $. In order to resolve this issue, one adds to the the original rate parameter the contribution $ \Delta \lambda_k(\vec p_l) $, which is obtained by fitting an exponentially decaying function $ C_k(\vec p_l)  \exp \{ - \Delta \lambda_k(\vec p_l) \, \tau \} $ to $ \Gt_k(\vec p_l, \tau_j) / \Gt^{(0)} (\vec p_l, \tau_j) $ for each $ \vec p_l $. Again $ p_l - \tfrac{1}{2} \Delta p \leq p \leq p_l + \tfrac{1}{2} \Delta p $ and $ p_{N-1} $ is used for $ p > p_{N-1} + \tfrac{1}{2} \Delta p $.
 
-
-
-
-\subsection{Update procedures}
-
-\begin{itemize}
-	\item \todo{Talk in general about how the update procedures are changed.}
-	\item \todo{When times are being sampled, they are taken from a new distribution which is an exponential fit in time of $ \Gt_k(\vec p_i, \tau_i) $.}
-	\item \todo{$ \Gt_k(\vec p_i, \tau_j) = \Gt^{(0)}(\vec p_i, \tau_j) + \Delta \Gt_k(\vec p_i, \tau_j) = e^{- \xi_k(\vec p_i, \tau_j) \, \tau_j} \Gt^{(0)}(\vec p_i, \tau_j) $. The $ \xi_k (\vec p_i, \tau_j) = \xi_{k,i,j} $ is a discrete function. Introduce then the "imaginary" phase $ \varphi(\vec p, \tau) = - \xi_k(\vec p_l, \tau_m) \, \tau $ where $ p_l - \Delta p/2 \leq p \leq p_l + \Delta p/2 $ and $ \tau_m - \Delta \tau /2 \leq \tau \leq \tau_m + \Delta \tau /2 $.}
-\end{itemize}
-
-
-
+After each bold-line iteration, when calculating the value of $ S_{k+1}(\vec p_i, \tau_j) $ from $ N_{i,j} $, it is important to normalize using $ \Gt_k $ rather than the bare propagator $ \Gt^{(0)} $. Hence, in similarity with (\ref{eq:properSnormalization}),
+\begin{equation}
+	S_{k+1} (\vec p_i, \tau_j) = N_{i,j} \frac{\sum_{l,m} \Gt_k (\vec p_l, \tau_m)}{N_0} \,.
+\end{equation}
+Equally important for this to be true, is to make sure that only skeleton diagrams contribute to incrementing the bins $ N_{i,j} $ of the histogram.
 
 
 \subsection{Results}
 
+The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and various $ \tau_\text{max} $ depending on the importance of the long time physics \question{(!?)}. 
+
+\begin{itemize}
+	\item \todo{What parameters has been used}
+\end{itemize}
 
 
 \begin{figure}[H]
@@ -1874,7 +1890,7 @@ Similarly to before, by substituting with $ \Gt_2 $ into $ \Gt_3 $, one obtains
 
 \begin{itemize}
 	\item \todo{Mention the computation time per bold-line iteration for each of these simulations.}
-	\item \todo{Discuss and show a picture of how $ E_0 $ and $ Z_0 $ are extracted.}
+	\item \todo{Discuss and show a picture of how $ E_0 $ and $ Z_0 $ are extracted. Minimize $ \log \Gt - \log \Gt_\text{fit} $ for long times.}
 \end{itemize}
 
 \begin{figure}[H]
@@ -1906,9 +1922,26 @@ Similarly to before, by substituting with $ \Gt_2 $ into $ \Gt_3 $, one obtains
 
 This thesis would not be complete without...
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/EandZvsP"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/EandZvsA"}.pdf}
+	\end{subfigure}
+	\caption{\image{caption me plx}}
+	\label{fig:??}
+\end{figure}
+
 \begin{itemize}
-	\item \todo{$ E_0 $ and $ Z_0 $ vs $ p $ plot at $ \alpha = 1 $}
-	\item \todo{$ E_0 $ and $ Z_0 $ vs $ \alpha $ plot at $ p = 0 $}
+	\item \todo{Add to the plots perturbative analytical approaches.}
 	\item \todo{Table of the data plotted}
 \end{itemize}
 

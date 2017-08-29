@@ -12,7 +12,8 @@ warnings.filterwarnings(action="ignore", module="matplotlib", message="^tight_la
 
 def generateBoldPlot (path, average, plot = False):
   f, axarr = plt.subplots(2, figsize=(10, 10))
-  colors = ["blue", "red", "green", "magenta", "brown"]
+  # colors = ["blue", "red", "green", "magenta", "brown"]
+  colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
 
   a = p = mu = n_max = 0
 
@@ -89,13 +90,13 @@ def generateBoldPlot (path, average, plot = False):
   axarr[1].set_xlim([0, 40])
   axarr[1].set_ylim([0.5*10**-6, 1])
 
-  axarr[0].set_title(r'$\alpha = {0}, \; p = {1}, \; \mu = {2}, \; n_\mathrm{{max}} = {3}$'.format(a, p, mu, n_max), fontsize=18)
+  f.suptitle(r'$\alpha = {0}, \; p = {1}, \; \mu = {2}, \; n_\mathrm{{max}} = {3}$'.format(a, p, mu, n_max), fontsize=18)
   axarr[0].legend(loc='lower left', fontsize=20)
   axarr[1].legend(loc='lower left', fontsize=20)
   axarr[0].set_xlabel(r'$\tau$', fontsize=20)
   axarr[1].set_xlabel(r'$\tau$', fontsize=20)
 
-  plt.tight_layout()
+  plt.tight_layout(rect=[-0.01, 0, 1, 0.96])
 
   plt.savefig(r'plots/boldplot{0}_nmax={1}_p={2}.pdf'.format(
     '_a' if average else '',
