@@ -89,17 +89,30 @@ print(stdZ0s)
 
 
 
-f, axarr = plt.subplots(1, 2, sharex=True, figsize=(12, 5))
+f, axarr = plt.subplots(2, 1, sharex=True, figsize=(10, 10))
+
+
+a = np.linspace(0, 6, 1000)
+E0first = -a
+E0second = -a - 2/3*(1/8 - 1/(3*np.pi))*a**2
+axarr[0].plot(a, E0first, '--', color='green', label=r'$E_0^{(1)}$')
+axarr[0].plot(a, E0second, '--', color='red', label=r'$E_0^{(2)}$')
+
+a = np.linspace(0, 1, 1000)
+Z0first = 1 - a/2
+axarr[1].plot(a, Z0first, '--', color='green', label=r'$Z_0^{(1)}$')
+
+
 
 # axarr[0].errorbar(a_s, avgE0s, yerr=stdE0s, marker='x', ls=":")
 # axarr[1].errorbar(a_s, avgZ0s, yerr=stdZ0s, marker='x', ls=":")
-axarr[0].plot(a_s, avgE0s, marker='.', ls=":")
-axarr[1].plot(a_s, avgZ0s, marker='.', ls=":")
+axarr[0].plot(a_s, avgE0s, marker='.', ls=":", label='$E_0^\mathrm{DMC} $')
+axarr[1].plot(a_s, avgZ0s, marker='.', ls=":", label='$Z_0^\mathrm{DMC} $')
 
 f.suptitle(r'$ p = {0} $'.format(0), fontsize=18)
-axarr[0].set_ylabel('$ E_0 $', fontsize=18)
-axarr[1].set_ylabel('$ Z_0 $', fontsize=18)
-axarr[0].set_xlabel(r'$ \alpha $', fontsize=18)
+# axarr[0].set_ylabel('$ E_0 $', fontsize=18)
+# axarr[1].set_ylabel('$ Z_0 $', fontsize=18)
+# axarr[0].set_xlabel(r'$ \alpha $', fontsize=18)
 axarr[1].set_xlabel(r'$ \alpha $', fontsize=18)
 
 axarr[0].autoscale(True, 'both', True)
@@ -107,7 +120,16 @@ axarr[0].margins(0.02, 0.03)
 axarr[1].autoscale(True, 'both', True)
 axarr[1].margins(0.02, 0.03)
 
-plt.tight_layout(rect=[-0.01, 0, 1, 0.96])
-plt.savefig('plots/EandZvsA.pdf')
-plt.show()
 
+axarr[0].legend(loc=1, fontsize=18)
+axarr[1].legend(loc=1, fontsize=18)
+
+# plt.tight_layout(rect=[-0.01, 0, 1, 0.96])
+# plt.savefig('plots/EandZvsA.pdf')
+# plt.show()
+
+
+
+
+for i in range(0, len(a_s)):
+  print(r'{0:g} & {1:.4f} & {2:.4f} \\'.format(a_s[i], avgE0s[i], avgZ0s[i]))

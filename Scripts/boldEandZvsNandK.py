@@ -116,8 +116,8 @@ if True:
 
     print(n, ': ', avgEs)
 
-    axarr[0].errorbar(Ks, avgEs, yerr=stdEs, marker='x', color=colors[n-1], label=r'$ E_0 (n_\mathrm{{max}} = {0}) $'.format(n))
-    axarr[1].errorbar(Ks, avgZs, yerr=stdZs, marker='x', color=colors[n-1], label=r'$ n_\mathrm{{max}} = {0} $'.format(n))
+    axarr[0].errorbar(Ks, avgEs, yerr=stdEs, marker='.', color=colors[n-1], label=r'$ E_0 (n_\mathrm{{max}} = {0}) $'.format(n), ls=':')
+    axarr[1].errorbar(Ks, avgZs, yerr=stdZs, marker='.', color=colors[n-1], label=r'$ n_\mathrm{{max}} = {0} $'.format(n), ls=':')
 
 
 
@@ -145,10 +145,10 @@ if True:
   axarr[0].set_ylim([-1.0245, -0.745])
   axarr[1].set_ylim([0.585, 0.83])
 
-  axarr[0].set_xlabel('$ k $', fontsize=20)
-  axarr[1].set_xlabel('$ k $', fontsize=20)
-  axarr[0].set_ylabel('$ E_0 $', fontsize=20)
-  axarr[1].set_ylabel('$ Z_0 $', fontsize=20)
+  # axarr[0].set_xlabel('$ k $', fontsize=18)
+  axarr[1].set_xlabel('$ k $', fontsize=18)
+  axarr[0].set_ylabel('$ E_0 $', fontsize=18)
+  axarr[1].set_ylabel('$ Z_0 $', fontsize=18)
 
   loc = plticker.MultipleLocator(base=1.0) # this locator puts ticks at regular intervals
   axarr[0].xaxis.set_major_locator(loc)
@@ -187,8 +187,8 @@ else:
 
           print(k, n, str(avgE) + ' +- ' + str(stdE), str(avgZ) + ' +- ' + str(stdZ))
 
-    axarr[0].errorbar(Ns, avgEs, yerr=stdEs, marker='x', color=colors[k], label=r'$ E_0 (k = {0}) $'.format(k + 1))
-    axarr[1].errorbar(Ns, avgZs, yerr=stdZs, marker='x', color=colors[k], label=r'$ Z_0 (k = {0}) $'.format(k + 1))
+    axarr[0].errorbar(Ns, avgEs, yerr=stdEs, marker='.', color=colors[k], label=r'$ E_0 (k = {0}) $'.format(k + 1), ls=':')
+    axarr[1].errorbar(Ns, avgZs, yerr=stdZs, marker='.', color=colors[k], label=r'$ Z_0 (k = {0}) $'.format(k + 1), ls=':')
 
   # plot true E0 and Z0
   p = 0.01
@@ -209,8 +209,8 @@ else:
   axarr[1].set_ylim([0.585, 0.83 +0.01])
   axarr[0].legend(loc='upper right', ncol=3, fontsize=18)
   axarr[1].legend(loc='upper right', ncol=3, fontsize=18)
-  axarr[0].set_xlabel('$n_\mathrm{max}$', fontsize=20)
-  axarr[1].set_xlabel('$n_\mathrm{max}$', fontsize=20)
+  # axarr[0].set_xlabel('$n_\mathrm{max}$', fontsize=18)
+  axarr[1].set_xlabel('$n_\mathrm{max}$', fontsize=18)
   plt.tight_layout(rect=[-0.01, 0, 1, 0.96])
   plt.savefig('plots/BoldE0andZ0vsN.pdf')
   plt.show()

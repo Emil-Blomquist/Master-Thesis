@@ -17,6 +17,8 @@ def generateBoldPlot (path, average, plot = False):
 
   a = p = mu = n_max = 0
 
+  coreTime = 0
+
   # loop through bold iteration order
   for k in range(0, 4):
     for root, dirs, files in os.walk(os.getcwd() + '/' + path):
@@ -29,6 +31,22 @@ def generateBoldPlot (path, average, plot = False):
 
     for i, file in enumerate(files):
       Ts, Ps, S, parameters = read2D(path + '/' + file)
+
+
+      numDMCs = parameters['DMCsecs']
+      numMCs = parameters['MCsecs']
+      numCores = parameters['numcores']
+
+      # print(numCores, numMCs + numDMCs)
+
+      if k == 0:
+        coreTime += numCores * (numMCs + numDMCs)
+
+        if i == len(files) - 1:
+          print(n, ': ', coreTime/3600, coreTime/(24*3600))
+
+
+
       
       pi = 0
       p = (pi + 0.5)*parameters['dp']

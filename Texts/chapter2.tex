@@ -229,13 +229,12 @@ through which the single-particle Green's function is expressed as
 
 \question{according to \cite{MishchenkoA.2000DqMC} the spectral density is one sided, why is this? Clearly there exist stable states for which $ E_\nu < 0 $.}
 
-Assuming the single-particle Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 $ is nothing more than the overlap of that particular eigenstate of $ \hat K $ onto a free electron with momentum $ \vec k $, i.e. $ | \vec k \rangle $. If there exist a stable eigenstate $  | \xi_{\vec k} \rangle $ with energy $ E(\vec k) $, the spectral function should contain the term $ | \langle \xi_{\vec k} | \vec k \rangle |^2 \, \delta(\omega - E(\vec k)) $. Being a stable state, the energy $ E(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary-times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
-
+Assuming the single-particle Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 $ is nothing more than the overlap of that particular eigenstate of $ \hat K $ onto a free electron with momentum $ \vec k $, i.e. $ | \vec k \rangle $. If there exist a stable eigenstate $  | \xi_{\vec k} \rangle $ with energy $ E_0(\vec k) $, the spectral function should contain the term $ | \langle \xi_{\vec k} | \vec k \rangle |^2 \, \delta(\omega - E(\vec k)) $. Being a stable state, the energy $ E_0(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary-times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
 \begin{equation}
-	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- E(\vec k) \tau} \,,
+	\label{eq:longTimeLimit}
+	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- E_0(\vec k) \tau} \,,
 \end{equation}
-
-where the notation $ Z_0^{\vec k} = | \langle \xi_{\vec k} | \vec k \rangle |^2 $ has been used.
+where $ Z_0^{\vec k} = | \langle \xi_{\vec k} | \vec k \rangle |^2 $ is the bare-electron factor.
 
 \subsection{Free \question{(bare?)} single-particle Green's function}
 
@@ -417,15 +416,19 @@ Since the UV-part of the polarisation follows the external field nearly adiabati
 Next we observe that the integrals in the expressions above are divergent since $ \vec P_\text{ir} $ according to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_Pir_D_relation}) are proportional to the $ \vec D $-field which is singular at $ \vec r = \vec r_\text{e} $. However this divergence is a resulted from us disregarding the atomic structure when interpreting the displacements as a continuous vector field. To resolve this one should express the polarisation in a Fourier series and omit terms with a wave length smaller than that of the lattice constant. Hence we need not to worry about this divergence.
 
 Further more it is useful to introduce here a complex vector field $ \vec B $,
-
 \begin{equation}
 	\label{eq:B_field_def}
-	\vec B(\vec r) = \sqrt{\frac{\gamma \omega_\text{ir}}{2}} \left[ \vec P_\text{ir}(\vec r) + \frac{i}{\omega_\text{ir}} \dot{\vec P}_\text{ir}(\vec r) \right]
+	\vec B(\vec r) = \sqrt{\frac{\gamma \omega}{2}} \left[ \vec P(\vec r) + \frac{i}{\omega} \dot{\vec P}(\vec r) \right]
 	\; , \quad
-	\vec B^\dagger(\vec r) = \sqrt{\frac{\gamma \omega_\text{ir}}{2}} \left[ \vec P_\text{ir}(\vec r) - \frac{i}{\omega_\text{ir}} \dot{\vec P}_\text{ir}(\vec r) \right] \,.
+	\vec B^\dagger(\vec r) = \sqrt{\frac{\gamma \omega}{2}} \left[ \vec P(\vec r) - \frac{i}{\omega} \dot{\vec P}(\vec r) \right] \,,
 \end{equation}
-
-Here we have also dropped the subscript of $ \omega_\text{ir} $ since $ \omega_\text{uv} $ no longer appears in our theory. The reasons to why one prefer to work with $ \vec B $ rather than $ \vec P_\text{ir} $ will be evident later. With this our now non-divergent Hamiltonian becomes,
+so that
+\begin{equation}
+	\vec P(\vec r) = \sqrt{\frac{1}{2 \omega \gamma}} \left[ \vec B^\dagger (\vec r) + \vec B (\vec r) \right]
+	\; , \quad
+	 \dot{\vec P}(\vec r) = i \sqrt{\frac{\omega}{2 \gamma}} \left[ \vec B^\dagger (\vec r) - \vec B (\vec r) \right] \,.
+\end{equation}
+Here the subscripts of $ \vec P_\text{ir} $ and $ \omega_\text{ir} $ have been dropped since the ultra violet quantities no longer appear in our theory. The reasons to why one prefer to work with $ \vec B $ rather than $ \vec P_\text{ir} $ will be evident later. With this our now non-divergent Hamiltonian becomes,
 
 \begin{equation}
 	H = \frac{1}{2} m \dot{\vec r}_\text{e}^2
@@ -441,6 +444,8 @@ Using a periodic boundary condition over a cube of volume $ V = l^3 $, $ \vec B 
 	\; , \quad
 	\vec B^\dagger (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b^\dagger_{\vec q} \, \frac{e^{-i \vec q \cdot \vec r}}{V}
 \end{equation}
+
+\flaw{If we use $ 1/V $ in this equation there should also be $ 1/V $ before the sum of the free phonon term of the Hamiltonian.}
 
 with
 
@@ -473,24 +478,48 @@ and introduced the interaction parameter
 	\alpha = \frac{1}{2} \left( \frac{1}{\epsilon_\infty} - \frac{1}{\epsilon} \right) \sqrt{ \frac{2m}{\omega} } Q^2 \,.
 \end{equation}
 
-Here it seems as if the interaction part of the Hamiltonian is ill behaved due to the $ \vec q = \vec 0 $ term of the sum. This is a result from the periodic boundary condition imposed on our system. Originally the system contained only one free electron. With a periodic boundary condition however, the system now consists of an infinite number of copies of the cube with volume $ V $, each containing a free electron. These electrons interact with one another due to the long range Coulomb repulsion. To avoid this behaviour when periodically continuing the system, one should introduce in each cube a charge density of $ - Q/V $. Doing this would give rise to an attractive Coulomb force which for each electron would cancel the Coulomb repulsion. Such an interaction would exactly cancel the ill behaved $ \vec q = \vec 0 $ term in the interaction part of the Hamiltonian since the only difference would be the sign of the charge, i.e $ Q \rightarrow -Q $.
+Here it seems as if the interaction part of the Hamiltonian is ill behaved due to the $ \vec q = \vec 0 $ term of the sum. This is a result from the periodic boundary condition imposed on our system. Originally the system contained only one free electron. With a periodic boundary condition however, the system now consists of an infinite number of copies of the cube with volume $ V $, each containing a free electron. These electrons interact with one another due to the long range Coulomb repulsion. To avoid this behavior when periodically continuing the system, one should introduce in each cube a charge density of $ - Q/V $. Doing this would give rise to an attractive Coulomb force which for each electron would cancel the Coulomb repulsion. Such an interaction would exactly cancel the ill behaved $ \vec q = \vec 0 $ term in the interaction part of the Hamiltonian since the only difference would be the sign of the charge, i.e $ Q \rightarrow -Q $.
 
-\subsection{Quantisation}
+\subsection{Quantization}
 
-Having sorted out these details we are ready to quantise the Hamiltonian. To do so the first step is to symmetrise $ b^\dagger_{\vec q} b_{\vec q} = (b^\dagger_{\vec q} b_{\vec q} + b_{\vec q} b^\dagger_{\vec q})/2 $ \question{(why? source needed.)}. Next up, using\cite{superfluidStatesOfMatter}
+In order to quantize the theory, it is of utter importance to construct a set of canonical coordinates $ p_i $ and $ q_i $ for which the commutation relations are known when promoted to operators. By using (\ref{eq:driven_harmonic_oscillator}) and (\ref{eq:Hamiltonian_raw}), it is easy to verify that $ \phi_i(\vec x, t)_i = [\vec P(\vec x, t)]_i $ and $ \pi_i(\vec x, t) = \gamma [ \dot{\vec P}(\vec x, t) ]_i $ obey Hamilton's field equations
+\begin{equation}
+	\dot \phi_i = \frac{\delta H}{\delta \pi_i}
+	\; , \quad
+	\dot \pi_i = - \frac{\delta H}{\delta \phi_i} \,,
+\end{equation}
+and thus constitutes a set of canonical field coordinates. By employing a restricted canonical transformation \cite{ClassicalMechanics} $ q_i = q_i(\phi, \pi), \, p_i = p_i (\phi, \pi) $, the canonical coordinates may be expressed in terms of $ b_{\vec q}^\dagger $ and $ b_{\vec q} $ as
+\begin{equation}
+	q_{\vec k} = \sqrt{\frac{1}{2 \omega \gamma}} \left[ b^\dagger_{\vec k} + b_{\vec k} \right]
+	\; , \quad
+	p_{\vec k} = i \sqrt{\frac{\gamma}{2 \omega}} \left[ b^\dagger_{\vec k} + b_{\vec k} \right] \,.
+\end{equation}
+This is pretty straight forward to verify since such a transformation satisfy
+\begin{equation}
+	\todo{\cdots}
+\end{equation}
 
+
+
+The first task to be dealt with is to symmetrize the product $ b_{\vec q}^\dagger b_{\vec q} $. To this point, $ b_{\vec q}^\dagger $ and $ b_{\vec q} $ have been c-valued variables so that the order in which they appeared such a product does not matter. However, due to a nonzero commutation relation when promoted to operators, this will no longer be the case. Hence, in order to not favor any of the two possible orderings, they are chosen to contribute equally, i.e. $ b^\dagger_{\vec q} b_{\vec q} = (b^\dagger_{\vec q} b_{\vec q} + b_{\vec q} b^\dagger_{\vec q})/2 $.
+
+
+Next up, using \cite{superfluidStatesOfMatter}
 \begin{equation}
 	\dot q = \frac{\delta H}{\delta p}
 	\; , \quad
 	\dot p = - \frac{\delta H}{\delta q}
 \end{equation}
-
-together with (\ref{eq:driven_harmonic_oscillator}, \ref{eq:Hamiltonian_raw}) it is easy to verify that $ \vec P_\text{ir} $ and $ \gamma \dot{ \vec P}_\text{ir} $ or equivalent, $ (b^\dagger_{\vec q} + b_{\vec q})/\sqrt{2 \gamma \omega} $ and $ i (b^\dagger_{\vec q} - b_{\vec q}) \sqrt{\gamma \omega / 2} $ for each $ \vec q $, are conjugate variables \question{(how do we arrive at the final set of conjugate variables? Using some sort of transformation perhaps? Try find in the book by Egor.)}.  By promoting to operators $ b_{\vec q} \rightarrow \hat b_{\vec q} $, $ \vec r_\text{e} \rightarrow \hat{\vec r}_\text{e} $, $ \vec p_\text{e} \rightarrow \hat{\vec p}_\text{e} $ and imposing Bose statistics \question{(How do we know this? spinless?)} onto the conjugate variables,
+together with (\ref{eq:driven_harmonic_oscillator}) and (\ref{eq:Hamiltonian_raw}) it is easy to verify that $ \vec P $ and $ \gamma \dot{ \vec P} $ or equivalent, $ (b^\dagger_{\vec q} + b_{\vec q})/\sqrt{2 \gamma \omega} $ and $ i (b^\dagger_{\vec q} - b_{\vec q}) \sqrt{\gamma \omega / 2} $ for each $ \vec q $, are conjugate variables \question{(how do we arrive at the final set of conjugate variables? Using some sort of transformation perhaps? Try find in the book by Egor.)}.  By promoting to operators $ b_{\vec q} \rightarrow \hat b_{\vec q} $, $ \vec r_\text{e} \rightarrow \hat{\vec r}_\text{e} $, $ \vec p_\text{e} \rightarrow \hat{\vec p}_\text{e} $ and imposing Bose statistics \question{(How do we know this? spinless?)} onto the conjugate variables,
 
 \begin{equation}
 	i \delta_{\vec q, \vec k}
-	= \frac{i}{2} [\hat b^\dagger_{\vec q} + \hat b_{\vec q}, \, \hat b^\dagger_{\vec k} - \hat b_{\vec k}]/2
+	= \frac{i}{2} [\hat b^\dagger_{\vec q} + \hat b_{\vec q}, \, \hat b^\dagger_{\vec k} - \hat b_{\vec k}]/2 \question{\text{two "2"'s}}
 \end{equation}
+
+\question{This follow from the poisson brackets + canonical variables!?
+% https://en.wikipedia.org/wiki/Poisson_bracket
+}
 
 \question{Perhaps $ V $ is important for the equation above?}
 
@@ -537,6 +566,8 @@ Here $ \hat O_2 $ is the second-quantized operator and $ O_1 $ is the correspond
 	e^{i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p + \vec q} \hat a_{\vec p} \,.
 \end{equation}
 
+\question{There should also pop out a $ 1/V $ from the free electron term of the Hamiltonian somehow!}
+
 The form of the second operator follow from
 
 \begin{equation}
@@ -579,6 +610,27 @@ The grand canonical Hamiltonian $ \hat K $, which is used extensively in the fin
 \end{equation}
 
 where for convenience $ m = \omega = 1 $ has been used.
+\begin{itemize}
+\item
+\motivation{Comparing with (4.18) in \cite{electronsInLatticeFields}, it seems as if the coordinates used are not dimensionless.}
+
+\item
+\motivation{Comparing with (8.6) in \cite{RichardFeynman}: ... Also we shall sometimes use the notation
+
+\begin{equation}
+	\sum_{\vec k} = \int \frac{\diff^3 k}{(2 \pi)^3} \,...
+\end{equation}
+}
+
+\item
+\motivation{Comparing with (8.5) in \cite{RichardFeynman}: The Hamiltonian of the free electron and phonos is
+
+\begin{equation}
+	\hat H = \frac{\hat p^2}{2M} + \hbar \omega \int \frac{\diff^3 k}{(2 \pi)^3} \hat a^\dagger_{\vec k} \hat a_{\vec k}
+\end{equation}
+}
+
+\end{itemize}
 
 \question{Why does the Hamiltonian not agree with the one in other papers? Are they using another convention of the Fourier transform? In such case, what does this mean for $ \hat b, \hat b^\dagger $?}
 

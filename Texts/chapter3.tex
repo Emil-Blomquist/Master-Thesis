@@ -1140,6 +1140,8 @@ In order for this mean value to be well approximated by $ f(x_i) $, it is requir
 	\label{fig:HistogramApproximationOfDivergentDistribution}
 \end{figure}
 
+\image{Remove vertical lines for the legend to be true}
+
 The true value of the first order self energy diagram at zero external momentum is
 \begin{equation}
 	\label{eq:prop1OSelfEnergy}
@@ -1798,20 +1800,17 @@ Equally important for this to be true, is to make sure that only skeleton diagra
 
 \subsection{Results}
 
-The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and various $ \tau_\text{max} $ depending on the importance of the long time physics \question{(!?)}. 
+Nine different simulations for an increasing value of the maximum diagram order $ n_\text{max} $ has been carried out using the discretization $ \Delta \tau = 0.02 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and $ \tau_\text{max} = 60 $. With larger $ n_\text{max} $, the statistics became significantly more contaminated by noise. Thus, in order to try and suppress this noise, the computation for each iteration in the bold-line scheme needed to be increased. The number of core hours needed quickly outgrew what was possible to calculate using a single core in a foreseeable future, hence the code was parallelized using the \textit{Message Passing Interface} (MPI).
 
-\begin{itemize}
-	\item \todo{What parameters has been used}
-\end{itemize}
-
+Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained values of $ S_k $'s, as well as the corresponding $ \Gt_k $'s, for an increasing value of $ n_\text{max} $. The proper self energy $ \Sigma^* $ and the interacting Greens function, acquired using Dyson equation, $ \Gt $ are also outlined.
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=1_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 13 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax1}
 \end{figure}
 
 \begin{figure}[H]
@@ -1819,8 +1818,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=2_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 13 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax2}
 \end{figure}
 
 \begin{figure}[H]
@@ -1828,8 +1827,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=3_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 15 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax3}
 \end{figure}
 
 \begin{figure}[H]
@@ -1837,8 +1836,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=4_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 15 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax4}
 \end{figure}
 
 \begin{figure}[H]
@@ -1846,8 +1845,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=5_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 15 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax5}
 \end{figure}
 
 \begin{figure}[H]
@@ -1855,8 +1854,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=6_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 28 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax6}
 \end{figure}
 
 \begin{figure}[H]
@@ -1864,8 +1863,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=7_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 44 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax7}
 \end{figure}
 
 \begin{figure}[H]
@@ -1873,8 +1872,8 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=8_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 65 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax8}
 \end{figure}
 
 \begin{figure}[H]
@@ -1882,24 +1881,21 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=9_p=0.01"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{A total core time of 203 days was used for each of the four iterations in the bold-line scheme.}
+	\label{fig:boldNmax9}
 \end{figure}
 
+Evident from these figures, is that $ S_k $ approaches $ \Sigma^* $ as both the bold-line iteration $ k $ and the maximum diagram order $ n_\text{max} $ become larger, just as expected. However, even though an awful amount of computation time was used to calculate the $ S_k $'s for $ n_\text{max} = 8, \, 9 $, it seems that it was not enough since there is still much noise present.
 
-
-\begin{itemize}
-	\item \todo{Mention the computation time per bold-line iteration for each of these simulations.}
-	\item \todo{Discuss and show a picture of how $ E_0 $ and $ Z_0 $ are extracted. Minimize $ \log \Gt - \log \Gt_\text{fit} $ for long times.}
-\end{itemize}
+By fitting the logarithm of these $ \Gt_k $'s to a straight line $ y = k \tau + m $ at large imaginary-times, one can extract the corresponding $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ using (\ref{eq:longTimeLimit}). This has been done an the result is presented in figures \ref{fig:EandZvsN} and \ref{fig:EandZvsK}.
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/BoldE0andZ0vsN"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{Here $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ obtained from the bold-line simulations are shown next to the true values $ E_0 $ and $ Z_0 $.}
+	\label{fig:EandZvsN}
 \end{figure}
 
 \begin{figure}[H]
@@ -1907,28 +1903,27 @@ The following simulations were obtained using $ \Delta \tau = 0.005 $, $ \Delta 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/BoldE0andZ0vsK"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{Here $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $  obtained from the bold-line simulations are shown next to the true values $ E_0 $ and $ Z_0 $.}
+	\label{fig:EandZvsK}
 \end{figure}
 
+Unfortunately there was only four iterations used in the bold-line scheme, which according to figure \ref{fig:EandZvsK} was not enough to reach a steady state value for $ E_0 $ and $ Z_0 $. This steady state could nevertheless not have been very far away, by the looks of it a fifth or perhaps a sixth iteration would probably have been sufficient for the trends in that figure to level out. Additionally, it would presumably also have been necessary to use a larger $ n_\text{max} $ in order to overlap with the curves of the true $ E_0 $ and $ Z_0 $. Such a computation would however require an immense amount of computation time in order for the error bars to be of satisfactory size which was also the reason for it not being carried out. The quantities obtained after the fourth iteration with $ n_\text{max} = 8, 9 $ already have a bit too much uncertainty in them due to the noisy statistics.
 
-\begin{itemize}
-	\item \todo{$ E_0 $ and $ Z_0 $ vs bold-line iteration $ k $ plot for each $ n_\text{max} $.}
-	\item \todo{Mention that $ N_\text{max} = 9 $ is extremely noisy, thus the large error bars.}
-	\item \todo{Discuss why there is a discrepancy. Might be a discretization error or perhaps not all diagrams are taken into account. Might also need higher orders since it might be the case that the contribution of a diagram is proportional to its order $ n $. Would need an immense computation time for higher order, so that is not done. Also one should perform more bold iterations.}
-\end{itemize}
+Even with these shortcomings, it is from the presented result apparent that $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ approach the true values $ E_0 $ and $ Z_0 $ respectively as $ n_\text{max} $ and $ k $ increase.
 
-\section{Numerical Results}
+\section{Numerical \question{and analytical (!?)} Results}
 
-This thesis would not be complete without...
+This thesis would not be complete without presenting some general quantities of interest to do with the polaron. Here numerous simulations of $ \Gt $ has been carried out using the bare scheme for $ \Sigma^* $ with different values of the interaction parameter $ \alpha $ and the external momentum $ \vec p $ from which $ E_0 $ and $ Z_0 $ then have been extracted. The result is presented in figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA} but also in table \ref{tab:EandZvsPandA}. The computation time for each data point range from two to twelve core hours, providing a standard deviation smaller than $ 5 \cdot 10^{-4} $. For comparison these numerically computed quantities are presented next to corresponding ones obtained using traditional analytical perturbative methods.
+
+\todo{Present the analytical perturbative quantities here instead of doing it in the caption of the figures.}
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/EandZvsP"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{Here the numerically obtained $ E_0^\text{DMC} $ and $ Z_0^\text{DMC} $ are plotted against the external momentum magnitude $ p $ at $ \alpha = 1 $. The perturbative analytical result of $ E_0 $ up to first \cite{electronsInLatticeFields}\cite{RichardFeynman} and second \cite{Haga} order are also outlined and happen to agree quite well for $ p < 1 $. The error bars are here omitted since they would not have been visible due to the low uncertainty.}
+	\label{fig:EandZvsP}
 \end{figure}
 
 \begin{figure}[H]
@@ -1936,12 +1931,60 @@ This thesis would not be complete without...
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/EandZvsA"}.pdf}
 	\end{subfigure}
-	\caption{\image{caption me plx}}
-	\label{fig:??}
+	\caption{Here the numerically obtained $ E_0^\text{DMC} $ and $ Z_0^\text{DMC} $ are plotted against the interaction parameter $ \alpha $ at $ p = 0 $. Again analytical perturbative results up to the first and second order are outlined. Since $ \Gt^{(1)}(\vec p = \vec 0, \tau) = [1 - \alpha/2] \, \Gt^{(0)} (\vec p = \vec 0, \tau)$ it is apparent that $ Z_0^{(0)} = 1 - \alpha/2 $ by comparing agains \ref{eq:longTimeLimit}. The error bars are here omitted since they would not have been visible due to the low uncertainty.}
+	\label{fig:EandZvsA}
 \end{figure}
 
-\begin{itemize}
-	\item \todo{Add to the plots perturbative analytical approaches.}
-	\item \todo{Table of the data plotted}
-\end{itemize}
+\begin{table}[H]
+	\begin{minipage}{.5\linewidth}
+		\centering
+		\caption*{$ \alpha = 1 $}
+		\begin{tabular}{r | c | c} 
+			$ p $ & $ E_0^\text{DMC} $ & $ Z_0^\text{DMC} $ \\ 
+		 	\specialrule{.1em}{.05em}{.05em} 
+0 & -1.0168 & 0.5918 \\
+0.11 & -1.0117 & 0.5909 \\
+0.21 & -0.9984 & 0.5886 \\
+0.33 & -0.9714 & 0.5839 \\
+0.45 & -0.9326 & 0.5769 \\
+0.55 & -0.8915 & 0.5691 \\
+0.67 & -0.8320 & 0.5569 \\
+0.79 & -0.7619 & 0.5411 \\
+0.89 & -0.6959 & 0.5248 \\
+1 & -0.6158 & 0.5022 \\
+1.26 & -0.4044 & 0.4251 \\
+1.41 & -0.2760 & 0.3585 \\
+1.55 & -0.1618 & 0.2763 \\
+1.615 & -0.1141 & 0.2303 \\
+1.675 & -0.0753 & 0.1825 \\
+1.73 & -0.0458 & 0.1328 \\
+		\end{tabular}
+	\end{minipage}%
+	\begin{minipage}{.5\linewidth}
+		\centering
+		\caption*{$ p = 0 $}
+		\begin{tabular}{r | c | c} 
+			$ \alpha $ & $ E_0^\text{DMC} $ & $ Z_0^\text{DMC} $ \\ 
+			\specialrule{.1em}{.05em}{.05em} 
+0.01 & -0.0100 & 0.9950 \\
+0.1 & -0.1002 & 0.9511 \\
+0.3 & -0.3015 & 0.8590 \\
+0.5 & -0.5041 & 0.7743 \\
+0.8 & -0.8107 & 0.6600 \\
+1 & -1.0168 & 0.5918 \\
+1.5 & -1.5389 & 0.4458 \\
+2 & -2.0711 & 0.3303 \\
+2.5 & -2.6147 & 0.2401 \\
+3 & -3.1705 & 0.1708 \\
+3.5 & -3.7403 & 0.1184 \\
+4 & -4.3256 & 0.0797 \\
+4.5 & -4.9284 & 0.0516 \\
+5 & -5.5514 & 0.0320 \\
+5.5 & -6.1976 & 0.0188 \\
+6 & -6.8709 & 0.0104 \\
+		\end{tabular}
+	\end{minipage} 
+	\caption{Some of the data from figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA}.}
+	\label{tab:EandZvsPandA}   
+\end{table}
 

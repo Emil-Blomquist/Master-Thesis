@@ -120,17 +120,28 @@ print(stdZ0s)
 
 
 
-f, axarr = plt.subplots(1, 2, sharex=True, figsize=(12, 5))
+f, axarr = plt.subplots(2, 1, sharex=True, figsize=(10, 10))
+
+
+# analytical results
+p = np.linspace(0.001, 1.4, 1000)
+E0first = 0.5*p**2 - 2**0.5/p * np.arcsin(p*(2**(-0.5)))
+meff = 1/(1 - 1/6)
+E0second = -1 - 2/3*(1/8 - 1/(3*np.pi)) + p**2/(2*meff)
+axarr[0].plot(p, E0first, '--', color='green', label=r'$E_0^{(1)}$')
+axarr[0].plot(p, E0second, '--', color='red', label=r'$E_0^{(2)}$')
+
+
 
 # axarr[0].errorbar(ps, avgE0s, yerr=stdE0s, marker='x', ls=":")
 # axarr[1].errorbar(ps, avgZ0s, yerr=stdZ0s, marker='x', ls=":")
-axarr[0].plot(ps, avgE0s, marker='.', ls=":")
-axarr[1].plot(ps, avgZ0s, marker='.', ls=":")
+axarr[0].plot(ps, avgE0s, marker='.', ls=":", label='$E_0^\mathrm{DMC} $')
+axarr[1].plot(ps, avgZ0s, marker='.', ls=":", label='$Z_0^\mathrm{DMC} $')
 
 f.suptitle(r'$ \alpha = {0} $'.format(1), fontsize=18)
-axarr[0].set_ylabel('$ E_0 $', fontsize=18)
-axarr[1].set_ylabel('$ Z_0 $', fontsize=18)
-axarr[0].set_xlabel('$ p $', fontsize=18)
+# axarr[0].set_ylabel('$ E_0 $', fontsize=18)
+# axarr[1].set_ylabel('$ Z_0 $', fontsize=18)
+# axarr[0].set_xlabel('$ p $', fontsize=18)
 axarr[1].set_xlabel('$ p $', fontsize=18)
 
 axarr[0].autoscale(True, 'both', True)
@@ -138,7 +149,32 @@ axarr[0].margins(0.02, 0.03)
 axarr[1].autoscale(True, 'both', True)
 axarr[1].margins(0.02, 0.03)
 
-plt.tight_layout(rect=[-0.01, 0, 1, 0.96])
-plt.savefig('plots/EandZvsP.pdf')
-plt.show()
+axarr[0].legend(loc=2, fontsize=18)
+axarr[1].legend(loc=1, fontsize=18)
 
+
+
+# plt.tight_layout(rect=[-0.01, 0, 1, 0.96])
+# plt.savefig('plots/EandZvsP.pdf')
+# plt.show()
+
+
+
+# x = ps[1:48]
+# y = np.diff(avgE0s[0:49], 2) / 0.02**2
+# plt.plot(x, y)
+# plt.plot([0, 1], [1/meff, 1/meff], '--')
+# plt.show()
+
+
+# pick momentums as uniformly distributed as possible
+indices = []
+numPoints = 10
+for i in range(0, numPoints):
+  j = int(np.round(i*51/(numPoints - 1)))
+  indices += [j]
+indices += range(52, len(ps))
+
+
+for i in indices:
+  print(r'{0:g} & {1:.4f} & {2:.4f} \\'.format(ps[i], avgE0s[i], avgZ0s[i]))
