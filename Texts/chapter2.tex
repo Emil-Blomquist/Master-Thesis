@@ -424,6 +424,7 @@ Further more it is useful to introduce here a complex vector field $ \vec B $,
 \end{equation}
 so that
 \begin{equation}
+	\label{eq:inv_B_field_def}
 	\vec P(\vec r) = \sqrt{\frac{1}{2 \omega \gamma}} \left[ \vec B^\dagger (\vec r) + \vec B (\vec r) \right]
 	\; , \quad
 	 \dot{\vec P}(\vec r) = i \sqrt{\frac{\omega}{2 \gamma}} \left[ \vec B^\dagger (\vec r) - \vec B (\vec r) \right] \,.
@@ -440,9 +441,9 @@ Using a periodic boundary condition over a cube of volume $ V = l^3 $, $ \vec B 
 
 \begin{equation}
 	\label{eq:B_field_fourier}
-	\vec B (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b_{\vec q} \, \frac{e^{i \vec q \cdot \vec r}}{V}
+	\vec B (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b_{\vec q} \, \frac{e^{i \vec q \cdot \vec r}}{\sqrt V}
 	\; , \quad
-	\vec B^\dagger (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b^\dagger_{\vec q} \, \frac{e^{-i \vec q \cdot \vec r}}{V}
+	\vec B^\dagger (\vec r) = \sum_{\vec q} \frac{\vec q}{q} \, b^\dagger_{\vec q} \, \frac{e^{-i \vec q \cdot \vec r}}{\sqrt V}
 \end{equation}
 
 \flaw{If we use $ 1/V $ in this equation there should also be $ 1/V $ before the sum of the free phonon term of the Hamiltonian.}
@@ -488,16 +489,35 @@ In order to quantize the theory, it is of utter importance to construct a set of
 	\; , \quad
 	\dot \pi_i = - \frac{\delta H}{\delta \phi_i} \,,
 \end{equation}
-and thus constitutes a set of canonical field coordinates. By employing a restricted canonical transformation \cite{ClassicalMechanics} $ q_i = q_i(\phi, \pi), \, p_i = p_i (\phi, \pi) $, the canonical coordinates may be expressed in terms of $ b_{\vec q}^\dagger $ and $ b_{\vec q} $ as
+and thus constitutes a set of canonical field coordinates. By then employing a restricted canonical transformation $ q_i = q_i(\vec \phi, \vec \pi), \, p_i = p_i (\vec \phi, \vec \pi) $ one obtain the following set of canonical coordinates
 \begin{equation}
 	q_{\vec k} = \sqrt{\frac{1}{2 \omega \gamma}} \left[ b^\dagger_{\vec k} + b_{\vec k} \right]
 	\; , \quad
-	p_{\vec k} = i \sqrt{\frac{\gamma}{2 \omega}} \left[ b^\dagger_{\vec k} + b_{\vec k} \right] \,.
+	p_{\vec k} = i \sqrt{\frac{\gamma \omega}{2}} \left[ b^\dagger_{\vec k} - b_{\vec k} \right] \,.
 \end{equation}
-This is pretty straight forward to verify since such a transformation satisfy
+It is pretty straight forward to verify that this is in fact true. By using (\ref{eq:inv_B_field_def}) and (\ref{eq:B_field_fourier}) together with the expressions for the sets of canonical coordinates the generalized coordinates and their conjugate momenta may be expressed as
 \begin{equation}
-	\todo{\cdots}
+	\begin{split}
+		q_{\vec k} &= \frac{1}{\sqrt V} \int \frac{\vec k}{k} \cdot \left[ \frac{1}{\omega \gamma} \vec \pi (\vec x) \sin \vec k \cdot \vec x  + \vec \phi (\vec x) \cos \vec k \cdot \vec x\right] \diff^3 x \\
+		p_{\vec k} &= \frac{1}{\sqrt V} \int \frac{\vec k}{k} \cdot \left[ \vec \pi (\vec x) \cos \vec k \cdot \vec x - \omega \gamma \, \vec \phi (\vec x) \sin \vec k \cdot \vec x \right] \diff^3 x \\
+		\vec \phi (\vec x) &= \frac{1}{\sqrt{V}} \sum_{\vec k} \frac{\vec k}{k} \left[ q_{\vec k} \cos \vec k \cdot \vec x - \frac{1}{ \omega \gamma} p_{\vec k} \sin \vec k \cdot \vec x \right] \\
+		\vec \pi (\vec x) &= \frac{1}{\sqrt V} \sum_{\vec k} \frac{\vec k}{k} \left[ \omega \gamma \, q_{\vec k} \sin \vec k \cdot \vec x +  p_{\vec k} \cos \vec k  \,.\cdot \vec x \right]
+	\end{split}
 \end{equation}
+Then, by showing that these coordinates satisfy the relations \cite{ClassicalMechanics}
+\begin{equation}
+	\begin{split}
+		\left( \frac{\delta q_{\vec k}}{\delta \phi_i} \right)_{\vec \phi, \vec \pi} &= \left( \frac{\partial \pi_i}{\partial p_{\vec k}} \right)_{q, p} \\
+		\left( \frac{\delta p_{\vec k}}{\delta \pi_i} \right)_{\vec \phi, \vec \pi} &=  \left( \frac{\partial \phi_i}{\partial q_{\vec k}} \right)_{q, p}
+	\end{split}
+	\qquad \qquad
+	\begin{split}
+		\left( \frac{\delta q_{\vec k}}{\delta \pi_i} \right)_{\vec \phi, \vec \pi} &= - \left( \frac{\partial \phi_i}{\partial p_{\vec k}} \right)_{q, p} \\
+		\left( \frac{\delta p_{\vec k}}{\delta \phi_i} \right)_{\vec \phi, \vec \pi} &= - \left( \frac{\partial \pi_i}{\partial q_{\vec k}} \right)_{q, p}
+	\end{split}
+\end{equation}
+proves that the transformation used, and the set of coordinates $ q_{\vec k}, p_{\vec k} $ obtained, both are canonical.
+
 
 
 
