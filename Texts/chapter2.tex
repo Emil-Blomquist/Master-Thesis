@@ -85,7 +85,12 @@ For a finite temperature quantum field theory and a general system, this can of 
 	\equiv
 	\text{Tr} \{ \hat \rho_\text{G} \, \hat O_\text{H}(t) \} \,.
 \end{equation}
-The operator product sandwiched between the state vectors in the equation above contain both real and imaginary exponents originating from the thermodynamics and quantum mechanics respectively. Following the Matsubara formalism \cite{Matsubara, quantumTheoryOfManyParticleSystems, AbrikosovGorkov}, one proceeds by one introduces a new picture in order to treat the two types of exponents on an equal footing. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to the corresponding one in the Schrödinger picture as $ \hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} $.
+The operator product sandwiched between the state vectors in the equation above contain both real and imaginary exponents originating from the thermodynamics and quantum mechanics respectively. Following the Matsubara formalism \cite{Matsubara, quantumTheoryOfManyParticleSystems, AbrikosovGorkov}, one proceeds by one introduces a new picture in order to treat the two types of exponents on an equal footing. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to the corresponding one in the Schrödinger picture as
+\begin{equation}
+	\label{eq:modHeisPic}
+	\hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} \,.
+\end{equation}
+
 
 \subsection{Green's function}
 
@@ -99,49 +104,43 @@ and gives the probability amplitude of an particle to travel from one point in s
 Above zero temperature, now working with an imaginary-time $ \tau $, the Green's function of interest is the temperature Green's function. In the imaginary-time and position representation, the corresponding single-particle temperature Green's function is defined through
 \begin{equation}
 	\Gt_{\alpha \beta} (x, x')
-	\equiv \text{Tr} \{ \hat \rho_\text{G} \, T_\tau [\hat \psi_{\text{K} \alpha}(x) \hat \psi^\dagger_{\text{K} \alpha}(x') ] \} \,.
+	\equiv \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat \psi_{\text{K} \alpha}(x) \hat \psi^\dagger_{\text{K} \alpha}(x') ] \big\} \,.
 \end{equation}
 Here $ \psi_{\text{K} \alpha}(x) $ is the $ \alpha $-th component of a field operator in the modified Heisenberg picture, $ T_\tau [\cdots] $ orders the operators according to their value of $ \tau $,  $ \text{Tr} \{ \rho_\text{G} \cdots \} $ is the same weighted sum of inner products as mention before and $ x $, $ x' $ being position-imaginary-time four vectors. Since the temperature single-particle Green's function is not a function of time, it is only possible to directly extract from it observables which do not dependent on time, that is, thermodynamical observables. In order to obtain time dependent properties, one must first relate the temperature Green's function to a real-time Green's function. This is something which wont be of importance to this thesis and thus not discussed any further. From here on only the finite temperature formalism will be considered and whenever a Green's function is mention it will be understood that the single-particle temperature Green's function intended.
 
-Assuming the Hamiltonian in the Schrödinger picture is time independent and translationally invariant, the Green's function will depend only on the difference $ \vec x - \vec x' $ and $ \tau - \tau' $. Since the Hamiltonian of interest for this thesis will be shown to be spin independent, the spin dependency of the Green's function may be factored out as
-\begin{equation}
-	\Gt_{\alpha \beta}(\vec x - \vec x', \tau - \tau ') = \delta_{\alpha \beta} \, \Gt(\vec x - \vec x', \tau - \tau') \,.
-\end{equation}
-Since this spin dependency is trivial, it will be omitted so that the single-particle Green's function from now on refers to $ \Gt (\vec x, \tau) $.
+Assuming the Hamiltonian to time independent and translationally invariant, the Green's function will depend only on the difference $ \vec x - \vec x' $ and $ \tau - \tau' $ as soon shall be shown. By further imposing spin independency onto the Hamiltonian, the spin dependency of the Green's function may be factored out as $ \Gt_{\alpha \beta}(\vec x - \vec x', \tau - \tau ') = \delta_{\alpha \beta} \, \Gt(\vec x - \vec x', \tau - \tau') $. Thus, from this point and forward, when referring to a Green's function the spin dependency will be omitted.
 
-%In the limit of an infinite system, the Green's function in momentum space is obtained through the Fourier transform,
-%\begin{equation}
-%	\label{eq:defGpt}
-%	\Gt (\vec x - \vec x', \tau - \tau ') = \int \frac{\diff^3 k}{(2 \pi)^3} \,  e^{i \vec k \cdot (\vec x - \vec x ')} \, \Gt (\vec k, \tau - \tau ') \,.
-%\end{equation}
-
-For the sake of the thesis it is not necessary to keep the ground state ensemble of the system completely general. In order to simplify the following analysis it is therefore permissible to assume the ground state to be empty (which is going to be used when implementing the Diagrammatic Monte Carlo method). This implies that $ \text{Tr}\{ \cdots \} \rightarrow \langle \text{vac} | \cdots | \text{vac} \rangle $.
-
-In the case of a cubic system with a finite volume $ V = l^3 $, accompanied by periodic boundary conditions, the single-particle wave functions of the momentum eigenstates are given by
+In the case of a cubic system with a finite volume $ V = l^3 $, accompanied by periodic boundary conditions, the single-particle wave functions and the eigenvalues of the momentum operator are given by
 \begin{equation}
 	\psi_{\vec k} (\vec x) = \frac{e^{i \vec k \cdot \vec x}}{\sqrt V}
 \end{equation}
-with the allowed momentum components
+and
 \begin{equation}
+	\label{eq:momentumQuantumNumbers}
 	k_i = \frac{2\pi}{l} n_i
 	\; ; \quad 
-	n_i = 0, \, \pm 1, \, \pm 2, \dots \,.
+	n_i = 0, \, \pm 1, \, \pm 2, \dots
 \end{equation}
-Using this set of quantum numbers in the definition (\ref{eq:fieldOperator}) of the field operator, it is possible to rewrite
+respectively. Constructing the field operators (\ref{eq:fieldOperator}) in terms of these, the expression for the Green's function may be transformed as
 \begin{equation}
-	\label{eq:Gxt2Gpt}
 	\begin{split}
 		\Gt (\vec x - \vec x', \tau - \tau ')
-		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec x') \langle \text{vac} | \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau) \hat c^\dagger_{\vec p}(\tau ')] | \text{vac} \rangle \\
-		&= \theta(\tau - \tau ') \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec x') \delta_{\vec k, \vec p} \langle \text{vac} | \hat c_{\vec k}(\tau - \tau ') \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \\
-		&= \theta(\tau - \tau ') \frac{1}{V} \sum_{\vec k} e^{i \vec k \cdot ( \vec x - \vec x' )} \langle \text{vac} | \hat c_{\vec k}(\tau - \tau ') \hat c^\dagger_{\vec k}(0) | \text{vac} \rangle \\
-		&= \theta(\tau - \tau ') \int \frac{\diff^3k}{(2\pi)^3} e^{i \vec k \cdot ( \vec x - \vec x' )} \langle \text{vac} | \hat c(\vec k, \tau - \tau ') \hat c^\dagger(\vec k, 0) | \text{vac} \rangle \\
+		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec x') \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau) \hat c^\dagger_{\vec p}(\tau ')] \big\} \\
+		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec x') \delta_{\vec k, \vec p} \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau - \tau') \hat c^\dagger_{\vec k}(0)] \big\} \\
+		&= \frac{1}{V} \sum_{\vec k} e^{i \vec k \cdot ( \vec x - \vec x' )} \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau - \tau') \hat c^\dagger_{\vec k}(0)] \big\} \\
+		&= \int \frac{\diff^3k}{(2\pi)^3} e^{i \vec k \cdot ( \vec x - \vec x' )}  \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c(\vec k, \tau - \tau') \hat c^\dagger(\vec k, 0)] \big\} \,,
 	\end{split}
 \end{equation}
-where in the last equality the limit $ l \rightarrow \infty $ has been taken. On the other hand, in the limit of an infinite system, the Green's function in momentum space is obtained through the Fourier transform,
+where in the last equality the limit $ l \rightarrow \infty $ has been taken. In order to shift the time, the hermiticity of $ \hat K $ allows the trace to be expressed in terms of it's complete set of eigenstates $ \{ | \nu_{\vec k} \rangle \} $ for which $ \hat K \, | \nu_{\vec k} \rangle = \xi_{\vec k} | \nu_{\vec k} \rangle $. Then, since the Hamiltonian is time independent it will commutate with itself at any two times, implying that $ \exp \{ \hat K \tau - \hat K \tau' \} = \exp \{ \hat K \tau\} \exp \{- \hat K \tau' \} $. Assuming the ground state ensemble to be the vacuum state, i.e\ $ \text{Tr}\{ \hat \rho_\text{G} \cdots \} \rightarrow \langle \text{vac} | \cdots | \text{vac} \rangle $, this expression further simplifies into
+\begin{equation}
+	\Gt (\vec x, \tau)
+	= \int \frac{\diff^3k}{(2\pi)^3} e^{i \vec k \cdot \vec x} \langle \text{vac} | \hat c(\vec k, \tau) \hat c^\dagger(\vec k, 0) | \text{vac} \rangle
+	\quad \tau \geq 0
+\end{equation}
+and is for all other imaginary-times identically zero. On the other hand, in the limit of an infinite system, the Green's function in momentum space is obtained through the Fourier transform,
 \begin{equation}
 	\label{eq:defGpt}
-	\Gt (\vec x - \vec x', \tau - \tau ') = \int \frac{\diff^3 k}{(2 \pi)^3} \,  e^{i \vec k \cdot (\vec x - \vec x ')} \, \Gt (\vec k, \tau - \tau ') \,.
+	\Gt (\vec x, \tau) = \int \frac{\diff^3 k}{(2 \pi)^3} \,  e^{i \vec k \cdot \vec x} \, \Gt (\vec k, \tau) \,.
 \end{equation}
 Hence it must be the case that
 \begin{equation}
@@ -149,65 +148,57 @@ Hence it must be the case that
 	\Gt(\vec k, \tau) = \theta(\tau) \langle \text{vac} | \hat c(\vec k, \tau) \hat c^\dagger(\vec k, 0) | \text{vac} \rangle \,.
 \end{equation}
 
-In order to demonstrate some important properties of $ \Gt(\vec k, \tau) $ the unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $, constructed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = E_\nu(\vec p) \, | \nu (\vec p) \rangle $, is inserted into expression (\ref{eq:GptExpression}). By recalling that the imaginary-time evolution of the annihilation operator in the modified Heisenberg picture is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ the expression then boils down to\cite{MishchenkoA.2000DqMC}
-
+In order to demonstrate some important properties of $ \Gt(\vec k, \tau) $ the unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $, constructed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = \xi_\nu(\vec p) \, | \nu (\vec p) \rangle $, is inserted into expression (\ref{eq:GptExpression}). By recalling that the annihilation operator in the modified Heisenberg picture (\ref{eq:modHeisPic}) is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ the expression then boils down to \cite{MishchenkoA.2000DqMC}
 \begin{equation}
 	\label{eq:startingPointFreePropagator}
 	\Gt(\vec k, \tau) = \theta(\tau)
-	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-(E_\nu - E_\text{vac})\tau} \,.
+	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-(\xi_\nu - \xi_\text{vac})\tau} \,.
 \end{equation}
-
-Here we have used that $ E_\text{vac} $ is the vacuum \question{(!?)} energy, i.e. $ \hat K \, | \text{vac} \rangle = E_\text{vac} \, | \text{vac} \rangle $. It happens to be so, that in the model to be used $ E_0 = 0 $, hence from here on $ E_\text{vac} $ will be omitted. Rather than working with some unknown set $ \{ \nu \} $, it is more convenient to parametrize using the frequency. This is done by introducing the spectral density function
- 
+Here it is has beed used that $ \xi_\text{vac} $ is the vacuum energy, i.e.\ $ \hat K \, | \text{vac} \rangle = \xi_\text{vac} \, | \text{vac} \rangle $. For the Fröhlich Hamiltonian to be considered later, $ \xi_\text{vac} = 0 $ and will therefore be ignored in the remaining calculation. Rather than working with some unknown set $ \{ \nu \} $, it is more convenient to parametrize using the frequency. This is done by introducing the spectral density function
  \begin{equation}
 	g_{\vec{k}} (\omega)
-	\equiv \sum_\nu \delta (\omega - E_\nu) \, | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 \,,
+	\equiv \sum_\nu \delta (\omega - \xi_\nu) \, | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 \,,
 \end{equation}
-
 through which the single-particle Green's function is expressed as
-
 \begin{equation}
 	\label{eq:GInTermsOfSpec}
 	\Gt(\vec k, \tau) = \int g_{\vec k} (\omega) \, e^{- \omega \tau} \diff \omega \,.
 \end{equation}
-
-\question{according to \cite{MishchenkoA.2000DqMC} the spectral density is one sided, why is this? Clearly there exist stable states for which $ E_\nu < 0 $.}
-
-Assuming the single-particle Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 $ is nothing more than the overlap of that particular eigenstate of $ \hat K $ onto a free electron with momentum $ \vec k $, i.e. $ | \vec k \rangle $. If there exist a stable eigenstate $  | \xi_{\vec k} \rangle $ with energy $ E_0(\vec k) $, the spectral function should contain the term $ | \langle \xi_{\vec k} | \vec k \rangle |^2 \, \delta(\omega - E(\vec k)) $. Being a stable state, the energy $ E_0(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary-times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
+Assuming the Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 = | \langle \nu | \vec k \rangle |^2 $ is nothing more than the overlap of the eigenstate $ | \nu \rangle $ with free electron state of momentum $ \vec k $. If there exist a stable eigenstate $  | \nu_{0, \vec k} \rangle $ with energy $ \xi_0(\vec k) $, the spectral function should contain the term $ | \langle \nu_{0, \vec k} | \vec k \rangle |^2 \, \delta(\omega - \xi_0(\vec k)) $. Being a stable state, the energy $ \xi_0(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary-times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
 \begin{equation}
 	\label{eq:longTimeLimit}
-	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- E_0(\vec k) \tau} \,,
+	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- \xi_0(\vec k) \tau} \,,
 \end{equation}
-where $ Z_0^{\vec k} = | \langle \xi_{\vec k} | \vec k \rangle |^2 $ is the bare-electron factor.
-
-\subsection{Free \question{(bare?)} single-particle Green's function}
+where $ Z_0^{\vec k} = | \langle \nu_{0, \vec k} | \vec k \rangle |^2 $ is the bare-electron factor.
 
 \begin{itemize}
-	\item \todo{Carry out this derivation without any assumptions on the system at hand.}
+	\item \todo{Need to somehow introduce $ E_0 = \xi_0  + \mu $. N = 1 since vacuum GS.}
 \end{itemize}
 
-A state of a particle obeying a Hamiltonian consisting solely of a kinetic one-body operator, i.e.\ $ \hat K_0 = \sum_\nu \xi^0_\nu \hat c^\dagger_\nu \hat c_\nu $, is said to be free \question{(another word perhaps?)}. Here the energies $ \xi^0_\nu $ are known from solving the corresponding problem in first-quantization. There is no need to keep a higher level of generality here than done previously, so using those same assumptions expression (\ref{eq:startingPointFreePropagator}) might be reused,
+\subsection{Bare single-particle Green's function}
+
+An eigenstate to a bare Hamiltonian, e.g.\ $ \hat K_0 = \sum_{\vec k} \xi^0_{\vec k} \hat c^\dagger_{\vec k} \hat c_{\vec k} $, is referred to as a bare or a free state. The energies $ \xi^0_{\vec k} $ are known from solving the corresponding problem in first-quantization. Reusing the previous assumptions and calculations, but $ \hat K $ every where replaced with $ \hat K_0 $, the bare Green's function in momentum space is found to be,
 \begin{equation}
-	\Gt^{(0)}(\vec k, \tau) = \theta(\tau)
-	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-\xi^0_\nu \tau} \,.
+	\Gt^{(0)}(\vec k, \tau)
+	= \sum_{\vec p} | \langle \vec p | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-\xi^0_{\vec p} \tau}
+	\quad \tau \geq 0 \,.
 \end{equation}
-However, this time the set of eigenstates $ \{ | \nu \rangle \}  $ are known to be the momentum eigenstates $ \{ | \vec p \rangle \} $, since the Hamiltonian was said to commutate with the momentum operator. Using the orthonormality amongst those states, the expression of the free single-particle Green's function simplifies to
+However, this time the eigenstates are known, and using their orthonormality, the expression of the bare single-particle Green's function simplifies to
 \begin{equation}
 	\label{eq:freeProp}
-	\Gt^{(0)}(\vec k, \tau) = \theta(\tau) \, e^{-\xi^0(\vec k)  \, \tau} \,.
+	\Gt^{(0)}(\vec k, \tau)
+	= e^{-\xi^0(\vec k)  \, \tau}
+	\quad \tau \geq 0
 \end{equation}
-Here it is once again assumed that the system is infinite so that $ \vec k $ is treated as being continuous.
+in the limit of an infinite system.
 
 \section{Derivation of the Fröhlich Hamiltonian}
 
-
-What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields}\cite{electronsInLatticeFields}. In this section we will outline the original derivation but also look into some details relevant to us.
-
-\todo{mention something out of the polaron book?}
+What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields} \cite{electronsInLatticeFields}. In this section the original derivation will be outlined with attention directed towords details important for the thesis.
 
 \subsection{Classical picture}
 
-The model of interest to this thesis is the following. Consider a diatomic crystal, e.g. rock salt. Such a crystal is made up out of ions which pairwise have a zero net charge. This is depicted in figure \ref{fig:illustrationOfDiatomicCrystal} below. Introducing a free electron into such a crystal, the electron will polarize the crystal due to it exerting an electric field. This sort of polarization may be described by a displacement vector for each lattice point. However, to simplify matters, it is preferred to treat this displacement vector as a continuous vector field.
+Consider a diatomic crystal, e.g.\ rock salt. Such a crystal is made up out of ions which pairwise have a zero net charge as illustrated in figure \ref{fig:illustrationOfDiatomicCrystal}. By introducing a free electron into such a crystal, the crystal will become polarized due to the electric field exerted by the electron. The polarization is then described by a set of displacement vectors, one for each lattice point. In order to simplify what follows this set of displacement vectors are treated as a continuous vector field.
 
 \begin{figure}[H]
 	\centering
@@ -223,18 +214,14 @@ The model of interest to this thesis is the following. Consider a diatomic cryst
 	\label{fig:illustrationOfDiatomicCrystal}
 \end{figure}
 
-If we first consider a steady state situation, the polarization is determined solely by the dielectric permittivity $ \varepsilon_r $. Introducing the electric displacement field $ \vec D = \vec E + 4 \pi \vec P $ (CGS units) for which the source is the free electron, this may be thought of as the external electrical field. If our electron is at position $ \vec r_\text{e} $ , the $ \vec D $-field at a position $ r $ is given by the usual
-
+If this system is first looked at in a steady state situation, the polarization is determined solely by the dielectric permittivity $ \varepsilon_r $. Next the electric displacement field $ \vec D = \vec E + 4 \pi \vec P $ (CGS units) is introduced. Since the source of this field is given solely by the free electron, it may be thought of as an external electrical field. If the electron is at position $ \vec x_\text{e} $, the $ \vec D $-field at a position $ \vec x $ is given by the familiar expression
 \begin{equation}
-	\vec D( \vec r, \vec r_\text{e}) = - \nabla \frac{Q}{\left| \vec r - \vec r_\text{e} \right|}
+	\vec D( \vec r, \vec r_\text{e}) = - \nabla \frac{Q}{\left| \vec x - \vec x_\text{e} \right|} \,,
 \end{equation}
-
 so that
-
 \begin{equation}
-	\nabla \cdot \vec D( \vec r, \vec r_\text{e}) = 4 \pi q \, \delta(\vec r - \vec r_\text{e}) \,.
+	\nabla \cdot \vec D( \vec x, \vec x_\text{e}) = 4 \pi q \, \delta(\vec x - \vec x_\text{e}) \,.
 \end{equation}
-
 Here $ Q $ is the charge of the electron and the second equality is to be thought of as valid inside of an integral. In agreement with the definition of the $ \vec D $-field we may also define the electric field due to the bound charges as $ \vec E_\text{bound} = - 4 \pi \vec P $ since $ \vec D = \vec E + 4 \pi \vec P = \vec E - \vec E_\text{bound} \equiv \vec E_\text{free} $.
 
 The interaction energy, which is minimised when the $ \vec D $-field is parallel to the polarisation, is given by \question{(why!? Dipole something?)}
