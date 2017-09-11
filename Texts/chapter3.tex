@@ -4,45 +4,38 @@
 
 \section{General idea}
 
-\todo{"The diagrammatic Monte Carlo (DMC) method [1] is a
-technique that allows one to simulate quantities specified
-in terms of convergent diagrammatic sums, i.e., sums of
-integrals with integrands represented by a diagrammatic
-structure"}
+\begin{itemize}
+	\item \todo{Rename $ \xi_n $.}
+\end{itemize}
 
-\todo{In thermal equilibrium}
-
-Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} in order to calculate quantities $ Q(\{ y \}) $, given in terms of a series of integrals with an ever increasing number of integration variables
+Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} which allows to simulate quantities $ Q(\{ y \}) $ in terms of convergent diagrammatic sums, i.e.\ sums of integrals with an ever increasing number of integration variables
 \begin{equation}
 	\label{eq:integralSeries}
 	Q(\{ y \})
 	= \sum_{n=0}^\infty \sum_{\xi_n} \int \diff x_1 \dots \diff x_n \, D_n(\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) \,.
 \end{equation}
-Here $ \{y\} $ is a set of external variables and $ \xi_n $ indexes the different terms of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
+Here $ \{y\} $ is a set of external variables and $ \xi_n $ indexes the different integrands of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
 
-The method is based on the Metropolis-Hastings algorithm which samples terms of the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
+The method is based on the Metropolis-Hastings algorithm and samples integrands from the integral sum in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral sum, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
 
-To clarify any ambiguities, the DMC method will next be demonstrated by a few simple examples.
+To clarify any ambiguities, the main idea behind the DMC method will next be demonstrated by a few simple examples.
 
 \subsection{Example 1}
 
-In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral series (\ref{eq:integralSeries}) will then consist out of two constant zeroth order terms only, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively. Hence this is probably the simplest possible implementation of DMC and will make for a good first encounter.
+In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral sum (\ref{eq:integralSeries}) will then contain merely two constant zeroth order terms, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively.
 
-\todo{The function $ D_n $ here play the role of $ f $ in the previous section about the MH algorithm.}
-
-To follow the recipe of the Metropolis-Hastings algorithm, the function $ f $ is defined as being nothing but $ D_0(\xi_0) $ from (\ref{eq:integralSeries}). By this definition $ f $ becomes proportional to the probability density function 
-
+To follow the recipe of the Metropolis-Hastings algorithm, the function $ D_n $ is regarded as proportional to the probability density function
 \begin{equation}
-	\rho(x) = \frac{f(x)}{\sum_y f(y)} = \frac{f(x)}{1 + C}
+	\rho(x) = \frac{D_n(x)}{\sum_y D_n(y)} = \frac{D_n(x)}{1 + C}
 	\; ; \quad
-	x \in \{1\,, C \} \,,
+	x \in \{\xi_0 = 0\,, \xi_0 = 1 \} \,,
 \end{equation}
-from whose probability distribution function $ P $ the sequence of $ \xi_0 $'s will be drawn. Further more there can be at most four types of transitions between the two states in parameter space. By introducing the corresponding transition probabilities: $ P(1|C) $, $ P(C|1) $, $ P(1|1) $ and $ P(C|C) $, the Markov process \question{(is this the correct word?)} to be simulated may then be illustrated as in figure (\ref{fig:example1}) below.
+allowing it to be substituted against $ f $ in (\ref{eq:acceptanceRatio}) so that a sequence of $ \xi_0 $'s may be sampled from the corresponding probability distribution $ P $. Since there are only the two states $ 1 $ and $ C $ in parameter space, there can be at most four types of transitions amongst them. By introducing the corresponding transition probabilities: $ P(1|C) $, $ P(C|1) $, $ P(1|1) $ and $ P(C|C) $, the Markov process to be simulated may then be illustrated as in figure (\ref{fig:example1}).
 
 \begin{figure}[H]
 	\centering
  	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/First example"}.pdf}
-	\caption{\todo{Caption this plz!}}
+	\caption{\image{Caption this plz!}}
 	\label{fig:example1}
 \end{figure}
 
@@ -61,41 +54,26 @@ so that
 	1 + C = 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
-\todo{Include an implementation written in python?}
-
 \subsection{Example 2}
 
-In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $.
-
-\todo{the only unknown here is the value of the integral. The $ 1 $ is solely used for normalization purposes.}
-
-Instead of having of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Using this notation, a function $ f $ is defined by
-\begin{equation}
-	f(x) =
-	\begin{dcases}
-		D_0(\xi_0 = 0) = 1 \; , \quad &x = 1 \\
-		D_1(\xi_1 = 0, x) = x \; , \quad &x \in [a, \, b] \,,
-   	\end{dcases}
-\end{equation}
-and thus becomes proportional to the probability density
+In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $. Instead of having of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Again the function $ D_n $ is regarded as proportional the probability density function
 \begin{equation}
 	\rho(x)
-	= \frac{f(x)}{\sum_y \rho(y)}
-	= \frac{f(x)}{1 + \int_a^b x \diff x}
+	= \frac{D_n(x)}{\sum_y D_n(y)}
+	= \frac{D_n(x)}{1 + \int_a^b x \diff x}
 	\; ; \quad
 	x \in \{1\} \cup [a, \, b] \,.
 \end{equation}
-
-In order to cover the whole parameter space, it is more than sufficient to consider four types of transitions having the transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ and thus corresponds to a state of the first order term. This Markov process might be illustrated as figure \ref{fig:example2} below.
+in order for the Markov process to generate states according to the probability distribution $ P $ corresponding to this choice of $ \rho $. To cover the whole parameter space so that ergodicity is satisfied, it is more than sufficient to consider four types of transitions with corresponding transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ and thus corresponds to a state of the first order term. This Markov process may be illustrated as figure \ref{fig:example2}.
 
 \begin{figure}[H]
 	\centering
  	\includegraphics[width=\textwidth, ]{{"Images/Examples/Second example"}.pdf}
-	\caption{\todo{Caption this plz!}}
+	\caption{\image{Caption this plz!}}
 	\label{fig:example2}
 \end{figure}
 
-In order to construct proposal distributions to or from the first order term, it is convenient to introduce the collection of states referred to as $ \smallint $, in which all states $ x \in [a, \, b] $. Using this notation, the proposal distributions are chosen to be
+In order to construct proposal distributions to or from the first order term, it is convenient to introduce the collection of states referred to as $ \smallint $ containing all states $ x \in [a, \, b] $. Using this notation, the proposal distributions are chosen to be
 \begin{equation}
 	\begin{split}
 		W(1|1) &= \tfrac{1}{2} \\
@@ -107,7 +85,7 @@ In order to construct proposal distributions to or from the first order term, it
 		W(x|x') &= W(\smallint | \smallint) \,U_{a,b}(x') = \tfrac{1}{2} \tfrac{1}{b-a} \,.
 	\end{split}
 \end{equation}
-The quantities $ W(1|1) $, $ W(1|\smallint) $, $ W(\smallint | 1) $ and $ W(\smallint | \smallint) $ are simply the probability of proposing a state corresponding to a certain term in the integral series and have been set equally probable. The quantity $ U_{a,b}(x) = [b - a]^{-1} $ is the uniform probability distribution on the interval $ [a, \, b] $ from which $ x $ is sampled. Then, from the proposal distributions follow the acceptance rations
+The quantities $ W(1|1) $, $ W(1|\smallint) $, $ W(\smallint | 1) $ and $ W(\smallint | \smallint) $ are simply the probability of proposing a state corresponding to a certain term in the integral series and have been set equally probable. Also $ U_{a,b}(x) = [b - a]^{-1} $ is the uniform probability distribution on the interval $ [a, \, b] $ from which $ x $ is sampled. Then, from the proposal distributions follow the acceptance rations
 \begin{equation}
 	\begin{split}
 		A(1|1) &= 1 \\
@@ -119,33 +97,25 @@ The quantities $ W(1|1) $, $ W(1|\smallint) $, $ W(\smallint | 1) $ and $ W(\sma
 		A(x|x') &= \text{min} \Big( 1, \, x^{-1} \, x' \Big) \,.
 	\end{split}
 \end{equation}
-
-By keeping track of the $ N_0 $ number of times $ x = 1 $ appears in the sequence of states and also the length $ N $ of the sequence, it follows from (\ref{eq:example1Prop}) and (\ref{eq:example1Answ}) that
+If then $ x = 1 $ appears $ N_0 $ number of times in the sequence of states with length $ N $, it follows from (\ref{eq:example1Prop}) and (\ref{eq:example1Answ}) that
 \begin{equation}
 	1 + \int_a^b x \diff x = 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
 \subsection{Example 3}
 
-In this third and final example, the task is to compute something which is more similar to the actual problem. Hence, the sum to compute is of the form,
+In this third and final example, the task is to compute
 \begin{equation}
 	1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z} \,,
 \end{equation}
-and consists of a zeroth, first and second order term. By assuming that $ b > a > 1 $, a similar one-to-one mapping of the states in parameter space as used in the previous example may also be used here. Again the zeroth and first order terms are chosen to be represented by $ x = 1 $ and $ x \in [a, \, b] $ respectively, whilst the second order term is to be represented by $ x = (y, z) \in [a', \, b'] \times [a'', \, b''] $. In terms of this parameter $ x $, the function $ f $ is defined as
-\begin{equation}
-	f(x) =
-	\begin{dcases}
-		D_0(\xi_0 = 0) = 1 \; , \quad &x = 1 \\
-		D_1(\xi_1 = 0, x) = e^{-x} \; , \quad &x \in [a, \, b] \\
-		D_2(\xi_2 = 0, x) = e^{-y - z} \; , \quad &x \in [a', \, b'] \times [a'', \, b''] \,.
-   	\end{dcases}
-\end{equation}
-By normalization a probability density function $ \rho $ is obtained whose probability distribution $ P $ and seven types of transitions form a Markov process illustrated in figure \ref{fig:example3}.
+which is more similar to the actual problem. This integral sum consists of a zeroth, first and second order term. By assuming that $ b > a > 1 $, a one-to-one mapping similar to the one used in the previous example may be preformed here as well. Again the zeroth and first order terms are chosen to be represented by $ x = 1 $ and $ x \in [a, \, b] $ respectively, whilst the second order term is to be represented by $ x = (y, z) \in [a', \, b'] \times [a'', \, b''] $. 
+
+Analogously to the former examples the function $ D_n $ is normalizable and may thus be though of as a non-normalized probability density function. Hence a Markov process is used to generate a sequence of parameter space states from a probability distribution $ P $ corresponding to $ D_n $. This time the Markov process is designed to have the seven types of transitions illustrated in figure \ref{fig:example3}.
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=0.8\textwidth, ]{{"Images/Examples/Third example"}.pdf}
-	\caption{\todo{Caption this plz!}}
+ 	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/Third example"}.pdf}
+	\caption{\image{Caption this plz!}}
 	\label{fig:example3}
 \end{figure}
 
@@ -173,7 +143,7 @@ where
 		W(\smallint \!\! \smallint | \smallint) &= W(\smallint \!\! \smallint | \smallint \!\! \smallint) = W(\smallint \!\! \smallint | y') = W(\smallint \!\! \smallint | z') = \tfrac{1}{2} \,.
 	\end{split}
 \end{equation}
-The discrete proposal distributions $ W(\smallint \!\! \smallint | y') $ and $ W(\smallint \!\! \smallint | z') $ correspond to choosing to update either the $ y $ or the $ z $ part of the state $ x $. Having all of this information it is then trivial to calculate the acceptance ratios, which become
+The discrete proposal distributions $ W(\smallint \!\! \smallint | y') $ and $ W(\smallint \!\! \smallint | z') $ correspond to choosing to update either the $ y $ or the $ z $ part of the total parameter state. Having all of this information it is then trivial to calculate the acceptance ratios, which become
 \begin{equation}
 	\begin{split}
 		W(1|x) &= \text{min} \Big(1, \, \tfrac{1}{3} [b - a] \, e^{-x} \Big) \\
@@ -185,13 +155,15 @@ The discrete proposal distributions $ W(\smallint \!\! \smallint | y') $ and $ W
 		W(y,z|y,z') &= \text{min} \Big(1, \, e^{z - z'} \Big) \,.
 	\end{split}
 \end{equation}
-By defining $ N_0 $ and $ N $ in accordance to what was done in the previous example, the value of the sum is obtained by
+By defining $ N_0 $ and $ N $ in accordance to what was done in the previous example, the value of the sum is then approximated by
 \begin{equation}
 	1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z}
 	= 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
 \section{Implementation}
+
+\todo{--------- continue here ---------}
 
 The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integral series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. By then representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
 \begin{equation}
