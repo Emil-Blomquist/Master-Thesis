@@ -13,7 +13,7 @@ histogramColor = [1, 0, 0]
 
 for i in range(0, n):
   Hi = 2/dt**0.5 * ( (i + 1)**0.5 - i**0.5 )
-  hist, = plt.plot([i*dt, i*dt, (i + 1)*dt, (i + 1)*dt], [0, Hi, Hi, 0], color=histogramColor)
+  hist, = plt.plot([i*dt, (i + 1)*dt], [Hi, Hi], color=histogramColor)
 
 
 x = np.linspace(0.001, (n + 1)*dt, 1000)
@@ -22,7 +22,7 @@ true, = plt.plot(t, t**-0.5, 'o')
 
 
 plt.legend([func, true, hist], [r'$ 1/\sqrt{x}$', 'True value', 'Histogram approximation'], fontsize=18)
-e = 0.001
+e = 0.00
 plt.xlim([0 - e, n*dt + e])
 plt.ylim([0, 20])
 plt.tight_layout()

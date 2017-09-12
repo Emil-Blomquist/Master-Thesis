@@ -808,16 +808,14 @@ It is obvious that the contribution from each diagram is nonzero only when the t
 
 Another important property of these diagrams is that they all carry a positive definite contribution to $ \Gt $. This since the value of a propagator always is larger than or equal to zero, and the sign from the factor $ (-1)^n $ cancel the $ i^{2n} $ contained within $ V(\vec q)^{2n} $.
 
-\begin{itemize}
-	\item \todo{Since there is no preferred direction of the external momentum $ \vec p $, the Green's function will depend only upon the magnitude $ p = | \vec p | $, i.e. $ \Gt = \Gt(\alpha, \mu, p, \tau) $.}
-\end{itemize}
+Since the Hamiltonian is isotropic, there will be no preferred direction of momenta. Hence the single particle Green's function will only be dependent on the magnitude of the external momentum $ p = |\vec p | $, i.e.\ $ \Gt = \Gt = \Gt(\alpha, \mu, p, \tau) $.
 
 \subsection{Dyson equation}
 
 Working at zero temperature allows for a full Fourier representation of the single-particle Green's function, i.e.
 \begin{equation}
 	G(\vec x, \tau) = \frac{1}{(2\pi)^4} \int \diff^3 k \int \diff \omega \, e^{i (\vec k \cdot \vec x - \omega \tau)} G(\vec k, \omega)
-	\; ; \quad G = \Gt, \, \Dt, \, \Gt_0, \, \Dt_0 \,.
+	\; ; \quad G = \Gt, \, \Dt, \, \Gt^{(0)}, \, \Dt^{(0)} \,.
 \end{equation}
 It so happens to be more pleasant working in $ \vec k $-$ \omega $ space for a lot of reasons but what will be of importance here is the conservation of total four momentum $ k = (\omega, \vec k) $ at all vertices in a Feynman diagram. In that way the external legs of a diagram no longer depend upon any internal variables and may then be factored out from the nasty integral expression. Hence it is convenient to express the interacting single-particle Green's function, here depicted as a double line, in terms of the self-energy $ \Sigma(k) $ as
 \begin{fmffile}{FMFFILEGinTermsOfSelfEnergy}

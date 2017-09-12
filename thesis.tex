@@ -168,6 +168,13 @@
     \fmf{marrow#1,tension=0}{#5}
 }
 
+\makeatletter
+\newcommand{\dotDelta}{{\vphantom{\Delta}\mathpalette\d@tD@lta\relax}}
+\newcommand{\d@tD@lta}[2]{%
+  \ooalign{\hidewidth$\m@th#1\mkern-1mu\cdot$\hidewidth\cr$\m@th#1\Delta$\cr}%
+}
+\makeatother
+
 \unitlength=1mm
 
 \begin{document}
