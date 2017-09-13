@@ -6,7 +6,7 @@
 
 \subsection{Single- and many-particle quantum mechanics}
 
-In quantum mechanics, utilizing the bra-ket notation, the state of a particle $ | \psi \rangle $ can be projected onto the position basis $ | \vec x \rangle $ to form a wave function $ \langle \vec x | \psi \rangle = \psi (\vec x) $. By using the Schrödinger picture, the dynamics is contained within the states $ | \psi \rangle = | \psi (t) \rangle $ so that $ \psi(\vec x) = \psi(\vec x, t) $ and the time evolution of which is governed by the Schrödinger equation (in the non-relativistic limit). The quantity $ \psi^*(\vec x, t) \psi(\vec x, t) $ is real, and according to the Copenhagen interpretation \cite{HermannWimmel} of quantum mechanics it is to be interpreted as the probability density function. From this, the expectation value of some quantity, e.g.\ the position of the particle, is acquired through
+In quantum mechanics the state of a particle $ | \psi \rangle $ can be projected onto the position basis $ | \vec x \rangle $ to form a wave function $ \langle \vec x | \psi \rangle = \psi (\vec x) $. In the Schrödinger picture, the dynamics is contained within the states $ | \psi \rangle = | \psi (t) \rangle $ so that $ \psi(\vec x) = \psi(\vec x, t) $ and the time evolution of which is governed by the Schrödinger equation (in the non-relativistic limit). The quantity $ \psi^*(\vec x, t) \psi(\vec x, t) $ is real, and according to the Copenhagen interpretation of quantum mechanics \cite{HermannWimmel} it is to be interpreted as the probability density function. From this, the expectation value of some quantity, e.g.\ the position of the particle, is acquired through
 \begin{equation}
 	\begin{split}
 		\langle \vec x(t) \rangle
@@ -17,13 +17,7 @@ In quantum mechanics, utilizing the bra-ket notation, the state of a particle $ 
 		&= \langle \psi(t) | \, \hat{\vec x} \, | \psi(t) \rangle \,.
 	\end{split}
 \end{equation}
-To reach the final equality it has been used that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and the fact that this basis is orthonormal and complete so that the unity operator may be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
-
-
-\begin{itemize}
-	\item \todo{Mention Hilbert space. one particle vs. many-particle Hilbert spaces?}
-\end{itemize}
-
+To reach the final equality it has been used that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and also that this basis is orthonormal and complete so that the unity operator may be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
 
 What has been described so far is a quantum mechanical system of merely a single particle. In order to describe a system of more than one particle, this formalism need to be generalized to a many-particle description. When doing this, care need to be taken to the statistics of indistinguishable particles. That is, the state of the entire system must be symmetric to the interchange of two indistinguishable bosons and antisymmetric to the interchange of two indistinguishable fermions. In the many-particle quantum mechanics formalism, this can be rather cumbersome even when dealing with a noninteracting system. Another shortcoming with this description of quantum mechanics is that the number of particles of each species must be fixed. Hence it is not possible to have particle creation nor particle annihilation, which is necessary for certain processes.
 
@@ -155,7 +149,7 @@ In order to demonstrate some important properties of $ \Gt(\vec k, \tau) $ the u
 	\sum_\nu | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-(\xi_\nu - \xi_\text{vac})\tau}
 	\; , \quad \tau \geq 0 \,.
 \end{equation}
-Here it is has beed used that $ \xi_\text{vac} $ is the vacuum energy, i.e.\ $ \hat K \, | \text{vac} \rangle = \xi_\text{vac} \, | \text{vac} \rangle $. For the Fröhlich Hamiltonian to be considered later, $ \xi_\text{vac} = 0 $ and will therefore be ignored in the remaining calculation. Rather than working with some unknown set $ \{ \nu \} $, it is more convenient to parametrize using the frequency. This is done by introducing the spectral density function
+Here it is has been used that $ \xi_\text{vac} $ is the vacuum energy, i.e.\ $ \hat K \, | \text{vac} \rangle = \xi_\text{vac} \, | \text{vac} \rangle $. For the Fröhlich Hamiltonian to be considered later, $ \xi_\text{vac} = 0 $ and will therefore be ignored in the remaining calculation. Rather than working with some unknown set $ \{ \nu \} $, it is more convenient to parametrize using the frequency. This is done by introducing the spectral density function
  \begin{equation}
 	g_{\vec{k}} (\omega)
 	\equiv \sum_\nu \delta (\omega - \xi_\nu) \, | \langle \nu | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 \,,
@@ -171,11 +165,11 @@ Assuming the Green's function to be that of an electron ($ \hat c_{\vec k} \righ
 	\label{eq:longTimeLimit}
 	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- \xi_0(\vec k) \tau} \,,
 \end{equation}
-where $ Z_0^{\vec k} = | \langle \nu_{0, \vec k} | \vec k \rangle |^2 $ is the bare-electron factor.
-
-\begin{itemize}
-	\item \todo{Need to somehow introduce $ E_0 = \xi_0  + \mu $. N = 1 since vacuum GS.}
-\end{itemize}
+where $ Z_0^{\vec k} = | \langle \nu_{0, \vec k} | \vec k \rangle |^2 $ is the bare-electron factor. The corresponding energy eigenvalue $ E_0 $ of the Hamiltonian $ \hat H $ is according to the definition of the grand canonical Hamiltonian given by
+\begin{equation}
+	E_0(\vec k) = \xi_0 (\vec k) + \mu \,.
+\end{equation}
+This because there is only one electron present in the system in the case of a single particle Green's function. Finally, since $ \hat H $ is independent of $ \mu $, this must also be true for $ E_0 $, which is the reason to this energy being studied rather than $ \xi_0 $.
 
 \subsection{Bare single-particle Green's function}
 
@@ -196,7 +190,7 @@ in the limit of an infinite system.
 
 \section{Derivation of the Fröhlich Hamiltonian}
 
-What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields} \cite{electronsInLatticeFields}. In this section the original derivation will be outlined with attention directed towords details important for the thesis.
+What will happen to a dielectric medium if one introduces a charged particle, and how will this particle react to changes in the dielectric medium? These are questions which Herbert Fröhlich answered in his 1954 paper \textit{Electrons in lattice fields} \cite{electronsInLatticeFields}. In this section the original derivation will be outlined with attention directed towards details important for the thesis.
 
 \subsection{Classical picture}
 
@@ -204,12 +198,12 @@ Consider a diatomic crystal, e.g.\ rock salt. Such a crystal is made up out of i
 
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Crystal illustration/description"}.pdf}
+	\begin{subfigure}[c]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Crystal_illustration/description"}.pdf}
 		\caption{The filled circles illustrate four types of charges. The color represent the charge sign; the ones to the left are positively charged and the ones to the right are negatively charged. The quantity of charge is represented by the size; the charges have the same charge quantity within each row, but the ones in the top row have a weaker charge than the ones in the bottom row.}
 	\end{subfigure}\hfill
-	\begin{subfigure}[b]{0.45\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Crystal illustration/crystal"}.pdf}
+	\begin{subfigure}[c]{0.45\textwidth}
+		\includegraphics[width=\textwidth]{{"Images/Crystal_illustration/crystal"}.pdf}
 		\caption{A layer of a diatomic crystal. This particular crystal has a face-centered cubic structure.}
 	\end{subfigure}
 	\caption{}
@@ -231,12 +225,12 @@ so that
 \end{equation}
 Here $ Q $ is the charge of the electron and the second equality is to be thought of as valid only as a distribution. In agreement with the definition of the $ \vec D $-field the electric field due to the bound charges is defined as $ \vec E_\text{bound} = - 4 \pi \vec P $ since $ \vec D = \vec E + 4 \pi \vec P = \vec E - \vec E_\text{bound} \equiv \vec E_\text{free} $.
 
-The interaction energy, which is minimized when the $ \vec D $-field is parallel to the polarization, is given by \question{(why!? Dipole something? maybe postulated)}
+The interaction energy, which is minimized when the $ \vec D $-field is parallel to the polarization, is given by 
 \begin{equation}
 	\label{eq:interaction_energy}
 	E_\text{int} = - \int_V \vec D(\vec x, \vec x_\text{e}) \cdot \vec P(\vec x) \diff^3 x \,.
 \end{equation}
-By introducing a scalar potential to the bound electric field, $ \vec E_\text{bound}= - \nabla \Phi $, this interaction energy may be re-expressed as 
+Introducing a scalar potential to the bound electric field, $ \vec E_\text{bound}= - \nabla \Phi $, this interaction energy may be re-expressed as 
 \begin{equation}
 	\label{eq:interaction_energy_calculation}
 	%\resizebox{\hsize}{!}{$
@@ -266,11 +260,11 @@ Since each lattice point in the crystal is occupied by a ion, the dynamics of th
 \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/uv polarization"}.pdf}
+                \includegraphics[width=\textwidth]{{"Images/Crystal_illustration/uv_polarization"}.pdf}
                 \caption{Deformation of the ions at a time $ t \approx t_\text{uv} $.}
         \end{subfigure}\hfill
         \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/Crystal illustration/ir polarization"}.pdf}
+                \includegraphics[width=\textwidth]{{"Images/Crystal_illustration/ir_polarization"}.pdf}
                 \caption{Deformation of the lattice at a time $ t' \approx t_\text{ir} \gg t $.}
         \end{subfigure}
         \caption{}
@@ -452,7 +446,7 @@ where the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $ of the oscilla
 The commutation relations satisfied by $ \hat b^\dagger_{\vec q} $ and $ \hat b_{\vec q} $ are the same as (\ref{eq:boseOperators}), implying that these operators are nothing but the creation and annihilation operators of a bosonic field. The polarization field $ \vec P $ can then be tough of as being represented by a set of harmonic oscillators each corresponding to a quantized mode of vibration in the lattice, i.e.\ a phonon. Since the frequency of the phonons is momentum independent they it is said to be dispersionless. For optical phonons which couple to infrared radiation, this is at low momenta a good approximation as shown in the figure \ref{fig:phononDispersionRelation}.
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=0.4\textwidth, ]{{"Images/Dispersion relation/dispersion relation"}.pdf}
+ 	\includegraphics[width=0.4\textwidth, ]{{"Images/Dispersion_relation/dispersion_relation"}.pdf}
 	\caption{The upper and lower curves illustrate the characteristics of an optical and acoustic dispersion relation respectively. The outlined orange region suggests were the optical dispersion relation may be well approximated as momentum independent.}
 	\label{fig:phononDispersionRelation}
 \end{figure}
@@ -1082,10 +1076,10 @@ Starting with the condition of ergodicity, this is the requirement that the Mark
 \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.5\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/State space illustration/state-space-connected"}.pdf}
+                \includegraphics[width=\textwidth]{{"Images/State_space_illustration/state-space-connected"}.pdf}
         \end{subfigure}\hfill
         \begin{subfigure}[b]{0.45\textwidth}
-                \includegraphics[width=\textwidth]{{"Images/State space illustration/state-space-disconnected"}.pdf}
+                \includegraphics[width=\textwidth]{{"Images/State_space_illustration/state-space-disconnected"}.pdf}
         \end{subfigure}
         \caption{Illustrated is a state space consisting of the five possible states A, B, C, D and E, for which two Markov processes are constructed. For these processes all transitions which have a non-zero probability are depicted with an arrow. It is then clear that the Markov process to the left satisfy ergodicity whilst the one to the right does not.}
         \label{fig:stateSpaceIllustration}

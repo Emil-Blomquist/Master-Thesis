@@ -34,7 +34,7 @@ allowing it to be substituted against $ f $ in (\ref{eq:acceptanceRatio}) so tha
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/First example"}.pdf}
+ 	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/First_example"}.pdf}
 	\caption{An illustration of the constructed Markov process for sampling the states $ \xi_0 = 0 $ and $ \xi_1 = 1 $ referred to as $ 1 $ and $ C $ respectively.}
 	\label{fig:example1}
 \end{figure}
@@ -68,7 +68,7 @@ in order for the Markov process to generate states according to the probability 
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Examples/Second example"}.pdf}
+ 	\includegraphics[width=\textwidth, ]{{"Images/Examples/Second_example"}.pdf}
 	\caption{An illustration of the constructed Markov process for sampling the states $ 1 $ and $ x $.}
 	\label{fig:example2}
 \end{figure}
@@ -114,7 +114,7 @@ Analogously to the former examples the function $ D_n $ is normalizable and may 
 
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/Third example"}.pdf}
+ 	\includegraphics[width=0.9\textwidth, ]{{"Images/Examples/Third_example"}.pdf}
 	\caption{An illustration of the constructed Markov process for sampling the states $ 1 $, $ x $ and $ (y, z) $.}
 	\label{fig:example3}
 \end{figure}
@@ -161,7 +161,9 @@ By defining $ N_0 $ and $ N $ in accordance to what was done in the previous exa
 	= 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
-\section{Implementation}
+\section{Bare scheme for $ \Gt $}
+
+%\section{Implementation}
 
 The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The sum of integrals (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. Representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
 \begin{equation}
@@ -197,6 +199,8 @@ where $ \tilde \Dt^{(0)}(\vec q, \tau) $ is a phonon propagator which has absorb
 which is a quantity always larger than or equal to zero. The integrand of each and every integral in the integral sum will be entirely made up out of $ \Gt^{(0)} $'s and $ \tilde \Dt^{(0)} $'s which implies that every contribution to $ \Gt $ is a positive contribution. This will simplify the DMC implementation since it wont be necessary to calculate what sign each sampled parameter space state comes with.
 
 The external parameters $ \vec p $ and $ \tau $ will be the only ones allowed to change during the Markov process. Including $ \alpha $ and/or $ \mu $ would cause the parameter space to increase and the statistics to be spread out. Thus more computation time would be needed to calculate quantities to the same level of certainty as having $ \alpha $ and $ \mu $ fixed.
+
+\subsection{Implementation}
 
 The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ and the resolution is chosen in terms of $ \Delta p = p_\text{max} / N$ and $ \Delta \tau = \tau_\text{max} / M $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables in the Markov process. The bin $ N_{i,j} $ of the histogram will then be covering the range $ p \in [p_i - \dotDelta p, \, p_i + \dotDelta p] $ and $ \tau \in [\tau_j - \dotDelta \tau, \, \tau_j + \dotDelta \tau] $ of the external parameter values, where $ \dotDelta x \equiv \Delta x / 2 $ is introduced for a more convenient notation. The value of every bin in the histogram along with $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt^{(0)}(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by unity, if not, the bin in the histogram according to the external parameters is instead increased by unity. By doing this, the quantities $ N_0 $ and $ N_{i,j} $ can be shown to be proportional to
 \begin{equation}
@@ -238,7 +242,7 @@ Since the vertex contribution now is obtain in the $ \tilde \Dt^{(0)} $'s, the s
 
 Code-wise each node, $ \tilde \Dt^{(0)} $ and $ \Gt^{(0)} $ is an instance of their corresponding class. Each propagator have a reference to both the start and endpoint node, and similarly the nodes have information about to which propagators they are attached. Further more the $ \Gt^{(0)} $'s are stored in a chronologically ordered list whilst the $ \tilde \Dt^{(0)} $'s are stored in an unordered list.
 
-\section{Bare scheme update procedures for $ \Gt$}
+\subsection{Update procedures}
 \label{eq:secSampleGBare}
 
 
@@ -925,10 +929,10 @@ Here follow some results obtained when simulating $ \Gt $ using the bare scheme 
 		\end{tabular}
 	\end{center}
 	\caption{Some values of $ \Gt(p, \alpha, \mu) $ from the plots in figure \ref{fig:GOft}.}
-	\label{tab:truthTables}   
+	\label{tab:truthTablesG}   
 \end{table}
 
-\section{Bare scheme update procedures for $ \Sigma^* $}
+\section{Bare scheme for $ \Sigma^* $}
 
 Rather than calculating $ \Gt(\vec p, \tau) $ directly using DMC, it is also possible to instead simulate the proper self energy $ \Sigma^*(\vec p, \tau) $, from which the electronic propagator then is calculated using the Dyson equation (\ref{eq:dysonEquation}).
 In order to do this, the random walk must now cover diagrams without external legs but also be able to reach the bare propagator $ \Gt^{(0)} $ for normalization purposes. This is easily accomplished by a slight modification of some of the update procedures introduced in the previous section, and will be discussed in more detail shortly.
@@ -942,7 +946,9 @@ However, before that, it is important to realize that no longer all types of dia
 \end{equation}
 An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt^{(0)} $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm. To recapitulate, all self energy diagrams (together with the bare propagator for normalization purposes) should be sampled, but only proper ones are allowed to increment the bins values $ N_{i,j} $ of the histogram.
 
-Now, returning to the update procedures, there are only two which need to be modified. The others stay the same but might have some trivial change of notation for quantities, such as $ \langle \vec p \rangle_{0,2n} \rightarrow \langle \vec p \rangle_{0, 2n-1} $ in the case of the \textit{change of external momentum} procedure.
+\subsection{Update procedures}
+
+Returning to the update procedures, there are only two which need to be modified in order to incorporate\question{(?)} the changes required for this new scheme. The others stay the same but might have some trivial change of notation for quantities, such as $ \langle \vec p \rangle_{0,2n} \rightarrow \langle \vec p \rangle_{0, 2n-1} $ in the case of the \textit{change of external momentum} procedure.
 
 \subsection*{Change of diagram length in time, type 1}
 
@@ -1077,7 +1083,7 @@ The transitions between diagrams of order $ n > 0 $, as introduce in section \re
 Hence the "$ 2n + 1 $" in equation (\ref{eq:transitionUp}) and (\ref{eq:changeOrderR}) should be replaced by "$ 2n - 1 $" to incorporate this.
 
 
-\subsection{Divergent diagram}
+\subsection{The divergent diagram}
 
 
 It can be shown that the first order self energy diagram $ \Sigma^{*(1)}(\vec p, \tau) $ is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \dotDelta x < x < x_i + \dotDelta x $ (again $ \dotDelta x \equiv \Delta x / 2 $ has been used) with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
@@ -1092,7 +1098,7 @@ It can be shown that the first order self energy diagram $ \Sigma^{*(1)}(\vec p,
 In order for this mean value to be well approximated by $ f(x_i) $, it is required that $ f''(x_i) \, [\Delta x]^2 \ll f(x_i) $. However, in the case of $ f(x) = 1/\sqrt x $ and $ x_i = \dotDelta x $ this is not the case, no matter the size of $ \Delta x $, since $ f''(x_i) \, [\Delta x]^2 = 3 \sqrt 2 / \sqrt{ \Delta x} $ whilst $ f(x_i) = 2 / \sqrt{\Delta x} $. The ability of a histogram to approximate the function $ 1/ \sqrt x $ in the vicinity of $ x = 0 $ is illustrated in figure \ref{fig:HistogramApproximationOfDivergentDistribution}.
 \begin{figure}[H]
 	\centering
- 	\includegraphics[width=\textwidth, ]{{"Images/Histogram illustration/Divergent distribution"}.pdf}
+ 	\includegraphics[width=\textwidth, ]{{"Images/Histogram_illustration/Divergent_distribution"}.pdf}
 	\caption{The function $ 1/ \sqrt x $ approximated by a histogram with bin size $ \Delta x  = 0.02 $ in the vicinity of $ x = 0 $. As can be seen, the approximative value at $ x = 0.01 $ is quite far off from the true one.}
 	\label{fig:HistogramApproximationOfDivergentDistribution}
 \end{figure}
@@ -1187,10 +1193,10 @@ Here follow some results obtained when simulating $ \Sigma^* $ using the bare sc
 		\end{tabular}
 	\end{center}
 	\caption{Some values of $ \Sigma^*(p, \alpha, \mu) $ from the plots in figure \ref{fig:SOft}.}
-	\label{tab:truthTables}   
+	\label{tab:truthTablesS}   
 \end{table}
 
-\subsection{Implementing Dyson equation numerically}
+\subsection{Numerically implementing Dyson equation}
 
 It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. First of all, the proper self energy must be transformed into frequency space, but due to the singularity at $ \tau = 0 $ it is not preferable to transform this quantity directly. However, knowing the analytical expression of this singular contribution, it can then be subtracted from the self energy so that the discrete Fourier transform may be applied only to the resulting regular expression. The singular part is then Fourier transformed analytically and once in $ \omega $-space it is added to the transformed regular expression. That is,
 \begin{equation}
@@ -1222,16 +1228,16 @@ In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/GfromSminusG/dt=0.02"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/GfromSminusG/dt_0_02"}.pdf}
 	\end{subfigure} \\
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/GfromSminusG/dt=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/GfromSminusG/dt_0_01"}.pdf}
 	\end{subfigure}
 	\caption{The relative difference between $ \Gt_{\Sigma^*} $ obtained using Dyson equation and the directly simulated $ \Gt $. For each of these simulations a core time of 24 hours has been used.}
 	\label{fig:dysonDifference}
 \end{figure}
 
-\section{Bold-line scheme \question{?}}
+\section{Bold-line scheme}
 
 The bold-line scheme \cite{PhysRevLett.99.250201} is a self consistent scheme making use of bold-line tricks iteratively in order to partially of fully sum up a diagram series. Dyson equation is one such bold-line trick and is the only one to be investigated in this thesis.
 
@@ -1720,7 +1726,7 @@ Similarly to before, by substituting with $ \Gt_2 $ into $ \Gt_3 $, one obtains
 \end{fmffile}%
 Already at this point, a wide range of diagrams contribute to $ \Gt_3 $. However, even if one continues this iterative process, a skeleton diagram in which the phonon propagators intersect wont be encountered in the series.
 
-\subsection{Implementation}
+\subsection{Implementation and update procedures}
 
 The diagram update procedures, for bold-line iterations $ k > 1 $, need to be altered in order to account for the replacement of the bare propagators within the diagram in favor of $ \Gt_k $. However, rather than expressing $ \Gt_k $ in terms of the difference $ \Delta \Gt_k $ to the bare propagator, it is more convenient to work with an additional imaginary phase $ \varphi_k (\vec p, \tau) $, so that
 \begin{equation}
@@ -1756,7 +1762,7 @@ but the only diagrams allowed to contribute to the histogram are this time the s
 \subsection{Results}
 
 
-\todo{--------- Continue from here ---------}
+\todo{--------- Continue correcting from here ---------}
 
 Nine different simulations for an increasing value of the maximum diagram order $ n_\text{max} $ has been carried out using the discretization $ \Delta \tau = 0.02 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and $ \tau_\text{max} = 60 $. With larger $ n_\text{max} $, the statistics became significantly more contaminated by noise. Thus, in order to try and suppress this noise, the computation for each iteration in the bold-line scheme needed to be increased. The number of core hours needed quickly outgrew what was possible to calculate using a single core in a foreseeable future, hence the code was parallelized using the \textit{Message Passing Interface} (MPI).
 
@@ -1765,7 +1771,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=1_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_1_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 13 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax1}
@@ -1774,7 +1780,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=2_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_2_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 13 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax2}
@@ -1783,7 +1789,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=3_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_3_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 15 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax3}
@@ -1792,7 +1798,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=4_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_4_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 15 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax4}
@@ -1801,7 +1807,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=5_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_5_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 15 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax5}
@@ -1810,7 +1816,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=6_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_6_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 28 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax6}
@@ -1819,7 +1825,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=7_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_7_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 44 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax7}
@@ -1828,7 +1834,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=8_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_8_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 65 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax8}
@@ -1837,7 +1843,7 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
-		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax=9_p=0.01"}.pdf}
+		\includegraphics[width=\textwidth]{{"Images/Plots/bold/boldplot_a_nmax_9_p_0_01"}.pdf}
 	\end{subfigure}
 	\caption{A total core time of 203 days was used for each of the four iterations in the bold-line scheme.}
 	\label{fig:boldNmax9}
@@ -1869,7 +1875,7 @@ Unfortunately there was only four iterations used in the bold-line scheme, which
 
 Even with these shortcomings, it is from the presented result apparent that $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ approach the true values $ E_0 $ and $ Z_0 $ respectively as $ n_\text{max} $ and $ k $ increase.
 
-\section{Numerical \question{and analytical (!?)} Results}
+\section{Numerical Results of $ E_0 $ and $ Z_0 $}
 
 This thesis would not be complete without presenting some general quantities of interest to do with the polaron. Here numerous simulations of $ \Gt $ has been carried out using the bare scheme for $ \Sigma^* $ with different values of the interaction parameter $ \alpha $ and the external momentum $ \vec p $ from which $ E_0 $ and $ Z_0 $ then have been extracted. The result is presented in figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA} but also in table \ref{tab:EandZvsPandA}. The computation time for each data point range from two to twelve core hours, providing a standard deviation smaller than $ 5 \cdot 10^{-4} $. For comparison these numerically computed quantities are presented next to corresponding ones obtained using traditional analytical perturbative methods.
 

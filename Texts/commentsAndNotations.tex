@@ -14,47 +14,47 @@
 	\item \todo{Todo, things which need to be done at some point}
 \end{itemize}
 
-\newpage
-
-\section*{Notations}
-
-\subsection*{Units}
-
-Throughout this text $ k_\text{B} = \hbar = 1 $ has been used. With this notation there no difference between wave vectors and momentum.
-
-
-\subsection*{Fourier transform \todo{remove this since it is not the case}}
-
-A function $ f(x) $ which is defined and integrable on the interval $ x \in [-L/2, \, L/2] $ may be represented as a Fourier series. In this thesis the following convention will be used
-
-\begin{equation}
-	c_k
-	\equiv \int_{-L/2}^{L/2} f(x) \, e^{-i k \cdot x} \diff x
-	\quad \Rightarrow \quad
-	f(x)
-	= \frac{1}{L} \sum_{k} c_k \, e^{i k \cdot x} \,.
-\end{equation}
-where the wave vectors are given by $ k = 2 \pi n / L $ and $ n \in \mathbb{Z} $. In the limit $ L \rightarrow \infty $ the Fourier transform is defined accordingly
-
-\begin{equation}
-	\hat f(k)
-	\equiv \int_\mathbb{R} f(x) \,e^{-i k \cdot x} \diff x
-	\quad \Rightarrow \quad
-	f(x)
-	= \frac{1}{2\pi} \int_\mathbb{R} \hat f(k) \, e^{i k \cdot x} \diff k \,.
-\end{equation}
-
-\question{How does this definition affect the conjugate variables in the derivation of the Fröhlich Hamiltonian?}
-
-\todo{
-Perhaps mention something about DOS and motivate
-
-\begin{equation}
-	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,.
-\end{equation}
-
-% http://web.ift.uib.no/AMOS/nazila/LaserAndLight/node8.html
-}
+%\newpage
+%
+%\section*{Notations}
+%
+%\subsection*{Units}
+%
+%Throughout this text $ k_\text{B} = \hbar = 1 $ has been used. With this notation there no difference between wave vectors and momentum.
+%
+%
+%\subsection*{Fourier transform \todo{remove this since it is not the case}}
+%
+%A function $ f(x) $ which is defined and integrable on the interval $ x \in [-L/2, \, L/2] $ may be represented as a Fourier series. In this thesis the following convention will be used
+%
+%\begin{equation}
+%	c_k
+%	\equiv \int_{-L/2}^{L/2} f(x) \, e^{-i k \cdot x} \diff x
+%	\quad \Rightarrow \quad
+%	f(x)
+%	= \frac{1}{L} \sum_{k} c_k \, e^{i k \cdot x} \,.
+%\end{equation}
+%where the wave vectors are given by $ k = 2 \pi n / L $ and $ n \in \mathbb{Z} $. In the limit $ L \rightarrow \infty $ the Fourier transform is defined accordingly
+%
+%\begin{equation}
+%	\hat f(k)
+%	\equiv \int_\mathbb{R} f(x) \,e^{-i k \cdot x} \diff x
+%	\quad \Rightarrow \quad
+%	f(x)
+%	= \frac{1}{2\pi} \int_\mathbb{R} \hat f(k) \, e^{i k \cdot x} \diff k \,.
+%\end{equation}
+%
+%\question{How does this definition affect the conjugate variables in the derivation of the Fröhlich Hamiltonian?}
+%
+%\todo{
+%Perhaps mention something about DOS and motivate
+%
+%\begin{equation}
+%	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,.
+%\end{equation}
+%
+%% http://web.ift.uib.no/AMOS/nazila/LaserAndLight/node8.html
+%}
 
 
 \todo{
