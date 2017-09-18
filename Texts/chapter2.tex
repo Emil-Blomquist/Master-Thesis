@@ -1,13 +1,13 @@
 % !TEX root = ../thesis.tex
 
-First up in this chapter is a brief summary of quantum field theories, both at zero and finite temperature, followed by a rather detailed derivation of the Fröhlich Hamiltonian. After this it will be illustrated how one can treat an interacting theory perturbatively in terms of pictorial Feynman diagrams. Finally there will be a short introduction to Monte Carlo methods.
+First up in this chapter is a brief summary of quantum field theories, both at zero and finite temperature, followed by a rather detailed derivation of the Fröhlich Hamiltonian. After this follows an illustration of how one can treat an interacting theory perturbatively in terms of pictorial Feynman diagrams. Finally there will be a short introduction to Monte Carlo methods.
 
 
 \section{Quantum field theories}
 
 \subsection{Single- and many-particle quantum mechanics}
 
-In quantum mechanics the state of a particle $ | \psi \rangle $ can be projected onto the position basis $ | \vec x \rangle $ to form a wave function $ \langle \vec x | \psi \rangle = \psi (\vec x) $. In the Schrödinger picture, the dynamics is contained within the states $ | \psi \rangle = | \psi (t) \rangle $ so that $ \psi(\vec x) = \psi(\vec x, t) $ and the time evolution of which is governed by the Schrödinger equation (in the non-relativistic limit). The quantity $ \psi^*(\vec x, t) \psi(\vec x, t) $ is real, and according to the Copenhagen interpretation of quantum mechanics \cite{HermannWimmel} it is to be interpreted as the probability density function. From this, the expectation value of some quantity, e.g.\ the position of the particle, is acquired through
+In quantum mechanics the state of a particle $ | \psi \rangle $ can be projected onto the position basis $ | \vec x \rangle $ to form a wave function $ \langle \vec x | \psi \rangle = \psi (\vec x) $. In the Schrödinger picture, the dynamics is contained within the states $ | \psi \rangle = | \psi (t) \rangle $ so that $ \psi(\vec x) = \psi(\vec x, t) $ the time evolution of which is governed by the Schrödinger equation (in the non-relativistic limit). The quantity $ \psi^*(\vec x, t) \psi(\vec x, t) $ is real, and according to the Copenhagen interpretation of quantum mechanics \cite{HermannWimmel} it is to be interpreted as the probability density function. From this, the expectation value of some quantity, e.g.\ the position of the particle, is acquired through
 \begin{equation}
 	\begin{split}
 		\langle \vec x(t) \rangle
@@ -18,17 +18,17 @@ In quantum mechanics the state of a particle $ | \psi \rangle $ can be projected
 		&= \langle \psi(t) | \, \hat{\vec x} \, | \psi(t) \rangle \,.
 	\end{split}
 \end{equation}
-To reach the final equality it has been used that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and also that this basis is orthonormal and complete so that the unity operator may be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
+To reach the final equality utilization has been made of the fact that the position basis is an eigenbasis of the position operator $ \hat{\vec x} | \vec x \rangle = \vec x | \vec x \rangle $ and also that this basis is orthonormal and complete so that the unity operator may be expressed as $ \hat \eye = \sum_{\vec x} | \vec x \rangle \langle \vec x | $.
 
-What has been described so far is a quantum mechanical system of merely a single particle. In order to describe a system of more than one particle, this formalism need to be generalized to a many-particle description. When doing this, care need to be taken to the statistics of indistinguishable particles. That is, the state of the entire system must be symmetric to the interchange of two indistinguishable bosons and antisymmetric to the interchange of two indistinguishable fermions. In the many-particle quantum mechanics formalism, this can be rather cumbersome even when dealing with a noninteracting system. Another shortcoming with this description of quantum mechanics is that the number of particles of each species must be fixed. Hence it is not possible to have particle creation nor particle annihilation, which is necessary for certain processes.
+What has been described so far is a quantum mechanical system of a single particle. In order to describe a system of more than one particle, this formalism need to be generalized to a many-particle description. When doing this, attention needs to be paid to the statistics of indistinguishable particles. That is, the state of the entire system must be symmetric with respect to the interchange of two indistinguishable bosons and antisymmetric to the interchange of two indistinguishable fermions. In the many-particle quantum mechanics formalism, this can be rather cumbersome even when dealing with a noninteracting system. Another shortcoming with this description of quantum mechanics is that the number of particles of each species must be fixed. Hence it is not possible to have particle creation or particle annihilation, which is necessary for certain processes.
 
 \subsection{Second-quantization}
 
 The second quantization \cite{quantumTheoryOfManyParticleSystems, AbrikosovGorkov} is a Hamiltonian based method for constructing a quantum field theory. Such a theory does not have the shortcomings of having a fixed set of particles as in the case of the many-particle description of quantum mechanics.
 
-Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states in order to incorporate the statistics, the total system state will now be expressed using occupation numbers. That is, in this representation the only information given is for each species of particle, the number of particles occupying what states. For example, given the following set of single-particle states $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $, the expression describing a state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ is occupied by three and two particles respectively would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
+Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states in order to incorporate the statistics, the total system state will now be expressed using occupation numbers. That is, in this representation the only information given is for each species of particle, what number of particles occupies which states. For example, given the following set of single-particle states $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $, the expression describing a state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ are occupied by three and two particles respectively would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
 
-In order to allow for the number of particles to be variable the Fock space is used. This space is a combination of Hilbert state spaces for any number of particles; from the empty vacuum state to a state with infinite particles. In order to create and annihilate a particle of a certain quantum number, creation $ \hat c^\dagger_\nu $ and annihilation $ \hat c_\nu $ operators are used. It can be shown that they are the Hermitian conjugate of one another which motivates the notation. These operators incorporate the underlaying statistics of the particle at hand by a set of commutation relations. For bosons they are
+In order to allow for the number of particles to be variable the Fock space is used. This space is a combination of Hilbert state spaces for any number of particles; from the empty vacuum state to a state with infinite particles. In order to create and annihilate a particle of a certain quantum number, creation $ \hat c^\dagger_\nu $ and annihilation $ \hat c_\nu $ operators are used. It can be shown that they are the Hermitian conjugates of one another which motivates the notation. These operators incorporate the underlaying statistics of the particle at hand by a set of commutation relations. For bosons they are
 \begin{equation}
 	\label{eq:boseOperators}
 	[\hat a_i, \, \hat a^\dagger_j] = \delta_{ij}
@@ -42,7 +42,7 @@ These commutation relations are, for each single-particle state, identical to th
 	\{ \hat b_i, \, \hat b_j \} = \{ \hat b^\dagger_i, \, \hat b^\dagger_j \} = 0 \,.
 \end{equation}
 
-The second-quantized Hamiltonian may be constructed by translating single- and many-particle quantum mechanical operator into the second-quantized description. In the case of a one-body operator this is translation is rather intuitive. Here the second-quantization operator $ \hat O $ is given by \cite{quantumTheoryOfManyParticleSystems}
+The second-quantized Hamiltonian may be constructed by translating single- and many-particle quantum mechanical operators into the second-quantized description. In the case of a one-body operator this is translation is rather intuitive. Here the second-quantization operator $ \hat O $ is given by \cite{quantumTheoryOfManyParticleSystems}
 \begin{equation}
 	\label{eq:O1toO2}
 	\hat O = \sum_{\mu, \nu} \langle \mu | O | \nu \rangle \hat c^\dagger_{\mu} \hat c_{\nu} \,,
@@ -50,29 +50,29 @@ The second-quantized Hamiltonian may be constructed by translating single- and m
 where $ O $ is the first-quantized operator, $ \mu $ and $ \nu $ are quantum numbers labeling the set of orthonormal single-particle states $ \{ | \mu \rangle \} $ and $ \hat c^\dagger_\mu, \, \hat c_\mu $ being the corresponding second-quantized creation and annihilation operators.
 
 
-% One interesting property arise from the relation $ \{ \hat b^\dagger_i , \, \hat b^\dagger_i \} = \hat b^\dagger_i \hat b^\dagger_i + \hat b^\dagger_i \hat b^\dagger_i = 0 $, the implication of which become apparent when trying to create two or more particles sharing the same single-particle state; a zero will be multiplied by the resulting state. Hence all observables computed using such a state will be exactly zero. This would affect the physics equally to there being no state of this sort which of course is nothing but the Pauli exclusion principle.
+% One interesting property arises from the relation $ \{ \hat b^\dagger_i , \, \hat b^\dagger_i \} = \hat b^\dagger_i \hat b^\dagger_i + \hat b^\dagger_i \hat b^\dagger_i = 0 $, the implication of which become apparent when trying to create two or more particles sharing the same single-particle state; a zero will be multiplied by the resulting state. Hence all observables computed using such a state will be exactly zero. This would affect the physics equally to there being no state of this sort which of course is nothing but the Pauli exclusion principle.
 
 
 \subsection{Field operators}
 
-When having utilized the second-quantization formalism, the quantum mechanical system is described by a quantum field. That is, rather than being an operator as in single- and many-particle quantum mechanics, the position is now a parameter, just like the time.
+When having utilized the second-quantization formalism, the quantum mechanical system is described by a quantum field. That is, rather than being an operator as in single- and many-particle quantum mechanics, the position is now a parameter, just like time.
 
 Field operators are creation and annihilation operators just like any other. They have gained their special name simply because they change the occupation number of single-particle eigenstates of the position operator. That is, they create or annihilate a particle at a particular position in space. Using the set of complete orthonormal single-particle wave functions $ \{ \psi_{\nu}(\vec x) \} $ along with the corresponding creation and annihilation operators $ \hat c^\dagger_\nu $, $ \hat c_\nu $, these field operators may be constructed by the following superpositions \cite{quantumTheoryOfManyParticleSystems},
 \begin{equation}
 	\label{eq:fieldOperator}
 	\hat \psi (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x)
 	\; , \quad
-	\hat \psi^\dagger (\vec x) \equiv \sum_{\nu} \hat c_{\nu} \psi_{\nu}(\vec x) \,.
+	\hat \psi^\dagger (\vec x) \equiv \sum_{\nu} \hat c^\dagger_{\nu} \psi^*_{\nu}(\vec x) \,.
 \end{equation}
 The $ \hat \psi (\vec x) $ will annihilate a particle at position $ \vec x $ whilst the Hermitian conjugate $ \hat \psi^\dagger (\vec x) $ will do the opposite and create a particle at position $ \vec x $.
 
 
 
-\section{A few words about finite temperature formalism}
+\section{A few words on finite temperature formalism}
 
-In a zero temperature quantum field theory, the Heisenberg picture is normally used when calculating observables, i.e.\ $ O = \langle \Psi_0 |  \hat O_\text{H}  | \Psi_0 \rangle $. In this picture the operators are responsible for the time evolution of the observables whilst the state vectors are made time independent. This is achieved by letting the time evolution of the Schrödinger state vector $ | \Psi_0 (t) \rangle = e^{-i \hat H t}  | \Psi_0 \rangle $ be absorbed into the Heisenberg operator $ \hat O_\text{H}(t) \equiv e^{i \hat H t} \, \hat O_\text{S} \, e^{-i \hat H t} $. Since $ T = 0 $ in such a theory, one does not need to be concerned about thermodynamics when calculating an observable, even if the ground state is not the vacuum one.
+In a zero temperature quantum field theory, the Heisenberg picture is normally used when calculating observables, i.e.\ $ O = \langle \Psi_0 |  \hat O_\text{H}  | \Psi_0 \rangle $. In this picture the operators are responsible for the time evolution of the observables whilst the state vectors are made time independent. This is achieved by letting the time evolution of the Schrödinger state vector $ | \Psi_0 (t) \rangle = e^{-i \hat H t}  | \Psi_0 \rangle $ be absorbed into the Heisenberg operator $ \hat O_\text{H}(t) \equiv e^{i \hat H t} \, \hat O_\text{S} \, e^{-i \hat H t} $. Since the temperature $ T = 0 $ in such a theory, one does not need to be concerned about thermodynamics when calculating an observable, even if the ground state is not the vacuum one.
 
-For a finite temperature quantum field theory and a general system, this can of course no longer hold true. In order to incorporate the thermodynamics, the observables are no longer calculated by the expectation value of merely one ground state but as an ensemble average. In the case of a system with a variable number of particles, the grand canonical ensemble should be used. The partition function is then given by $ Z_\text{G} = \text{Tr} \, e^{-\beta (\hat H - \mu \hat N)} = \text{Tr} \, e^{-\beta \hat K} $ where $ \beta $ is the inverse temperature, $ \hat H $ is the Hamiltonian, $ \hat N $ is the number operator, $ \mu $ is the chemical potential and the trace is taken over a complete set of states. Introduced was also the grand canonical Hamiltonian $ \hat K \equiv \hat H - \mu \hat N $. In accordance to the partition function, the statistical operator is then defined as $ \hat \rho_\text{G} = e^{-\beta \hat K} / Z_\text{G} $ so that 
+For a finite temperature quantum field theory and a general system, this no longer holds true. In order to incorporate the thermodynamics, the observables are no longer calculated by the expectation value of merely one ground state but instead as an ensemble average. In the case of a system with a variable number of particles, the grand canonical ensemble should be used. The partition function is then given by $ Z_\text{G} = \text{Tr} \, e^{-\beta (\hat H - \mu \hat N)} = \text{Tr} \, e^{-\beta \hat K} $ where $ \beta $ is the inverse temperature, $ \hat H $ is the Hamiltonian, $ \hat N $ is the number operator, $ \mu $ is the chemical potential and the trace is taken over a complete set of states. Introduced was also the grand canonical Hamiltonian $ \hat K \equiv \hat H - \mu \hat N $. In accordance with the partition function, the statistical operator is then defined as $ \hat \rho_\text{G} = e^{-\beta \hat K} / Z_\text{G} $ so that 
 \begin{equation}
 	\label{eq:finiteTempObservable}
 	O
@@ -80,7 +80,7 @@ For a finite temperature quantum field theory and a general system, this can of 
 	\equiv
 	\text{Tr} \{ \hat \rho_\text{G} \, \hat O_\text{H}(t) \} \,.
 \end{equation}
-The operator product sandwiched between the state vectors in the equation above contain both real and imaginary exponents originating from the thermodynamics and quantum mechanics respectively. Following the Matsubara formalism \cite{Matsubara, quantumTheoryOfManyParticleSystems, AbrikosovGorkov}, one proceeds by introducing a new picture in order to treat the two types of exponents on an equal footing. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to the corresponding one in the Schrödinger picture as
+The operator product sandwiched between the state vectors in the equation above contains both real and imaginary exponents originating from the thermodynamics and quantum mechanics respectively. Following the Matsubara formalism \cite{Matsubara, quantumTheoryOfManyParticleSystems, AbrikosovGorkov}, one proceeds by introducing a new picture in order to treat the two types of exponents on an equal footing. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to the corresponding one in the Schrödinger picture as
 \begin{equation}
 	\label{eq:modHeisPic}
 	\hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} \,.
@@ -94,39 +94,39 @@ The single-particle Green's function, also known as the propagator, plays a cruc
 	i G_{\alpha \beta} (x, x')
 	\equiv \frac{\langle \Psi_0 | T[\hat \psi_{\text{H} \alpha} (x) \hat \psi^\dagger_{\text{H} \beta} (x')] |\Psi_0 \rangle}{\langle \Psi_0 |\Psi_0 \rangle}
 \end{equation}
-and gives the probability amplitude of an particle to travel from one point in space and time to another one. Here $ | \Psi_0 \rangle $ is the ground state vector in the Heisenberg picture, $ \hat \psi_{\text{H} \alpha}(x) $ is the $ \alpha $-th component of a field operator also in the Heisenberg picture, $ T[ \cdots ] $ orders the operators according to their time and $ x $, $ x' $ being position-time four vectors. This Green's function contains observable properties such as both the ground state energy and the excitation spectrum of the system.  By using the Lehman representation, the expectation value of any single-particle operator in the ground state of the system might also be extracted \cite{quantumTheoryOfManyParticleSystems}.
+and gives the probability amplitude of a particle traveling from one point in space and time to another one. Here $ | \Psi_0 \rangle $ is the ground state vector in the Heisenberg picture, $ \hat \psi_{\text{H} \alpha}(x) $ is the $ \alpha $-th component of a field operator also in the Heisenberg picture, $ T[ \cdots ] $ orders the operators according to their time while $ x $ and $ x' $ are position-time four-vectors. This Green's function contains observable properties such as the ground state energy and the excitation spectrum of the system. Using the Lehman representation, the expectation value of any single-particle operator in the ground state of the system might also be extracted.
 
-Above zero temperature, now working with an imaginary-time $ \tau $, the Green's function of interest is the temperature Green's function. In the imaginary-time and position representation, the corresponding single-particle temperature Green's function is defined through
+Above zero temperature, now working with an imaginary time $ \tau $, the Green's function of interest is the temperature Green's function. In the imaginary time and position representation, the corresponding single-particle temperature Green's function is defined through
 \begin{equation}
 	\Gt_{\alpha \beta} (x, x')
 	\equiv \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat \psi_{\text{K} \alpha}(x) \hat \psi^\dagger_{\text{K} \alpha}(x') ] \big\} \,.
 \end{equation}
-Here $ \psi_{\text{K} \alpha}(x) $ is the $ \alpha $-th component of a field operator in the modified Heisenberg picture, $ T_\tau [\cdots] $ orders the operators according to their value of $ \tau $,  $ \text{Tr} \{ \rho_\text{G} \cdots \} $ is the same weighted sum of inner products as mention before and $ x $, $ x' $ being position-imaginary-time four vectors. Since the temperature single-particle Green's function is not a function of time, it is only possible to directly extract from it observables which do not dependent on time, that is, thermodynamical observables. In order to obtain time dependent properties, one must first relate the temperature Green's function to a real-time Green's function. This is something which wont be of importance to this thesis and thus not discussed any further. From here on only the finite temperature formalism will be considered and whenever a Green's function is mention it will be understood that the single-particle temperature Green's function intended.
+Here $ \psi_{\text{K} \alpha}(x) $ is the $ \alpha $-th component of a field operator in the modified Heisenberg picture, $ T_\tau [\cdots] $ orders the operators according to their value of $ \tau $,  $ \text{Tr} \{ \rho_\text{G} \cdots \} $ is the same weighted sum of inner products as mentioned before while $ x $ and $ x' $ are position-imaginary time four-vectors. Since the temperature single-particle Green's function is not a function of time, it is only possible to directly extract from it observables which do not depend on time, that is, thermodynamic observables. In order to obtain time dependent properties, one must first relate the temperature Green's function to a real-time Green's function. This is something which will not be of importance to this thesis and thus will not be discussed any further. From here on only the finite temperature formalism will be considered and whenever a Green's function is mentioned it will be understood that the single-particle temperature Green's function is the one that is referred to.
 
-Assuming the Hamiltonian to time independent and translationally invariant, the Green's function will depend only on the difference $ \vec x - \vec x' $ and $ \tau - \tau' $ as soon shall be shown. By further imposing spin independency onto the Hamiltonian, the spin dependency of the Green's function may be factored out as $ \Gt_{\alpha \beta}(\vec x - \vec x', \tau - \tau ') = \delta_{\alpha \beta} \, \Gt(\vec x - \vec x', \tau - \tau') $. Thus, from this point and forward, when referring to a Green's function the spin dependency will be omitted.
+Assuming the Hamiltonian is time independent and translationally invariant, the Green's function will depend only on the difference $ \vec x - \vec x' $ and $ \tau - \tau' $ as soon shall be shown. By further imposing spin independency onto the Hamiltonian, the spin dependency of the Green's function may be factored out as $ \Gt_{\alpha \beta}(\vec x - \vec x', \tau - \tau ') = \delta_{\alpha \beta} \, \Gt(\vec x - \vec x', \tau - \tau') $. Thus, from this point and forward, when referring to a Green's function the spin dependency will be omitted.
 
-In the case of a cubic system with a finite volume $ V = l^3 $, accompanied by periodic boundary conditions, the single-particle wave functions and the eigenvalues of the momentum operator are given by
+In the case of a cubic system with a finite volume $ V = l^3 $, accompanied by periodic boundary conditions, the single-particle wave functions 
 \begin{equation}
 	\psi_{\vec k} (\vec x) = \frac{e^{i \vec k \cdot \vec x}}{\sqrt V}
 \end{equation}
-and
+correspond to eigenstates of the momentum operator with eigenvalues given by
 \begin{equation}
 	\label{eq:momentumQuantumNumbers}
 	k_i = \frac{2\pi}{l} n_i
 	\; ; \quad 
-	n_i = 0, \, \pm 1, \, \pm 2, \dots
+	n_i = 0, \, \pm 1, \, \pm 2, \dots \,.
 \end{equation}
-respectively. Constructing the field operators (\ref{eq:fieldOperator}) in terms of these, the expression for the Green's function may be transformed as
+Constructing the field operators (\ref{eq:fieldOperator}) in terms of these, the expression for the Green's function may be transformed as
 \begin{equation}
 	\begin{split}
 		\Gt (\vec x - \vec x', \tau - \tau ')
-		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec x') \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau) \hat c^\dagger_{\vec p}(\tau ')] \big\} \\
-		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^\dagger_{\vec p}(\vec x') \delta_{\vec k, \vec p} \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau - \tau') \hat c^\dagger_{\vec k}(0)] \big\} \\
+		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^*{\vec p}(\vec x') \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau) \hat c^\dagger_{\vec p}(\tau ')] \big\} \\
+		&= \sum_{\vec k, \vec p} \psi_{\vec k}(\vec x) \psi^*{\vec p}(\vec x') \delta_{\vec k, \vec p} \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau - \tau') \hat c^\dagger_{\vec k}(0)] \big\} \\
 		&= \frac{1}{V} \sum_{\vec k} e^{i \vec k \cdot ( \vec x - \vec x' )} \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c_{\vec k}(\tau - \tau') \hat c^\dagger_{\vec k}(0)] \big\} \\
 		&= \int \frac{\diff^3k}{(2\pi)^3} e^{i \vec k \cdot ( \vec x - \vec x' )}  \text{Tr} \big\{ \hat \rho_\text{G} \, T_\tau [\hat c(\vec k, \tau - \tau') \hat c^\dagger(\vec k, 0)] \big\} \,,
 	\end{split}
 \end{equation}
-where in the last equality the limit $ l \rightarrow \infty $ has been taken. In order to shift the time, the hermiticity of $ \hat K $ allows the trace to be expressed in terms of it's complete set of eigenstates $ \{ | \nu_{\vec k} \rangle \} $ for which $ \hat K \, | \nu_{\vec k} \rangle = \xi_{\vec k} | \nu_{\vec k} \rangle $. Then, since the Hamiltonian is time independent it will commutate with itself at any two times, implying that $ \exp \{ \hat K \tau - \hat K \tau' \} = \exp \{ \hat K \tau\} \exp \{- \hat K \tau' \} $. On the other hand, in the limit of an infinite system, the Green's function in momentum space is obtained through the Fourier transform
+where in the last equality the limit $ l \rightarrow \infty $ has been taken. In order to shift the time, the hermiticity of $ \hat K $ allowed for the trace to be expressed in terms of it's complete set of eigenstates $ \{ | \nu_{\vec k} \rangle \} $. Then, since the Hamiltonian is time independent it will commutate with itself at any two given times, implying that $ \exp \{ \hat K \tau - \hat K \tau' \} = \exp \{ \hat K \tau\} \exp \{- \hat K \tau' \} $. On the other hand, in the limit of an infinite system, the Green's function in momentum space is obtained through the Fourier transform
 \begin{equation}
 	\label{eq:defGpt}
 	\Gt (\vec x, \tau) = \int \frac{\diff^3 k}{(2 \pi)^3} \,  e^{i \vec k \cdot \vec x} \, \Gt (\vec k, \tau) \,.
@@ -138,12 +138,13 @@ Hence it must be the case that
 \end{equation}
 Assuming the ground state ensemble to be the vacuum state, i.e\ $ \text{Tr}\{ \hat \rho_\text{G} \cdots \} \rightarrow \langle \text{vac} | \cdots | \text{vac} \rangle $, this expression further simplifies into
 \begin{equation}
+	\label{eq:GptExpressionVac}
 	\Gt(\vec k, \tau) = \langle \text{vac} | \hat c(\vec k, \tau) \hat c^\dagger(\vec k, 0) | \text{vac} \rangle
-	\; , \quad \tau \geq 0 \,.
+	\; , \quad \tau \geq 0
 \end{equation}
-and is for all other imaginary-times identically zero. 
+and is for all other imaginary times identically zero. 
 
-In order to demonstrate some important properties of $ \Gt(\vec k, \tau) $ the unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $, constructed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ to the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = \xi_\nu(\vec p) \, | \nu (\vec p) \rangle $, is inserted into expression (\ref{eq:GptExpression}). By recalling that the annihilation operator in the modified Heisenberg picture (\ref{eq:modHeisPic}) is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ the expression then boils down to \cite{MishchenkoA.2000DqMC}
+In order to demonstrate some important properties of $ \Gt(\vec k, \tau) $ the unity operator $ \hat \eye = \sum_\nu | \nu \rangle \langle \nu | $, constructed in terms of the complete set of eigenstates $ \{ | \nu (\vec k) \rangle \} $ of the grand canonical Hamiltonian $ \hat K \, | \nu (\vec p) \rangle = \xi_\nu(\vec p) \, | \nu (\vec p) \rangle $, is inserted into expression (\ref{eq:GptExpressionVac}). By recalling that the annihilation operator in the modified Heisenberg picture (\ref{eq:modHeisPic}) is given by $ \hat c_{\vec k} (\tau) = e^{\hat K \tau} \, \hat c_{\vec k} (0) \, e^{- \hat K \tau} $ the expression then boils down to \cite{MishchenkoA.2000DqMC}
 \begin{equation}
 	\label{eq:startingPointFreePropagator}
 	\Gt(\vec k, \tau) =
@@ -161,18 +162,20 @@ through which the single-particle Green's function is expressed as
 	\Gt(\vec k, \tau) = \int g_{\vec k} (\omega) \, e^{- \omega \tau} \diff \omega
 	\; , \quad \tau \geq 0 \,.
 \end{equation}
-Assuming the Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 = | \langle \nu | \vec k \rangle |^2 $ is nothing more than the overlap of the eigenstate $ | \nu \rangle $ with free electron state of momentum $ \vec k $. If there exist a stable eigenstate $  | \nu_{0, \vec k} \rangle $ with energy $ \xi_0(\vec k) $, the spectral function should contain the term $ | \langle \nu_{0, \vec k} | \vec k \rangle |^2 \, \delta(\omega - \xi_0(\vec k)) $. Being a stable state, the energy $ \xi_0(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary-times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
+Assuming the Green's function to be that of an electron ($ \hat c_{\vec k} \rightarrow \hat a_{\vec k} $), the factor $ | \langle \nu | \hat a^\dagger_{\vec k} | \text{vac} \rangle |^2 = | \langle \nu | \vec k \rangle |^2 $ is nothing more than the overlap of the eigenstate $ | \nu \rangle $ with the free electron state of momentum $ \vec k $. If there exist a stable eigenstate $  | \nu_{0, \vec k} \rangle $ with energy $ \xi_0(\vec k) $, the spectral function should contain the term $ | \langle \nu_{0, \vec k} | \vec k \rangle |^2 \, \delta(\omega - \xi_0(\vec k)) $. Being a stable state, the energy $ \xi_0(\vec k) $ is lower than the corresponding energy of any other possible eigenstate. According to (\ref{eq:GInTermsOfSpec}), at imaginary times $ \tau \rightarrow \infty $, the sole contribution to the single-particle Green's function should come from this stable state. That is,
 \begin{equation}
 	\label{eq:longTimeLimit}
-	\Gt(\vec k, \tau \rightarrow \infty) = Z_0^{\vec k} e^{- \xi_0(\vec k) \tau} \,,
+	\Gt(\vec k, \tau \rightarrow \infty) = Z_0(\vec k) e^{- \xi_0(\vec k) \tau} \,,
 \end{equation}
-where $ Z_0^{\vec k} = | \langle \nu_{0, \vec k} | \vec k \rangle |^2 $ is the bare-electron factor. The corresponding energy eigenvalue $ E_0 $ of the Hamiltonian $ \hat H $ is according to the definition of the grand canonical Hamiltonian given by
+where $ Z_0(\vec k) = | \langle \nu_{0, \vec k} | \vec k \rangle |^2 $ is the bare-electron factor. The corresponding energy eigenvalue $ E_0 $ of the Hamiltonian $ \hat H $ is according to the definition of the grand canonical Hamiltonian given by
 \begin{equation}
 	E_0(\vec k) = \xi_0 (\vec k) + \mu \,.
 \end{equation}
-This because there is only one electron present in the system in the case of a single particle Green's function. Finally, since $ \hat H $ is independent of $ \mu $, this must also be true for $ E_0 $, which is the reason to this energy being studied rather than $ \xi_0 $.
+This because there is only one electron present in the system in the case of a single particle Green's function. Finally, since $ \hat H $ is independent of $ \mu $, this must also be true for $ E_0 $, which is the reason for this energy later being investigated rather than $ \xi_0 $.
 
 \subsection{Bare single-particle Green's function}
+
+\todo{------ Continue here ------}
 
 An eigenstate to a bare Hamiltonian, e.g.\ $ \hat K_0 = \sum_{\vec k} \xi^0_{\vec k} \hat c^\dagger_{\vec k} \hat c_{\vec k} $, is referred to as a bare or a free state. The energies $ \xi^0_{\vec k} $ are known from solving the corresponding problem in first-quantization. Reusing the previous assumptions and calculations, but $ \hat K $ every where replaced with $ \hat K_0 $, the bare Green's function in momentum space is found to be,
 \begin{equation}
@@ -628,18 +631,18 @@ In this thesis only the electronic single-particle Green's function will be stud
 	\item With each particle line associate a factor $ \Gt^{(0)} $ in case of an electron, and $ \Dt^{(0)} $ in case of a phonon.
 	\item Each vertex contributes with the factor $ V(\vec q) / \sqrt V $, where $ \vec q $ is the momentum of the phonon connected to this vertex.
 	\item Conserve the total momentum at every vertex.
-	\item The external legs should both be assigned the external momentum $ \vec p $ of the interacting Green's function $ \Gt(\vec p, \tau) $. The ingoing external leg should start at the imaginary-time $ 0 $ and the outgoing external leg should terminate at $ \tau $.
+	\item The external legs should both be assigned the external momentum $ \vec p $ of the interacting Green's function $ \Gt(\vec p, \tau) $. The ingoing external leg should start at the imaginary time $ 0 $ and the outgoing external leg should terminate at $ \tau $.
 	\item For each of the $ n $ internal momenta, sum over all allowed momentum values.
-	\item For each of the $ n $ internal imaginary-times, integrate from $ 0 $ to $ \beta $.
+	\item For each of the $ n $ internal imaginary times, integrate from $ 0 $ to $ \beta $.
 	\item Multiply each diagram with the factor $ (-1)^n $.
 \end{enumerate}
 In this thesis the single-particle Green's function will be studied in the limit $ V \rightarrow \infty $. Hence the sums over internal momenta should be replaced according to
 \begin{equation}
 	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,.
 \end{equation}
-Further more this will be studied at $ T = 0 $ implying that the upper limit of the imaginary-time integrals becomes infinite.
+Further more this will be studied at $ T = 0 $ implying that the upper limit of the imaginary time integrals becomes infinite.
 
-Since the ground state ensemble is equal to that of vacuum, the propagators become identically zero for negative imaginary-times. Because of this, the contribution from diagrams containing tadpoles, electron loops or similar structures vanish. This is illustrated in figure \ref{fig:vanishingContributions}.
+Since the ground state ensemble is equal to that of vacuum, the propagators become identically zero for negative imaginary times. Because of this, the contribution from diagrams containing tadpoles, electron loops or similar structures vanish. This is illustrated in figure \ref{fig:vanishingContributions}.
 \begin{figure}[H]
 	\begin{fmffile}{FMFFILEtadpoleAndLoop}
 		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}

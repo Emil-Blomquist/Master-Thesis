@@ -159,7 +159,7 @@ By defining $ N_0 $ and $ N $ in accordance to what was done in the previous exa
 
 \section{Bare scheme for simulating $ \Gt $}
 
-The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integrals series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. Representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
+The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integrals series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary times and momenta, where the internal momenta are chosen to be those of the phonon propagators. Representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
 \begin{equation}
 	\int \frac{\diff^3 q}{(2 \pi)^3}
 	\rightarrow
@@ -225,14 +225,14 @@ respectively. Omitting the errors due to discretization, the interacting electro
 	=
 	\Gt^{(0)}(\vec p_i, \tau_j) + N_{i, j} \frac{\sum_{k, l} \Gt^{(0)}(\vec p_k, \tau_l)}{N_0} \,.
 \end{equation}
-On the other hand, if the external momentum where to be held fixed at $ \vec p_0 $, the value of $ \Gt $ at the set of imaginary-times $ \{ \tau_j \} $ would similarly become
+On the other hand, if the external momentum where to be held fixed at $ \vec p_0 $, the value of $ \Gt $ at the set of imaginary times $ \{ \tau_j \} $ would similarly become
 \begin{equation}
 	\label{eq:GtofT}
 	\Gt(\vec p_0, \tau_j) = \Gt^{(0)}(\vec p_0, \tau_j) + N_j \frac{\sum_l \Gt^{(0)}(\vec p_0, \tau_l)}{N_0} \,,
 \end{equation}
 where the histogram $ N $ in such a case would be one dimensional.
 
-Since the vertex contribution now is obtain in the $ \tilde \Dt^{(0)} $'s, the start and endpoint of a propagator which might or might not connect to other propagators, are referred to as nodes. Each node is given an imaginary-time where the leftmost and rightmost nodes have $ \tau_0 = 0 $ and $ \tau_{2n + 1} = \tau $ respectively whilst the other nodes have times in between in such a way that the chronologization constraint is fulfilled. Having the imaginary-time stored within the nodes, the only variable needed to be stored within the propagators is their momentum.
+Since the vertex contribution now is obtain in the $ \tilde \Dt^{(0)} $'s, the start and endpoint of a propagator which might or might not connect to other propagators, are referred to as nodes. Each node is given an imaginary time where the leftmost and rightmost nodes have $ \tau_0 = 0 $ and $ \tau_{2n + 1} = \tau $ respectively whilst the other nodes have times in between in such a way that the chronologization constraint is fulfilled. Having the imaginary time stored within the nodes, the only variable needed to be stored within the propagators is their momentum.
 
 Code-wise each node, $ \tilde \Dt^{(0)} $ and $ \Gt^{(0)} $ is an instance of their corresponding class. Each propagator have a reference to both the start and endpoint node, and similarly the nodes have information about to which propagators they are attached. Further more the $ \Gt^{(0)} $'s are stored in a chronologically ordered list whilst the $ \tilde \Dt^{(0)} $'s are stored in an unordered list.
 
@@ -290,10 +290,10 @@ What remains to be discussed is how the sampling of states in parameter space oc
     			\end{tikzpicture}
 		\end{empheq}
 	\end{fmffile}%
-	\caption{The only affected parameter is the highlighted imaginary-time of the end point node.}
+	\caption{The only affected parameter is the highlighted imaginary time of the end point node.}
 	\label{fig:NORMALcodl1}
 \end{figure}
-This update procedure merely changes the external imaginary-time parameter $ \tau $, which is nothing but the diagram length in time. In the first update type this is achieved by altering the time of the end point node in the diagram, i.e. $ \tau \rightarrow \tau' $, as illustrated in figure \ref{fig:NORMALcodl1}. The only affected quantity of such an update will be the value of the very last $ \Gt^{(0)} $ in the diagram so that
+This update procedure merely changes the external imaginary time parameter $ \tau $, which is nothing but the diagram length in time. In the first update type this is achieved by altering the time of the end point node in the diagram, i.e. $ \tau \rightarrow \tau' $, as illustrated in figure \ref{fig:NORMALcodl1}. The only affected quantity of such an update will be the value of the very last $ \Gt^{(0)} $ in the diagram so that
 \begin{equation}
 	\frac{D_n(\tau')}{D_n(\tau)}
 	= \frac{\Gt^{(0)}(\vec p, \tau' - \tau_{2n})}{\Gt^{(0)}(\vec p, \tau - \tau_{2n})} 
@@ -370,7 +370,7 @@ By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\t
 	\label{fig:NORMALcodl2}
 \end{figure}
 
-This update procedure also changes the external imaginary-time parameter, although it does so in a slightly different manner by letting any $ \Gt^{(0)} $ in the diagram be lengthen or shortened in time, not just the last one. This is achieved using an uniform probability to pick any but the leading node in the diagram to assign a new imaginary-time $ \tau_k' $ from the interval $ [\tau_{k-1}, \, \tau_\text{max} - (\tau - \tau_k)] $. In order to only modify the length of the electronic propagator just in front of the chosen node, every node proceeding this node must clearly have the difference $ \tau_k' - \tau_k $  added to its time. This is illustrated in figure \ref{fig:NORMALcodl2}.
+This update procedure also changes the external imaginary time parameter, although it does so in a slightly different manner by letting any $ \Gt^{(0)} $ in the diagram be lengthen or shortened in time, not just the last one. This is achieved using an uniform probability to pick any but the leading node in the diagram to assign a new imaginary time $ \tau_k' $ from the interval $ [\tau_{k-1}, \, \tau_\text{max} - (\tau - \tau_k)] $. In order to only modify the length of the electronic propagator just in front of the chosen node, every node proceeding this node must clearly have the difference $ \tau_k' - \tau_k $  added to its time. This is illustrated in figure \ref{fig:NORMALcodl2}.
 
 This update does not merely affect the one $ \Gt^{(0)} $, but phonon propagators with start and end points on different sides of the chosen node would also have their length modified by the difference $ \tau_k' - \tau_k $. If there are $ m $ such phonons, the quota of the diagram values become
 \begin{equation}
@@ -631,11 +631,11 @@ By sampling the azimuthal angle uniformly on the interval $ \varphi'_k \in [0, \
     			\end{tikzpicture}
 		\end{empheq}
 	\end{fmffile}%
-	\caption{The imaginary-time of internal node $ k $ is updated.}
+	\caption{The imaginary time of internal node $ k $ is updated.}
 	\label{fig:NORMALvsit}
 \end{figure}
 
-This update procedure changes the imaginary-time $ \tau_k \rightarrow \tau'_k $ of a randomly chosen internal node whilst keeping the chronological ordering, i.e $ \tau_{k-1} < \tau'_k < \tau_{k+1} $. The procedure is illustrated in figure \ref{fig:NORMALvsit} and, as easily may be seen, does only affect the three propagators connected to the selected node. Hence
+This update procedure changes the imaginary time $ \tau_k \rightarrow \tau'_k $ of a randomly chosen internal node whilst keeping the chronological ordering, i.e $ \tau_{k-1} < \tau'_k < \tau_{k+1} $. The procedure is illustrated in figure \ref{fig:NORMALvsit} and, as easily may be seen, does only affect the three propagators connected to the selected node. Hence
 \begin{equation}
 	\begin{split}
 		\frac{D_n(\tau'_k)}{D_n(\tau_k)}
@@ -789,7 +789,7 @@ Other than the pair of neighboring nodes to be selected, there are no further sa
 	\label{fig:NORMALcodo}
 \end{figure}
 
-This final update procedure which is illustrated in figure \ref{fig:NORMALcodo}, is the only one which changes the order of the diagram at hand. To increase the diagram order, an electronic propagator $ \Gt^{(0)}_i $ is selected on random and then split at a time $ \tau_l $, which is sampled uniformly on the interval $ [\tau_i, \, \tau_{i+1}] $. After this, another imaginary time $ \tau_m $ is sampled on the interval $ \tau_m \in[\tau_l, \tau] $ using an exponential distribution with a rate parameter $ \lambda = 1 $. The $ \Gt^{(0)}_j $ which happen to occupy the imaginary-time $ \tau_m $ is split in twice at that point as well. For each of the two times $ \tau_l $ and $ \tau_m $, a node is inserted so that the loose ends of the $ \Gt^{(0)} $'s have something to connect to. The two newly introduced nodes are then further connected to a new phonon propagator $ \tilde \Dt^{(0)} $, for which the momentum $ \vec q_k $ is sampled according to the \textit{change of transferred momentum} procedures introduced earlier. In order to obey momentum conservation at each node, the $ \Gt^{(0)} $'s under the newly added phonon arc have their momentum subtracted by $ \vec q_k $. In this way, the probability distribution of increasing the diagram order becomes
+This final update procedure which is illustrated in figure \ref{fig:NORMALcodo}, is the only one which changes the order of the diagram at hand. To increase the diagram order, an electronic propagator $ \Gt^{(0)}_i $ is selected on random and then split at a time $ \tau_l $, which is sampled uniformly on the interval $ [\tau_i, \, \tau_{i+1}] $. After this, another imaginary time $ \tau_m $ is sampled on the interval $ \tau_m \in[\tau_l, \tau] $ using an exponential distribution with a rate parameter $ \lambda = 1 $. The $ \Gt^{(0)}_j $ which happen to occupy the imaginary time $ \tau_m $ is split in twice at that point as well. For each of the two times $ \tau_l $ and $ \tau_m $, a node is inserted so that the loose ends of the $ \Gt^{(0)} $'s have something to connect to. The two newly introduced nodes are then further connected to a new phonon propagator $ \tilde \Dt^{(0)} $, for which the momentum $ \vec q_k $ is sampled according to the \textit{change of transferred momentum} procedures introduced earlier. In order to obey momentum conservation at each node, the $ \Gt^{(0)} $'s under the newly added phonon arc have their momentum subtracted by $ \vec q_k $. In this way, the probability distribution of increasing the diagram order becomes
 \begin{equation}
 	\label{eq:transitionUp}
 	\begin{split}
@@ -1741,7 +1741,7 @@ Now, with $ \Gt_k (\vec p, \tau) $ defined in this way, the only modification ne
 \end{equation}
 Here $ B $ and $ A $ is the set of affected electronic propagators before and after the update procedure respectively.
 
-But wait, there is more. Update procedures involving the sampling of imaginary-times from an exponential distribution with momentum dependent rate parameter must further be slightly modified in order to improve the otherwise disastrous statistics. This since the quota $ W(\tau'_l | \tau_l) / W(\tau_l | \tau'_l) = \exp \{ -\lambda (\tau_l - \tau'_l) \}$, for certain differences $ \tau_l - \tau'_l $, poorly mimics the ratio $ D(\tau'_l) / D(\tau_l) $ due to the choice of rate parameter $ \lambda(\vec p) $. This is easily realized by comparing the $ \Gt(\vec p, \tau) $'s in figure \ref{fig:GOft} to their corresponding bare propagators $ \Gt^{(0)}(\vec p, \tau) $. In order to resolve this issue, one adds to the the original rate parameter the contribution $ \Delta \lambda_k(\vec p_l) $, which is obtained by fitting an exponentially decaying function $ C_k(\vec p_l)  \exp \{ - \Delta \lambda_k(\vec p_l) \, \tau \} $ to $ \Gt_k(\vec p_l, \tau_j) / \Gt^{(0)} (\vec p_l, \tau_j) $ for each $ p_l - \dotDelta p \leq p \leq p_l + \dotDelta p $. In the case of a momentum magnitude $ p > p_{N-1} + \dotDelta p $ the $ \Delta \lambda $ corresponding to $ p_{N-1} $ is used.
+But wait, there is more. Update procedures involving the sampling of imaginary times from an exponential distribution with momentum dependent rate parameter must further be slightly modified in order to improve the otherwise disastrous statistics. This since the quota $ W(\tau'_l | \tau_l) / W(\tau_l | \tau'_l) = \exp \{ -\lambda (\tau_l - \tau'_l) \}$, for certain differences $ \tau_l - \tau'_l $, poorly mimics the ratio $ D(\tau'_l) / D(\tau_l) $ due to the choice of rate parameter $ \lambda(\vec p) $. This is easily realized by comparing the $ \Gt(\vec p, \tau) $'s in figure \ref{fig:GOft} to their corresponding bare propagators $ \Gt^{(0)}(\vec p, \tau) $. In order to resolve this issue, one adds to the the original rate parameter the contribution $ \Delta \lambda_k(\vec p_l) $, which is obtained by fitting an exponentially decaying function $ C_k(\vec p_l)  \exp \{ - \Delta \lambda_k(\vec p_l) \, \tau \} $ to $ \Gt_k(\vec p_l, \tau_j) / \Gt^{(0)} (\vec p_l, \tau_j) $ for each $ p_l - \dotDelta p \leq p \leq p_l + \dotDelta p $. In the case of a momentum magnitude $ p > p_{N-1} + \dotDelta p $ the $ \Delta \lambda $ corresponding to $ p_{N-1} $ is used.
 
 Finally, after each bold-line iteration, when calculating the value of $ S_{k+1}(\vec p_i, \tau_j) $ from $ N_{i,j} $, it is important to normalize using $ \Gt_k $ rather than the bare propagator $ \Gt^{(0)} $. Hence, in similarity with (\ref{eq:properSnormalization}),
 \begin{equation}
@@ -1837,8 +1837,8 @@ Nine different simulations for an increasing value of the maximum diagram order 
 	\label{fig:boldNmax9}
 \end{figure}
 
-Evident from these figures is that $ S_k $ and $ \Gt_k $ approaches $ \Sigma^* $ and $ \Gt $ respectively when $ k $ and $ n_\text{max} $ are increased, which is expected. However, for larger $ n_\text{max} $ the statistics becomes more and more influenced by noise. The reason being that
-diagrams of higher order are more frequently sampled in the Monte Carlo process when $ \Gt_k $ is starting to approach the true $ \Gt $. Hence the ration $ N_{i,j}/N_0 $ in equation (\ref{eq:skeletonApproximation}) grows so that fluctuations within $ N_{i,j} $ no longer will be suppressed in the same extent. But since the amplitude of statistical noise is inversely proportional to the square root of computation time, this noise is reduced simply by running the simulations for a longer time. However it was realized that the computation time required for larger $ n_\text{max} $ quickly outgrew what was possible to achieve by a single core in a foreseeable future, forcing the program to be parallelized using the \textit{Message Passing Interface}. Once implemented this allowed for an immense amount of computation time to be spent performing the bold-line scheme for larger $ n_\text{max} $. Although, by inspecting figure \ref{fig:boldNmax8} and \ref{fig:boldNmax9} it is evident that this computation time still was not enough.
+Evident from these figures is that $ S_k $ and $ \Gt_k $ approaches $ \Sigma^* $ and $ \Gt $ respectively when increasing $ k $ and $ n_\text{max} $, which is expected. However, for larger $ n_\text{max} $ the statistics becomes more and more influenced by noise. The reason being that
+diagrams of higher order are more frequently sampled in the Monte Carlo process when $ \Gt_k $ is starting to approach the true $ \Gt $. Hence the ration $ N_{i,j}/N_0 $ in equation (\ref{eq:skeletonApproximation}) grows so that fluctuations within $ N_{i,j} $ no longer will be suppressed in the same extent. But since the amplitude of statistical noise is inversely proportional to the square root of computation time, this noise is reduced simply by running the simulations for longer times. However it was realized that the computation time required for larger $ n_\text{max} $ quickly outgrew what was possible to achieve by a single core in a foreseeable future, forcing the program to be parallelized using the \textit{Message Passing Interface}. Once implemented this allowed for an immense amount of computation time to be spent performing the bold-line scheme for larger $ n_\text{max} $. Although, by inspecting figure \ref{fig:boldNmax8} and \ref{fig:boldNmax9} it is evident that this computation time still was not enough.
 
 By performing a linear regression of $ \log \Gt_k $ one can extract the $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ according (\ref{eq:longTimeLimit}). This has been done and the result is presented in figures \ref{fig:EandZvsN} and \ref{fig:EandZvsK}.
 
