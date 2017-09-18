@@ -1,6 +1,7 @@
 % !TEX root = ../thesis.tex
 
-\todo{Here we shall summarize what this chapter is about}
+First up in this chapter is a brief summary of quantum field theories, both at zero and finite temperature, followed by a rather detailed derivation of the Fröhlich Hamiltonian. After this it will be illustrated how one can treat an interacting theory perturbatively in terms of pictorial Feynman diagrams. Finally there will be a short introduction to Monte Carlo methods.
+
 
 \section{Quantum field theories}
 
@@ -25,7 +26,7 @@ What has been described so far is a quantum mechanical system of merely a single
 
 The second quantization \cite{quantumTheoryOfManyParticleSystems, AbrikosovGorkov} is a Hamiltonian based method for constructing a quantum field theory. Such a theory does not have the shortcomings of having a fixed set of particles as in the case of the many-particle description of quantum mechanics.
 
-Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states in order to incorporate the statistics, we will now express the total system state using occupation numbers. That is, in this representation the only information given is for each species of particle, the number of particles occupying what states. For example, given the following set of single-particle states $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $, the expression describing a state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ is occupied by three and two particles respectively would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
+Again the state of the total system will be described by individual single-particle states. However, instead of having explicit all the permutations of the indistinguishable single-particle states in order to incorporate the statistics, the total system state will now be expressed using occupation numbers. That is, in this representation the only information given is for each species of particle, the number of particles occupying what states. For example, given the following set of single-particle states $ \{ | \nu_i \rangle \} $ where $ i = 0, \, 1, \, 2, \, \dots $, the expression describing a state in which $ | \nu_0 \rangle $ and $ | \nu_2 \rangle $ is occupied by three and two particles respectively would then be $ |3, \, 0, \, 0, \, 2, \, 0, \, 0, \, \dots \rangle $.
 
 In order to allow for the number of particles to be variable the Fock space is used. This space is a combination of Hilbert state spaces for any number of particles; from the empty vacuum state to a state with infinite particles. In order to create and annihilate a particle of a certain quantum number, creation $ \hat c^\dagger_\nu $ and annihilation $ \hat c_\nu $ operators are used. It can be shown that they are the Hermitian conjugate of one another which motivates the notation. These operators incorporate the underlaying statistics of the particle at hand by a set of commutation relations. For bosons they are
 \begin{equation}
@@ -69,9 +70,9 @@ The $ \hat \psi (\vec x) $ will annihilate a particle at position $ \vec x $ whi
 
 \section{A few words about finite temperature formalism}
 
-In a zero temperature quantum field theory, the Heisenberg picture is normally used when calculating observables, i.e.\ $ O = \langle \Psi_0 |  \hat O_\text{H}  | \Psi_0 \rangle $. In this picture the operators are responsible for the time evolution of the observables whilst the state vectors are made time independent. This is achieved by letting the time evolution of the Schrödinger state vector $ | \Psi_0 (t) \rangle = e^{-i \hat H t}  | \Psi_0 \rangle $ be absorbed into the Heisenberg operator $ \hat O_\text{H}(t) \equiv e^{i \hat H t} \, \hat O_\text{S} \, e^{-i \hat H t} $. Since $ T = 0 $ in such a theory, one does not need to be concerned about thermodynamics when calculating an observable, even if the initial state \question{(is this the right word, look at electrons-holes example in Fetter)} is not the vacuum one.
+In a zero temperature quantum field theory, the Heisenberg picture is normally used when calculating observables, i.e.\ $ O = \langle \Psi_0 |  \hat O_\text{H}  | \Psi_0 \rangle $. In this picture the operators are responsible for the time evolution of the observables whilst the state vectors are made time independent. This is achieved by letting the time evolution of the Schrödinger state vector $ | \Psi_0 (t) \rangle = e^{-i \hat H t}  | \Psi_0 \rangle $ be absorbed into the Heisenberg operator $ \hat O_\text{H}(t) \equiv e^{i \hat H t} \, \hat O_\text{S} \, e^{-i \hat H t} $. Since $ T = 0 $ in such a theory, one does not need to be concerned about thermodynamics when calculating an observable, even if the ground state is not the vacuum one.
 
-For a finite temperature quantum field theory and a general system, this can of course no longer hold true. In order to incorporate the thermodynamics, the observables are no longer calculated by the expectation value of merely one initial state but as an ensemble average. In the case of a system with a variable number of particles, the grand canonical ensemble should be used. The partition function is then given by $ Z_\text{G} = \text{Tr} \, e^{-\beta (\hat H - \mu \hat N)} = \text{Tr} \, e^{-\beta \hat K} $ where $ \beta $ is the inverse temperature, $ \hat H $ is the Hamiltonian, $ \hat N $ is the number operator, $ \mu $ is the chemical potential and the trace is taken over a complete set of states. Introduced was also the grand canonical Hamiltonian $ \hat K \equiv \hat H - \mu \hat N $. In accordance to the partition function, the statistical operator is then defined as $ \hat \rho_\text{G} = e^{-\beta \hat K} / Z_\text{G} $ so that 
+For a finite temperature quantum field theory and a general system, this can of course no longer hold true. In order to incorporate the thermodynamics, the observables are no longer calculated by the expectation value of merely one ground state but as an ensemble average. In the case of a system with a variable number of particles, the grand canonical ensemble should be used. The partition function is then given by $ Z_\text{G} = \text{Tr} \, e^{-\beta (\hat H - \mu \hat N)} = \text{Tr} \, e^{-\beta \hat K} $ where $ \beta $ is the inverse temperature, $ \hat H $ is the Hamiltonian, $ \hat N $ is the number operator, $ \mu $ is the chemical potential and the trace is taken over a complete set of states. Introduced was also the grand canonical Hamiltonian $ \hat K \equiv \hat H - \mu \hat N $. In accordance to the partition function, the statistical operator is then defined as $ \hat \rho_\text{G} = e^{-\beta \hat K} / Z_\text{G} $ so that 
 \begin{equation}
 	\label{eq:finiteTempObservable}
 	O
@@ -79,7 +80,7 @@ For a finite temperature quantum field theory and a general system, this can of 
 	\equiv
 	\text{Tr} \{ \hat \rho_\text{G} \, \hat O_\text{H}(t) \} \,.
 \end{equation}
-The operator product sandwiched between the state vectors in the equation above contain both real and imaginary exponents originating from the thermodynamics and quantum mechanics respectively. Following the Matsubara formalism \cite{Matsubara, quantumTheoryOfManyParticleSystems, AbrikosovGorkov}, one proceeds by one introduces a new picture in order to treat the two types of exponents on an equal footing. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to the corresponding one in the Schrödinger picture as
+The operator product sandwiched between the state vectors in the equation above contain both real and imaginary exponents originating from the thermodynamics and quantum mechanics respectively. Following the Matsubara formalism \cite{Matsubara, quantumTheoryOfManyParticleSystems, AbrikosovGorkov}, one proceeds by introducing a new picture in order to treat the two types of exponents on an equal footing. This is a modified Heisenberg picture where a Wick rotation in time $ \tau = i t $ is preformed, and the Hamiltonian is exchanged in favor of the grand canonical Hamiltonian. An operator in this picture is then related to the corresponding one in the Schrödinger picture as
 \begin{equation}
 	\label{eq:modHeisPic}
 	\hat O_\text{K}(\tau) \equiv e^{\hat K \tau} \, \hat O_\text{S} \, e^{-\hat K \tau} \,.
@@ -247,7 +248,7 @@ Introducing a scalar potential to the bound electric field, $ \vec E_\text{bound
     				&\qquad + \overbrace{
     					\frac{q}{4 \pi} \int_{V_{\varepsilon}'} \frac{1}{x^2} \frac{\partial \Phi(\vec x + \vec x_\text{e})}{\partial x}  \diff^3 x
     				}^{\rightarrow \, 0 \; \text{as} \; \varepsilon \, \rightarrow \, 0} \\
-    			&= \frac{Q}{4 \pi} \int_{-\partial V_{\varepsilon}'} \Phi(\vec x + \vec r_\text{e}) \nabla \frac{1}{x} \cdot \diff^2 \vec{x} \\
+    			&= \frac{Q}{4 \pi} \int_{-\partial V_{\varepsilon}'} \Phi(\vec x + \vec x_\text{e}) \nabla \frac{1}{x} \cdot \diff^2 \vec{x} \\
     			&= Q \, \Phi(\vec x_\text{e})
     		\end{split}
     	%$}
@@ -312,7 +313,7 @@ By finally comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref
 	\frac{1}{\delta} = \frac{\omega_\text{uv}^2}{4 \pi} \left( 1 - \frac{1}{\epsilon_\infty} \right) \,.
 \end{equation}
 
-Having formulated the equation of motion for the two types of polarization, the next task is to construct one for the free electron. Since the electron was assumed to be slowly moving, one may without hesitation treat it in the non-relativistic limit. Then the only force acting on the electron is due to the bound electric field, i.e.\ $ \vec F(\vec x_\text{e}) = q \vec E_\text{bound} (\vec x_\text{e}) = - q \nabla \Phi (\vec x_\text{e}) $. Thus $ m \ddot{\vec x}_\text{e} = \dot{\vec p}_\text{e} = - q \nabla \Phi (\vec x_\text{e}) $ where $ m $ is an effective mass which in general is different from the electronic mass $ m_\text{e} $. By treating $ \vec p_\text{e} $,  $ \vec P_\text{uv} (\vec r) $ and $ \vec P_\text{ir} (\vec r) $ as independent quantities, one may out of the equations of motion together with the interaction (\ref{eq:interaction_energy_calculation}) construct the Lagrangian
+Having formulated the equation of motion for the two types of polarization, the next task is to construct one for the free electron. Since the electron was assumed to be slowly moving, one may without hesitation treat it in the non-relativistic limit. Then the only force acting on the electron is due to the bound electric field, i.e.\ $ \vec F(\vec x_\text{e}) = q \vec E_\text{bound} (\vec x_\text{e}) = - q \nabla \Phi (\vec x_\text{e}) $. Thus $ m \ddot{\vec x}_\text{e} = \dot{\vec p}_\text{e} = - q \nabla \Phi (\vec x_\text{e}) $ where $ m $ is an effective mass which in general is different from the electronic mass $ m_\text{e} $. By treating $ \vec p_\text{e} $,  $ \vec P_\text{uv} (\vec x) $ and $ \vec P_\text{ir} (\vec x) $ as independent quantities, one may out of the equations of motion together with the interaction (\ref{eq:interaction_energy_calculation}) construct the Lagrangian
 \begin{equation}
 	\begin{split}
 		L &= \frac{\gamma}{2} \int \left[ \dot{\vec P}_\text{ir}^2 (\vec x) - \omega_\text{ir}^2 \, \vec P_\text{ir}^2 (\vec x) \right] \diff^3 x
@@ -368,7 +369,7 @@ Next, by defining a scalar potential $ \Xi $ for the IR-part of the polarization
 \begin{equation}
 	H = \frac{\vec p_\text{e}^2}{2m}
 	+ \omega \sum_{\vec q} b^*_{\vec q} b_{\vec q}
-	+ \frac{1}{\sqrt V} \sum_{\vec q} V(q) \left[ b^*_{\vec q} \, e^{-i \vec q \cdot \vec r_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec r_\text{e}} \right] \,,
+	+ \frac{1}{\sqrt V} \sum_{\vec q} V(q) \left[ b^*_{\vec q} \, e^{-i \vec q \cdot \vec x_\text{e}} - b_{\vec q} \, e^{i \vec q \cdot \vec x_\text{e}} \right] \,,
 \end{equation}
 where both
 \begin{equation}
@@ -430,16 +431,16 @@ By promoting the canonical coordinates to operators and imposing Bose statistics
 		\big\{ q_{\vec k}, \, p_{\vec p} \big\}_\text{PB} = \delta_{\vec k, \vec p}
 		\; &\rightarrow \;
 		\big[ \hat q_{\vec k}, \, \hat p_{\vec p} \big] = i \delta_{\vec k, \vec p} \\[1ex]
-		\big\{ [\vec r_\text{e}]_i, \, [ \vec p_\text{e} ]_j \big\}_\text{PB} = \delta_{i, j}
+		\big\{ [\vec x_\text{e}]_i, \, [ \vec p_\text{e} ]_j \big\}_\text{PB} = \delta_{i, j}
 		\; &\rightarrow \;
-		\big[ [\hat{ \vec r}_\text{e}]_i, \, [ \hat{ \vec p}_\text{e} ]_j \big] = i \delta_{i, j} \,.
+		\big[ [\hat{ \vec x}_\text{e}]_i, \, [ \hat{ \vec p}_\text{e} ]_j \big] = i \delta_{i, j} \,.
 	\end{split}
 \end{equation}
 Substituting with (\ref{eq:pAndQ}) into the first of these equations, and using that $ [ \hat q_{\vec k}, \, \hat q_{\vec p} ] = [ \hat p_{\vec k}, \, \hat p_{\vec p} ] = 0 $, one is left with the relations $ [\hat b_{\vec k}, \, \hat b^\dagger_{\vec p}] = \delta_{\vec k, \vec p} $ and $ [\hat b_{\vec k}, \, \hat b_{\vec p}] = 0 $. Using these commutation relations the previously symmetrized terms of the Hamiltonian are rewritten as $ (\hat b^\dagger_{\vec q} \hat b_{\vec q} + \hat b_{\vec q} \hat b^\dagger_{\vec q})/2  = \hat b^\dagger_{\vec q} \hat b_{\vec q} + \tfrac{1}{2} $. The full Hamiltonian in quantized form then  becomes
 \begin{equation}
 	\hat H = \frac{\hat{\vec p}_\text{e}^2}{2m}
 	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
-	+ \frac{1}{\sqrt V} \sum_{\vec q} V(q) \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec r}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec r}_\text{e}} \right) \,.
+	+ \frac{1}{\sqrt V} \sum_{\vec q} V(q) \left( \hat b^\dagger_{\vec q} \, e^{-i \vec q \cdot \hat{\vec x}_\text{e}} - \hat b_{\vec q} \, e^{i \vec q \cdot \hat{\vec x}_\text{e}} \right) \,.
 \end{equation}
 where the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $ of the oscillating ions have been omitted.
 
@@ -454,12 +455,12 @@ Having sorted out the quantization of the $ \vec B $-field, the attention is tur
 \begin{equation}
 	\begin{split}
 		\frac{\hat{\vec p}_\text{e}^2}{2m} &\rightarrow \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p} \,, \\[1em]
-		e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} 
+		e^{-i \vec q \cdot \hat{ \vec x}_\text{e}} 
 		& \rightarrow
-		\sum_{\vec k, \vec p} \langle \vec k | e^{-i \vec q \cdot \hat{ \vec r}_\text{e}} | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \\
+		\sum_{\vec k, \vec p} \langle \vec k | e^{-i \vec q \cdot \hat{ \vec x}_\text{e}} | \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \\
 		& = \sum_{\vec k, \vec p} \langle \vec k |
 			\left[ \int | \vec x \rangle \langle \vec x | \diff^3 x \right]
-			e^{-i \vec q \cdot \hat{ \vec r}_\text{e}}
+			e^{-i \vec q \cdot \hat{ \vec x}_\text{e}}
 			\left[ \int | \vec y \rangle \langle \vec y | \diff^3 y \right]
 			| \vec p \rangle \hat a^\dagger_{\vec k} \hat a_{\vec p} \\
 		& = \sum_{\vec k, \vec p} \hat a^\dagger_{\vec k} \hat a_{\vec p}
@@ -474,7 +475,7 @@ Having sorted out the quantization of the $ \vec B $-field, the attention is tur
 \end{equation}
 and similarly
 \begin{equation}
-	e^{i \vec q \cdot \hat{ \vec r}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p + \vec q} \hat a_{\vec p} \,.
+	e^{i \vec q \cdot \hat{ \vec x}_\text{e}} \rightarrow \sum_{\vec p} \hat a^\dagger_{\vec p + \vec q} \hat a_{\vec p} \,.
 \end{equation}
 Substituting with this into the Hamiltonian and using that interaction term is symmetric with respect to $ \vec q $, the fully second-quantized Hamiltonian becomes
 \begin{equation}
@@ -496,7 +497,7 @@ where for convenience $ m = \omega = 1 $ has been used.
 
 \section{Perturbation theory}
 
-Assume the Hamiltonian to be time-independent in the Schrödinger picture and expressible as the sum $ \hat K = \hat K_0 + \hat K_1 $, where $ \hat K_1 $ contains the interactions of the theory without which the problem would be exactly solvable. However, if this interaction is weak enough, it is reasonable to treat it perturbatively by expanding with respect to some small interaction parameter $ \alpha $. In order to do so it is necessary to introduce yet a new picture, the interaction picture. In the finite temperature formalism, operators in the interaction picture are related to the ones in the Schrödinger picture through $ \hat O_\text{I} (\tau) = e^{\hat K_0 \tau} \, \hat O_\text{S} \, e^{-\hat K_0 \tau} $. Within this picture, it is possible to express the ensemble average of a $ \tau $-ordered product of operators by the perturbation series
+Assume the Hamiltonian to be time-independent in the Schrödinger picture and expressible as the sum $ \hat K = \hat K_0 + \hat K_1 $, where $ \hat K_1 $ contains the interactions of the theory without which the problem would be exactly solvable. If this interaction is weak enough, it is reasonable to treat it perturbatively by expanding with respect to some small interaction parameter $ \alpha $. In order to do so it is necessary to introduce yet a new picture, the interaction picture. In the finite temperature formalism, operators in the interaction picture are related to the ones in the Schrödinger picture through $ \hat O_\text{I} (\tau) = e^{\hat K_0 \tau} \, \hat O_\text{S} \, e^{-\hat K_0 \tau} $. Within this picture, it is possible to express the ensemble average of a $ \tau $-ordered product of operators by the perturbation series
 \begin{equation}
 	\label{eq:perturbationSeries}
 	\begin{gathered}

@@ -1,28 +1,24 @@
 % !TEX root = ../thesis.tex
 
-\todo{Here we shall summarize what this chapter is about}
+In this chapter the general idea behind the diagrammatic Monte Carlo method is first discussed and then illustrated with three examples. The bare scheme for directly simulating the single-particle Green's function $ \Gt $ of the polaron is then implemented, followed by the implementation of the bare scheme for simulating the proper self-energy $ \Sigma^* $ of $ \Gt $. After that the latter scheme is \text{boldified}. Finally the ground state energy $ E_0 $ and the $ Z_0 $-factor of the polaron are calculated and presented.
 
 \section{General idea}
 
-\begin{itemize}
-	\item \todo{Rename $ \xi_n $.}
-\end{itemize}
-
-Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} which allows to simulate quantities $ Q(\{ y \}) $ in terms of convergent diagrammatic sums, i.e.\ sums of integrals with an ever increasing number of integration variables
+Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} which allows to simulate quantities $ Q(\{ y \}) $ in terms of convergent diagrammatic series, i.e.\ sums of integrals with an ever increasing number of integration variables
 \begin{equation}
 	\label{eq:integralSeries}
 	Q(\{ y \})
 	= \sum_{n=0}^\infty \sum_{\xi_n} \int \diff x_1 \dots \diff x_n \, D_n(\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) \,.
 \end{equation}
-Here $ \{y\} $ is a set of external variables and $ \xi_n $ indexes the different integrands of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
+Here $ \{y\} $ is a set of external variables and $ \xi_n $ (not to be confused with the energy eigenvalues $ \xi_\nu $ of the grand canonical Hamiltonian $ \hat K $) indexes the different integrands of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
 
-The method is based on the Metropolis-Hastings algorithm and samples integrands from the integral sum in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral sum, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
+The method is based on the Metropolis-Hastings algorithm and samples integrands from the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
 
 To clarify any ambiguities, the main idea behind the DMC method will next be demonstrated by a few simple examples.
 
 \subsection*{Example 1}
 
-In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral sum (\ref{eq:integralSeries}) will then contain merely two constant zeroth order terms, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively.
+In this example the task is to compute $ 1 + C $, where for convenience it is assumed that $ C > 1 $ is a constant. The integral series (\ref{eq:integralSeries}) will then contain merely two constant zeroth order terms, making the parameter space discrete with the two possibilities $ \xi_0 = 0 $ and $ \xi_0 = 1 $ corresponding to the terms $ 1 $ and $ C $ respectively.
 
 To follow the recipe of the Metropolis-Hastings algorithm, the function $ D_n $ is regarded as proportional to the probability density function
 \begin{equation}
@@ -161,11 +157,9 @@ By defining $ N_0 $ and $ N $ in accordance to what was done in the previous exa
 	= 1 + \frac{N - N_0}{N_0} \,.
 \end{equation}
 
-\section{Bare scheme for $ \Gt $}
+\section{Bare scheme for simulating $ \Gt $}
 
-%\section{Implementation}
-
-The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The sum of integrals (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. Representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
+The task at hand is now to implement the DMC method in order to calculate the electronic single-particle Green's function $ \Gt(\alpha, \mu, \vec p, \tau) $. The integrals series (\ref{eq:integralSeries}) will then be nothing but the diagrammatic series (\ref{eq:GinTermsOfDiagrams}), with the external parameters $ \{ y \} = \{ \alpha, \mu, \vec p, \tau \} $. The integration variables $ x_i $'s must therefore correspond to the internal imaginary-times and momenta, where the internal momenta are chosen to be those of the phonon propagators. Representing the internal momenta in spherical coordinates $ \vec q = (q \sin \theta \cos \varphi, q \sin \theta \sin \varphi, q \cos \theta) $, the momentum integrals should be replaced according to
 \begin{equation}
 	\int \frac{\diff^3 q}{(2 \pi)^3}
 	\rightarrow
@@ -196,7 +190,7 @@ where $ \tilde \Dt^{(0)}(\vec q, \tau) $ is a phonon propagator which has absorb
 	=
 	\frac{2\sqrt 2 \pi \alpha}{(2\pi)^3} \sin \theta \, \exp \{ - \tau\}
 \end{equation}
-which is a quantity always larger than or equal to zero. The integrand of each and every integral in the integral sum will be entirely made up out of $ \Gt^{(0)} $'s and $ \tilde \Dt^{(0)} $'s which implies that every contribution to $ \Gt $ is a positive contribution. This will simplify the DMC implementation since it wont be necessary to calculate what sign each sampled parameter space state comes with.
+which is a quantity always larger than or equal to zero. The integrand of each and every integral in the integral series will be entirely made up out of $ \Gt^{(0)} $'s and $ \tilde \Dt^{(0)} $'s which implies that every contribution to $ \Gt $ is a positive contribution. This will simplify the DMC implementation since it wont be necessary to calculate what sign each sampled parameter space state comes with.
 
 The external parameters $ \vec p $ and $ \tau $ will be the only ones allowed to change during the Markov process. Including $ \alpha $ and/or $ \mu $ would cause the parameter space to increase and the statistics to be spread out. Thus more computation time would be needed to calculate quantities to the same level of certainty as having $ \alpha $ and $ \mu $ fixed.
 
@@ -246,11 +240,7 @@ Code-wise each node, $ \tilde \Dt^{(0)} $ and $ \Gt^{(0)} $ is an instance of th
 \label{eq:secSampleGBare}
 
 
-What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral sum will be used. That is, the function $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space and thus maintaining ergodicity. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed.
-
-\begin{itemize}
-	\item \todo{Discuss a little about how these update functions are chosen.}
-\end{itemize}
+What remains to be discussed is how the sampling of states in parameter space occurs. As the name Diagrammatic Monte Carlo suggest, the diagrammatic representation of the integral series will be used. That is, the function $ D_n $ in the integral series (\ref{eq:integralSeries}) is to be though of as a Feynman diagram (without the integrals). The random walk, which is used to simulate the Markov process, will thus be in terms of such diagrams. It is then important that each and every such diagram must be possible to reach in order to cover all of parameter space so that ergodicity is satisfied. To make sure that this actually is the case, a set of update procedures \cite{MishchenkoA.2000DqMC} have been constructed, each of which has a probability $ p_i $ of being selected during the Markov process.
 
 \subsection*{Change of diagram length in time, type 1}
 
@@ -709,7 +699,7 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
     			\end{tikzpicture}
 		\end{empheq}
 	\end{fmffile}%
-	\caption{The diagram structure is modified by interchanging the phonon propagators connected to two neighboring nodes. \todo{Bold face: $ \vec q_1 $ and $ \vec q_2 $}}
+	\caption{The diagram structure is modified by interchanging the phonon propagators connected to two neighboring nodes.}
 	\label{fig:NORMALcods}
 \end{figure}
 
@@ -932,9 +922,9 @@ Here follow some results obtained when simulating $ \Gt $ using the bare scheme 
 	\label{tab:truthTablesG}   
 \end{table}
 
-\section{Bare scheme for $ \Sigma^* $}
+\section{Bare scheme for simulating $ \Sigma^* $}
 
-Rather than calculating $ \Gt(\vec p, \tau) $ directly using DMC, it is also possible to instead simulate the proper self energy $ \Sigma^*(\vec p, \tau) $, from which the electronic propagator then is calculated using the Dyson equation (\ref{eq:dysonEquation}).
+Rather than calculating $ \Gt(\vec p, \tau) $ directly using DMC, it is also possible to instead simulate the proper self-energy $ \Sigma^*(\vec p, \tau) $, from which the electronic propagator then is calculated using the Dyson equation (\ref{eq:dysonEquation}).
 In order to do this, the random walk must now cover diagrams without external legs but also be able to reach the bare propagator $ \Gt^{(0)} $ for normalization purposes. This is easily accomplished by a slight modification of some of the update procedures introduced in the previous section, and will be discussed in more detail shortly.
 
 However, before that, it is important to realize that no longer all types of diagrams of order $ n > 0 $ should be binned. That is, to calculate $ \Sigma^* $ it is critical that the histogram merely have contributions from irreducible diagrams. Then, in similarity to (\ref{eq:GtofTandP}) and (\ref{eq:GtofT}) the value of $ \Sigma^* $ is obtained in terms of $ N_0 $ and $ N $ in the following way
@@ -944,7 +934,7 @@ However, before that, it is important to realize that no longer all types of dia
 	\; , \quad
 	\Sigma^* (\vec p_0, \tau_j) = N_{j} \frac{\sum_{l} \Gt^{(0)} (\vec p_0, \tau_l)}{N_0} \,.
 \end{equation}
-An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt^{(0)} $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm. To recapitulate, all self energy diagrams (together with the bare propagator for normalization purposes) should be sampled, but only proper ones are allowed to increment the bins values $ N_{i,j} $ of the histogram.
+An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt^{(0)} $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm. To recapitulate, all self-energy diagrams (together with the bare propagator for normalization purposes) should be sampled, but only proper ones are allowed to increment the bins values $ N_{i,j} $ of the histogram.
 
 \subsection{Update procedures}
 
@@ -1086,7 +1076,7 @@ Hence the "$ 2n + 1 $" in equation (\ref{eq:transitionUp}) and (\ref{eq:changeOr
 \subsection{The divergent diagram}
 
 
-It can be shown that the first order self energy diagram $ \Sigma^{*(1)}(\vec p, \tau) $ is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \dotDelta x < x < x_i + \dotDelta x $ (again $ \dotDelta x \equiv \Delta x / 2 $ has been used) with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
+It can be shown that the first order self-energy diagram $ \Sigma^{*(1)}(\vec p, \tau) $ is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \dotDelta x < x < x_i + \dotDelta x $ (again $ \dotDelta x \equiv \Delta x / 2 $ has been used) with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
 \begin{equation}
 	\begin{split}
 		&\frac{1}{\Delta x} \bigintsss_{x_i - \dotDelta x}^{x_i + \dotDelta x} \mkern-36mu f(t) \diff t \\
@@ -1103,7 +1093,7 @@ In order for this mean value to be well approximated by $ f(x_i) $, it is requir
 	\label{fig:HistogramApproximationOfDivergentDistribution}
 \end{figure}
 
-The true value of the first order self energy diagram at zero external momentum is
+The true value of the first order self-energy diagram at zero external momentum is
 \begin{equation}
 	\label{eq:prop1OSelfEnergy}
 	\Sigma^{* (1)} (\vec p = \vec 0, \tau) = \frac{\alpha}{\sqrt \pi} \frac{e^{-(1 - \mu)\tau}}{\sqrt \tau}
@@ -1137,7 +1127,7 @@ In order to find out whether a value of $ \Sigma^{*(1)} (\vec p_i, \tau_j) $ sho
 	\label{tab:SigmaDiffs}   
 \end{table}
 
-It is crucial that there will be no contribution from $ \Sigma^{*(1)} $ to the histogram $ N $ for times where it is calculated using Monte Carlo integration. However, to avoid such a double contribution it is as simple as to not bin a first order self energy diagram if the length $ \tau $ of which belongs to a bin $ N_{i,j} $ of time $ \tau_j < \tau_\text{threshold} $.
+It is crucial that there will be no contribution from $ \Sigma^{*(1)} $ to the histogram $ N $ for times where it is calculated using Monte Carlo integration. However, to avoid such a double contribution it is as simple as to not bin a first order self-energy diagram if the length $ \tau $ of which belongs to a bin $ N_{i,j} $ of time $ \tau_j < \tau_\text{threshold} $.
 
 \subsection{Results}
 
@@ -1197,8 +1187,9 @@ Here follow some results obtained when simulating $ \Sigma^* $ using the bare sc
 \end{table}
 
 \subsection{Numerically implementing Dyson equation}
+\label{sec:DysonImplementation}
 
-It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. First of all, the proper self energy must be transformed into frequency space, but due to the singularity at $ \tau = 0 $ it is not preferable to transform this quantity directly. However, knowing the analytical expression of this singular contribution, it can then be subtracted from the self energy so that the discrete Fourier transform may be applied only to the resulting regular expression. The singular part is then Fourier transformed analytically and once in $ \omega $-space it is added to the transformed regular expression. That is,
+It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. First of all, the proper self-energy must be transformed into frequency space, but due to the singularity at $ \tau = 0 $ it is not preferable to transform this quantity directly. However, knowing the analytical expression of this singular contribution, it can then be subtracted from the self-energy so that the discrete Fourier transform may be applied only to the resulting regular expression. The singular part is then Fourier transformed analytically and once in $ \omega $-space it is added to the transformed regular expression. That is,
 \begin{equation}
 	\Sigma^{*}(\vec p_i, \omega_j)
 	= \mathcal{F}_\text{DFT} \left\{ \Sigma^{*}(\vec p_i, \tau_j) - \Sigma^{*}_\text{singular}(\vec p_i, \tau_j) \right\}
@@ -1209,13 +1200,13 @@ which is possible due to the linearity of the Fourier transform. A possible choi
 	\Sigma^{*}_\text{singular}(\vec p_i, \omega_j) = \frac{\alpha}{\sqrt{1 - \mu + i\omega_j}} \,.
 \end{equation}
 
-Having the proper self energy in momentum and frequency space, Dyson equation is given by (\ref{eq:dysonEquation}). However, it is not possible to directly transform back to $ \Gt(\vec p_i, \tau_j) $ using the inverse discrete Fourier transform. This has to do with the fact that $ \Gt(\vec p, \omega) $ falls of as $ 1/\omega $ when $ \omega \rightarrow \infty $, which it too slow. Instead one may transform the difference
+Having the proper self-energy in momentum and frequency space, Dyson equation is given by (\ref{eq:dysonEquation}). However, it is not possible to directly transform back to $ \Gt(\vec p_i, \tau_j) $ using the inverse discrete Fourier transform. This has to do with the fact that $ \Gt(\vec p, \omega) $ falls of as $ 1/\omega $ when $ \omega \rightarrow \infty $, which it too slow. Instead one may transform the difference
 \begin{equation}
 	\Delta \Gt(\vec p, \omega)
 	= \Gt(\vec p, \omega) - \Gt^{(0)}(\vec p, \omega)
 	= \frac{\Sigma^*(\vec p, \omega)}{\left( i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega) \right) \left( i \omega + \xi(\vec p) \right)}
 \end{equation}
-which has the proportionality $ \Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2} $ because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto \omega^{-1/2} $ and thus falls of fast enough. Since also the inverse Fourier transform is linear, it follows that
+which has the proportionality $ \Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2} $ because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto \omega^{-1/2} $ and thus falls of fast enough. This $ \omega $ dependence will also have the consequence that any high frequency noise present in $ \Sigma^*(\vec p, \tau) $ will be greatly suppressed when transforming back the difference $ \Delta \Gt $ to $ \tau $-space. Then, since also the inverse Fourier transform is linear, it follows that
 \begin{equation}
 	\mathcal{F}^{-1}_{DFT} \left\{ \Delta \Gt(\vec p_i, \omega_j) \right\} = \Delta \Gt(\vec p_i, \tau_j) = \Gt(\vec p_i, \tau_j) - \Gt^{(0)}(\vec p_i, \tau_j) \,.
 \end{equation}
@@ -1241,11 +1232,11 @@ In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\
 
 The bold-line scheme \cite{PhysRevLett.99.250201} is a self consistent scheme making use of bold-line tricks iteratively in order to partially of fully sum up a diagram series. Dyson equation is one such bold-line trick and is the only one to be investigated in this thesis.
 
-Here the propagator  $ \Gt_{k + 1} = \Gt^{(0)} + \Delta \Gt_{k + 1} $  is obtained when employing Dyson equation to the $ k+1^\text{th} $ calculated self energy $ S_{k+1} $ of the self consistent scheme. Rather than using the bare propagator when calculating $ S_{k+1} $, the $ \Gt_k $ computed in the previous iteration of the scheme is instead used. The constraint for which diagrams are allowed to contribute the self energy of this scheme is thus stronger in order to prevent double counting. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e.\ $ \Gt_0 = \Gt^{(0)} $. Given an appropriate choice of parameters, this scheme will converge so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 4 or so iterations.
+Here the propagator  $ \Gt_{k + 1} = \Gt^{(0)} + \Delta \Gt_{k + 1} $  is obtained when employing Dyson equation to the $ k+1^\text{th} $ calculated self-energy $ S_{k+1} $ of the self consistent scheme. Rather than using the bare propagator when calculating $ S_{k+1} $, the $ \Gt_k $ computed in the previous iteration of the scheme is instead used. The constraint for which diagrams are allowed to contribute the self-energy of this scheme is thus stronger in order to prevent double counting. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e.\ $ \Gt_0 = \Gt^{(0)} $. Given an appropriate choice of parameters, this scheme will converge so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 4 or so iterations.
 
 \subsection{Skeleton diagrams}
 
-In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e.\ diagram parts which act like self energies to some of the constituents of the diagram. It is easily realized, that the skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. That is, if the phonon propagators of a self energy diagram are entirely interconnected, the diagram is a skeleton one. Here interconnected phonon propagator is referred to those who intersect with at least another one when they are all drawn on one side of the straight line of electronic propagators, as done throughout this paper. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
+In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self-energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e.\ diagram parts which act like self energies to some of the constituents of the diagram. It is easily realized, that the skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. That is, if the phonon propagators of a self-energy diagram are entirely interconnected, the diagram is a skeleton one. Here interconnected phonon propagator is referred to those who intersect with at least another one when they are all drawn on one side of the straight line of electronic propagators, as done throughout this paper. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.499\textwidth}%
@@ -1256,16 +1247,16 @@ In order for certain diagrams to not contribute more than once to the $ \Gt_k $,
 						\fmfstraight
 						\fmfbottom{i,o}
 						\fmf{fermion}{i,v1}
-						\fmf{fermion, foreground=(1,,0,,1)}{v1,v2}
+						\fmf{fermion, foreground=(0.847,, 0.243,, 0.530)}{v1,v2}
 						\fmf{fermion}{v2,v3}
 						\fmf{fermion}{v3,v4}
 						\fmf{fermion}{v4,o}
 						\fmf{dashes, left, tension=0}{i,v4}
-						\fmf{dashes, left, tension=0, foreground=(1,,0,,1)}{v1,v2}
+						\fmf{dashes, left, tension=0, foreground=(0.847,, 0.243,, 0.530)}{v1,v2}
 						\fmf{dashes, left, tension=0}{v3,o}
 						\fmfdot{i,o,v1,v2,v3,v4}
-						\fmfv{foreground=(1,,0,,1)}{v1}
-						\fmfv{foreground=(1,,0,,1)}{v2}
+						\fmfv{foreground=(0.847,, 0.243,, 0.530)}{v1}
+						\fmfv{foreground=(0.847,, 0.243,, 0.530)}{v2}
 					\end{fmfgraph*}%
 				}
 			\end{fmffile}%
@@ -1300,18 +1291,18 @@ In order for certain diagrams to not contribute more than once to the $ \Gt_k $,
 						\fmfstraight
 						\fmfbottom{i,o}
 						\fmf{fermion}{i,v1}
-						\fmf{fermion, foreground=(1,,0,,1)}{v1,v2}
-						\fmf{fermion, foreground=(1,,0,,1)}{v2,v3}
-						\fmf{fermion, foreground=(1,,0,,1)}{v3,v4}
+						\fmf{fermion, foreground=(0.847,, 0.243,, 0.530)}{v1,v2}
+						\fmf{fermion, foreground=(0.847,, 0.243,, 0.530)}{v2,v3}
+						\fmf{fermion, foreground=(0.847,, 0.243,, 0.530)}{v3,v4}
 						\fmf{fermion}{v4,o}
 						\fmf{dashes, left, tension=0}{i,o}
-						\fmf{dashes, left, tension=0, foreground=(1,,0,,1)}{v1,v3}
-						\fmf{dashes, left, tension=0, foreground=(1,,0,,1)}{v2,v4}
+						\fmf{dashes, left, tension=0, foreground=(0.847,, 0.243,, 0.530)}{v1,v3}
+						\fmf{dashes, left, tension=0, foreground=(0.847,, 0.243,, 0.530)}{v2,v4}
 						\fmfdot{i,o,v1,v2,v3,v4}
-						\fmfv{foreground=(1,,0,,1)}{v1}
-						\fmfv{foreground=(1,,0,,1)}{v2}
-						\fmfv{foreground=(1,,0,,1)}{v3}
-						\fmfv{foreground=(1,,0,,1)}{v4}
+						\fmfv{foreground=(0.847,, 0.243,, 0.530)}{v1}
+						\fmfv{foreground=(0.847,, 0.243,, 0.530)}{v2}
+						\fmfv{foreground=(0.847,, 0.243,, 0.530)}{v3}
+						\fmfv{foreground=(0.847,, 0.243,, 0.530)}{v4}
 					\end{fmfgraph*}%
 				}
 			\end{fmffile}%
@@ -1338,7 +1329,7 @@ In order for certain diagrams to not contribute more than once to the $ \Gt_k $,
 			\end{fmffile}%
 		\end{center}
 	\end{subfigure}
-	\caption{The diagrams to the right belong to the class of skeleton diagrams whilst the ones to the left merely belong to the class of proper self energy diagrams. The insertions of the proper self energy diagrams are here highlighted.}
+	\caption{The diagrams to the right belong to the class of skeleton diagrams whilst the ones to the left merely belong to the class of proper self-energy diagrams. The insertions of the proper self-energy diagrams are here highlighted.}
 	\label{fig:sampleSkeletonDiagrams}
 \end{figure}
 
@@ -1754,19 +1745,16 @@ But wait, there is more. Update procedures involving the sampling of imaginary-t
 
 Finally, after each bold-line iteration, when calculating the value of $ S_{k+1}(\vec p_i, \tau_j) $ from $ N_{i,j} $, it is important to normalize using $ \Gt_k $ rather than the bare propagator $ \Gt^{(0)} $. Hence, in similarity with (\ref{eq:properSnormalization}),
 \begin{equation}
+	\label{eq:skeletonApproximation}
 	S_{k+1} (\vec p_i, \tau_j) = N_{i,j} \frac{\sum_{l,m} \Gt_k (\vec p_l, \tau_m)}{N_0} \,,
 \end{equation}
 but the only diagrams allowed to contribute to the histogram are this time the skeleton ones.
 
 
 \subsection{Results}
+\label{sec:boldResults}
 
-
-\todo{--------- Continue correcting from here ---------}
-
-Nine different simulations for an increasing value of the maximum diagram order $ n_\text{max} $ has been carried out using the discretization $ \Delta \tau = 0.02 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and $ \tau_\text{max} = 60 $. With larger $ n_\text{max} $, the statistics became significantly more contaminated by noise. Thus, in order to try and suppress this noise, the computation for each iteration in the bold-line scheme needed to be increased. The number of core hours needed quickly outgrew what was possible to calculate using a single core in a foreseeable future, hence the code was parallelized using the \textit{Message Passing Interface} (MPI).
-
-Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained values of $ S_k $'s, as well as the corresponding $ \Gt_k $'s, for an increasing value of $ n_\text{max} $. The proper self energy $ \Sigma^* $ and the interacting Greens function, acquired using Dyson equation, $ \Gt $ are also outlined.
+Nine different simulations for an increasing value of the maximum diagram order $ n_\text{max} $ have been carried out using the discretization $ \Delta \tau = 0.02 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and $ \tau_\text{max} = 60 $. Depicted in figures \ref{fig:boldNmax1}-\ref{fig:boldNmax9} are the resulting values $ S_k $'s, as well as the corresponding $ \Gt_k $'s. The true value of the proper self-energy $ \Sigma^* $ and the Greens function $ \Gt $ are also outlined for comparison.
 
 \begin{figure}[H]
 	\centering
@@ -1849,9 +1837,10 @@ Depicted in figures \ref{fig:boldNmax1} to \ref{fig:boldNmax9} are the obtained 
 	\label{fig:boldNmax9}
 \end{figure}
 
-Evident from these figures, is that $ S_k $ approaches $ \Sigma^* $ as both the bold-line iteration $ k $ and the maximum diagram order $ n_\text{max} $ become larger, just as expected. However, even though an awful amount of computation time was used to calculate the $ S_k $'s for $ n_\text{max} = 8, \, 9 $, it seems that it was not enough since there is still much noise present.
+Evident from these figures is that $ S_k $ and $ \Gt_k $ approaches $ \Sigma^* $ and $ \Gt $ respectively when $ k $ and $ n_\text{max} $ are increased, which is expected. However, for larger $ n_\text{max} $ the statistics becomes more and more influenced by noise. The reason being that
+diagrams of higher order are more frequently sampled in the Monte Carlo process when $ \Gt_k $ is starting to approach the true $ \Gt $. Hence the ration $ N_{i,j}/N_0 $ in equation (\ref{eq:skeletonApproximation}) grows so that fluctuations within $ N_{i,j} $ no longer will be suppressed in the same extent. But since the amplitude of statistical noise is inversely proportional to the square root of computation time, this noise is reduced simply by running the simulations for a longer time. However it was realized that the computation time required for larger $ n_\text{max} $ quickly outgrew what was possible to achieve by a single core in a foreseeable future, forcing the program to be parallelized using the \textit{Message Passing Interface}. Once implemented this allowed for an immense amount of computation time to be spent performing the bold-line scheme for larger $ n_\text{max} $. Although, by inspecting figure \ref{fig:boldNmax8} and \ref{fig:boldNmax9} it is evident that this computation time still was not enough.
 
-By fitting the logarithm of these $ \Gt_k $'s to a straight line $ y = k \tau + m $ at large imaginary-times, one can extract the corresponding $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ using (\ref{eq:longTimeLimit}). This has been done an the result is presented in figures \ref{fig:EandZvsN} and \ref{fig:EandZvsK}.
+By performing a linear regression of $ \log \Gt_k $ one can extract the $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ according (\ref{eq:longTimeLimit}). This has been done and the result is presented in figures \ref{fig:EandZvsN} and \ref{fig:EandZvsK}.
 
 \begin{figure}[H]
 	\centering
@@ -1871,24 +1860,28 @@ By fitting the logarithm of these $ \Gt_k $'s to a straight line $ y = k \tau + 
 	\label{fig:EandZvsK}
 \end{figure}
 
-Unfortunately there was only four iterations used in the bold-line scheme, which according to figure \ref{fig:EandZvsK} was not enough to reach a steady state value for $ E_0 $ and $ Z_0 $. This steady state could nevertheless not have been very far away, by the looks of it a fifth or perhaps a sixth iteration would probably have been sufficient for the trends in that figure to level out. Additionally, it would presumably also have been necessary to use a larger $ n_\text{max} $ in order to overlap with the curves of the true $ E_0 $ and $ Z_0 $. Such a computation would however require an immense amount of computation time in order for the error bars to be of satisfactory size which was also the reason for it not being carried out. The quantities obtained after the fourth iteration with $ n_\text{max} = 8, 9 $ already have a bit too much uncertainty in them due to the noisy statistics.
+Unfortunately there was only four iterations used in the bold-line scheme, which according to figure \ref{fig:EandZvsK} was not enough in order to reach a steady state value for $ E_0 $ and $ Z_0 $. Nevertheless could this steady state not have been very far away, a fifth or perhaps a sixth iteration should probably have been sufficient for the trends to level out. Additionally it would also have been necessary to simulate using larger $ n_\text{max} $ in pursuance of convergence with the true $ E_0 $ and $ Z_0 $. But since this would have required a monstrous amount of computation time in order for the error bars to shrink to a satisfactory size it was not carried out.
 
-Even with these shortcomings, it is from the presented result apparent that $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ approach the true values $ E_0 $ and $ Z_0 $ respectively as $ n_\text{max} $ and $ k $ increase.
+Even with these shortcomings, it is from the presented result, apparent that $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ approach the true values as $ n_\text{max} $ and $ k $ are increased.
 
 \section{Numerical Results of $ E_0 $ and $ Z_0 $}
 
-This thesis would not be complete without presenting some general quantities of interest to do with the polaron. Here numerous simulations of $ \Gt $ has been carried out using the bare scheme for $ \Sigma^* $ with different values of the interaction parameter $ \alpha $ and the external momentum $ \vec p $ from which $ E_0 $ and $ Z_0 $ then have been extracted. The result is presented in figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA} but also in table \ref{tab:EandZvsPandA}. The computation time for each data point range from two to twelve core hours, providing a standard deviation smaller than $ 5 \cdot 10^{-4} $. For comparison these numerically computed quantities are presented next to corresponding ones obtained using traditional analytical perturbative methods.
-
-\todo{Present the analytical perturbative quantities here instead of doing it in the caption of the figures.}
-
-\todo{Data in agreement with the two papers + thesis}
+Here numerous $ \Gt $'s have been computed through bare scheme simulations of $ \Sigma^* $ and $ E_0 $ and $ Z_0 $ extracted from the former. The result is presented in figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA} but also in table \ref{tab:EandZvsPandA}. The computation time for each data point range from two to twelve core hours, providing a uncertainty of less than $ 5 \cdot 10^{-4} $. Further more the results are in good agreement with the ones obtained by Prokof'ev et al. \cite{PhysRevLett.81.2514, MishchenkoA.2000DqMC}. For comparison these numerically computed quantities are presented next to corresponding ones obtained using traditional analytical perturbative methods \cite{electronsInLatticeFields, RichardFeynman, Haga, MishchenkoA.2000DqMC}
+\begin{equation}
+	\begin{split}
+		&E_0^{(1)} (p, \, \alpha) = \frac{p^2}{2} - \alpha \frac{\sqrt{2}}{p} \arcsin \frac{p}{\sqrt{2}} \\
+		&E_0^{(2)} (p, \, \alpha) = \frac{p^2}{2 m^*} - \alpha - \frac{2}{3} \left( \frac{1}{8} - \frac{1}{3 \pi} \right) \alpha^2
+		\; , \quad m* = \frac{1}{1 - \alpha/6} \\
+		&Z_0^{(1)} (p = 0, \, \alpha) = 1 - \frac{\alpha}{2} \,.
+	\end{split}
+\end{equation}
 
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/EandZvsP"}.pdf}
 	\end{subfigure}
-	\caption{Here the numerically obtained $ E_0^\text{DMC} $ and $ Z_0^\text{DMC} $ are plotted against the external momentum magnitude $ p $ at $ \alpha = 1 $. The perturbative analytical result of $ E_0 $ up to first \cite{electronsInLatticeFields}\cite{RichardFeynman} and second \cite{Haga} order are also outlined and happen to agree quite well for $ p < 1 $. The error bars are here omitted since they would not have been visible due to the low uncertainty.}
+	\caption{Here the numerically obtained $ E_0^\text{DMC} $ and $ Z_0^\text{DMC} $ are plotted against the external momentum magnitude $ p $ at $ \alpha = 1 $. The error bars are here omitted since they would not have been visible due to the low uncertainty.}
 	\label{fig:EandZvsP}
 \end{figure}
 
@@ -1897,7 +1890,7 @@ This thesis would not be complete without presenting some general quantities of 
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Plots/Quantities/EandZvsA"}.pdf}
 	\end{subfigure}
-	\caption{Here the numerically obtained $ E_0^\text{DMC} $ and $ Z_0^\text{DMC} $ are plotted against the interaction parameter $ \alpha $ at $ p = 0 $. Again analytical perturbative results up to the first and second order are outlined. Since $ \Gt^{(1)}(\vec p = \vec 0, \tau) = [1 - \alpha/2] \, \Gt^{(0)} (\vec p = \vec 0, \tau)$ it is apparent that $ Z_0^{(0)} = 1 - \alpha/2 $ by comparing agains \ref{eq:longTimeLimit}. The error bars are here omitted since they would not have been visible due to the low uncertainty.}
+	\caption{Here the numerically obtained $ E_0^\text{DMC} $ and $ Z_0^\text{DMC} $ are plotted against the interaction parameter $ \alpha $ at $ p = 0 $. The error bars are here omitted since they would not have been visible due to the low uncertainty.}
 	\label{fig:EandZvsA}
 \end{figure}
 

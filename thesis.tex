@@ -33,7 +33,7 @@
 %
 %  required parameters
 %
-\title{Yet Another Thesis About Diagrammatic Monte Carlo}
+\title{A Monte Carlo Approach to Feynman Diagrammatic Series and its Boldification}
 \author{Emil Blomquist}
 \date{September 2017}
 \shortdate{2017}
@@ -55,7 +55,7 @@
 \cplogo{\includegraphics[height=2.5cm]{Images/KTH/logo.eps}}
 \innerlogo{\includegraphics[height=2.5cm]{Images/KTH/logo.eps}}
 %\subtitle{A carefully crafted subtitle for people not settling with the\\usual title, giving yet longer, funnier, and better smelling, title}
-\division{Statistical Physics}
+\division{Statistical Physics Group}
 \centercomment{\centerline{Typeset in \LaTeX}}
  
 \usepackage{epstopdf}
@@ -67,6 +67,9 @@
 \usepackage[square, comma, numbers, sort&compress]{natbib}
 \usepackage{braket}
 \usepackage{array}
+
+%\usepackage[bibencoding=inputenc]{biblatex}
+%\bibliography{references}
 
 %%%%%
 \usepackage{color}
@@ -90,13 +93,13 @@
 \definecolor{flaw}{rgb}{1, 0, 0}
 \definecolor{todo}{rgb}{0, 0, 1}
 
-\definecolor{highlight}{rgb}{1, 0, 1}
+\definecolor{highlight}{rgb}{0.847, 0.243, 0.530}
 
 
-\definecolor{myblue}{rgb}{.95, .95, .95}
-\definecolor{FDbg}{rgb}{0.9, 0.9, 0.9}
-%\definecolor{myblue}{rgb}{1, 1, 1}
-%\definecolor{FDbg}{rgb}{1, 1, 1}
+%\definecolor{myblue}{rgb}{.95, .95, .95}
+%\definecolor{FDbg}{rgb}{0.9, 0.9, 0.9}
+\definecolor{myblue}{rgb}{1, 1, 1}
+\definecolor{FDbg}{rgb}{1, 1, 1}
 
 \newlength\mytemplen
 \newsavebox\mytempbox
@@ -200,7 +203,7 @@
 
 %\part{Introduction and background material}
 
-\input{Texts/commentsAndNotations}
+%\input{Texts/commentsAndNotations}
 
 \chapter{Introduction}
 \input{Texts/chapter1}
@@ -211,7 +214,7 @@
 \chapter{Diagrammatic Monte Carlo}
 \input{Texts/chapter3} 
 
-\chapter{Summary, conclusions and outlook}
+\chapter{Summary and conclusions}
 \input{Texts/chapter4}
 
 % This starts the appendices.
@@ -224,6 +227,8 @@
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{thesis_bib_style}
 \bibliography{references}
+%\printbibliography
+
 
 %\part{Scientific papers}
 
