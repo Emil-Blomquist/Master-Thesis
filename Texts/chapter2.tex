@@ -175,9 +175,7 @@ This because there is only one electron present in the system in the case of a s
 
 \subsection{Bare single-particle Green's function}
 
-\todo{------ Continue here ------}
-
-An eigenstate to a bare Hamiltonian, e.g.\ $ \hat K_0 = \sum_{\vec k} \xi^0_{\vec k} \hat c^\dagger_{\vec k} \hat c_{\vec k} $, is referred to as a bare or a free state. The energies $ \xi^0_{\vec k} $ are known from solving the corresponding problem in first-quantization. Reusing the previous assumptions and calculations, but $ \hat K $ every where replaced with $ \hat K_0 $, the bare Green's function in momentum space is found to be,
+An eigenstate to a bare Hamiltonian, e.g.\ $ \hat K_0 = \sum_{\vec k} \xi^0_{\vec k} \hat c^\dagger_{\vec k} \hat c_{\vec k} $, is referred to as either a bare or a free state. The energies $ \xi^0_{\vec k} $ are known from solving the corresponding problem in first-quantization. Reusing the previous assumptions and calculations, but $ \hat K $ every where replaced with $ \hat K_0 $, the bare Green's function in momentum space is found to be,
 \begin{equation}
 	\Gt^{(0)}(\vec k, \tau)
 	= \sum_{\vec p} | \langle \vec p | \hat c^\dagger_{\vec k} | \text{vac} \rangle |^2 e^{-\xi^0_{\vec p} \tau}
@@ -204,7 +202,7 @@ Consider a diatomic crystal, e.g.\ rock salt. Such a crystal is made up out of i
 	\centering
 	\begin{subfigure}[c]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Crystal_illustration/description"}.pdf}
-		\caption{The filled circles illustrate four types of charges. The color represent the charge sign; the ones to the left are positively charged and the ones to the right are negatively charged. The quantity of charge is represented by the size; the charges have the same charge quantity within each row, but the ones in the top row have a weaker charge than the ones in the bottom row.}
+		\caption{The filled circles illustrate four types of charges. The color represent the charge sign; the ones to the left are positively charged and the ones to the right are negatively charged. The magnitude of charge is represented by the size; the charges have the same charge quantity within each row, but the ones in the top row have a weaker charge than the ones in the bottom row.}
 	\end{subfigure}\hfill
 	\begin{subfigure}[c]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{{"Images/Crystal_illustration/crystal"}.pdf}
@@ -260,7 +258,7 @@ Here it has both been assumed that $ \Phi (\vec x) $ have a continuous first der
 
 From this point and onwards, a system in a steady state is no longer considered and hence the time dependence is brought back. However, the solution to the time dependent version of the model clearly must agree with the time independent quantities in the limit of steady state.
 
-Since each lattice point in the crystal is occupied by a ion, the dynamics of the system is characterized by two time scales. That is, the time it takes to displace the bound electrons relative their nuclei (deformation of ion) and the time it takes to displace the nucleus relative the lattice (deformation of lattice structure). These two types of deformation are illustrated in figure \ref{fig:twoTypesOfPolrisation}. Since the electrons are significantly lighter than their nuclei, the ion deformation time is expected to be much smaller than the time it takes to deformation the lattice. Denoting these timescales as $ t_\text{uv} $ and $ t_\text{ir} $ respectively, this translates to $ t_\text{uv} \ll t_\text{ir} $ or  $ \omega_\text{uv} \gg \omega_\text{ir} $, where $ \omega \propto 1/t $ is the corresponding characteristic frequency. The subscripts of course indicate that frequencies lie in the ultraviolet and infrared region respectively. The total deformation, due to these two types of deformations, may then be expressed as $ \vec P = \vec P_\text{ir} + \vec P_\text{uv} $.
+Since each lattice point in the crystal is occupied by a ion, the dynamics of the system is characterized by two time scales. That is, the time it takes to displace the bound electrons relative their nuclei (deformation of ion) and the time it takes to displace the nucleus relative the lattice (deformation of lattice structure). These two types of deformation are illustrated in figure \ref{fig:twoTypesOfPolrisation}. Since the bound electrons are significantly lighter than their nuclei, the ion deformation time is expected to be much smaller than the time it takes to deformation the lattice. Denoting these timescales as $ t_\text{uv} $ and $ t_\text{ir} $ respectively, this translates to $ t_\text{uv} \ll t_\text{ir} $ or  $ \omega_\text{uv} \gg \omega_\text{ir} $, where $ \omega \propto 1/t $ is the corresponding characteristic frequency. The subscripts of course indicate that frequencies lie in the ultraviolet and infrared region respectively. The total deformation, due to these two types of deformations, may then be expressed as $ \vec P = \vec P_\text{ir} + \vec P_\text{uv} $.
 \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.45\textwidth}
@@ -292,7 +290,7 @@ which follow from equation (\ref{eq:DefDfield}). However, since there are two un
 % At a frequency $ \omega_\infty $ of the external field $ \vec D $, satisfying $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $, one has a time dependent relation $ \vec D = \epsilon_\infty \vec E $. Such a frequency corresponds in this model to a slowly moving electron
 
 
-This second relation is the time-dependent high frequency response $ \vec D = \epsilon_\infty \vec E $, where the rate of change $ \omega_\infty $ of the external $ \vec D $-field satisfies $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. In the case of a free electron this criterion implies that the electron must be moving extremely slowly compared to the UV timescale, but extremely quick compared to the IR timescale. Hence the UV-part of the polarization will manage to follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes. It is therefore reasonable to assume the latter contribution to be approximately constant as well as negligible in comparison to the former contribution, i.e.\ $ \vec P \simeq \vec P_\text{uv} $. Using this last approximation together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $, one obtains in similarity to (\ref{eq:static_P_D_relation})
+This second relation is the time-dependent high frequency response $ \vec D = \epsilon_\infty \vec E $, where the rate of change $ \omega_\infty $ of the external $ \vec D $-field satisfies $ \omega_\text{uv} \gg \omega_\infty \gg \omega_\text{ir} $. In the case of a free electron this criteria implies that the electron must be moving extremely slow compared to the UV timescale, but extremely quick compared to the IR timescale. Hence the UV-part of the polarization will manage to follow the changes in the $ \vec D $-field nearly adiabatically whilst the IR-part wont have time adapt to the changes. It is therefore reasonable to assume the latter contribution to be approximately constant as well as negligible in comparison to the former contribution, i.e.\ $ \vec P \simeq \vec P_\text{uv} $. Using this last approximation together with the relation of $ \vec D $ and $ \vec E $ through $ \epsilon_\infty $, one obtains in similarity to (\ref{eq:static_P_D_relation})
 \begin{equation}
 	\label{eq:static_Puv_D_relation}
 	4 \pi \vec P_\text{uv} (\vec x) =  (1 - 1/\epsilon_\infty) \vec D(\vec x, \vec x_\text{e}) \,.
@@ -316,13 +314,13 @@ By finally comparing this equation to (\ref{eq:static_Puv_D_relation}) and (\ref
 	\frac{1}{\delta} = \frac{\omega_\text{uv}^2}{4 \pi} \left( 1 - \frac{1}{\epsilon_\infty} \right) \,.
 \end{equation}
 
-Having formulated the equation of motion for the two types of polarization, the next task is to construct one for the free electron. Since the electron was assumed to be slowly moving, one may without hesitation treat it in the non-relativistic limit. Then the only force acting on the electron is due to the bound electric field, i.e.\ $ \vec F(\vec x_\text{e}) = q \vec E_\text{bound} (\vec x_\text{e}) = - q \nabla \Phi (\vec x_\text{e}) $. Thus $ m \ddot{\vec x}_\text{e} = \dot{\vec p}_\text{e} = - q \nabla \Phi (\vec x_\text{e}) $ where $ m $ is an effective mass which in general is different from the electronic mass $ m_\text{e} $. By treating $ \vec p_\text{e} $,  $ \vec P_\text{uv} (\vec x) $ and $ \vec P_\text{ir} (\vec x) $ as independent quantities, one may out of the equations of motion together with the interaction (\ref{eq:interaction_energy_calculation}) construct the Lagrangian
+Having formulated the equation of motion for the two types of polarization, the next task is to construct one for the free electron. Since the electron was assumed to be moving slowly, one may without hesitation treat it in the non-relativistic limit. Then the only force acting on the electron is due to the bound electric field, i.e.\ $ \vec F(\vec x_\text{e}) = q \vec E_\text{bound} (\vec x_\text{e}) = - q \nabla \Phi (\vec x_\text{e}) $. Thus $ m \ddot{\vec x}_\text{e} = \dot{\vec p}_\text{e} = - q \nabla \Phi (\vec x_\text{e}) $ where $ m $ is an effective mass which in general is different from the electronic mass $ m_\text{e} $. By treating $ \vec p_\text{e} $,  $ \vec P_\text{uv} (\vec x) $ and $ \vec P_\text{ir} (\vec x) $ as independent quantities, one may out of the equations of motion together with the interaction (\ref{eq:interaction_energy_calculation}) construct the Lagrangian
 \begin{equation}
 	\begin{split}
 		L &= \frac{\gamma}{2} \int \left[ \dot{\vec P}_\text{ir}^2 (\vec x) - \omega_\text{ir}^2 \, \vec P_\text{ir}^2 (\vec x) \right] \diff^3 x
 		+ \frac{\delta}{2} \int \left[ \dot{\vec P}_\text{uv}^2 (\vec x) - \omega_\text{uv}^2 \, \vec P_\text{uv}^2 (\vec x) \right] \diff^3 x \\
 		&+ \int \vec D(\vec x, \vec x_\text{e}) \cdot \left[ \vec P_\text{ir}(\vec x) +  \vec P_\text{uv}(\vec x) \right] \diff^3 x
-		+ \frac{\vec p_\text{e}^2}{2m} \,,
+		+ \frac{\vec p_\text{e}^2}{2m} \,.
 	\end{split}
 \end{equation}
 Performing a Legendre transformation, the Hamiltonian is found to be
@@ -336,7 +334,7 @@ Performing a Legendre transformation, the Hamiltonian is found to be
 	\end{split}
 \end{equation}
 
-Since the UV-part of the polarization follows the external field nearly adiabatically, the dynamic solution $ \vec P_\text{uv} $ is approximatively the statical one with respect to instantaneous value of $ \vec D $-field. Hence the contribution of $ \vec P_\text{uv} $ to the the Hamiltonian becomes constant so that it can be removed without affecting the dynamics, giving rise merely to an energy shift. Having removed $ \vec P_\text{uv} $ from the theory it is no longer necessary to keep the subscript of $ \vec P_\text{ir} $ and $ \omega_\text{ir} $ for differentiation purposes, therefore it is from here on omitted.
+Since the UV-part of the polarization follows the external field nearly adiabatically, the dynamic solution $ \vec P_\text{uv} $ is approximatively the statical one with respect to the $ \vec D $-field. Hence the contribution of $ \vec P_\text{uv} $ to the the Hamiltonian becomes constant so that it can be removed without affecting the dynamics, giving rise merely to an energy shift. Having removed $ \vec P_\text{uv} $ from the theory it is no longer necessary to keep the subscript of $ \vec P_\text{ir} $ and $ \omega_\text{ir} $ for differentiation purposes, therefore it is from here on omitted.
 
 Before proceeding with the derivation, it is important to point out that the integrals in $ L $ and $ H $ are divergent. The reason for this is the polarization, which according to (\ref{eq:static_Puv_D_relation}) and (\ref{eq:static_Pir_D_relation}) is proportional to the $ \vec D $-field which in turn is singular at $ \vec x = \vec x_\text{e} $. This divergence is a consequence from disregarding the lattice structure when interpreting the displacements as a continuous vector field. If one where to calculate this integral, it would be necessary to express the polarization as a Fourier series and omit terms with a wave length smaller than that of the lattice constant.
 
@@ -354,7 +352,7 @@ so that
 	\; , \quad
 	 \dot{\vec P}(\vec x) = i \sqrt{\frac{\omega}{2 \gamma}} \left[ \vec B^* (\vec x) - \vec B (\vec x) \right] \,.
 \end{equation}
-The reasons to why this field was introduced will become evident when quantizing the theory. The Hamiltonian, re-expressed in terms of the $ \vec B $-field, transform into
+The Hamiltonian, re-expressed in terms of this $ \vec B $-field, transform into
 \begin{equation}
 	H = \frac{\vec p_\text{e}^2}{2m}
 	+ \omega \int \vec B^* (\vec x) \cdot \vec B (\vec x) \diff^3 x
@@ -389,7 +387,7 @@ Here it seems as if the interaction part of the Hamiltonian is ill behaved since
 
 \subsection{Quantization}
 
-In order to quantize the theory, it is of utter importance to construct a set of canonical coordinates $ p_i $ and $ q_i $ for which the commutation relations are. Using (\ref{eq:driven_harmonic_oscillator}) and (\ref{eq:Hamiltonian_raw}), it is easy to verify that $ \phi_i(\vec x, t)_i = [\vec P(\vec x, t)]_i $ and $ \pi_i(\vec x, t) = \gamma [ \dot{\vec P}(\vec x, t) ]_i $ obey Hamilton's field equations
+In order to quantize the theory, it is of utter importance to construct a set of canonical coordinates $ p_i $ and $ q_i $ for which the commutation relations then are known. Using (\ref{eq:driven_harmonic_oscillator}) and (\ref{eq:Hamiltonian_raw}), it is easy to verify that $ \phi_i(\vec x, t)_i = [\vec P(\vec x, t)]_i $ and $ \pi_i(\vec x, t) = \gamma [ \dot{\vec P}(\vec x, t) ]_i $ obey Hamilton's field equations
 \begin{equation}
 	\dot \phi_i = \frac{\delta H}{\delta \pi_i}
 	\; , \quad
@@ -428,7 +426,7 @@ proves that the transformation used, and the set of coordinates $ q_{\vec k}, p_
 
 Before promoting these new coordinates to operators, once must symmetrize the product $ b_{\vec q}^* b_{\vec q} $. Up to this point, $ b_{\vec q}^* $ and $ b_{\vec q} $ have been complex valued variables so that the order in which they appeared in such a product does not matter. However, due to a nonzero commutation relation when promoted to operators, this will no longer be the case. In order to not favor any of the two possible orderings, they are chosen to contribute equally, i.e.\ $ b^*_{\vec q} b_{\vec q} = (b^*_{\vec q} b_{\vec q} + b_{\vec q} b^*_{\vec q})/2 $.
 
-By promoting the canonical coordinates to operators and imposing Bose statistics onto $ \hat q_{\vec q}, \, \hat p_{\vec q} $, the commutation relations follow from the corresponding poisson bracket relations of classical mechanics, i.e.\
+By promoting the canonical coordinates to operators and imposing Bose statistics onto $ \hat q_{\vec k}, \, \hat p_{\vec k} $, the commutation relations follow from the corresponding poisson bracket relations of classical mechanics, i.e.\
 \begin{equation}
 	\begin{split}
 		\big\{ q_{\vec k}, \, p_{\vec p} \big\}_\text{PB} = \delta_{\vec k, \vec p}
@@ -447,14 +445,14 @@ Substituting with (\ref{eq:pAndQ}) into the first of these equations, and using 
 \end{equation}
 where the zero point energy $ \omega \sum_{\vec q} \tfrac{1}{2} $ of the oscillating ions have been omitted.
 
-The commutation relations satisfied by $ \hat b^\dagger_{\vec q} $ and $ \hat b_{\vec q} $ are the same as (\ref{eq:boseOperators}), implying that these operators are nothing but the creation and annihilation operators of a bosonic field. The polarization field $ \vec P $ can then be tough of as being represented by a set of harmonic oscillators each corresponding to a quantized mode of vibration in the lattice, i.e.\ a phonon. Since the frequency of the phonons is momentum independent they it is said to be dispersionless. For optical phonons which couple to infrared radiation, this is at low momenta a good approximation as shown in the figure \ref{fig:phononDispersionRelation}.
+The commutation relations satisfied by $ \hat b^\dagger_{\vec q} $ and $ \hat b_{\vec q} $ are the same as (\ref{eq:boseOperators}), implying that these operators are nothing but the creation and annihilation operators of a bosonic field. The polarization field $ \vec P $ can then be tough of as being represented by a set of harmonic oscillators each corresponding to a quantized mode of vibration in the lattice, i.e.\ a phonon. Since the frequency of the phonons is momentum independent they are said to be dispersionless. For optical phonons which couple to infrared radiation, this is at low momenta a good approximation as shown in figure \ref{fig:phononDispersionRelation}.
 \begin{figure}[H]
 	\centering
  	\includegraphics[width=0.4\textwidth, ]{{"Images/Dispersion_relation/dispersion_relation"}.pdf}
 	\caption{The upper and lower curves illustrate the characteristics of an optical and acoustic dispersion relation respectively. The outlined orange region suggests were the optical dispersion relation may be well approximated as momentum independent.}
 	\label{fig:phononDispersionRelation}
 \end{figure}
-Having sorted out the quantization of the $ \vec B $-field, the attention is turned towards the electron which not yet has undergone second-quantization. In order to achieve this, the recipe (\ref{eq:O1toO2}) is used which translates a one-body operator from first to second-quantization. By using the allowed momenta (\ref{eq:momentumQuantumNumbers}) as occupation numbers for the electron state, one obtains
+Having sorted out the quantization of the $ \vec B $-field, the attention is turned towards the electron which not yet has undergone second-quantization. In order to achieve this, the recipe (\ref{eq:O1toO2}) is used which translates an one-body operator from first to second-quantization. By using the allowed momenta (\ref{eq:momentumQuantumNumbers}) as occupation numbers for the electron state, one obtains
 \begin{equation}
 	\begin{split}
 		\frac{\hat{\vec p}_\text{e}^2}{2m} &\rightarrow \sum_{\vec p} \frac{p^2}{2m} \hat a^\dagger_{\vec p} \hat a_{\vec p} \,, \\[1em]
@@ -488,7 +486,7 @@ Substituting with this into the Hamiltonian and using that interaction term is s
 	+ \omega \sum_{\vec q} \hat b^\dagger_{\vec q} \hat b_{\vec q}
 	+ \frac{1}{\sqrt V} \sum_{\vec q, \vec p} V (q) \left( \hat b^\dagger_{\vec q} - \hat b_{- \vec q} \right) \hat a^\dagger_{\vec p - \vec q} \hat a_{\vec p} \,.
 \end{equation}
-The grand canonical Hamiltonian $ \hat K $, which is used extensively in the finite temperature field theory, is obtained by adding chemical potentials to $ \hat H $. But, since there is no conservation law regarding the number of phonons it must be the case that $ \mu_\text{phonon} = 0 $. Thus
+The grand canonical Hamiltonian $ \hat K $, which is used extensively in finite temperature field theory, is obtained by adding chemical potentials to $ \hat H $. But since there is no conservation law regarding the number of phonons it must be the case that $ \mu_\text{phonon} = 0 $. Thus
 \begin{equation}
 	\label{eq:finalGrandCanoniclaHamiltonian}
 	\hat K
@@ -522,11 +520,11 @@ In both the nominator and denominator of the expression above, there is the freq
 	\label{eq:bareStatcalEnsembleAverage}
 	\text{Tr} \{ e^{-\beta \hat K_0 } T_\tau [ \hat A \, \hat B \cdots\,  \hat F] \} \,.
 \end{equation}
-It was first proved by Matsubara \cite{Matsubara} that this factor could be rewritten as the sum of all possible permutations of contractions $ \hat A^\cdot \hat B^\cdot \equiv \text{Tr} \{ \hat \rho_{\text{G}0} \, T_\tau [ \hat A \,\hat B ] \} $ amongst the product of operators $ \hat A \hat B \cdots \hat F $. Here $ \hat \rho_{\text{G}0} $ is the bare statistical operator, defined in accordance with $ \hat \rho_\text{G} $ but having the full Hamiltonian replaced by the noninteracting part only. In the case of a creation and an annihilation operator, the contraction,
+It was first proved by Matsubara \cite{Matsubara} that this factor could be rewritten as the sum of all possible permutations of contractions $ \hat A^\cdot \hat B^\cdot \equiv \text{Tr} \{ \hat \rho_{\text{G}0} \, T_\tau [ \hat A \,\hat B ] \} $ amongst the product of operators $ \hat A \hat B \cdots \hat F $. Here $ \hat \rho_{\text{G}0} $ is the bare statistical operator, defined in accordance with $ \hat \rho_\text{G} $ but having the full Hamiltonian replaced by the noninteracting part only. In the case of a creation and an annihilation operator, the contraction
 \begin{equation}
 	\hat c_{\vec k} (\tau) ^\cdot \, \hat c^\dagger_{\vec k} (\tau') ^\cdot
 	= \text{Tr} \{ \hat \rho_{\text{G}0} \, T_\tau [ \hat c_{\vec k} (\tau) \, \hat c^\dagger_{\vec k} (\tau') ] \}
-	= \Gt^{(0)}(\vec k, \tau) \,,
+	= \Gt^{(0)}(\vec k, \tau)
 \end{equation}
 is nothing but the definition of the bare propagator in momentum space (\ref{eq:GptExpression}). All other types of contractions amongst such operators turn out to be zero, i.e.\
 \begin{equation}
@@ -537,11 +535,11 @@ is nothing but the definition of the bare propagator in momentum space (\ref{eq:
 	\quad \forall \quad
 	\vec k \neq \vec p \,.
 \end{equation}
-Hence only a small part of all terms in (\ref{eq:bareStatcalEnsembleAverage}) survive, and these are the ones which may be represented pictorially in terms of Feynman diagrams. Further the denominator of (\ref{eq:perturbationSeries}) will serve to precisely cancel out any unconnected diagram part from the nominator. What is left of the perturbations series is then an infinite number of connected Feynman diagrams which are easily constructed from a set of Feynman rules.
+Hence only a small part of all terms in (\ref{eq:bareStatcalEnsembleAverage}) survive, and these are the ones which may be represented pictorially in terms of Feynman diagrams. Further more the denominator of (\ref{eq:perturbationSeries}) will serve to precisely cancel out any unconnected diagram part from the nominator. What is left of the perturbations series is then an infinite number of connected Feynman diagrams which are easily constructed from a set of Feynman rules.
 
 \subsection{Diagrammatic analysis}
 
-The constituents of the resulting Feynman diagrams are easily obtained just by analyzing the Hamiltonian (\ref{eq:finalGrandCanoniclaHamiltonian}). Using the vacuum ground state ensemble, the bare electronic and phononic propagators, referred to as $ \Gt^{(0)} $ and $ \Dt^{(0)} $ respectively, are given according to (\ref{eq:freeProp}) and represented as
+The constituents of the resulting Feynman diagrams are easily obtained just by analyzing the Hamiltonian (\ref{eq:finalGrandCanoniclaHamiltonian}). In case of the vacuum ground state, the bare electronic and phononic propagators, referred to as $ \Gt^{(0)} $ and $ \Dt^{(0)} $ respectively, are given according to (\ref{eq:freeProp}) and represented as
 \begin{fmffile}{FMFFILEelectronPropagator}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\label{eq:G0ofKt}
@@ -636,13 +634,13 @@ In this thesis only the electronic single-particle Green's function will be stud
 	\item For each of the $ n $ internal imaginary times, integrate from $ 0 $ to $ \beta $.
 	\item Multiply each diagram with the factor $ (-1)^n $.
 \end{enumerate}
-In this thesis the single-particle Green's function will be studied in the limit $ V \rightarrow \infty $. Hence the sums over internal momenta should be replaced according to
+In this thesis the single-particle Green's function will be studied in the limit $ V \rightarrow \infty $ and $ T \rightarrow 0 $. Hence the sums over internal momenta should be replaced according to
 \begin{equation}
-	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,.
+	\frac{1}{V} \sum_{\vec k} \cdots \rightarrow \int \frac{\diff^3k}{(2\pi)^3} \cdots \,,
 \end{equation}
-Further more this will be studied at $ T = 0 $ implying that the upper limit of the imaginary time integrals becomes infinite.
+and the upper bound of the imaginary time integrals $ \beta \rightarrow \infty $.
 
-Since the ground state ensemble is equal to that of vacuum, the propagators become identically zero for negative imaginary times. Because of this, the contribution from diagrams containing tadpoles, electron loops or similar structures vanish. This is illustrated in figure \ref{fig:vanishingContributions}.
+Because the propagators being identically zero for negative imaginary times, there is no contribution from diagrams containing tadpoles, electron loops or similar structures. This is illustrated in figure \ref{fig:vanishingContributions}.
 \begin{figure}[H]
 	\begin{fmffile}{FMFFILEtadpoleAndLoop}
 		\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation*}
@@ -683,7 +681,7 @@ Since the ground state ensemble is equal to that of vacuum, the propagators beco
 	\caption{A tadpole and an electron loop both of which are equal to zero due to the ground state ensemble of vacuum.}
 	\label{fig:vanishingContributions}
 \end{figure}
-Then the only contributing diagrams are those where all electron propagators follow after one another in a line, and phonon propagators spawn and die on the vertices on that line. That is,
+The only contributing diagrams are then those where all electron propagators follow after one another in a line, and phonon propagators spawn and die on the vertices on that line. That is,
 \begin{fmffile}{FMFFILEGUpToSecondOrder}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 	\label{eq:GinTermsOfDiagrams}
@@ -802,11 +800,11 @@ Then the only contributing diagrams are those where all electron propagators fol
 		\end{split}
 	\end{empheq}
 \end{fmffile}%
-It is obvious that the contribution from each diagram is nonzero only when the times are ordered chronologically, i.e. $ 0 = \tau_0 \le \tau_1 \le \tau_2 \le \dots \le \tau_{2n - 1} = \tau $. Because if this was not the case at least one propagator would propagate backwards in time and contribute with a factor of zero. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
+It is obvious that the contribution from each diagram is nonzero only when the times are ordered chronologically, i.e. $ 0 = \tau_0 \le \tau_1 \le \tau_2 \le \dots \le \tau_{2n - 1} = \tau $. Because if this was not the case at least one propagator would propagate backwards in time. Thus it is only meaningful to carry out the integrals such that this chronologization constraint is fulfilled.
 
 Another important property of these diagrams is that they all carry a positive definite contribution to $ \Gt $. This since the value of a propagator always is larger than or equal to zero, and the sign from the factor $ (-1)^n $ cancel the $ i^{2n} $ contained within $ V(\vec q)^{2n} $.
 
-Since the Hamiltonian is isotropic, there will be no preferred direction of momenta. Hence the single particle Green's function will only be dependent on the magnitude of the external momentum $ p = |\vec p | $, i.e.\ $ \Gt = \Gt = \Gt(\alpha, \mu, p, \tau) $.
+Since the Hamiltonian is isotropic, there will be no preferred direction of momenta. Hence the single particle Green's function will only be dependent on the magnitude of the external momentum $ p = |\vec p | $, i.e.\ $ \Gt = \Gt(\alpha, \mu, p, \tau) $.
 
 \subsection{Dyson equation}
 
@@ -815,7 +813,7 @@ Working at zero temperature allows for a full Fourier representation of the sing
 	G(\vec x, \tau) = \frac{1}{(2\pi)^4} \int \diff^3 k \int \diff \omega \, e^{i (\vec k \cdot \vec x - \omega \tau)} G(\vec k, \omega)
 	\; ; \quad G = \Gt, \, \Dt, \, \Gt^{(0)}, \, \Dt^{(0)} \,.
 \end{equation}
-It so happens to be more pleasant working in $ \vec k $-$ \omega $ space for a lot of reasons but what will be of importance here is the conservation of total four momentum $ k = (\omega, \vec k) $ at all vertices in a Feynman diagram. In that way the external legs of a diagram no longer depend upon any internal variables and may then be factored out from the nasty integral expression. Hence it is convenient to express the interacting single-particle Green's function, here depicted as a double line, in terms of the self-energy $ \Sigma(k) $ as
+It so happens to be more pleasant working in $ \vec k $-$ \omega $ space for a lot of reasons, but what will be of importance here is the conservation of total four momentum $ k = (\omega, \vec k) $ at all vertices in a Feynman diagram. In that way the external legs of a diagram no longer depend upon any internal variables and may therefore be factored out from the nasty integral expression. Hence it is convenient to express the interacting single-particle Green's function, here depicted as a double line, in terms of the self-energy $ \Sigma(k) $ as
 \begin{fmffile}{FMFFILEGinTermsOfSelfEnergy}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 	\label{eq:boldLine}
@@ -858,7 +856,7 @@ It so happens to be more pleasant working in $ \vec k $-$ \omega $ space for a l
 		\end{tikzpicture} \,,
 	\end{empheq}
 \end{fmffile}%
-where
+where then
 \begin{fmffile}{FMFFILEselfEnergy}
 	\begin{empheq}[box={\FDbox[0pt][0pt]}]{equation}
 		\begin{split}
@@ -1074,9 +1072,9 @@ Usually the state space of the system at hand is too large to fully cover during
 
 \subsection{Markov processes, detailed balance and ergodicity}
 
-In order to sample states of the system a Markov process is used. Given an initial state $ x $ such a process will generate a new state $ x' $ on random, i.e.\ if the Markov process repeatedly was given the state $ x $ the new state $ x' $ would not be the same every time. The probability $ P(x | x') $ of generating a state $ x' $ given $ x $ is referred to as a transition probability. In order to be a Markov process there are two criteria which the transition probabilities must fulfill; they are not allowed to change with time and they may only depend on the properties of the current states $ x $ and $ x' $. During the course of a Monte Carlo simulation the Markov process is repeatedly fed the system state in order to generate a sequence of states. When the simulation have run for a long enough time, the frequency for which a particular state is generated will be given by a distribution corresponding to the design of the transition probabilities. When this has happened one say that the process has reached an equilibrium and the distribution has become stationary. However, in order for the succession of generated states to match the pursued probability distribution when equilibrium has been reached, it is necessary that the conditions of ergodicity and detailed balance are satisfied.
+In order to sample states of a system a Markov process is used. Given an initial state $ x $ such a process will generate a new state $ x' $ on random, that is, if the Markov process repeatedly was given the state $ x $ the new state $ x' $ would not be the same every time. The probability $ P(x | x') $ of generating a state $ x' $ given $ x $ is referred to as a transition probability. In order to be a Markov process there are two criteria which the transition probabilities must fulfill; they are not allowed to change with time and they may only depend on the properties of the current states $ x $ and $ x' $. During the course of a Monte Carlo simulation the Markov process is repeatedly fed the system state in order to generate a sequence of states. When the simulation have run for a long enough time, the frequency for which a particular state is generated will converge to a distribution corresponding to the design of the transition probabilities. When this has happened one say that the process has reached an equilibrium and the distribution has become stationary. However, in order for the succession of generated states to match the pursued probability distribution when equilibrium has been reached, it is necessary that the conditions of ergodicity and detailed balance are satisfied.
 
-Starting with the condition of ergodicity, this is the requirement that the Markov process should be able to reach any state of the system starting from any other state in a finite simulation time. This is equal to saying that there must be at least one path of non-zero transition probabilities between any two states. This is illustrated in figure \ref{fig:stateSpaceIllustration}. If the process would not be ergodic, some states would never be sampled, no matter how long the simulation was running. The equilibrium distribution of the Markov process would then be such that some states would have a zero probability mass, which in general would not agree with the true distribution of the simulated physical system.
+Starting with the condition of ergodicity, this is the requirement that the Markov process should be able to reach any state of the system in a finite simulation time when starting from any other state. This is equal to saying that there must be at least one path of non-zero transition probabilities between any two states. This is illustrated in figure \ref{fig:stateSpaceIllustration}. If the process would not be ergodic, some states would never be sampled, no matter how long the simulation was running. The equilibrium distribution of the Markov process would then be such that some states would have a zero probability mass, which in general would not agree with the true distribution of the simulated physical system.
 \begin{figure}[H]
         \centering
         \begin{subfigure}[b]{0.5\textwidth}
@@ -1089,7 +1087,7 @@ Starting with the condition of ergodicity, this is the requirement that the Mark
         \label{fig:stateSpaceIllustration}
 \end{figure}
 
-Detailed balance is the requirement that the net flow of probability between any two states is exactly zero, i.e.\
+Detailed balance on the other hand, is the requirement that the net flow of probability between any two states is exactly zero, i.e.\
 \begin{equation}
 	\label{eq:detailedBalance}
 	P(x) \, P(x|x') = P(x') \, P(x'|x)
@@ -1100,7 +1098,7 @@ where $ P(x) $ is the probability of the system being in state $ x $. Imposing s
 
 The Metropolis-Hastings algorithm is a Markov chain Monte Carlo method for obtaining a sequence of random samples from a probability distribution for which direct sampling would be difficult. Briefly speaking, this algorithm is able to draw samples from any distribution $ P(x) $ given that it is possible to compute the value of a function $ f(x) $ which is proportional to the probability density function $ \rho(x) $ of the distribution $ P(x) $. The Metropolis-Hastings algorithm suggests constructing transition probabilities $ P(x|x') $ in order to design a Markov process for which the stationary distribution $ \pi(x) $ is chosen to be $ P(x) $.
 
-The starting point to derive the Metropolis-Hastings algorithm is to separate the transitional probabilities into two parts; the proposal $ W(x|x') $ and acceptance-rejection $ A(x|x') $. Here $ W(x|x') $ is the conditional probability distribution of proposing state $ x' $ given state $ x $ and similarly $ A(x|x') $ is the conditional probability distribution of accepting the proposed state $ x' $ given $ x $. Expressing the transitional probability as a product of these two parts, i.e.\ $ P(x|x') = W(x|x') \, A(x|x') $, the criteria of detailed balance (\ref{eq:detailedBalance}) might be rewritten as
+The starting point to derive the Metropolis-Hastings algorithm is to separate the transitional probabilities into two parts; the proposal $ W(x|x') $ and acceptance-rejection $ A(x|x') $. Here $ W(x|x') $ is the conditional probability distribution of proposing a state $ x' $ given a state $ x $ and similarly $ A(x|x') $ is the conditional probability distribution of accepting the proposed state $ x' $ given $ x $. Expressing the transitional probability as a product of these two parts, i.e.\ $ P(x|x') = W(x|x') \, A(x|x') $, the criteria of detailed balance (\ref{eq:detailedBalance}) is re-expressed as
 \begin{equation}
 	\frac{A(x|x')}{A(x'|x)} = \frac{P(x)}{P(x')} \frac{W(x'|x)}{W(x|x')} \,.
 \end{equation}
@@ -1113,5 +1111,5 @@ In order to fulfill the condition above, it is common to use the Metropolis choi
 \end{equation}
 where the proportionality between the density of $ P $ and $ f $ has been used in order to reach the last equality. The new state $ x' $ is then accepted according to $ A(x|x') $. In practice this is achieved by sampling a uniform random number $ a \in [0, 1] $ and accepting the proposed transition if $ A(x|x') > a $, otherwise the transition is rejected. In case of the proposed state $ x' $ being rejected, the current state $ x $ is to be thought of as having been sampled yet again.
 
-In order for the Markov process to cover as much of state space as possible, it is important to construct the proposal distributions in such a way that the acceptance ratios become as large as possible. If this is not the case the process will spend an unnecessary amount of time being rejected leaving the current state.
+In order for the Markov process to cover as much of state space as possible, it is important to construct the proposal distributions in such a way that the acceptance ratios become as large as possible. If this is not the case the process will spend an unnecessary amount of time being rejected leaving the current state. This is how importance sampling manifest itself in the case of the Metropolis-Hastings algorithm.
 

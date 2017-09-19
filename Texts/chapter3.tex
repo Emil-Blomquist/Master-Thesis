@@ -4,7 +4,7 @@ In this chapter the general idea behind the diagrammatic Monte Carlo method is f
 
 \section{General idea}
 
-Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} which allows to simulate quantities $ Q(\{ y \}) $ in terms of convergent diagrammatic series, i.e.\ sums of integrals with an ever increasing number of integration variables
+Diagrammatic Monte Carlo (from here on DMC) is a numerical method developed by Prokof'ev et al. \cite{MishchenkoA.2000DqMC} which allows to simulate quantities $ Q(\{ y \}) $ in terms of convergent diagrammatic series, i.e.\ sums of integrals with an ever increasing number of integration variables
 \begin{equation}
 	\label{eq:integralSeries}
 	Q(\{ y \})
@@ -12,7 +12,7 @@ Diagrammatic Monte Carlo (from here on abbreviated DMC) is a numerical method de
 \end{equation}
 Here $ \{y\} $ is a set of external variables and $ \xi_n $ (not to be confused with the energy eigenvalues $ \xi_\nu $ of the grand canonical Hamiltonian $ \hat K $) indexes the different integrands of order $ n $ which are given by the function $ D_n $. Terms corresponding to $ n = 0 $ are understood as being known functions of the external variables. In case of a discrete internal variable $ x_i $, the corresponding integral is exchanged in favor of a sum.
 
-The method is based on the Metropolis-Hastings algorithm and samples integrands from the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
+The DMC method is based on the Metropolis-Hastings algorithm and samples integrands from the integral series in the $ (\xi_n, \, \{y\}, \, x_1, \, \dots , \, x_n) $ parameter space. That is, a random walk is preformed between the different integrands in the integral series, as well as between the possible values of the integration variables. In this random walk it is also permissible to include one or more of the external variables. Since the terms at $ n = 0 $ are known functions it is then possible to calculate the value of $ Q $ by keeping track of the frequency by which these terms are sampled, as well as the length of the sequence of sampled terms.
 
 To clarify any ambiguities, the main idea behind the DMC method will next be demonstrated by a few simple examples.
 
@@ -52,15 +52,15 @@ so that
 
 \subsection*{Example 2}
 
-In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $. Instead of having of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Again the function $ D_n $ is regarded as proportional the probability density function
+In this second example the task is to compute the sum $ 1 + \int_a^b x \diff x $. Instead of having two zeroth order terms as in the first example, there is now a zeroth and first order term. This implies that the parameter space is no longer completely discrete with merely two possible states. Similarly to the first example, the zeroth order term is still represented in parameter space by the state $ \xi_0 = 0 $. On the other hand, the first order term corresponds to the infinite number of states $ (\xi_1 = 0, \, x \in [a, \, b]) $. This notation of the states in parameter space is a little cumbersome, however, by assuming $ b > a > 1 $ it is possible to create a one-to-one mapping which maps $ \xi_0 = 0 $ and $ (\xi_1 = 0, \, x \in [a, \, b]) $ onto $ x = 1 $ and $ x \in [a, \, b] $ respectively. Again the function $ D_n $ is regarded as proportional the probability density function
 \begin{equation}
 	\rho(x)
 	= \frac{D_n(x)}{\sum_y D_n(y)}
 	= \frac{D_n(x)}{1 + \int_a^b x \diff x}
 	\; ; \quad
-	x \in \{1\} \cup [a, \, b] \,.
+	x \in \{1\} \cup [a, \, b]
 \end{equation}
-in order for the Markov process to generate states according to the probability distribution $ P $ corresponding to this choice of $ \rho $. To cover the whole parameter space so that ergodicity is satisfied, it is more than sufficient to consider four types of transitions with corresponding transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ and thus corresponds to a state of the first order term. This Markov process may be illustrated as figure \ref{fig:example2}.
+in order for the Markov process to generate states according to the corresponding probability distribution $ P $. To cover the whole parameter space so that ergodicity is satisfied, it is more than sufficient to consider four types of transitions with corresponding transition probabilities $ P(1|1) $, $ P(1|x) $, $ P(x|1) $ and $ P(x|x') $. Here it is understood that $ x, x' \in [a, \, b] $ so that these states in parameter space belong to the first order term. The Markov process described is illustrated in figure \ref{fig:example2}.
 
 \begin{figure}[H]
 	\centering
@@ -104,7 +104,7 @@ In this third and final example, the task is to compute
 \begin{equation}
 	1 + \int_{a}^{b} \diff x \, e^{-x} + \int_{a'}^{b'} \diff y \int_{a''}^{b''} \diff z \, e^{-y -z} \,,
 \end{equation}
-which is more similar to the actual problem. This integral sum consists of a zeroth, first and second order term. By assuming that $ b > a > 1 $, a one-to-one mapping similar to the one used in the previous example may be preformed here as well. Again the zeroth and first order terms are chosen to be represented by $ x = 1 $ and $ x \in [a, \, b] $ respectively, whilst the second order term is to be represented by $ x = (y, z) \in [a', \, b'] \times [a'', \, b''] $. 
+which is more similar to the actual problem tackled in this thesis. This integral sum consists of a zeroth, first and second order term. By assuming that $ b > a > 1 $, a one-to-one mapping similar to the one used in the previous example may be preformed here as well. Again the zeroth and first order terms are chosen to be represented by $ x = 1 $ and $ x \in [a, \, b] $ respectively, whilst the second order term is to be represented by $ x = (y, z) \in [a', \, b'] \times [a'', \, b''] $. 
 
 Analogously to the former examples the function $ D_n $ is normalizable and may thus be though of as a non-normalized probability density function. Hence a Markov process is used to generate a sequence of parameter space states from a probability distribution $ P $ corresponding to $ D_n $. This time the Markov process is designed to have the seven types of transitions illustrated in figure \ref{fig:example3}.
 
@@ -165,7 +165,7 @@ The task at hand is now to implement the DMC method in order to calculate the el
 	\rightarrow
 	\int \limits_{q=0}^\infty \int \limits_{\theta=0}^{\pi} \int \limits_{\varphi=0}^{2\pi} \frac{q^2 \sin \theta \diff q \diff \theta \diff \varphi}{(2 \pi)^3} \,.
 \end{equation}
-The beauty of this is realized when recalling that each phonon brings with it a factor $ V(q)^2 \propto q^{-2} $, whose momentum dependence exactly cancel with scale factor of the spherical coordinates.
+The beauty of this is realized when recalling that each phonon brings with it a factor $ V(q)^2 \propto q^{-2} $, whose momentum dependence exactly cancel with the scale factors of the spherical coordinates.
 
 The expression corresponding the first order diagram then becomes
 \begin{equation}
@@ -184,19 +184,19 @@ The expression corresponding the first order diagram then becomes
 		\Big] \,,
 	\end{split}
 \end{equation}
-where $ \tilde \Dt^{(0)}(\vec q, \tau) $ is a phonon propagator which has absorbed the factor $ q^2 \sin \theta  \, (2\pi)^{-3} $ originating from the integral, the interaction potential $ V(q)^2 $ along with the factor $ -1 $ from the Feynman rules. Thus
+where $ \tilde \Dt^{(0)}(\vec q, \tau) $ is a phonon propagator which has absorbed: the factor $ q^2 \sin \theta  \, (2\pi)^{-3} $ originating from the integral, the interaction potential $ V(q)^2 $ and the factor $ -1 $ from the Feynman rules. Thus
 \begin{equation}
 	\tilde \Dt^{(0)}(\vec q, \tau)
 	=
-	\frac{2\sqrt 2 \pi \alpha}{(2\pi)^3} \sin \theta \, \exp \{ - \tau\}
+	\frac{2\sqrt 2 \pi \alpha}{(2\pi)^3} \sin \theta \, \exp \{ - \tau\} \,,
 \end{equation}
-which is a quantity always larger than or equal to zero. The integrand of each and every integral in the integral series will be entirely made up out of $ \Gt^{(0)} $'s and $ \tilde \Dt^{(0)} $'s which implies that every contribution to $ \Gt $ is a positive contribution. This will simplify the DMC implementation since it wont be necessary to calculate what sign each sampled parameter space state comes with.
+and every integral in the integral series will be entirely made up out of these $ \Gt^{(0)} $'s and $ \tilde \Dt^{(0)} $'s.
 
 The external parameters $ \vec p $ and $ \tau $ will be the only ones allowed to change during the Markov process. Including $ \alpha $ and/or $ \mu $ would cause the parameter space to increase and the statistics to be spread out. Thus more computation time would be needed to calculate quantities to the same level of certainty as having $ \alpha $ and $ \mu $ fixed.
 
 \subsection{Implementation}
 
-The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ and the resolution is chosen in terms of $ \Delta p = p_\text{max} / N$ and $ \Delta \tau = \tau_\text{max} / M $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables in the Markov process. The bin $ N_{i,j} $ of the histogram will then be covering the range $ p \in [p_i - \dotDelta p, \, p_i + \dotDelta p] $ and $ \tau \in [\tau_j - \dotDelta \tau, \, \tau_j + \dotDelta \tau] $ of the external parameter values, where $ \dotDelta x \equiv \Delta x / 2 $ is introduced for a more convenient notation. The value of every bin in the histogram along with $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt^{(0)}(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by unity, if not, the bin in the histogram according to the external parameters is instead increased by unity. By doing this, the quantities $ N_0 $ and $ N_{i,j} $ can be shown to be proportional to
+The value of the propagator $ \Gt $ will be computed at the discrete set of points $ \vec p_i = \Delta p(0.5 + i) \, \hat{ \vec e}_z $ and $ \tau_j = \Delta \tau (0.5 + j) $ where $ i = 0, \, 1, \, 2, \, \dots, \, N - 1  $, $ j = 0, \, 1, \, 2, \, \dots, \, M - 1 $ where the resolution is chosen in terms of $ \Delta p = p_\text{max} / N$ and $ \Delta \tau = \tau_\text{max} / M $. To calculate $ \Gt(\vec p_i, \tau_j) = \Gt_{i, j} $, both a bin $ N_0 $ and a two dimensional histogram $ N $ are used, even though $ \vec p $ and $ \tau $ will be continuous variables in the Markov process. The bin $ N_{i,j} $ of the histogram will cover the range $ p \in [p_i - \dotDelta p, \, p_i + \dotDelta p] $ and $ \tau \in [\tau_j - \dotDelta \tau, \, \tau_j + \dotDelta \tau] $ of the external parameter values, where $ \dotDelta x \equiv \Delta x / 2 $ is introduced for a more convenient notation. The value of every bin in the histogram along with $ N_0 $ are initially put to zero. Then, each time a parameter space state is sampled, it will be checked wether or not this state belongs to the zeroth order term $ \Gt^{(0)}(\vec p, \tau) $. If this is the case, the value of $ N_0 $ is increased by unity, if not, the bin in the histogram according to the external parameters is instead increased by unity. By doing this, the quantities $ N_0 $ and $ N_{i,j} $ can be shown to be proportional to
 \begin{equation}
 	\label{eq:int2sum1}
 	\begin{split}
@@ -232,9 +232,9 @@ On the other hand, if the external momentum where to be held fixed at $ \vec p_0
 \end{equation}
 where the histogram $ N $ in such a case would be one dimensional.
 
-Since the vertex contribution now is obtain in the $ \tilde \Dt^{(0)} $'s, the start and endpoint of a propagator which might or might not connect to other propagators, are referred to as nodes. Each node is given an imaginary time where the leftmost and rightmost nodes have $ \tau_0 = 0 $ and $ \tau_{2n + 1} = \tau $ respectively whilst the other nodes have times in between in such a way that the chronologization constraint is fulfilled. Having the imaginary time stored within the nodes, the only variable needed to be stored within the propagators is their momentum.
+Since the vertex contribution  is absorbed in the $ \tilde \Dt^{(0)} $'s, the start and endpoint of a propagator which might or might not connect to other propagators, are referred to as nodes. Each node is given an imaginary time; the leftmost and rightmost nodes $ \tau_0 = 0 $ and $ \tau_{2n + 1} = \tau $ respectively whilst the other nodes times such that the chronologization constraint is fulfilled. Having the imaginary time stored within the nodes, the only variable needed to be stored within the propagators is their momentum.
 
-Code-wise each node, $ \tilde \Dt^{(0)} $ and $ \Gt^{(0)} $ is an instance of their corresponding class. Each propagator have a reference to both the start and endpoint node, and similarly the nodes have information about to which propagators they are attached. Further more the $ \Gt^{(0)} $'s are stored in a chronologically ordered list whilst the $ \tilde \Dt^{(0)} $'s are stored in an unordered list.
+Code-wise each node, $ \tilde \Dt^{(0)} $ and $ \Gt^{(0)} $ is an instance of their corresponding class. Each propagator have a reference to both the start and endpoint node, and similarly the nodes have references to the propagators which they are attached to. Further more the $ \Gt^{(0)} $'s are stored in a chronologically ordered list whilst the $ \tilde \Dt^{(0)} $'s are stored in an unordered list.
 
 \subsection{Update procedures}
 \label{eq:secSampleGBare}
@@ -304,7 +304,7 @@ Now consider an exponential distribution on the interval $ [\tau_{2n}, \, \tau_\
 \begin{equation}
 	\rho(\tau) = \frac{\lambda \, e^{-\lambda (\tau - \tau_{2n})}}{1 - e^{- \lambda (\tau_\text{max} - \tau_{2n})}} \,.
 \end{equation}
-By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\tau | \tau') $ will be the inverse of $ D_n'/D_n $. Hence the acceptance ratio $ A(\tau | \tau') $ of this update procedure becomes unity so that any proposed $ \tau' $ always is accepted.
+By sampling $ \tau' $ from such a distribution, the ratio $ W(\tau' | \tau)/W(\tau | \tau') $ will be the inverse of $ D_n'/D_n $. Hence the acceptance ratio $ A(\tau | \tau') $ of this update procedure becomes unity so that any proposed $ \tau' $ always will be accepted.
 
 \subsection*{Change of diagram length in time, type 2}
 
@@ -442,7 +442,7 @@ This second version of the change of diagram length update procedure is more com
 	\label{fig:NORMALcoem}
 \end{figure}
 
-Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltonian}), the Green's function $ \Gt $ becomes dependent merely upon the magnitude of the external momentum $ \vec p $. This update procedure is thus constructed to keep the direction constant while changing only the magnitude $ p \rightarrow p' $. In order to satisfy momentum conservation at each vertex, the $ \Gt^{(0)} $'s are chosen to absorb the external momentum difference $ \vec p' - \vec p $ leaving the value of the $ \tilde \Dt^{(0)} $'s constant. This is illustrated in figure \ref{fig:NORMALcoem}. The ratio of the diagram value after to before such an update then becomes
+Since there is no preferred direction of the Hamiltonian (\ref{eq:finalHamiltonian}), the Green's function $ \Gt $ becomes dependent merely upon the magnitude of the external momentum $ \vec p $. This update procedure is therefore constructed to keep the direction constant while changing only the magnitude $ p \rightarrow p' $. In order to satisfy momentum conservation at each vertex, the $ \Gt^{(0)} $'s are chosen to absorb the external momentum difference $ \vec p' - \vec p $ leaving the value of the $ \tilde \Dt^{(0)} $'s constant. This is illustrated in figure \ref{fig:NORMALcoem}. The ratio of the diagram value after to before such an update then becomes
 \begin{equation}
 	\label{eq:externalMomentumUpdateRatio}
 	\begin{split}
@@ -531,11 +531,11 @@ In the final equality the vectors has ben represented in a Cartesian coordinate 
     			\end{tikzpicture}
 		\end{empheq}
 	\end{fmffile}%
-	\caption{The momentum transferred via an internal phonon propagator is updated. In order obey momentum conservation at every vertex, electronic propagators beneath the phonon arc absorb the momentum difference.}
+	\caption{The momentum transferred via an internal phonon propagator is updated. In order to obey momentum conservation at every vertex, electronic propagators beneath the phonon arc absorb the momentum difference.}
 	\label{fig:NORMALcotm}
 \end{figure}
 
-This update procedure is similar to that of the external momentum, the main difference of course being that the magnitude of momentum transferred via a phonon propagator is updated rather than the external momentum. In order to achieve this, a $ \tilde \Dt^{(0)} $ is uniformly randomly selected and assigned a new momentum magnitude $ q_k \rightarrow q'_k $ while keeping the direction fixed. In order to conserve momentum at the two vertices connected to the phonon propagator, the $ \Gt^{(0)} $'s located beneath the phonon arc should absorb the momentum difference $ \vec q_k - \vec q'_k $. This is illustrated in figure \ref{fig:NORMALcotm}. Since the $ \tilde \Dt^{(0)}(\vec q, \tau) $'s does not depend on the magnitude $ q = | \vec q | $, one has that
+This update procedure is similar to that of the external momentum, the main difference of course being that the magnitude of momentum transferred via a phonon propagator is updated rather than the external momentum. In order to achieve this, a $ \tilde \Dt^{(0)} $ is randomly selected and assigned a new momentum magnitude $ q_k \rightarrow q'_k $ while keeping the direction fixed. In order to conserve momentum at the two vertices connected to the phonon propagator, the $ \Gt^{(0)} $'s located beneath the phonon arc should absorb the momentum difference $ \vec q_k - \vec q'_k $. This is illustrated in figure \ref{fig:NORMALcotm}. Since the $ \tilde \Dt^{(0)}(\vec q, \tau) $'s does not depend on the magnitude $ q = | \vec q | $, one has that
 \begin{equation}
 	\begin{split}
 		\frac{D_n(\vec q'_k)}{D_n(\vec q_k)}
@@ -704,7 +704,7 @@ Here the upper sign is used if $ \tau_l > \tau_k $, meaning that the phonon prop
 \end{figure}
 
 
-This update procedure, as illustrated in figure \ref{fig:NORMALcods}, interchange the two phonon propagators connected to a pair of randomly selected neighboring nodes. In order to conserve momentum, the $ \Gt^{(0)} $ connected to both of the selected nodes must absorb the momentum difference $ \vec p'_k - \vec p_k = c_1 \vec q_1 - c_2 \vec q_2 $. Here the $ c_i $ tells whether the $ \tilde \Dt_i^{(0)} $ is propagating towards the node to be swapped ($ c_i = -1 $) or if it is propagating away from ($ c_i = 1 $). The ratio of the diagram value prior to and after the update then becomes
+This update procedure, as illustrated in figure \ref{fig:NORMALcods}, interchange the two phonon propagators connected to a pair of randomly selected neighboring nodes. In order to conserve momentum, the $ \Gt^{(0)} $ connected to both of the selected nodes must absorb the momentum difference $ \vec p'_k - \vec p_k = c_1 \vec q_1 - c_2 \vec q_2 $. Here the $ c_i $ tells whether the $ \tilde \Dt_i^{(0)} $ is propagating towards ($ c_i = -1 $) or if it is propagating away from ($ c_i = 1 $) the node to be swapped. The ratio of the diagram value prior to and after the update then becomes
 \begin{equation}
 	\begin{split}
 		\frac{D_n(\xi'_n)}{D_n(\xi_n)}
@@ -716,7 +716,7 @@ This update procedure, as illustrated in figure \ref{fig:NORMALcods}, interchang
 		&= \exp \left\{ -\left[ \frac{(\vec p_k + c_1 \vec q_1 - c_2 \vec q_2)^2}{2} - \frac{p_k^2}{2} - c_1 + c_2 \right] (\tau_{k+1} - \tau_k) \right\} \,.
 	\end{split}
 \end{equation}
-Other than the pair of neighboring nodes to be selected, there are no further sampling of parameters needed for this update procedure. By performing the selection of the nodes using a unifrom distribution, $ W(\xi_n|\xi'_n) = W(\xi'_n|\xi_n) $ and the update procedure should then be accepted according to
+Other than the pair of neighboring nodes to be selected, there are no further sampling of parameters needed for this update procedure. By performing the selection of the nodes using a uniform distribution one has that $ W(\xi_n|\xi'_n) = W(\xi'_n|\xi_n) $ and the update procedure should then be accepted according to
 \begin{equation}
 	A(\xi_n|\xi'_n) = \min{1, \, \frac{D_n(\xi'_n)}{D_n(\xi_n)}} \,.
 \end{equation}
@@ -789,7 +789,7 @@ Other than the pair of neighboring nodes to be selected, there are no further sa
 	\label{fig:NORMALcodo}
 \end{figure}
 
-This final update procedure which is illustrated in figure \ref{fig:NORMALcodo}, is the only one which changes the order of the diagram at hand. To increase the diagram order, an electronic propagator $ \Gt^{(0)}_i $ is selected on random and then split at a time $ \tau_l $, which is sampled uniformly on the interval $ [\tau_i, \, \tau_{i+1}] $. After this, another imaginary time $ \tau_m $ is sampled on the interval $ \tau_m \in[\tau_l, \tau] $ using an exponential distribution with a rate parameter $ \lambda = 1 $. The $ \Gt^{(0)}_j $ which happen to occupy the imaginary time $ \tau_m $ is split in twice at that point as well. For each of the two times $ \tau_l $ and $ \tau_m $, a node is inserted so that the loose ends of the $ \Gt^{(0)} $'s have something to connect to. The two newly introduced nodes are then further connected to a new phonon propagator $ \tilde \Dt^{(0)} $, for which the momentum $ \vec q_k $ is sampled according to the \textit{change of transferred momentum} procedures introduced earlier. In order to obey momentum conservation at each node, the $ \Gt^{(0)} $'s under the newly added phonon arc have their momentum subtracted by $ \vec q_k $. In this way, the probability distribution of increasing the diagram order becomes
+This final update procedure which is illustrated in figure \ref{fig:NORMALcodo}, is the only one which changes the order of the diagram at hand. To increase the diagram order, an electronic propagator $ \Gt^{(0)}_i $ is selected on random and then split at a time $ \tau_l $, which is sampled uniformly on the interval $ [\tau_i, \, \tau_{i+1}] $. After this, another imaginary time $ \tau_m $ is sampled on the interval $ \tau_m \in[\tau_l, \tau] $ using an exponential distribution with a rate parameter $ \lambda = 1 $. The $ \Gt^{(0)}_j $ which happen to occupy the imaginary time $ \tau_m $ is split in two at that point. For each of the two times $ \tau_l $ and $ \tau_m $, a node is inserted so that the loose ends of the $ \Gt^{(0)} $'s have something to connect to. The two newly introduced nodes are then further connected to a new phonon propagator $ \tilde \Dt^{(0)} $, for which the momentum $ \vec q_k $ is sampled according to the \textit{change of transferred momentum} procedures introduced earlier. In order to obey momentum conservation at each node, the $ \Gt^{(0)} $'s under the newly added phonon arc have their momentum subtracted by $ \vec q_k $. In this way, the probability distribution of increasing the diagram order becomes
 \begin{equation}
 	\label{eq:transitionUp}
 	\begin{split}
@@ -847,11 +847,11 @@ By requiring that
 these acceptance ratios become independent of the coupling constant $ \alpha $ and less dependent of the diagram order $ n $
 
 Clearly it should not be possible to lower the diagram order any further than $ n=0 $. Also, one could think of implementing a maximum order $ n_\text{max} $ for which the diagram order 
-should not be able to rise above. To achieve this, it is extremely important not to set $ P_\text{R} = 1 $ and $ P_\text{R} = 0 $ at $ n=0 $ and $ n=n_\text{max} $ respectively, since this would ruin the detailed balance. Rather one should approach this by simply refusing such an update. For example, if the procedure to increase the diagram order happen to be chosen when $ n = n_\text{max} $, it should be refused and a new update procedure chosen instead.
+should not be able to rise above. To achieve this, it is extremely important not to set $ P_\text{R} = 1 $ and $ P_\text{R} = 0 $ at $ n=0 $ and $ n=n_\text{max} $ respectively, since this would ruin the detailed balance. Rather one should approach this by simply refusing such an update. For example, if the procedure to increase the diagram order happen to be chosen when $ n = n_\text{max} $, it should be refused and a new update procedure chosen.
 
 \subsection{Results}
 
-Here follow some results obtained when simulating $ \Gt $ using the bare scheme update procedures described above. The external momentum $ \vec p $ has been fixed during these simulations in order to not spread out the statistics over external parameters for which the data would not have been shown.
+Here follow some results obtained when simulating $ \Gt $ using the bare scheme update procedures described above. The external momentum $ \vec p $ has been fixed during these simulations in order to concentrate the statistics on a smaller parameter space.
 
 
 \begin{figure}[H]
@@ -927,18 +927,19 @@ Here follow some results obtained when simulating $ \Gt $ using the bare scheme 
 Rather than calculating $ \Gt(\vec p, \tau) $ directly using DMC, it is also possible to instead simulate the proper self-energy $ \Sigma^*(\vec p, \tau) $, from which the electronic propagator then is calculated using the Dyson equation (\ref{eq:dysonEquation}).
 In order to do this, the random walk must now cover diagrams without external legs but also be able to reach the bare propagator $ \Gt^{(0)} $ for normalization purposes. This is easily accomplished by a slight modification of some of the update procedures introduced in the previous section, and will be discussed in more detail shortly.
 
-However, before that, it is important to realize that no longer all types of diagrams of order $ n > 0 $ should be binned. That is, to calculate $ \Sigma^* $ it is critical that the histogram merely have contributions from irreducible diagrams. Then, in similarity to (\ref{eq:GtofTandP}) and (\ref{eq:GtofT}) the value of $ \Sigma^* $ is obtained in terms of $ N_0 $ and $ N $ in the following way
+However, before that, it is important to realize that no longer all types of diagrams of order $ n > 0 $ should be binned. That is, to calculate $ \Sigma^* $ it is critical that the histogram merely have contributions from irreducible diagrams. Then, in similarity to (\ref{eq:GtofTandP}) and (\ref{eq:GtofT}), the value of $ \Sigma^* $ is obtained in terms of $ N_0 $ and $ N $ as
 \begin{equation}
 	\label{eq:properSnormalization}
 	\Sigma^* (\vec p_i, \tau_j) = N_{i,j} \frac{\sum_{k,l} \Gt^{(0)} (\vec p_k, \tau_l)}{N_0}
 	\; , \quad
 	\Sigma^* (\vec p_0, \tau_j) = N_{j} \frac{\sum_{l} \Gt^{(0)} (\vec p_0, \tau_l)}{N_0} \,.
 \end{equation}
+
 An easy way to check whether or not a diagram is irreducible, is to store the current momentum of every $ \Gt^{(0)} $ present in the diagram within a hash table. If one or more momenta are found to be equal to that of the external momentum, the diagram must clearly be reducible and should thus not be binned. Since the complexity of a search in a hash table is $ \mathcal{O}(1) $, this implementation should not limit the performance of the algorithm. To recapitulate, all self-energy diagrams (together with the bare propagator for normalization purposes) should be sampled, but only proper ones are allowed to increment the bins values $ N_{i,j} $ of the histogram.
 
 \subsection{Update procedures}
 
-Returning to the update procedures, there are only two which need to be modified in order to incorporate\question{(?)} the changes required for this new scheme. The others stay the same but might have some trivial change of notation for quantities, such as $ \langle \vec p \rangle_{0,2n} \rightarrow \langle \vec p \rangle_{0, 2n-1} $ in the case of the \textit{change of external momentum} procedure.
+Returning to the update procedures, there are only two which need to be modified in order to incorporate the changes required for this new scheme. The others stay the same but might have some trivial change of notation for quantities, such as $ \langle \vec p \rangle_{0,2n} \rightarrow \langle \vec p \rangle_{0, 2n-1} $ in the case of the \textit{change of external momentum} procedure.
 
 \subsection*{Change of diagram length in time, type 1}
 
@@ -1048,7 +1049,7 @@ To maintain the acceptance ratio at unity, the only modification needed is to ch
 
 
 
-In order to prevent generating diagrams with external legs, it is necessary only to modify the transition between a zeroth and a first order diagram. Instead of sampling two times where new nodes then will be inserted for the phonon to connect to, the already existing start and end point node of diagram will be used. This is illustrated in figure \ref{fig:Scodo}. Other than that this transition is no different from the ordinary \textit{change of diagram order} update procedure so that
+In order to prevent generating diagrams with external legs, it is necessary only to modify the transition between the zeroth and the first order diagram. Instead of sampling two times where new nodes then will be inserted for the phonon to connect to, the already existing start and end point node of diagram will be used. This is illustrated in figure \ref{fig:Scodo}. Other than that this transition is no different from the ordinary \textit{change of diagram order} update procedure so that
 \begin{equation}
 	W(n = 0 | n = 1)
 	=
@@ -1076,7 +1077,7 @@ Hence the "$ 2n + 1 $" in equation (\ref{eq:transitionUp}) and (\ref{eq:changeOr
 \subsection{The divergent diagram}
 
 
-It can be shown that the first order self-energy diagram $ \Sigma^{*(1)}(\vec p, \tau) $ is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the function to be approximated has a too large second derivative in the vicinity of the singularity. To show this, consider the mean value of a function $ f(x) $ on the interval $ x_i - \dotDelta x < x < x_i + \dotDelta x $ (again $ \dotDelta x \equiv \Delta x / 2 $ has been used) with $ f(x_i) $ expanded in terms of the small parameter $ \Delta x $, i.e.
+It can be shown that the first order self-energy diagram $ \Sigma^{*(1)}(\vec p, \tau) $ is proportional to $ 1 / \sqrt \tau $ and thus diverges when $ \tau \rightarrow 0 $. It is not possible to capture such a behavior using a histogram since the second derivative of the function to be approximated is too large. To show this, consider the mean value of a function $ f(x) $ on an interval of width $ \Delta x $ centered at $ x_i $ and expanding using the small parameter $ \Delta x $, i.e.
 \begin{equation}
 	\begin{split}
 		&\frac{1}{\Delta x} \bigintsss_{x_i - \dotDelta x}^{x_i + \dotDelta x} \mkern-36mu f(t) \diff t \\
@@ -1085,7 +1086,7 @@ It can be shown that the first order self-energy diagram $ \Sigma^{*(1)}(\vec p,
 		&\qquad= f(x_i) + \tfrac{1}{24} f''(x_i) \, [\Delta x]^2 + \mathcal{O}([\Delta x]^4) \,.
 	\end{split}
 \end{equation}
-In order for this mean value to be well approximated by $ f(x_i) $, it is required that $ f''(x_i) \, [\Delta x]^2 \ll f(x_i) $. However, in the case of $ f(x) = 1/\sqrt x $ and $ x_i = \dotDelta x $ this is not the case, no matter the size of $ \Delta x $, since $ f''(x_i) \, [\Delta x]^2 = 3 \sqrt 2 / \sqrt{ \Delta x} $ whilst $ f(x_i) = 2 / \sqrt{\Delta x} $. The ability of a histogram to approximate the function $ 1/ \sqrt x $ in the vicinity of $ x = 0 $ is illustrated in figure \ref{fig:HistogramApproximationOfDivergentDistribution}.
+In order for this mean value to be well approximated by $ f(x_i) $, it is required that $ f''(x_i) \, [\Delta x]^2 \ll f(x_i) $. However, in the case of $ f(x) = 1/\sqrt x $ and $ x_i = \dotDelta x $ this is not the case, no matter the size of $ \Delta x $ since $ f''(x_i) \, [\Delta x]^2 = 3 \sqrt 2 / \sqrt{ \Delta x} > 2 / \sqrt{\Delta x} = f(x_i) $. The ability of a histogram to approximate the function $ 1/ \sqrt x $ in the vicinity of $ x = 0 $ is illustrated in figure \ref{fig:HistogramApproximationOfDivergentDistribution}.
 \begin{figure}[H]
 	\centering
  	\includegraphics[width=\textwidth, ]{{"Images/Histogram_illustration/Divergent_distribution"}.pdf}
@@ -1099,7 +1100,7 @@ The true value of the first order self-energy diagram at zero external momentum 
 	\Sigma^{* (1)} (\vec p = \vec 0, \tau) = \frac{\alpha}{\sqrt \pi} \frac{e^{-(1 - \mu)\tau}}{\sqrt \tau}
 	\quad \tau \geq 0\,.
 \end{equation}
-When approximating this function with a histogram of bin size $ \Delta \tau $, the value of the bin corresponding to $ \tau_i $ becomes
+When approximating this function with a histogram of bin size $ \Delta \tau $, the value of the bin corresponding to $ \tau_j $ becomes
 \begin{equation}
 	\begin{split}
 		&\langle \Sigma^{* (1)} (\vec p = \vec 0) \rangle_j \\
@@ -1114,7 +1115,7 @@ When approximating this function with a histogram of bin size $ \Delta \tau $, t
 \end{equation}
 However, for external momentum $ \vec p \neq \vec 0 $ it seems next to impossible to find an analytical expression of $ \Sigma^{* (1)} (\vec p, \tau) $ due to cumbersome integrals. Nevertheless, by the usage of Monte Carlo integration these integrals may be calculated to an extremely good precision in a matter of seconds.
 
-In order to find out whether a value of $ \Sigma^{*(1)} (\vec p_i, \tau_j) $ should be calculated using DMC or Monte Carlo integration, it is reasonable to look at the difference $ \Delta \Sigma^{*(1)}_j = \langle \Sigma^{* (1)} (\vec p = \vec 0) \rangle_j  - \Sigma^{* (1)} (\vec p = \vec 0, \tau_j)$. For times $ \tau_j  < \tau_\text{threshold} $ where this difference is larger than a threshold value $ \varepsilon $, Monte Carlo integration should be used, otherwise DMC will be sufficient. The DMC code written during this master project has the threshold set to $ \varepsilon = 0.001 $. In table \ref{tab:SigmaDiffs} the value of $ \Delta \Sigma^{*(1)}_j $ is given for the first six $ j $'s. 
+In order to find out whether a value of $ \Sigma^{*(1)} (\vec p_i, \tau_j) $ should be calculated using DMC or Monte Carlo integration, it is reasonable to look at the difference $ \Delta \Sigma^{*(1)}_j = \langle \Sigma^{* (1)} (\vec p = \vec 0) \rangle_j  - \Sigma^{* (1)} (\vec p = \vec 0, \tau_j)$. For times $ \tau_j  < \tau_\text{threshold} $ where this difference is larger than a threshold value $ \varepsilon $, Monte Carlo integration should be used, otherwise DMC will be sufficient. The DMC code written during this master project has the threshold set to $ \varepsilon = 0.001 $. In table \ref{tab:SigmaDiffs} the value of $ \Delta \Sigma^{*(1)}_j $ is given for the first seven $ j $'s. 
 \begin{table}[H]
 	\begin{center}
 		\begin{tabular}{r !{\vrule width .1em} c | c | c | c | c | c | c} 
@@ -1189,24 +1190,24 @@ Here follow some results obtained when simulating $ \Sigma^* $ using the bare sc
 \subsection{Numerically implementing Dyson equation}
 \label{sec:DysonImplementation}
 
-It is not entirely trivial how to implement Dyson equation when having to use a discrete Fourier transform. First of all, the proper self-energy must be transformed into frequency space, but due to the singularity at $ \tau = 0 $ it is not preferable to transform this quantity directly. However, knowing the analytical expression of this singular contribution, it can then be subtracted from the self-energy so that the discrete Fourier transform may be applied only to the resulting regular expression. The singular part is then Fourier transformed analytically and once in $ \omega $-space it is added to the transformed regular expression. That is,
+It is not entirely trivial how to implement Dyson equation numerically. First of all, the proper self-energy must be transformed into frequency space, but due to the singularity at $ \tau = 0 $ it is not preferable to directly transform this quantity. However, knowing the analytical expression of this singular contribution it can then be subtracted from the full self-energy so that the discrete Fourier transform is applied only to the resulting regular expression. The singular part is then Fourier transformed analytically and once in $ \omega $-space it is added to the transformed regular expression. That is,
 \begin{equation}
 	\Sigma^{*}(\vec p_i, \omega_j)
 	= \mathcal{F}_\text{DFT} \left\{ \Sigma^{*}(\vec p_i, \tau_j) - \Sigma^{*}_\text{singular}(\vec p_i, \tau_j) \right\}
 	+ \Sigma^{*}_\text{singular}(\vec p_i, \omega_j) \,,
 \end{equation}
-which is possible due to the linearity of the Fourier transform. A possible choice of the singular part is $ \Sigma^{*}_\text{singular}(\vec p_i, \tau_j) = \Sigma^{*(1)}(\vec p = \vec 0, \tau_j) $ for which the expression is (\ref{eq:prop1OSelfEnergy}) and thus
+which is possible due to the linearity of the Fourier transform. A possible choice of the singular part is $ \Sigma^{*}_\text{singular}(\vec p_i, \tau_j) = \Sigma^{*(1)}(\vec p = \vec 0, \tau_j) $ for which the expression is given by (\ref{eq:prop1OSelfEnergy}) and thus
 \begin{equation}
 	\Sigma^{*}_\text{singular}(\vec p_i, \omega_j) = \frac{\alpha}{\sqrt{1 - \mu + i\omega_j}} \,.
 \end{equation}
 
-Having the proper self-energy in momentum and frequency space, Dyson equation is given by (\ref{eq:dysonEquation}). However, it is not possible to directly transform back to $ \Gt(\vec p_i, \tau_j) $ using the inverse discrete Fourier transform. This has to do with the fact that $ \Gt(\vec p, \omega) $ falls of as $ 1/\omega $ when $ \omega \rightarrow \infty $, which it too slow. Instead one may transform the difference
+Having the proper self-energy in momentum and frequency space, Dyson equation is given by (\ref{eq:dysonEquation}). However, it is also not possible to directly transform back to $ \Gt(\vec p_i, \tau_j) $ using the inverse discrete Fourier transform. This has to do with the fact that $ \Gt(\vec p, \omega) $ falls of as $ 1/\omega $ when $ \omega \rightarrow \infty $, which it too slow. Instead one may transform the difference
 \begin{equation}
 	\Delta \Gt(\vec p, \omega)
 	= \Gt(\vec p, \omega) - \Gt^{(0)}(\vec p, \omega)
-	= \frac{\Sigma^*(\vec p, \omega)}{\left( i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega) \right) \left( i \omega + \xi(\vec p) \right)}
+	= \frac{\Sigma^*(\vec p, \omega)}{\left( i \omega + \xi(\vec p) - \Sigma^*(\vec p, \omega) \right) \left( i \omega + \xi(\vec p) \right)} \,,
 \end{equation}
-which has the proportionality $ \Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2} $ because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto \omega^{-1/2} $ and thus falls of fast enough. This $ \omega $ dependence will also have the consequence that any high frequency noise present in $ \Sigma^*(\vec p, \tau) $ will be greatly suppressed when transforming back the difference $ \Delta \Gt $ to $ \tau $-space. Then, since also the inverse Fourier transform is linear, it follows that
+which has the proportionality $ \Delta \Gt(\vec p, \omega \rightarrow \infty) \propto \omega^{-5/2} $ because $ \Sigma^*(\vec p, \omega \rightarrow \infty) \propto \omega^{-1/2} $ and thus falls of fast enough. This $ \omega $ dependence will also have the consequence that any high frequency noise present in $ \Sigma^*(\vec p, \tau) $ will be greatly suppressed when transforming back $ \Delta \Gt $ to $ \tau $-space. Then, since also the inverse Fourier transform is linear, it follows that
 \begin{equation}
 	\mathcal{F}^{-1}_{DFT} \left\{ \Delta \Gt(\vec p_i, \omega_j) \right\} = \Delta \Gt(\vec p_i, \tau_j) = \Gt(\vec p_i, \tau_j) - \Gt^{(0)}(\vec p_i, \tau_j) \,.
 \end{equation}
@@ -1215,7 +1216,7 @@ The interacting electronic propagator in $ \tau $-space is finally obtained by
 	\Gt(\vec p_i, \tau_j) = \Gt^{(0)}(\vec p_i, \tau_j) + \Delta \Gt(\vec p_i, \tau_j) \,.
 \end{equation}
 
-In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\Sigma^*} $ obtained using Dyson equation and the directly simulated $ \Gt $ is plotted against $ \tau $ for both $ \Delta \tau = 0.02 $ and $ \Delta \tau = 0.01 $. As can be seen the difference is smaller than the size of $ \Delta \tau $ in both cases. The agreement also seems to improve somewhat linearly with smaller $ \Delta \tau $, the drawback is however more noise since there is less statistics contributing to each bin $ N_j $.
+In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\Sigma^*} $ obtained using Dyson equation and the directly simulated $ \Gt $ is plotted against $ \tau $, for both $ \Delta \tau = 0.02 $ and $ \Delta \tau = 0.01 $. As can be seen the difference is smaller than the size of $ \Delta \tau $ in both cases. The agreement also seems to improve somewhat linearly with smaller $ \Delta \tau $. One drawback with a finer resolution in time is the presence of more noise since there is less statistics contributing to each bin $ N_j $.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
@@ -1232,11 +1233,11 @@ In figure \ref{fig:dysonDifference} the relative difference between the $ \Gt_{\
 
 The bold-line scheme \cite{PhysRevLett.99.250201} is a self consistent scheme making use of bold-line tricks iteratively in order to partially of fully sum up a diagram series. Dyson equation is one such bold-line trick and is the only one to be investigated in this thesis.
 
-Here the propagator  $ \Gt_{k + 1} = \Gt^{(0)} + \Delta \Gt_{k + 1} $  is obtained when employing Dyson equation to the $ k+1^\text{th} $ calculated self-energy $ S_{k+1} $ of the self consistent scheme. Rather than using the bare propagator when calculating $ S_{k+1} $, the $ \Gt_k $ computed in the previous iteration of the scheme is instead used. The constraint for which diagrams are allowed to contribute the self-energy of this scheme is thus stronger in order to prevent double counting. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e.\ $ \Gt_0 = \Gt^{(0)} $. Given an appropriate choice of parameters, this scheme will converge so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 4 or so iterations.
+Here the propagator  $ \Gt_{k + 1} = \Gt^{(0)} + \Delta \Gt_{k + 1} $  is obtained when employing Dyson equation to the $ (k+1) $th calculated self-energy $ S_{k+1} $ of the self consistent scheme. Rather than using the bare propagator when calculating $ S_{k+1} $, the $ \Gt_k $ computed in the previous iteration of the scheme is instead used. The constraint for which diagrams are allowed to contribute the self-energy of this scheme is thus stronger in order to prevent double counting. During the first iteration, when no propagator previously have been calculated, the bare one is used, i.e.\ $ \Gt_0 = \Gt^{(0)} $. Given an appropriate choice of parameters, this scheme will converge so that $ S_{m+1} \simeq S_{m} $ for some $ m $. In practice, as will be shown, this convergence will happen after 5 or so iterations.
 
 \subsection{Skeleton diagrams}
 
-In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self-energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e.\ diagram parts which act like self energies to some of the constituents of the diagram. It is easily realized, that the skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. That is, if the phonon propagators of a self-energy diagram are entirely interconnected, the diagram is a skeleton one. Here interconnected phonon propagator is referred to those who intersect with at least another one when they are all drawn on one side of the straight line of electronic propagators, as done throughout this paper. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
+In order for certain diagrams to not contribute more than once to the $ \Gt_k $, it is necessary to narrow down the class of allowed diagrams to a subclass of the proper self-energy diagrams, referred to as skeleton diagrams \cite{mattuck2012guide}. This class of diagrams is characterized by the lack of insertions, i.e.\ diagram parts which act like self energies to some of the constituents of the diagram. It is easily realized, that the skeleton diagrams in the series of $ \Gt $ are particularly easy to identify. That is, if the phonon propagators of a self-energy diagram are entirely interconnected, the diagram is a skeleton one. Here interconnected phonon propagators are referred to those who intersect with at least another one when they are all drawn on one side of the straight line of electronic propagators, as done throughout this paper. This is illustrated in figure \ref{fig:sampleSkeletonDiagrams}.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.499\textwidth}%
@@ -1547,8 +1548,7 @@ By substituting with $ \Gt_1 $ in terms of the diagram series (\ref{eq:BoldG1}) 
 						\end{fmfgraph*}%
 					}%
 				};%
-			\end{tikzpicture}
-			+ \cdots \\
+			\end{tikzpicture} \\
 			&+
 			\begin{tikzpicture}[baseline={([yshift=1pt]current bounding box.south)}]
 				\node {
@@ -1586,7 +1586,7 @@ By substituting with $ \Gt_1 $ in terms of the diagram series (\ref{eq:BoldG1}) 
 					\FDframe{
 						\begin{fmfgraph*}(11, 6)
 							\fmfbottom{b1,b2}
-							\fmf{heavy, foreground=(0.8,,0.2,,1)}{b1,b2}
+							\fmf{heavy, foreground=(0,,0,,1)}{b1,b2}
 							\fmf{dashes, left}{b1,b2}
 							\fmfdot{b1,b2}
 						\end{fmfgraph*}%
@@ -1601,7 +1601,7 @@ By substituting with $ \Gt_1 $ in terms of the diagram series (\ref{eq:BoldG1}) 
 						\begin{fmfgraph*}(11, 1)					
 							\fmfstraight
 							\fmfbottom{i,o}
-							\fmf{heavy, foreground=(0,,0,,1)}{i,o}
+							\fmf{heavy, foreground=(0.8,,0.2,,1)}{i,o}
 						\end{fmfgraph*}%
 					}%
 				};
@@ -1715,11 +1715,11 @@ Similarly to before, by substituting with $ \Gt_2 $ into $ \Gt_3 $, one obtains
 		\end{split}
 	\end{empheq}
 \end{fmffile}%
-Already at this point, a wide range of diagrams contribute to $ \Gt_3 $. However, even if one continues this iterative process, a skeleton diagram in which the phonon propagators intersect wont be encountered in the series.
+Already at this point, a wide range of diagrams contribute to $ \Gt_3 $. However, even if one continues this iterative process, a skeleton diagram in which the phonon propagators intersect will never be encountered in the series.
 
 \subsection{Implementation and update procedures}
 
-The diagram update procedures, for bold-line iterations $ k > 1 $, need to be altered in order to account for the replacement of the bare propagators within the diagram in favor of $ \Gt_k $. However, rather than expressing $ \Gt_k $ in terms of the difference $ \Delta \Gt_k $ to the bare propagator, it is more convenient to work with an additional imaginary phase $ \varphi_k (\vec p, \tau) $, so that
+The diagram update procedures for bold-line iterations $ k > 1 $ need to be altered in order to account for the replacement of the bare propagators with $ \Gt_k $ within the diagrams. However, rather than expressing $ \Gt_k $ in terms of the difference $ \Delta \Gt_k $ to the bare propagator, it is more convenient to work with an additional imaginary phase contribution $ \varphi_k (\vec p, \tau) $, so that
 \begin{equation}
 	\Gt_k(\vec p, \tau) = e^{\varphi_k (\vec p, \tau)} \Gt^{(0)}(\vec p, \tau) \,.
 \end{equation}
@@ -1728,20 +1728,20 @@ This phase is defined through
 	\label{eq:imaginaryPhase}
 	\varphi(\vec p, \tau) = - \tau \, \Delta \xi_k( p_l, \tau_m)
 \end{equation}
-where $ \Delta \xi_k $ is an additional energy
+where $ \Delta \xi_k $ is an additional energy contribution
 \begin{equation}
 	\Delta \xi_k(\vec p_i, \tau_j) = \frac{1}{\tau_j} \log \frac{\Gt^{(0)}(\vec p_i, \tau_j)}{\Gt_k(\vec p_i, \tau_j)} \,.
 \end{equation}
-In equation (\ref{eq:imaginaryPhase}), $ p_l $ and $ \tau_m $ are chosen to obey $ p_l - \dotDelta p \leq p \leq p_l + \dotDelta p $ and $ \tau_m - \dotDelta \tau \leq \tau \leq \tau_m + \dotDelta \tau $ respectively where the reader again is reminded of the definition $ \dotDelta x = \Delta x / 2 $. However, in the case of momentum magnitudes $ p > p_{N-1} + \dotDelta p $, it is natural to use $ p_{N-1} $. During the discretization it is then important to chose a large enough cutoff momentum $ p_\text{max} $ in order for the true $ G_k(\vec p, \tau) $ to be reasonably approximated by $ e^{\varphi_k (\vec p, \tau)} \Gt^{(0)}(\vec p, \tau) $ at momentum magnitudes $ p > p_{N-1} + \dotDelta p $. Otherwise $ \Gt_k $ might not converge to the true interacting propagator $ \Gt $.
+In equation (\ref{eq:imaginaryPhase}), $ p_l $ and $ \tau_m $ are chosen to obey $ p_l - \dotDelta p \leq p \leq p_l + \dotDelta p $ and $ \tau_m - \dotDelta \tau \leq \tau \leq \tau_m + \dotDelta \tau $ respectively where the reader again is reminded of the definition $ \dotDelta x = \Delta x / 2 $. In the case of momentum magnitudes $ p > p_{N-1} + \dotDelta p $ it is natural to use $ \varphi(\vec p, \tau) = - \tau \, \Delta \xi_k( p_{N-1}, \tau_m) $. It is therefore important to chose a large enough cutoff momentum $ p_\text{max} $ in order for the true $ G_k(\vec p, \tau) $ to be reasonably approximated by $ e^{\varphi_k (\vec p, \tau)} \Gt^{(0)}(\vec p, \tau) $ at momentum magnitudes $ p > p_{N-1} + \dotDelta p $. Otherwise $ \Gt_k $ might not converge to the true interacting propagator $ \Gt $.
 
-Now, with $ \Gt_k (\vec p, \tau) $ defined in this way, the only modification needed in order for the update procedures to reflect the change $ \Gt^{(0)} \rightarrow \Gt_k $, is to multiply the quotient of the diagram values $ D'/ D $ with the factor
+Now, with $ \Gt_k (\vec p, \tau) $ defined in this way, the only modification needed in order for the update procedures to reflect the change $ \Gt^{(0)} \rightarrow \Gt_k $ is to multiply the quotient of the diagram values $ D'/ D $ with the factor
 \begin{equation}
 	\frac{D'}{D} \rightarrow \frac{D'}{D}
 	\exp \left\{ \sum_{a \in A} \varphi(\vec p_a, \tau_a) - \sum_{b \in B} \varphi(\vec p_b, \tau_b) \right\} \,.
 \end{equation}
 Here $ B $ and $ A $ is the set of affected electronic propagators before and after the update procedure respectively.
 
-But wait, there is more. Update procedures involving the sampling of imaginary times from an exponential distribution with momentum dependent rate parameter must further be slightly modified in order to improve the otherwise disastrous statistics. This since the quota $ W(\tau'_l | \tau_l) / W(\tau_l | \tau'_l) = \exp \{ -\lambda (\tau_l - \tau'_l) \}$, for certain differences $ \tau_l - \tau'_l $, poorly mimics the ratio $ D(\tau'_l) / D(\tau_l) $ due to the choice of rate parameter $ \lambda(\vec p) $. This is easily realized by comparing the $ \Gt(\vec p, \tau) $'s in figure \ref{fig:GOft} to their corresponding bare propagators $ \Gt^{(0)}(\vec p, \tau) $. In order to resolve this issue, one adds to the the original rate parameter the contribution $ \Delta \lambda_k(\vec p_l) $, which is obtained by fitting an exponentially decaying function $ C_k(\vec p_l)  \exp \{ - \Delta \lambda_k(\vec p_l) \, \tau \} $ to $ \Gt_k(\vec p_l, \tau_j) / \Gt^{(0)} (\vec p_l, \tau_j) $ for each $ p_l - \dotDelta p \leq p \leq p_l + \dotDelta p $. In the case of a momentum magnitude $ p > p_{N-1} + \dotDelta p $ the $ \Delta \lambda $ corresponding to $ p_{N-1} $ is used.
+But wait, there is more. Update procedures involving the sampling of imaginary times from an exponential distribution with momentum dependent rate parameter must further be slightly modified in order to improve the otherwise disastrous statistics. This since the quota $ W(\tau'_l | \tau_l) / W(\tau_l | \tau'_l) = \exp \{ -\lambda (\tau_l - \tau'_l) \}$, for certain differences $ \tau_l - \tau'_l $, poorly mimics the ratio $ D(\tau'_l) / D(\tau_l) $ due to the choice of rate parameter $ \lambda(\vec p) $. This is easily realized by comparing the $ \Gt(\vec p, \tau) $'s in figure \ref{fig:GOft} to their corresponding bare propagators $ \Gt^{(0)}(\vec p, \tau) $. In order to resolve this issue, one adds to the the original rate parameter the contribution $ \Delta \lambda_k(\vec p_l) $, which is obtained by fitting an exponentially decaying function $ C_k(\vec p_l)  \exp \{ - \Delta \lambda_k(\vec p_l) \, \tau \} $ to $ \Gt_k(\vec p_l, \tau_j) / \Gt^{(0)} (\vec p_l, \tau_j) $ for each $ p_l $. In the case of a momentum magnitude $ p > p_{N-1} + \dotDelta p $ the $ \Delta \lambda $ corresponding to $ p_{N-1} $ is used.
 
 Finally, after each bold-line iteration, when calculating the value of $ S_{k+1}(\vec p_i, \tau_j) $ from $ N_{i,j} $, it is important to normalize using $ \Gt_k $ rather than the bare propagator $ \Gt^{(0)} $. Hence, in similarity with (\ref{eq:properSnormalization}),
 \begin{equation}
@@ -1754,7 +1754,7 @@ but the only diagrams allowed to contribute to the histogram are this time the s
 \subsection{Results}
 \label{sec:boldResults}
 
-Nine different simulations for an increasing value of the maximum diagram order $ n_\text{max} $ have been carried out using the discretization $ \Delta \tau = 0.02 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and $ \tau_\text{max} = 60 $. Depicted in figures \ref{fig:boldNmax1}-\ref{fig:boldNmax9} are the resulting values $ S_k $'s, as well as the corresponding $ \Gt_k $'s. The true value of the proper self-energy $ \Sigma^* $ and the Greens function $ \Gt $ are also outlined for comparison.
+Nine different simulations for an increasing value of the maximum diagram order $ n_\text{max} $ have been carried out using the discretization $ \Delta \tau = 0.02 $, $ \Delta p = 0.02 $, $ p_\text{max} = 10 $ and $ \tau_\text{max} = 60 $. Depicted in figures \ref{fig:boldNmax1}-\ref{fig:boldNmax9} are the resulting $ S_k $'s as well as the corresponding $ \Gt_k $'s. The true value of the proper self-energy $ \Sigma^* $ and the Greens function $ \Gt $ are also outlined for comparison.
 
 \begin{figure}[H]
 	\centering
@@ -1838,9 +1838,9 @@ Nine different simulations for an increasing value of the maximum diagram order 
 \end{figure}
 
 Evident from these figures is that $ S_k $ and $ \Gt_k $ approaches $ \Sigma^* $ and $ \Gt $ respectively when increasing $ k $ and $ n_\text{max} $, which is expected. However, for larger $ n_\text{max} $ the statistics becomes more and more influenced by noise. The reason being that
-diagrams of higher order are more frequently sampled in the Monte Carlo process when $ \Gt_k $ is starting to approach the true $ \Gt $. Hence the ration $ N_{i,j}/N_0 $ in equation (\ref{eq:skeletonApproximation}) grows so that fluctuations within $ N_{i,j} $ no longer will be suppressed in the same extent. But since the amplitude of statistical noise is inversely proportional to the square root of computation time, this noise is reduced simply by running the simulations for longer times. However it was realized that the computation time required for larger $ n_\text{max} $ quickly outgrew what was possible to achieve by a single core in a foreseeable future, forcing the program to be parallelized using the \textit{Message Passing Interface}. Once implemented this allowed for an immense amount of computation time to be spent performing the bold-line scheme for larger $ n_\text{max} $. Although, by inspecting figure \ref{fig:boldNmax8} and \ref{fig:boldNmax9} it is evident that this computation time still was not enough.
+diagrams of higher order are more frequently sampled in the Monte Carlo process when $ \Gt_k $ is starting to approach the true $ \Gt $. Hence the ration $ N_{i,j}/N_0 $ in equation (\ref{eq:skeletonApproximation}) grows so that fluctuations within $ N_{i,j} $ no longer will be suppressed in the same extent. But since the amplitude of statistical noise is inversely proportional to the square root of computation time, this noise is reduced simply by running the simulations for longer times. It was however quickly realized that the computation time required for larger $ n_\text{max} $ quickly outgrew what was possible to achieve by a single core in a foreseeable future, forcing the program to be parallelized using the \textit{Message Passing Interface}. Once implemented this allowed for an immense amount of computation time to be spent performing the bold-line scheme for larger $ n_\text{max} $. Although, by inspecting figure \ref{fig:boldNmax8} and \ref{fig:boldNmax9} it is evident that this computation time still was not enough.
 
-By performing a linear regression of $ \log \Gt_k $ one can extract the $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ according (\ref{eq:longTimeLimit}). This has been done and the result is presented in figures \ref{fig:EandZvsN} and \ref{fig:EandZvsK}.
+By performing a linear regression of $ \log \Gt_k $ one can extract $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ according (\ref{eq:longTimeLimit}). This has been done and the result is presented in figures \ref{fig:EandZvsN} and \ref{fig:EandZvsK}.
 
 \begin{figure}[H]
 	\centering
@@ -1860,13 +1860,13 @@ By performing a linear regression of $ \log \Gt_k $ one can extract the $ E_0(n_
 	\label{fig:EandZvsK}
 \end{figure}
 
-Unfortunately there was only four iterations used in the bold-line scheme, which according to figure \ref{fig:EandZvsK} was not enough in order to reach a steady state value for $ E_0 $ and $ Z_0 $. Nevertheless could this steady state not have been very far away, a fifth or perhaps a sixth iteration should probably have been sufficient for the trends to level out. Additionally it would also have been necessary to simulate using larger $ n_\text{max} $ in pursuance of convergence with the true $ E_0 $ and $ Z_0 $. But since this would have required a monstrous amount of computation time in order for the error bars to shrink to a satisfactory size it was not carried out.
+Unfortunately there was only four iterations used in the bold-line scheme, which according to figure \ref{fig:EandZvsK} was not enough in order to reach a steady state value for $ E_0 $ and $ Z_0 $.  This steady state could nevertheless not have been very far away, a fifth or perhaps a sixth iteration should probably have been sufficient for the trends to level out. Additionally it would also have been necessary to simulate using larger $ n_\text{max} $ in pursuance of convergence with the true $ E_0 $ and $ Z_0 $. But since this would have required a monstrous amount of computation time in order for the error bars to shrink to a satisfactory size it was not carried out.
 
 Even with these shortcomings, it is from the presented result, apparent that $ E_0(n_\text{max}, k) $ and $ Z_0(n_\text{max}, k) $ approach the true values as $ n_\text{max} $ and $ k $ are increased.
 
 \section{Numerical Results of $ E_0 $ and $ Z_0 $}
 
-Here numerous $ \Gt $'s have been computed through bare scheme simulations of $ \Sigma^* $ and $ E_0 $ and $ Z_0 $ extracted from the former. The result is presented in figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA} but also in table \ref{tab:EandZvsPandA}. The computation time for each data point range from two to twelve core hours, providing a uncertainty of less than $ 5 \cdot 10^{-4} $. Further more the results are in good agreement with the ones obtained by Prokof'ev et al. \cite{PhysRevLett.81.2514, MishchenkoA.2000DqMC}. For comparison these numerically computed quantities are presented next to corresponding ones obtained using traditional analytical perturbative methods \cite{electronsInLatticeFields, RichardFeynman, Haga, MishchenkoA.2000DqMC}
+Here numerous $ \Gt $'s have been computed through bare scheme simulations of $ \Sigma^* $ so that $ E_0 $ and $ Z_0 $ could be extracted from the former. The result is presented in figures \ref{fig:EandZvsP} and \ref{fig:EandZvsA} but also in table \ref{tab:EandZvsPandA}. The computation time for each data point range from two to twelve core hours, providing a uncertainty of less than $ 5 \cdot 10^{-4} $. Further more the results are in good agreement with the ones obtained by Prokof'ev et al. \cite{PhysRevLett.81.2514, MishchenkoA.2000DqMC}. For comparison these numerically computed quantities are presented next to corresponding ones obtained using traditional analytical perturbative methods \cite{electronsInLatticeFields, RichardFeynman, Haga, MishchenkoA.2000DqMC}
 \begin{equation}
 	\begin{split}
 		&E_0^{(1)} (p, \, \alpha) = \frac{p^2}{2} - \alpha \frac{\sqrt{2}}{p} \arcsin \frac{p}{\sqrt{2}} \\
